@@ -1,0 +1,5 @@
+Z:\homed\vso\SqlPackageFilter\DacPac\bin\Debug\DacPac.dacpac
+Z:\homed\vso\SqlPackageFilter\DacPac\bin\Debug\DacPac.dll
+Z:\homed\vso\SqlPackageFilter\DacPac\bin\Debug\DacPac.pdb
+Z:\homed\vso\SqlPackageFilter\DacPac\obj\Debug\DacPac.dll
+Z:\homed\vso\SqlPackageFilter\DacPac\obj\Debug\DacPac.pdb

@@ -1,0 +1,14 @@
+Z:\homed\vso\SqlPackageFilter\AgileSql\bin\Debug\AgileSql.exe.config
+Z:\homed\vso\SqlPackageFilter\AgileSql\bin\Debug\AgileSql.exe
+Z:\homed\vso\SqlPackageFilter\AgileSql\bin\Debug\AgileSql.pdb
+Z:\homed\vso\SqlPackageFilter\AgileSql\bin\Debug\AgileSqlClub.SqlPackageFilter.dll
+Z:\homed\vso\SqlPackageFilter\AgileSql\bin\Debug\Microsoft.SqlServer.Dac.dll
+Z:\homed\vso\SqlPackageFilter\AgileSql\bin\Debug\Microsoft.SqlServer.Dac.Extensions.dll
+Z:\homed\vso\SqlPackageFilter\AgileSql\bin\Debug\Microsoft.Data.Tools.Schema.Sql.dll
+Z:\homed\vso\SqlPackageFilter\AgileSql\bin\Debug\Microsoft.Data.Tools.Utilities.dll
+Z:\homed\vso\SqlPackageFilter\AgileSql\bin\Debug\AgileSqlClub.SqlPackageFilter.pdb
+Z:\homed\vso\SqlPackageFilter\AgileSql\bin\Debug\Microsoft.SqlServer.Dac.xml
+Z:\homed\vso\SqlPackageFilter\AgileSql\bin\Debug\Microsoft.SqlServer.Dac.Extensions.xml
+Z:\homed\vso\SqlPackageFilter\AgileSql\obj\Debug\AgileSqlClub.SqlPackageFilter.Explorer.csprojResolveAssemblyReference.cache
+Z:\homed\vso\SqlPackageFilter\AgileSql\obj\Debug\AgileSql.exe
+Z:\homed\vso\SqlPackageFilter\AgileSql\obj\Debug\AgileSql.pdb
