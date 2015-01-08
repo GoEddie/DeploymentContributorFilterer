@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.SqlServer.Dac.Extensions, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SqlPackageFilter\bin\Debug\Microsoft.SqlServer.Dac.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\SqlPackageFilter\packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
     </Reference>
@@ -62,12 +66,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IgnoreNamedObjectTests.cs" />
+    <Compile Include="IgnoreObjectTypeTests.cs" />
+    <Compile Include="IgnoreSchemaTests.cs" />
+    <Compile Include="KeeperDeciderTests.cs" />
+    <Compile Include="KeepNamedObjectTests.cs" />
+    <Compile Include="KeepObjectTypeTests.cs" />
+    <Compile Include="KeepSchemaTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\SqlPackageFilter\AgileSqlClub.SqlPackageFilter.csproj">
+      <Project>{27B7311A-DD78-48D5-AA5C-BFFCC5CA5FA2}</Project>
+      <Name>AgileSqlClub.SqlPackageFilter</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

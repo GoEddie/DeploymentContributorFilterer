@@ -15,18 +15,18 @@ namespace AgileSql
 
         static void Main(string[] args)
         {
-            var dacServices = new DacServices("SERVER=.;Integrated Security=SSPI;");
+            var dacServices = new DacServices("SERVER=.;Integrated Security=SSPI;initial catalog=SqlPackageFilter");
 
             using (DacPackage dacpac = DacPackage.Load(@"..\..\..\dacpac\bin\Debug\DacPac.dacpac", DacSchemaModelStorageType.Memory))
             {
-                var options = new DacDeployOptions { AdditionalDeploymentContributors = "AgileSqlClub.DeploymentFilterContributor" };
+                var options = new DacDeployOptions { AdditionalDeploymentContributors = "AgileSqlClub.DeploymentFilterContributor", DropObjectsNotInSource = true};
                 var mesages = new List<string>();
                 dacServices.Message += (sender, eventArgs) =>
                 {
                     mesages.Add(eventArgs.Message.Message);
                 };
 
-                var script = dacServices.GenerateDeployScript(dacpac, "TestDb", options);
+                var script = dacServices.GenerateDeployScript(dacpac, "SqlPackageFilter", options);
             }
             
         }

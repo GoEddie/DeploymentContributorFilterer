@@ -21,11 +21,19 @@ namespace AgileSqlClub.SqlPackageFilter
                 var current = next;
                 next = current.Next;
 
+                Console.WriteLine(current.GetType());
+                
                 var createStep = current as CreateElementStep;
                 if (createStep != null )//&& ShouldFilter(createStep))
                 {
                     Console.WriteLine(context.PlanHandle + " : " + createStep.SourceElement.Name.ToString());
                     //base.PublishMessage(new ExtensibilityError("removing item from deployment..", Severity.Message));
+                }
+
+                var dropStep = current as DropElementStep;
+                if (dropStep != null)
+                {
+                    Console.WriteLine("DROP: " + context.PlanHandle + " : " + dropStep.TargetElement.Name.ToString());
                 }
             }
                     
