@@ -8,7 +8,31 @@ using Microsoft.SqlServer.Dac.Extensibility;
 
 namespace AgileSqlClub.SqlPackageFilter
 {
-    
+    public enum StepType
+    {
+        Other,
+        Create,
+        Alter,
+        Drop
+    }
+
+    public class StepTypeSniffer
+    {
+        public StepType GetStepType(DeploymentStep step)
+        {
+            if (step as CreateElementStep != null)
+                return StepType.Create;
+
+            if (step as DropElementStep != null)
+                return StepType.Drop;
+
+            if (step as AlterElementStep != null)
+                return StepType.Alter;
+
+            return StepType.Other;
+        }
+    }
+
     [ExportDeploymentPlanModifier("AgileSqlClub.DeploymentFilterContributor", "0.1.0.0")]
     public class DeploymentFilter : DeploymentPlanModifier
     {
