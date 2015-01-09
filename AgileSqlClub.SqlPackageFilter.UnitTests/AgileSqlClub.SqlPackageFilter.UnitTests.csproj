@@ -66,13 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IgnoreNamedObjectTests.cs" />
-    <Compile Include="IgnoreObjectTypeTests.cs" />
-    <Compile Include="IgnoreSchemaTests.cs" />
     <Compile Include="KeeperDeciderTests.cs" />
-    <Compile Include="KeepNamedObjectTests.cs" />
-    <Compile Include="KeepObjectTypeTests.cs" />
-    <Compile Include="KeepSchemaTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
