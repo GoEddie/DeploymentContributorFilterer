@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.SqlServer.Dac.Deployment;
-using Microsoft.SqlServer.Dac.Extensibility;
 
-namespace AgileSqlClub.SqlPackageFilter
+namespace AgileSqlClub.SqlPackageFilter.Filter
 {
     [ExportDeploymentPlanModifier("AgileSqlClub.DeploymentFilterContributor", "0.1.0.0")]
     public class DeploymentFilter : DeploymentPlanModifier

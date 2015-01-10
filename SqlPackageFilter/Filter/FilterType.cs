@@ -1,4 +1,4 @@
-﻿namespace AgileSqlClub.SqlPackageFilter
+﻿namespace AgileSqlClub.SqlPackageFilter.Filter
 {
     public enum FilterType
     {

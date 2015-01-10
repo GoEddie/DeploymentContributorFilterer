@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AgileSqlClub.SqlPackageFilter.Filter;
+using AgileSqlClub.SqlPackageFilter.Rules;
 using Microsoft.SqlServer.Dac.Model;
 using Moq;
 using NUnit.Framework;

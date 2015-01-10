@@ -61,23 +61,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeploymentFilter.cs" />
-    <Compile Include="FilterOperation.cs" />
-    <Compile Include="FilterRule.cs" />
-    <Compile Include="FilterType.cs" />
-    <Compile Include="NamedObjectFilterRule.cs" />
-    <Compile Include="ObjectTypeFilterRule.cs" />
-    <Compile Include="RuleFactory.cs" />
-    <Compile Include="SchemaFilterRule.cs" />
-    <Compile Include="KeeperDecider.cs" />
-    <Compile Include="ObjectNameParser.cs" />
+    <Compile Include="Filter\DeploymentFilter.cs" />
+    <Compile Include="Filter\FilterOperation.cs" />
+    <Compile Include="Rules\FilterRule.cs" />
+    <Compile Include="Filter\FilterType.cs" />
+    <Compile Include="Rules\NamedObjectFilterRule.cs" />
+    <Compile Include="Rules\ObjectTypeFilterRule.cs" />
+    <Compile Include="Rules\RuleFactory.cs" />
+    <Compile Include="Rules\SchemaFilterRule.cs" />
+    <Compile Include="Rules\KeeperDecider.cs" />
+    <Compile Include="DacExtensions\ObjectNameParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StepType.cs" />
-    <Compile Include="StepTypeSniffer.cs" />
+    <Compile Include="Filter\StepType.cs" />
+    <Compile Include="Filter\StepTypeSniffer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

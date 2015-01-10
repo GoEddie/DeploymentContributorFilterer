@@ -1,3 +1,5 @@
+using AgileSqlClub.SqlPackageFilter.Filter;
+using AgileSqlClub.SqlPackageFilter.Rules;
 using Microsoft.SqlServer.Dac.Model;
 using NUnit.Framework;
 

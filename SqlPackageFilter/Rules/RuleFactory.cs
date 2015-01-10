@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AgileSqlClub.SqlPackageFilter
+namespace AgileSqlClub.SqlPackageFilter.Rules
 {
     public class RuleFactory
     {

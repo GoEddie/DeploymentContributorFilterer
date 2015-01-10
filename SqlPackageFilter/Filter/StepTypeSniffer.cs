@@ -1,6 +1,6 @@
 ﻿using Microsoft.SqlServer.Dac.Deployment;
 
-namespace AgileSqlClub.SqlPackageFilter
+namespace AgileSqlClub.SqlPackageFilter.Filter
 {
     public class StepTypeSniffer
     {

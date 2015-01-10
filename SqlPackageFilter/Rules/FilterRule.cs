@@ -1,7 +1,8 @@
 ﻿using System.Text.RegularExpressions;
+using AgileSqlClub.SqlPackageFilter.Filter;
 using Microsoft.SqlServer.Dac.Model;
 
-namespace AgileSqlClub.SqlPackageFilter
+namespace AgileSqlClub.SqlPackageFilter.Rules
 {
     public class FilterRule
     {

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Linq;
+using AgileSqlClub.SqlPackageFilter.Filter;
 using Microsoft.SqlServer.Dac.Model;
 
-namespace AgileSqlClub.SqlPackageFilter
+namespace AgileSqlClub.SqlPackageFilter.Rules
 {
     public class NamedObjectFilterRule : FilterRule
     {

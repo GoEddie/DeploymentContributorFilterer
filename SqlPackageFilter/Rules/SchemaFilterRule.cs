@@ -1,6 +1,8 @@
+using AgileSqlClub.SqlPackageFilter.DacExtensions;
+using AgileSqlClub.SqlPackageFilter.Filter;
 using Microsoft.SqlServer.Dac.Model;
 
-namespace AgileSqlClub.SqlPackageFilter
+namespace AgileSqlClub.SqlPackageFilter.Rules
 {
     public class SchemaFilterRule : FilterRule
     {
