@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Configuration;
 using System.Text;
-using System.Text.RegularExpressions;
 using Microsoft.SqlServer.Dac.Model;
 
 namespace AgileSqlClub.SqlPackageFilter
@@ -26,12 +24,12 @@ namespace AgileSqlClub.SqlPackageFilter
         /// Missing	    dbo.Table	TRUE	                Ignore	    Drop	    Remove from deploy
         /// dbo.Table	Missing	    TRUE	                None	    Create	    Leave in deploy
         /// Missing	    dbo.Table	TRUE	                None	    Drop	    Leave in deploy
-
         /// </summary>
-        /// <param name="definition"></param>
+        /// <param name="name"></param>
+        /// <param name="objectType"></param>
         /// <param name="stepType"></param>
         /// <returns></returns>
-        public bool ShouldRemoveFromPlan(TSqlObject definition, StepType stepType)
+        public bool ShouldRemoveFromPlan(ObjectIdentifier name, ModelTypeClass objectType, StepType stepType)
         {
             if (stepType == StepType.Other)
                 return false;
@@ -40,97 +38,18 @@ namespace AgileSqlClub.SqlPackageFilter
             {
                 var operation = rule.Operation();
 
-                if (operation == FilterOperation.Ignore && rule.Matches(definition))
+                if (operation == FilterOperation.Ignore && rule.Matches(name, objectType))
                 {
                     return true;
                 }
-                
-                if (operation == FilterOperation.Keep && stepType == StepType.Drop && rule.Matches(definition))
+
+                if (operation == FilterOperation.Keep && stepType == StepType.Drop && rule.Matches(name, objectType))
                 {
                     return true;
                 }
             }
-
-            return false;
-        }
-    }
-
-    public enum FilterOperation
-    {
-        Keep,
-        Ignore
-    }
-
-    public enum FilterType
-    {
-        Schema,
-        Name,
-        Type
-    }
-
-    public class FilterRule
-    {
-        protected readonly string Match;
-        protected readonly Regex Regex;
-
-        public FilterRule()
-        {
             
-        }
-
-        public FilterRule(string match)
-        {
-            Match = match;
-            Regex = new Regex(Match, RegexOptions.Compiled);
-        }
-
-        public virtual bool Matches(TSqlObject defintion)
-        {
             return false;
-        }
-
-        protected FilterOperation RuleFilterOperation;
-
-        public virtual FilterOperation Operation() { return RuleFilterOperation; }
-    }
-
-    public class IgnoreSchemaFilterRule : FilterRule
-    {
-        public IgnoreSchemaFilterRule(string match) : base(match)
-        {
-            RuleFilterOperation = FilterOperation.Ignore;
-        }
-
-        public override bool Matches(TSqlObject defintion)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class IgnoreNamedObjectFilterRule : FilterRule
-    {
-        public IgnoreNamedObjectFilterRule(string match) : base(match)
-        {
-            RuleFilterOperation = FilterOperation.Ignore;
-        }
-
-        public override bool Matches(TSqlObject defintion)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class IgnoreObjectTypeFilterRule : FilterRule
-    {
-
-        public IgnoreObjectTypeFilterRule(string match) : base(match)
-        {
-            RuleFilterOperation = FilterOperation.Ignore;
-        }
-
-        public override  bool Matches(TSqlObject defintion)
-        {
-            throw new NotImplementedException();
         }
     }
 }
