@@ -61,6 +61,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config\CommandLineFilterParser.cs" />
+    <Compile Include="Config\FilterDefinitionType.cs" />
+    <Compile Include="Config\FilterDefinitionTypeParser.cs" />
+    <Compile Include="Config\RuleDefinition.cs" />
+    <Compile Include="Config\RuleDefinitionFactory.cs" />
+    <Compile Include="Config\XmlFilterParser.cs" />
     <Compile Include="Filter\DeploymentFilter.cs" />
     <Compile Include="Filter\FilterOperation.cs" />
     <Compile Include="Rules\FilterRule.cs" />
