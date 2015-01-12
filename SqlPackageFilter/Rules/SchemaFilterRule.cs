@@ -1,3 +1,4 @@
+using System.Linq;
 using AgileSqlClub.SqlPackageFilter.DacExtensions;
 using AgileSqlClub.SqlPackageFilter.Filter;
 using Microsoft.SqlServer.Dac.Model;
@@ -12,7 +13,7 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
 
         public override bool Matches(ObjectIdentifier name, ModelTypeClass type)
         {
-            var schemaName = name.GetSchemaName();
+            var schemaName = type == ModelSchema.Schema ? name.Parts.Last() : name.GetSchemaName();
             
             if (string.IsNullOrEmpty(schemaName))
                 return false;

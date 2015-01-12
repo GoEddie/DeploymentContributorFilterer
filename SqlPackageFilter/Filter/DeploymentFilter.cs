@@ -22,30 +22,37 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
                 var current = next;
                 next = current.Next;
 
+                var name = "";
+
                 bool shouldRemove = false;
 
                 var createStep = current as CreateElementStep;
                 if (createStep != null )
                 {   
                     shouldRemove = decider.ShouldRemoveFromPlan(createStep.SourceElement.Name, createStep.SourceElement.ObjectType, StepType.Create);
+                    name = createStep.SourceElement.Name.ToString();
+
                 }
 
                 var dropStep = current as DropElementStep;
                 if (dropStep != null)
                 {
                     shouldRemove = decider.ShouldRemoveFromPlan(dropStep.TargetElement.Name, dropStep.TargetElement.ObjectType, StepType.Drop);
+                    name = dropStep.TargetElement.Name.ToString();
                 }
 
                 var alterStep = current as AlterElementStep;
                 if (alterStep != null)
                 {
                     shouldRemove = decider.ShouldRemoveFromPlan(alterStep.TargetElement.Name, alterStep.TargetElement.ObjectType, StepType.Alter);
+                    name = alterStep.SourceElement.Name.ToString();
                 }
+
                 
                 if (shouldRemove)
                 {
                     base.Remove(context.PlanHandle, current);
-                    base.PublishMessage(new ExtensibilityError(string.Format("Step removed from deployment by SqlPackageFilter, step detail: {0}", current),Severity.Message));
+                    base.PublishMessage(new ExtensibilityError(string.Format("Step removed from deployment by SqlPackageFilter, object: {0}", name),Severity.Message));
                 }
                     
             }
