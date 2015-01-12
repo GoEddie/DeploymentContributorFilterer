@@ -46,5 +46,15 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests
 
             Assert.IsFalse(result);
         }
+
+        [Test]
+        public void Matches_Schema_Name_Using_ObjectType_When_Only_One_Part_Name_Specified()
+        {
+            var rule = new SchemaFilterRule(FilterOperation.Ignore, "Sch");
+            var objectName = new ObjectIdentifier("Sch");
+            var result = rule.Matches(objectName, ModelSchema.Schema);
+
+            Assert.IsTrue(result);
+        }
     }
 }
