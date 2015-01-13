@@ -25,10 +25,10 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
 
             var proc = new ProcessGateway(".\\SqlPackage.exe\\SqlPackage.exe", args);
             proc.Run();
-
+            proc.WasDeploySuccess();
             var tableCount = _gateway.GetInt("SELECT COUNT(*) FROM sys.schemas where name = 'blah';");
 
-            Assert.AreEqual(1, tableCount, proc.GetMessages());
+            Assert.AreEqual(1, tableCount, proc.Messages);
 
         }
 
@@ -47,7 +47,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
 
             var tableCount = _gateway.GetInt("SELECT COUNT(*) FROM sys.tables where name = 'Employees';");
 
-            Assert.AreEqual(0, tableCount, proc.GetMessages());
+            Assert.AreEqual(0, tableCount, proc.Messages);
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
 
             procCount = _gateway.GetInt("SELECT COUNT(*) FROM sys.procedures where name = 'proc_to_ignore';");
 
-            Assert.AreEqual(1, procCount, proc.GetMessages());
+            Assert.AreEqual(1, procCount, proc.Messages);
 
         }
 

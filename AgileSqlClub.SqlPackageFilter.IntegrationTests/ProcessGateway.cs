@@ -1,5 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Threading;
+using NUnit.Framework;
 
 namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
 {
@@ -7,6 +9,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
     {
         private readonly string _program;
         private readonly string _args;
+        public string Messages { get; private set; }
 
         public ProcessGateway(string program, string args)
         {
@@ -26,11 +29,22 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
             _process = Process.Start(processInfo);
             if(_process != null)
                 _process.WaitForExit(Timeout.Infinite);
+            
+            Messages = GetMessages();
         }
 
-        public string GetMessages()
+        private string GetMessages()
         {
-            return string.Format("StdOut: {0} StdErr: {1}", _process.StandardOutput, _process.StandardError);
+            var ret = string.Format("StdOut: {0} StdErr: {1}", _process.StandardOutput.ReadToEnd(), _process.StandardError.ReadToEnd());
+            return ret;
+        }
+
+        public void WasDeploySuccess()
+        {
+            if (Messages.IndexOf("Successfully published database", StringComparison.OrdinalIgnoreCase) >= 0)
+                return;
+
+            Assert.Fail("SqlPackage.exe did not complete successfully, messages: {0}", Messages);
         }
     }
 }
