@@ -23,7 +23,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
             var args =
                 "/Action:Publish /TargetServerName:localhost /SourceFile:DacPac.dacpac /p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor " +
                 " /TargetDatabaseName:Filters /p:DropObjectsNotInSource=True " +
-                "/p:AdditionalDeploymentContributorArguments=\"SqlPackageFilter=KeepType(^(User|UserDefinedServerRole|ApplicationRole|BuiltInServerRole|Permission|Role|RoleMembership|ServerRoleMembership|User|UserDefinedServerRole)$)\"";
+                "/p:AdditionalDeploymentContributorArguments=\"SqlPackageFilter=KeepSecurity\"";
 
             var proc = new ProcessGateway(".\\SqlPackage.exe\\SqlPackage.exe", args);
             proc.Run();

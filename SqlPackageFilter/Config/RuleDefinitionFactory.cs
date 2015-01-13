@@ -25,6 +25,7 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                     case FilterType.Type:
                         rules.Add(new ObjectTypeFilterRule(ruleDefinition.Operation, ruleDefinition.Match));
                         break;
+
                 }
             }
 
@@ -32,7 +33,7 @@ namespace AgileSqlClub.SqlPackageFilter.Config
 
         }
 
-        private List<RuleDefinition> BuildRuleDefinitions(Dictionary<string, string> contextArgs)
+        private IEnumerable<RuleDefinition> BuildRuleDefinitions(Dictionary<string, string> contextArgs)
         {
             var rules = new List<RuleDefinition>();
 

@@ -5,6 +5,8 @@ namespace AgileSqlClub.SqlPackageFilter.Config
 {
     public class CommandLineFilterParser
     {
+        private const string SecurityFilterMatch = @"^(User|UserDefinedServerRole|ApplicationRole|BuiltInServerRole|Permission|Role|RoleMembership|ServerRoleMembership|User|UserDefinedServerRole)$";
+
         public RuleDefinition GetDefinitions(string value)
         {
             var operation = GetOperation(value);
@@ -26,6 +28,16 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                 case FilterType.Type:
                     remove = 4;
                     break;
+                case FilterType.Security:
+                {
+                    return new RuleDefinition()
+                    {
+                        Operation = operation,
+                        Type = FilterType.Type,
+                        Match = SecurityFilterMatch
+                    };      
+                }
+                    
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -59,6 +71,11 @@ namespace AgileSqlClub.SqlPackageFilter.Config
             if (value.StartsWith("Type", StringComparison.OrdinalIgnoreCase))
             {
                 return FilterType.Type;
+            }
+
+            if (value.StartsWith("Security", StringComparison.OrdinalIgnoreCase))
+            {
+                return FilterType.Security;
             }
 
             throw new ArgumentException(string.Format("Could not get filter type, either Schema, Name or Type from: {0}", value));

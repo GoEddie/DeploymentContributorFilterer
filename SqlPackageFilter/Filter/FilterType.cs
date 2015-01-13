@@ -4,6 +4,7 @@
     {
         Schema,
         Name,
-        Type
+        Type,
+        Security    //Pseudo FilterType - All ObjectTypes that are security things
     }
 }
