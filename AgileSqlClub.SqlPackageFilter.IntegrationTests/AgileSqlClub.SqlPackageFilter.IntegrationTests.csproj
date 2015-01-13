@@ -59,6 +59,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IgnoreTests.cs" />
+    <Compile Include="KeepTests.cs" />
+    <Compile Include="ProcessGateway.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="public class SqlGateway.cs" />
   </ItemGroup>
