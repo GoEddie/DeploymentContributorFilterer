@@ -91,9 +91,6 @@
     <Content Include="SqlPackage.exe\EESSDTEXT.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="SqlPackage.exe\EESSDTEXT.pdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="SqlPackage.exe\Microsoft.Data.Tools.Contracts.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
