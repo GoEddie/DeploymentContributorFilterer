@@ -10,55 +10,76 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
     [ExportDeploymentPlanModifier("AgileSqlClub.DeploymentFilterContributor", "0.1.0.0")]
     public class DeploymentFilter : DeploymentPlanModifier
     {
+        public void ShowMessage(string message)
+        {
+            base.PublishMessage(new ExtensibilityError(message, Severity.Message));
+        }
+
         protected override void OnExecute(DeploymentPlanContributorContext context)
         {
-            base.PublishMessage(new ExtensibilityError("Starting AgileSqlClub.DeploymentFilterContributor", Severity.Message));
-            var rules = new RuleDefinitionFactory().BuildRules(context.Arguments);
-
-            var decider = new KeeperDecider(rules);
-
-            var next = context.PlanHandle.Head;
-            while (next != null)
+            try
             {
-                var current = next;
-                next = current.Next;
+                base.PublishMessage(new ExtensibilityError("Starting AgileSqlClub.DeploymentFilterContributor",
+                    Severity.Message));
+                var rules = new RuleDefinitionFactory().BuildRules(context.Arguments, this);
 
-                var name = "";
+                var decider = new KeeperDecider(rules);
 
-                bool shouldRemove = false;
-
-                var createStep = current as CreateElementStep;
-                if (createStep != null )
-                {   
-                    shouldRemove = decider.ShouldRemoveFromPlan(createStep.SourceElement.Name, createStep.SourceElement.ObjectType, StepType.Create);
-                    name = createStep.SourceElement.Name.ToString();
-
-                }
-
-                var dropStep = current as DropElementStep;
-                if (dropStep != null)
+                var next = context.PlanHandle.Head;
+                while (next != null)
                 {
-                    shouldRemove = decider.ShouldRemoveFromPlan(dropStep.TargetElement.Name, dropStep.TargetElement.ObjectType, StepType.Drop);
-                    name = dropStep.TargetElement.Name.ToString();
-                }
+                    var current = next;
+                    next = current.Next;
 
-                var alterStep = current as AlterElementStep;
-                if (alterStep != null)
-                {
-                    shouldRemove = decider.ShouldRemoveFromPlan(alterStep.TargetElement.Name, alterStep.TargetElement.ObjectType, StepType.Alter);
-                    name = alterStep.SourceElement.Name.ToString();
-                }
+                    var name = "";
 
-                
-                if (shouldRemove)
-                {
-                    base.Remove(context.PlanHandle, current);
-                    base.PublishMessage(new ExtensibilityError(string.Format("Step removed from deployment by SqlPackageFilter, object: {0}", name),Severity.Message));
-                }
+                    bool shouldRemove = false;
+
+                    var createStep = current as CreateElementStep;
+                    if (createStep != null)
+                    {
+                        shouldRemove = decider.ShouldRemoveFromPlan(createStep.SourceElement.Name,
+                            createStep.SourceElement.ObjectType, StepType.Create);
+                        name = createStep.SourceElement.Name.ToString();
+
+                    }
                     
-            }
+                    var dropStep = current as DropElementStep;
+                    if (dropStep != null)
+                    {
+                        shouldRemove = decider.ShouldRemoveFromPlan(dropStep.TargetElement.Name,
+                            dropStep.TargetElement.ObjectType, StepType.Drop);
+                        name = dropStep.TargetElement.Name.ToString();
+                    }
 
-            base.PublishMessage(new ExtensibilityError("Completed AgileSqlClub.DeploymentFilterContributor", Severity.Message));
+                    var alterStep = current as AlterElementStep;
+                    if (alterStep != null)
+                    {
+                        shouldRemove = decider.ShouldRemoveFromPlan(alterStep.TargetElement.Name,
+                            alterStep.TargetElement.ObjectType, StepType.Alter);
+                        name = alterStep.SourceElement.Name.ToString();
+                    }
+
+
+                    if (shouldRemove)
+                    {
+                        base.Remove(context.PlanHandle, current);
+                        base.PublishMessage(
+                            new ExtensibilityError(
+                                string.Format("Step removed from deployment by SqlPackageFilter, object: {0}", name),
+                                Severity.Message));
+                    }
+
+                }
+
+                base.PublishMessage(new ExtensibilityError("Completed AgileSqlClub.DeploymentFilterContributor",
+                    Severity.Message));
+
+            }
+            catch (Exception e)
+            {   //global exception as we don't want to break sqlpackage.exe
+                base.PublishMessage(new ExtensibilityError(string.Format("Error in DeploymentFilter: {0}", e.Message), Severity.Error));
+            }
         }
     }
     

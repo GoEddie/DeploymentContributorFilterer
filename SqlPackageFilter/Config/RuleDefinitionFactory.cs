@@ -7,9 +7,9 @@ namespace AgileSqlClub.SqlPackageFilter.Config
 {
     public class RuleDefinitionFactory
     {
-        public List<FilterRule> BuildRules(Dictionary<string, string> contextArgs)
+        public List<FilterRule> BuildRules(Dictionary<string, string> contextArgs, DeploymentFilter deploymentFilter)
         {
-            var defintions = BuildRuleDefinitions(contextArgs);
+            var defintions = BuildRuleDefinitions(contextArgs, deploymentFilter);
             var rules = new List<FilterRule>();
 
             foreach (var ruleDefinition in defintions)
@@ -33,7 +33,7 @@ namespace AgileSqlClub.SqlPackageFilter.Config
 
         }
 
-        private IEnumerable<RuleDefinition> BuildRuleDefinitions(Dictionary<string, string> contextArgs)
+        private IEnumerable<RuleDefinition> BuildRuleDefinitions(Dictionary<string, string> contextArgs, DeploymentFilter deploymentFilter)
         {
             var rules = new List<RuleDefinition>();
 
@@ -49,9 +49,9 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                     if (definitionType == FilterDefinitionType.XmlFile)
                         rules.AddRange(new XmlFilterParser().GetDefinitions(arg.Value));
                 }
-                catch (Exception e)
+                catch (Exception )
                 {
-                    Console.WriteLine("PDF: Cannot decode: " + arg);
+                    deploymentFilter.ShowMessage(string.Format("Error decoding command line arge: {0}", arg.Value));
                 }
             }
 

@@ -82,42 +82,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
         
         
         }
-
-
-        [Test]
-        public void Everything_Is_Ignored_Except_For_Schema_With_A_Negative_Filter()
-        {
-            _gateway.RunQuery("IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'func') exec sp_executesql N'CREATE SCHEMA func';");
-            _gateway.RunQuery("IF object_id('func.funky') is null exec sp_executesql N'CREATE FUNCTION func.funky() RETURNS INT AS  BEGIN  	RETURN 1;	 END';");
-
-            _gateway.RunQuery("IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'blah') exec sp_executesql N'CREATE SCHEMA blah';");
-            _gateway.RunQuery("IF object_id('blah.funky_chicken') is null exec sp_executesql N'CREATE FUNCTION blah.funky_chicken() RETURNS INT AS  BEGIN  	RETURN 1;	 END';");
-
-            
-            var count = _gateway.GetInt("SELECT COUNT(*) FROM sys.objects where name = 'funky';");
-            Assert.AreEqual(1, count);
-
-            count = _gateway.GetInt("SELECT COUNT(*) FROM sys.objects where name = 'funky_chicken';");
-            Assert.AreEqual(1, count);
-
-
-            var args =
-                "/Action:Publish /TargetServerName:localhost /SourceFile:DacPac.dacpac /p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor " +
-                " /TargetDatabaseName:Filters /p:DropObjectsNotInSource=True " +
-                "/p:AdditionalDeploymentContributorArguments=\"SqlPackageFilter=IgnoreSchema!(func)\"";
-
-            var proc = new ProcessGateway(".\\SqlPackage.exe\\SqlPackage.exe", args);
-            proc.Run();
-            proc.WasDeploySuccess();
-
-            count = _gateway.GetInt("SELECT COUNT(*) FROM sys.objects where name = 'funky';");
-            Assert.AreEqual(0, count, proc.Messages);
-
-            count = _gateway.GetInt("SELECT COUNT(*) FROM sys.objects where name = 'funky_chicken';");
-            Assert.AreEqual(1, count, proc.Messages);
-        }
-
-
+        
     }
 
 
