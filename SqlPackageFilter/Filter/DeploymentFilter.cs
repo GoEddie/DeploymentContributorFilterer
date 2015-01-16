@@ -12,6 +12,7 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
     {
         protected override void OnExecute(DeploymentPlanContributorContext context)
         {
+            base.PublishMessage(new ExtensibilityError("Starting AgileSqlClub.DeploymentFilterContributor", Severity.Message));
             var rules = new RuleDefinitionFactory().BuildRules(context.Arguments);
 
             var decider = new KeeperDecider(rules);
@@ -56,7 +57,8 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
                 }
                     
             }
-                    
+
+            base.PublishMessage(new ExtensibilityError("Completed AgileSqlClub.DeploymentFilterContributor", Severity.Message));
         }
     }
     

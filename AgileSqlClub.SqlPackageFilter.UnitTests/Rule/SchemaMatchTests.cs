@@ -17,7 +17,7 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests
         [Test]
         public void Does_Not_Match_Object_With_No_Schema_Name()
         {
-            var rule = new SchemaFilterRule(FilterOperation.Ignore, "[a-zA-Z]");
+            var rule = new SchemaFilterRule(FilterOperation.Ignore, "[a-zA-Z]", MatchType.DoesMatch);
             var objectName = new ObjectIdentifier("TableName");
 
             var result = rule.Matches(objectName, null);
@@ -28,7 +28,7 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests
         [Test]
         public void Does_Match_Object_With_Schema_Name_That_Does_Match_Regex()
         {
-            var rule = new SchemaFilterRule(FilterOperation.Ignore, "[a-zA-Z][a-zA-Z][a-zA-Z]");
+            var rule = new SchemaFilterRule(FilterOperation.Ignore, "[a-zA-Z][a-zA-Z][a-zA-Z]", MatchType.DoesMatch);
             var objectName = new ObjectIdentifier("Sch","Tab");
 
             var result = rule.Matches(objectName, null);
@@ -39,7 +39,7 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests
         [Test]
         public void Does_Not_Match_Object_With_Schema_Name_That_Does_Not_Match_Regex()
         {
-            var rule = new SchemaFilterRule(FilterOperation.Ignore, "[a-zA-Z]*[0-9]");
+            var rule = new SchemaFilterRule(FilterOperation.Ignore, "[a-zA-Z]*[0-9]", MatchType.DoesMatch);
             var objectName = new ObjectIdentifier("Sch", "Tab");
 
             var result = rule.Matches(objectName, null);
@@ -50,7 +50,7 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests
         [Test]
         public void Matches_Schema_Name_Using_ObjectType_When_Only_One_Part_Name_Specified()
         {
-            var rule = new SchemaFilterRule(FilterOperation.Ignore, "Sch");
+            var rule = new SchemaFilterRule(FilterOperation.Ignore, "Sch", MatchType.DoesMatch);
             var objectName = new ObjectIdentifier("Sch");
             var result = rule.Matches(objectName, ModelSchema.Schema);
 

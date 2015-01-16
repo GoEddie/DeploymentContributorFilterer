@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AgileSqlClub.SqlPackageFilter.Filter;
 
 namespace AgileSqlClub.SqlPackageFilter.Config
@@ -33,8 +34,9 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                     return new RuleDefinition()
                     {
                         Operation = operation,
-                        Type = FilterType.Type,
-                        Match = SecurityFilterMatch
+                        FilterType = FilterType.Type,
+                        Match = SecurityFilterMatch,
+                        MatchType = MatchType.DoesMatch
                     };      
                 }
                     
@@ -44,13 +46,21 @@ namespace AgileSqlClub.SqlPackageFilter.Config
 
             value = value.Substring(remove);
 
-            var match = value.Trim(new []{'(',')'});
-
+            var matchType = MatchType.DoesMatch;
+            if (value.FirstOrDefault() == '!')
+            {
+                matchType = MatchType.DoesNotMatch;
+                value = value.Substring(1).Trim();
+            }
+            
+            var match = value.Trim(new []{'(',')', ' '});
+            
             var definiton = new RuleDefinition()
             {
                 Operation = operation,
-                Type = type,
-                Match = match
+                FilterType = type,
+                Match = match,
+                MatchType = matchType
             };
 
             return definiton;

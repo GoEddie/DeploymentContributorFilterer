@@ -7,7 +7,7 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
 {
     public class SchemaFilterRule : FilterRule
     {
-        public SchemaFilterRule(FilterOperation operation, string match) : base(operation, match)
+        public SchemaFilterRule(FilterOperation operation, string match, MatchType matchType) : base(operation, match, matchType)
         {
         }
 
@@ -18,7 +18,7 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
             if (string.IsNullOrEmpty(schemaName))
                 return false;
 
-            return Regex.IsMatch(schemaName);
+            return Matches(schemaName);
         }
     }
 }

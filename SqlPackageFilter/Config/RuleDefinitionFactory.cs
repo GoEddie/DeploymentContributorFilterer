@@ -14,16 +14,16 @@ namespace AgileSqlClub.SqlPackageFilter.Config
 
             foreach (var ruleDefinition in defintions)
             {
-                switch (ruleDefinition.Type)
+                switch (ruleDefinition.FilterType)
                 {
                     case FilterType.Schema:
-                        rules.Add(new SchemaFilterRule(ruleDefinition.Operation, ruleDefinition.Match ));
+                        rules.Add(new SchemaFilterRule(ruleDefinition.Operation, ruleDefinition.Match, ruleDefinition.MatchType ));
                         break;
                     case FilterType.Name:
-                        rules.Add(new NamedObjectFilterRule(ruleDefinition.Operation, ruleDefinition.Match));
+                        rules.Add(new NamedObjectFilterRule(ruleDefinition.Operation, ruleDefinition.Match, ruleDefinition.MatchType));
                         break;
                     case FilterType.Type:
-                        rules.Add(new ObjectTypeFilterRule(ruleDefinition.Operation, ruleDefinition.Match));
+                        rules.Add(new ObjectTypeFilterRule(ruleDefinition.Operation, ruleDefinition.Match, ruleDefinition.MatchType));
                         break;
 
                 }
@@ -39,13 +39,20 @@ namespace AgileSqlClub.SqlPackageFilter.Config
 
             foreach (var arg in contextArgs)
             {
-                var definitionType = FilterDefinitionTypeParser.GetDefinitionType(arg.Key);
+                try
+                {
+                    var definitionType = FilterDefinitionTypeParser.GetDefinitionType(arg.Key);
 
-                if(definitionType == FilterDefinitionType.CommandLine)
-                    rules.Add(new CommandLineFilterParser().GetDefinitions(arg.Value));
+                    if (definitionType == FilterDefinitionType.CommandLine)
+                        rules.Add(new CommandLineFilterParser().GetDefinitions(arg.Value));
 
-                if (definitionType == FilterDefinitionType.XmlFile)
-                    rules.AddRange(new XmlFilterParser().GetDefinitions(arg.Value));
+                    if (definitionType == FilterDefinitionType.XmlFile)
+                        rules.AddRange(new XmlFilterParser().GetDefinitions(arg.Value));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("PDF: Cannot decode: " + arg);
+                }
             }
 
             return rules;

@@ -7,8 +7,8 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
 {
     public class NamedObjectFilterRule : FilterRule
     {
-        public NamedObjectFilterRule(FilterOperation operation, string match)
-            : base(operation, match)
+        public NamedObjectFilterRule(FilterOperation operation, string match, MatchType matchType)
+            : base(operation, match, matchType)
         {
             
         }
@@ -16,8 +16,8 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
         public override bool Matches(ObjectIdentifier name, ModelTypeClass type)
         {
             var objectName = name.Parts.LastOrDefault();
-
-            return !String.IsNullOrEmpty(objectName) && Regex.IsMatch(objectName);
+            
+            return !String.IsNullOrEmpty(objectName) && (Matches(objectName));
         }
     }
 }

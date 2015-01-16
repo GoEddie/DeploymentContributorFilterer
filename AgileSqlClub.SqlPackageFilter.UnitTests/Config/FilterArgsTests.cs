@@ -50,7 +50,7 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests.Config
             var parser = new CommandLineFilterParser();
             var definition = parser.GetDefinitions("KeepSchema([a-zA-Z]99.*)");
 
-            Assert.AreEqual(FilterType.Schema, definition.Type);
+            Assert.AreEqual(FilterType.Schema, definition.FilterType);
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests.Config
             var parser = new CommandLineFilterParser();
             var definition = parser.GetDefinitions("KeepType([a-zA-Z]99.*)");
 
-            Assert.AreEqual(FilterType.Type, definition.Type);
+            Assert.AreEqual(FilterType.Type, definition.FilterType);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests.Config
             var parser = new CommandLineFilterParser();
             var definition = parser.GetDefinitions("KeepName([a-zA-Z]99.*)");
 
-            Assert.AreEqual(FilterType.Name, definition.Type);
+            Assert.AreEqual(FilterType.Name, definition.FilterType);
         }
 
         [Test]

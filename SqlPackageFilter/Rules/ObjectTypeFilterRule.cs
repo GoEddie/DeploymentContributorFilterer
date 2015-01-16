@@ -5,14 +5,14 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
 {
     public class ObjectTypeFilterRule : FilterRule
     {
-        public ObjectTypeFilterRule(FilterOperation operation, string match) : base(operation, match)
+        public ObjectTypeFilterRule(FilterOperation operation, string match, MatchType matchType) : base(operation, match, matchType)
         {
             
         }
 
         public override  bool Matches(ObjectIdentifier name, ModelTypeClass type)
         {
-            return Regex.IsMatch(type.Name);
+            return Matches(type.Name);
         }
     }
 }
