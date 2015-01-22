@@ -10,6 +10,7 @@ namespace AgileSqlClub.SqlPackageFilter.Config
         public List<FilterRule> BuildRules(Dictionary<string, string> contextArgs, DeploymentFilter deploymentFilter)
         {
             var defintions = BuildRuleDefinitions(contextArgs, deploymentFilter);
+
             var rules = new List<FilterRule>();
 
             foreach (var ruleDefinition in defintions)
@@ -33,7 +34,7 @@ namespace AgileSqlClub.SqlPackageFilter.Config
 
         }
 
-        private IEnumerable<RuleDefinition> BuildRuleDefinitions(Dictionary<string, string> contextArgs, DeploymentFilter deploymentFilter)
+        public IEnumerable<RuleDefinition> BuildRuleDefinitions(Dictionary<string, string> contextArgs, DeploymentFilter deploymentFilter)
         {
             var rules = new List<RuleDefinition>();
 

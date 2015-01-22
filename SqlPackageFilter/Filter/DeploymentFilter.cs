@@ -78,7 +78,7 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
             }
             catch (Exception e)
             {   //global exception as we don't want to break sqlpackage.exe
-                base.PublishMessage(new ExtensibilityError(string.Format("Error in DeploymentFilter: {0}", e.Message), Severity.Error));
+                base.PublishMessage(new ExtensibilityError(string.Format("Error in DeploymentFilter: {0}\r\nStack: {1}", e.Message, e.StackTrace), Severity.Error));
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AgileSqlClub.SqlPackageFilter.Filter;
 using Microsoft.SqlServer.Dac.Model;
 
@@ -29,13 +30,14 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
         /// <returns></returns>
         public bool ShouldRemoveFromPlan(ObjectIdentifier name, ModelTypeClass objectType, StepType stepType)
         {
+
             if (stepType == StepType.Other)
                 return false;
 
             foreach (var rule in _rules)
             {
                 var operation = rule.Operation();
-
+                
                 if (operation == FilterOperation.Ignore && rule.Matches(name, objectType))
                 {
                     return true;

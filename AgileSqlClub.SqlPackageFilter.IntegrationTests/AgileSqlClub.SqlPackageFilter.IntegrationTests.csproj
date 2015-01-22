@@ -133,4 +133,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="$(OutputPath)AgileSqlClub.SqlPackageFilter.dll" DestinationFolder="$(OutputPath)SqlPackage.exe" />
+  </Target>
+  
 </Project>

@@ -99,5 +99,6 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests
 
             Assert.IsFalse(result);
         }
+
     }
 }

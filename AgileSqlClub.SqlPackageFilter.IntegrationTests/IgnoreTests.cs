@@ -86,8 +86,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
 
             count = _gateway.GetInt("SELECT COUNT(*) FROM sys.objects where name = 'funky_chicken';");
             Assert.AreEqual(1, count);
-
-
+            
             var args =
                 "/Action:Publish /TargetServerName:localhost /SourceFile:DacPac.dacpac /p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor " +
                 " /TargetDatabaseName:Filters /p:DropObjectsNotInSource=True " +
@@ -103,6 +102,48 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
             count = _gateway.GetInt("SELECT COUNT(*) FROM sys.objects where name = 'funky_chicken';");
             Assert.AreEqual(1, count, proc.Messages);
         }
+
+
+        [Test]
+        [Ignore("The filters are passed in from the DeploymentFilter bits using a dictionary so we cant pass multiple filters")]
+        public void Negative_Filter_Excludes_Everything_Except_Specified_Schema_With_Additional_IgnoreSecurity_Also_Leaving_Security()
+        {
+            _gateway.RunQuery("IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'func') exec sp_executesql N'CREATE SCHEMA func';");
+            _gateway.RunQuery("IF object_id('func.funky') is null exec sp_executesql N'CREATE FUNCTION func.funky() RETURNS INT AS  BEGIN  	RETURN 1;	 END';");
+
+            _gateway.RunQuery("IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'blah') exec sp_executesql N'CREATE SCHEMA blah';");
+            _gateway.RunQuery("IF object_id('blah.funky_chicken') is null exec sp_executesql N'CREATE FUNCTION blah.funky_chicken() RETURNS INT AS  BEGIN  	RETURN 1;	 END';");
+            _gateway.RunQuery("IF NOT EXISTS(SELECT * FROM sys.database_principals WHERE name = 'fred')	CREATE USER fred WITHOUT LOGIN;");
+            
+            var count = _gateway.GetInt("SELECT COUNT(*) FROM sys.objects where name = 'funky';");
+            Assert.AreEqual(1, count);
+
+            count = _gateway.GetInt("SELECT COUNT(*) FROM sys.objects where name = 'funky_chicken';");
+            Assert.AreEqual(1, count);
+
+            count = _gateway.GetInt("SELECT COUNT(*) FROM sys.database_principals WHERE name = 'fred';");
+            Assert.AreEqual(1, count);
+
+            var args =
+                "/Action:Publish /TargetServerName:localhost /SourceFile:DacPac.dacpac /p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor " +
+                " /TargetDatabaseName:Filters /p:DropObjectsNotInSource=True " +
+                "/p:AdditionalDeploymentContributorArguments=\"SqlPackageFilter=IgnoreSchema!(func)\";\"SqlPackageFilter=IgnoreSecurity\";";
+
+            var proc = new ProcessGateway(".\\SqlPackage.exe\\SqlPackage.exe", args);
+            proc.Run();
+            proc.WasDeploySuccess();
+
+            count = _gateway.GetInt("SELECT COUNT(*) FROM sys.objects where name = 'funky';");
+            Assert.AreEqual(0, count, proc.Messages);
+
+            count = _gateway.GetInt("SELECT COUNT(*) FROM sys.objects where name = 'funky_chicken';");
+            Assert.AreEqual(1, count, proc.Messages);
+
+            count = _gateway.GetInt("SELECT COUNT(*) FROM sys.database_principals WHERE name = 'fred';");
+            Assert.AreEqual(1, count);
+
+        }
+
 
     }
 }

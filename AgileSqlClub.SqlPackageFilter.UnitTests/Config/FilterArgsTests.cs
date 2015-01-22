@@ -17,6 +17,9 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests.Config
     /// 
     /// /p:AdditionalDeploymentContributorArguments="[Filter|FilterFile=[Ignore|Keep][Schema|Name|Type][(Regex)]"
     /// 
+    /// 
+    /// !(Regex) to match everything except the regex - useful when you want to say deploy a dac pac but don't want to include one schema or something.
+    /// 
     /// </summary>
     [TestFixture]
     public class FilterArgsTests
@@ -39,11 +42,7 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests.Config
 
             Assert.AreEqual(FilterOperation.Keep, definition.Operation);
         }
-
-
-
-
-
+        
         [Test]
         public void Parses_Schema_Type()
         {
@@ -76,10 +75,19 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests.Config
         {
             var parser = new CommandLineFilterParser();
             var definition = parser.GetDefinitions("KeepName([a-zA-Z]99.*)");
-
+            Assert.AreEqual(MatchType.DoesMatch, definition.MatchType);
             Assert.AreEqual("[a-zA-Z]99.*", definition.Match);
         }
 
+        [Test]
+        public void Parses_NonMatch()
+        {
+            var parser = new CommandLineFilterParser();
+            var definition = parser.GetDefinitions("KeepName!([a-zA-Z]99.*)");
+
+            Assert.AreEqual(MatchType.DoesNotMatch ,definition.MatchType);
+            Assert.AreEqual("[a-zA-Z]99.*", definition.Match);
+        }
         
     }
 }

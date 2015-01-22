@@ -56,5 +56,16 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests
 
             Assert.IsTrue(result);
         }
+
+        [Test]
+        public void Matches_Schema_Name_Using_NotMatch_Where_Regex_Doesnt_Match()
+        {
+            var rule = new SchemaFilterRule(FilterOperation.Ignore, "Sch", MatchType.DoesNotMatch);
+            var objectName = new ObjectIdentifier("BLANK.BLANK");
+            var result = rule.Matches(objectName, ModelSchema.Schema);
+
+            Assert.IsTrue(result);
+        }
+
     }
 }
