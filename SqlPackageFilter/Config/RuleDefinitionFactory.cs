@@ -7,6 +7,13 @@ namespace AgileSqlClub.SqlPackageFilter.Config
 {
     public class RuleDefinitionFactory
     {
+        private readonly IDisplayMessageHandler _messageHandler;
+
+        public RuleDefinitionFactory(IDisplayMessageHandler messageHandler)
+        {
+            _messageHandler = messageHandler;
+        }
+
         public List<FilterRule> BuildRules(Dictionary<string, string> contextArgs, DeploymentFilter deploymentFilter)
         {
             var defintions = BuildRuleDefinitions(contextArgs, deploymentFilter);
