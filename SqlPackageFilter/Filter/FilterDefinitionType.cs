@@ -4,6 +4,7 @@
     {
         NotFilter,
         CommandLine,
-        XmlFile
+        XmlFile,
+        Logging
     }
 }

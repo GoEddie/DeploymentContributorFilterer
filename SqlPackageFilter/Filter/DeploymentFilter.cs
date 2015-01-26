@@ -84,7 +84,7 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
                ShowMessage(message);
         }
 
-        private DisplayMessageLevel _displayLevel;
+        private DisplayMessageLevel _displayLevel = DisplayMessageLevel.Errors;
 
         public void SetMessageLevel(DisplayMessageLevel level)
         {

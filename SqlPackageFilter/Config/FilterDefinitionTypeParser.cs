@@ -6,6 +6,7 @@ namespace AgileSqlClub.SqlPackageFilter.Config
     {
         private const string RuleDefinition = "SqlPackageFilter";
         private const string RuleDefinitionXmlFile = "SqlPackageFilterFile";
+        private const string LoggingLevel = "SqlPackageFilterLogging";
 
         public static FilterDefinitionType GetDefinitionType(string definition)
         {
@@ -14,6 +15,9 @@ namespace AgileSqlClub.SqlPackageFilter.Config
 
             if (definition.StartsWith(RuleDefinitionXmlFile, StringComparison.OrdinalIgnoreCase))
                 return FilterDefinitionType.XmlFile;
+
+            if (definition.StartsWith(LoggingLevel, StringComparison.OrdinalIgnoreCase))
+                return FilterDefinitionType.Logging;
 
             return FilterDefinitionType.NotFilter;
         }

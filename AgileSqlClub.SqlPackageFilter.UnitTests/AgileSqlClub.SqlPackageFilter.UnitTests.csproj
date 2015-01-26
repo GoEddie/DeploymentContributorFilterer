@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\FilterArgsTests.cs" />
+    <Compile Include="Config\TestDisplayMessageHandler.cs" />
     <Compile Include="Config\XmlFilterParserTests.cs" />
     <Compile Include="Rule\KeeperDeciderTests.cs" />
     <Compile Include="Rule\NamedObjectMatchTests.cs" />

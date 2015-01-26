@@ -49,7 +49,7 @@
     <Compile Include="KeepTests.cs" />
     <Compile Include="ProcessGateway.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="public class SqlGateway.cs" />
+    <Compile Include="SqlGateway.cs" />
     <Compile Include="SecurityTests.cs" />
   </ItemGroup>
   <ItemGroup>

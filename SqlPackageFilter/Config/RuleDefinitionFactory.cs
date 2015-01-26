@@ -52,10 +52,21 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                     var definitionType = FilterDefinitionTypeParser.GetDefinitionType(arg.Key);
 
                     if (definitionType == FilterDefinitionType.CommandLine)
-                        rules.Add(new CommandLineFilterParser().GetDefinitions(arg.Value));
+                        rules.Add(new CommandLineFilterParser(_messageHandler).GetDefinitions(arg.Value));
 
                     if (definitionType == FilterDefinitionType.XmlFile)
-                        rules.AddRange(new XmlFilterParser(new FileGateway()).GetDefinitions(arg.Value));
+                        rules.AddRange(new XmlFilterParser(new FileGateway(), _messageHandler).GetDefinitions(arg.Value));
+
+                    if (definitionType == FilterDefinitionType.Logging)
+                    {
+                        var level = DisplayMessageLevel.None;
+                        if (Enum.TryParse(arg.Value, true, out level))
+                        {
+                            _messageHandler.SetMessageLevel(level);    
+                        }
+                    }
+
+
                 }
                 catch (Exception )
                 {

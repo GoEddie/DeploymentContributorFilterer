@@ -6,6 +6,13 @@ namespace AgileSqlClub.SqlPackageFilter.Config
 {
     public class CommandLineFilterParser
     {
+        private readonly IDisplayMessageHandler _messageHandler;
+
+        public CommandLineFilterParser(IDisplayMessageHandler messageHandler)
+        {
+            _messageHandler = messageHandler;
+        }
+
         private const string SecurityFilterMatch = @"^(User|UserDefinedServerRole|ApplicationRole|BuiltInServerRole|Permission|Role|RoleMembership|ServerRoleMembership|User|UserDefinedServerRole)$";
 
         public RuleDefinition GetDefinitions(string value)

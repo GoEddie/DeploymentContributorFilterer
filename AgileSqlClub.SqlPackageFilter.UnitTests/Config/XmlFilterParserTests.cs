@@ -13,6 +13,8 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests.Config
     [TestFixture]
     class XmlFilterParserTests
     {
+        readonly IDisplayMessageHandler _handler = new TestDisplayMessageHandler();
+
         [Test]
         public void BuildsRuleDefinition_For_Single_Rule_With_No_Match()
         {
@@ -20,7 +22,7 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests.Config
             var gateway = new Mock<IFileGateway>();
             gateway.Setup(p => p.GetContents(It.IsAny<string>())).Returns(xml);
 
-            var parser = new XmlFilterParser(gateway.Object);
+            var parser = new XmlFilterParser(gateway.Object, _handler);
             var defintions = parser.GetDefinitions("dsds");
 
             Assert.AreEqual(1, defintions.Count());
@@ -37,7 +39,7 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests.Config
             var gateway = new Mock<IFileGateway>();
             gateway.Setup(p => p.GetContents(It.IsAny<string>())).Returns(xml);
 
-            var parser = new XmlFilterParser(gateway.Object);
+            var parser = new XmlFilterParser(gateway.Object, _handler);
             var defintions = parser.GetDefinitions("dsds");
 
             Assert.AreEqual(1, defintions.Count());
@@ -56,7 +58,7 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests.Config
             var gateway = new Mock<IFileGateway>();
             gateway.Setup(p => p.GetContents(It.IsAny<string>())).Returns(xml);
 
-            var parser = new XmlFilterParser(gateway.Object);
+            var parser = new XmlFilterParser(gateway.Object, _handler);
             var defintions = parser.GetDefinitions("dsds");
 
             Assert.AreEqual(1, defintions.Count());
@@ -75,7 +77,7 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests.Config
             var gateway = new Mock<IFileGateway>();
             gateway.Setup(p => p.GetContents(It.IsAny<string>())).Returns(xml);
 
-            var parser = new XmlFilterParser(gateway.Object);
+            var parser = new XmlFilterParser(gateway.Object, _handler);
             var defintions = parser.GetDefinitions("dsds");
 
             Assert.AreEqual(3, defintions.Count());
@@ -98,13 +100,37 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests.Config
         [Test]
         public void BuildsRuleDefinition_Reports_Message_When_No_Rules_Found()
         {
-            throw new NotImplementedException();
+            var xml = @"<DeploymentFilter></DeploymentFilter>";
+            var gateway = new Mock<IFileGateway>();
+            gateway.Setup(p => p.GetContents(It.IsAny<string>())).Returns(xml);
+
+            var messageHandler = new Mock<IDisplayMessageHandler>();
+            messageHandler.Setup(
+                p => p.ShowMessage("There were no filters found in the Xml config file", DisplayMessageLevel.Errors));
+
+            var parser = new XmlFilterParser(gateway.Object, messageHandler.Object);
+            var defintions = parser.GetDefinitions("dsds");
+
+            messageHandler.VerifyAll();
         }
 
         [Test]
         public void BuildsRuleDefinition_Reports_Message_When_File_Corrupt()
         {
-            throw new NotImplementedException();
+            var xml = @"<DeploymentFildsdster></DeploymentFilter>";
+            var gateway = new Mock<IFileGateway>();
+            gateway.Setup(p => p.GetContents(It.IsAny<string>())).Returns(xml);
+
+            var messageHandler = new Mock<IDisplayMessageHandler>();
+            messageHandler.Setup(
+                p => p.ShowMessage(It.IsAny<string>(), DisplayMessageLevel.Errors));
+
+            var parser = new XmlFilterParser(gateway.Object, messageHandler.Object);
+            var defintions = parser.GetDefinitions("dsds");
+
+            messageHandler.VerifyAll();
+
+            Assert.AreEqual(0, defintions.Count());
         }
 
 
