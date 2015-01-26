@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\CommandLineFilterParser.cs" />
+    <Compile Include="FileGateway.cs" />
     <Compile Include="Filter\FilterDefinitionType.cs" />
     <Compile Include="Config\FilterDefinitionTypeParser.cs" />
     <Compile Include="Config\RuleDefinition.cs" />

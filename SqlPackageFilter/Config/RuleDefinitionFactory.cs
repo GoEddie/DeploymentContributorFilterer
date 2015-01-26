@@ -48,7 +48,7 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                         rules.Add(new CommandLineFilterParser().GetDefinitions(arg.Value));
 
                     if (definitionType == FilterDefinitionType.XmlFile)
-                        rules.AddRange(new XmlFilterParser().GetDefinitions(arg.Value));
+                        rules.AddRange(new XmlFilterParser(new FileGateway()).GetDefinitions(arg.Value));
                 }
                 catch (Exception )
                 {
