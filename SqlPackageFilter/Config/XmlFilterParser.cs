@@ -13,6 +13,7 @@ namespace AgileSqlClub.SqlPackageFilter.Config
     {
         private readonly IFileGateway _gateway;
         private readonly IDisplayMessageHandler _messageHandler;
+        private const string SecurityFilterMatch = @"^(User|UserDefinedServerRole|ApplicationRole|BuiltInServerRole|Permission|Role|RoleMembership|ServerRoleMembership|User|UserDefinedServerRole)$";
 
         public XmlFilterParser(IFileGateway gateway, IDisplayMessageHandler messageHandler)
         {
@@ -22,6 +23,7 @@ namespace AgileSqlClub.SqlPackageFilter.Config
 
         public IEnumerable<RuleDefinition> GetDefinitions(string path)
         {
+        
             var definitions = new List<RuleDefinition>();
 
             XDocument doc = null;
@@ -100,6 +102,18 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                 }
 
                 _messageHandler.ShowMessage(string.Format("Found Filter in Xml: Operation: {0} FilterType: {1} MatchType: {2} Match: ({3})", ruleDefinition.Operation, ruleDefinition.FilterType, ruleDefinition.MatchType, ruleDefinition.Match), DisplayMessageLevel.Info);
+
+                if (ruleDefinition.FilterType == FilterType.Security)
+                {
+                    ruleDefinition = new RuleDefinition()
+                    {
+                        Operation = ruleDefinition.Operation,
+                        FilterType = FilterType.Type,
+                        Match = SecurityFilterMatch,
+                        MatchType = MatchType.DoesMatch //TODO: dup code between this and command line parser - unite them!
+                    };
+                }
+                
                 definitions.Add(ruleDefinition);
             }
 

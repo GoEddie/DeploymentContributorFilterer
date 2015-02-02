@@ -68,9 +68,9 @@ namespace AgileSqlClub.SqlPackageFilter.Config
 
 
                 }
-                catch (Exception )
+                catch (Exception e)
                 {
-                    deploymentFilter.ShowMessage(string.Format("Error decoding command line arge: {0}", arg.Value));
+                    deploymentFilter.ShowMessage(string.Format("Error decoding command line arg: {0}, error: {1}", arg.Value, e.Message));
                 }
             }
 

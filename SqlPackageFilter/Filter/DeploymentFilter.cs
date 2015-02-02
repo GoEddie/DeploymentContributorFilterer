@@ -34,11 +34,13 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
                     var name = "";
 
                     bool shouldRemove = false;
+                    var stepType = StepType.Other;
 
                     var createStep = current as CreateElementStep;
                     if (createStep != null)
                     {
                         shouldRemove = decider.ShouldRemoveFromPlan(createStep.SourceElement.Name, createStep.SourceElement.ObjectType, StepType.Create);
+                        stepType = StepType.Create;
                         name = createStep.SourceElement.Name.ToString();
 
                     }
@@ -47,6 +49,7 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
                     if (dropStep != null)
                     {
                         shouldRemove = decider.ShouldRemoveFromPlan(dropStep.TargetElement.Name, dropStep.TargetElement.ObjectType, StepType.Drop);
+                        stepType = StepType.Drop;
                         name = dropStep.TargetElement.Name.ToString();
                     }
 
@@ -54,6 +57,7 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
                     if (alterStep != null)
                     {
                         shouldRemove = decider.ShouldRemoveFromPlan(alterStep.TargetElement.Name, alterStep.TargetElement.ObjectType, StepType.Alter);
+                        stepType = StepType.Alter;
                         name = alterStep.SourceElement.Name.ToString();
                     }
 
@@ -65,6 +69,17 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
                             new ExtensibilityError(
                                 string.Format("Step removed from deployment by SqlPackageFilter, object: {0}", name),
                                 Severity.Message));
+                    }
+                    else
+                    {
+                        if (_displayLevel == DisplayMessageLevel.Info)
+                        {
+                            base.PublishMessage(
+                                    new ExtensibilityError(
+                                        string.Format("Step has not been removed from deployment, object: {0} type: {1}", name, stepType),
+                                        Severity.Message));
+                            
+                        }
                     }
 
                 }

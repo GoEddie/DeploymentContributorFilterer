@@ -5,8 +5,8 @@ namespace AgileSqlClub.SqlPackageFilter.Config
     class FilterDefinitionTypeParser
     {
         private const string RuleDefinition = "SqlPackageFilter";
-        private const string RuleDefinitionXmlFile = "SqlPackageFilterFile";
-        private const string LoggingLevel = "SqlPackageFilterLogging";
+        private const string RuleDefinitionXmlFile = "SqlPackageXmlFilterFile";
+        private const string LoggingLevel = "SqlPackageLogging";
 
         public static FilterDefinitionType GetDefinitionType(string definition)
         {
