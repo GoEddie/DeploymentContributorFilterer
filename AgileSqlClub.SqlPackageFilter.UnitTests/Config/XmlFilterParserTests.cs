@@ -16,7 +16,7 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests.Config
         readonly IDisplayMessageHandler _handler = new TestDisplayMessageHandler();
 
         [Test]
-        public void BuildsRuleDefinition_For_Single_Rule_With_No_Match()
+        public void Converts_Security_To_A_Type_Match()
         {
             var xml = @"<DeploymentFilter><Filter Operation=""Ignore"" Type=""Security"" MatchType=""DoesMatch"" /></DeploymentFilter>";
             var gateway = new Mock<IFileGateway>();
@@ -27,9 +27,9 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests.Config
 
             Assert.AreEqual(1, defintions.Count());
             Assert.AreEqual(FilterOperation.Ignore, defintions.FirstOrDefault().Operation);
-            Assert.AreEqual(FilterType.Security, defintions.FirstOrDefault().FilterType);
+            Assert.AreEqual(FilterType.Type, defintions.FirstOrDefault().FilterType);
             Assert.AreEqual(MatchType.DoesMatch, defintions.FirstOrDefault().MatchType);
-            Assert.IsTrue(string.IsNullOrEmpty(defintions.FirstOrDefault().Match));
+            Assert.AreEqual("^(User|UserDefinedServerRole|ApplicationRole|BuiltInServerRole|Permission|Role|RoleMembership|ServerRoleMembership|User|UserDefinedServerRole)$", defintions.FirstOrDefault().Match);
         }
 
         [Test]
