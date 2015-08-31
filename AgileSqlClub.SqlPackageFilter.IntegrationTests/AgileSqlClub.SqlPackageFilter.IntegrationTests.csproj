@@ -45,13 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IgnoreTests.cs" />
-    <Compile Include="KeepTests.cs" />
+    <Compile Include="FilterTests\IgnoreTests.cs" />
+    <Compile Include="FilterTests\KeepTests.cs" />
     <Compile Include="ProcessGateway.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlGateway.cs" />
-    <Compile Include="SecurityTests.cs" />
-    <Compile Include="XmlMultiFilterTests.cs" />
+    <Compile Include="FilterTests\SecurityTests.cs" />
+    <Compile Include="FilterTests\XmlMultiFilterTests.cs" />
+    <Compile Include="VersionExecutorTests\DacpacVersionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
