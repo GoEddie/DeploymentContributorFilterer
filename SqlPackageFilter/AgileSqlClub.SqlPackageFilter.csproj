@@ -50,6 +50,7 @@
     <Reference Include="Microsoft.SqlServer.Dac.Extensions">
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\Extensions\Microsoft\SQLDB\DAC\120\Microsoft.SqlServer.Dac.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.SqlServer.TransactSql.ScriptDom, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -84,6 +85,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Filter\StepType.cs" />
     <Compile Include="Filter\StepTypeSniffer.cs" />
+    <Compile Include="Rules\TableColumnFilterRule.cs" />
     <Compile Include="VersionExecutor\VersionExecutor.cs" />
   </ItemGroup>
   <ItemGroup>

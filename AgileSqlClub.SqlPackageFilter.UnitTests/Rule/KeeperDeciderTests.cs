@@ -9,6 +9,7 @@ using Microsoft.SqlServer.Dac.Model;
 using Moq;
 using NUnit.Framework;
 using AgileSqlClub.SqlPackageFilter;
+using Microsoft.SqlServer.Dac.Deployment;
 
 namespace AgileSqlClub.SqlPackageFilter.UnitTests
 {
@@ -21,7 +22,7 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests
         {
             var keepRule = new Mock<FilterRule>();
             keepRule.Setup(p => p.Operation()).Returns(FilterOperation.Keep);
-            keepRule.Setup(p => p.Matches(It.IsAny<ObjectIdentifier>(), It.IsAny<ModelTypeClass>())).Callback(() => Assert.Fail("Rule should not have been called"));
+            keepRule.Setup(p => p.Matches(It.IsAny<ObjectIdentifier>(), It.IsAny<ModelTypeClass>(), It.IsAny<DeploymentStep>())).Callback(() => Assert.Fail("Rule should not have been called"));
 
             var decider = new KeeperDecider(new List<FilterRule>() { keepRule.Object });
             decider.ShouldRemoveFromPlan(new ObjectIdentifier("aa"), ModelSchema.Aggregate, StepType.Create);
@@ -33,7 +34,7 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests
         {
             var keepRule = new Mock<FilterRule>();
             keepRule.Setup(p => p.Operation()).Returns(FilterOperation.Keep);
-            keepRule.Setup(p => p.Matches(It.IsAny<ObjectIdentifier>(), It.IsAny<ModelTypeClass>())).Returns(true);
+            keepRule.Setup(p => p.Matches(It.IsAny<ObjectIdentifier>(), It.IsAny<ModelTypeClass>(), It.IsAny<DeploymentStep>())).Returns(true);
 
             var decider = new KeeperDecider(new List<FilterRule>() { keepRule.Object });
             var result = decider.ShouldRemoveFromPlan(new ObjectIdentifier("aa"), ModelSchema.Aggregate, StepType.Drop);
@@ -46,7 +47,7 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests
         {
             var ignoreRule = new Mock<FilterRule>();
             ignoreRule.Setup(p => p.Operation()).Returns(FilterOperation.Ignore);
-            ignoreRule.Setup(p => p.Matches(It.IsAny<ObjectIdentifier>(), It.IsAny<ModelTypeClass>())).Returns(true);
+            ignoreRule.Setup(p => p.Matches(It.IsAny<ObjectIdentifier>(), It.IsAny<ModelTypeClass>(), It.IsAny<DeploymentStep>())).Returns(true);
 
             var decider = new KeeperDecider(new List<FilterRule>() { ignoreRule.Object });
             var result = decider.ShouldRemoveFromPlan(new ObjectIdentifier("aa"), ModelSchema.Aggregate, StepType.Create);
@@ -60,7 +61,7 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests
         {
             var ignoreRule = new Mock<FilterRule>();
             ignoreRule.Setup(p => p.Operation()).Returns(FilterOperation.Ignore);
-            ignoreRule.Setup(p => p.Matches(It.IsAny<ObjectIdentifier>(), It.IsAny<ModelTypeClass>())).Returns(true);
+            ignoreRule.Setup(p => p.Matches(It.IsAny<ObjectIdentifier>(), It.IsAny<ModelTypeClass>(), It.IsAny<DeploymentStep>())).Returns(true);
 
             var decider = new KeeperDecider(new List<FilterRule>() { ignoreRule.Object });
             var result = decider.ShouldRemoveFromPlan(new ObjectIdentifier("aa"), ModelSchema.Aggregate, StepType.Drop);
@@ -74,7 +75,7 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests
         {
             var ignoreRule = new Mock<FilterRule>();
             ignoreRule.Setup(p => p.Operation()).Returns(FilterOperation.Ignore);
-            ignoreRule.Setup(p => p.Matches(It.IsAny<ObjectIdentifier>(), It.IsAny<ModelTypeClass>())).Returns(true);
+            ignoreRule.Setup(p => p.Matches(It.IsAny<ObjectIdentifier>(), It.IsAny<ModelTypeClass>(), null)).Returns(true);
 
             var decider = new KeeperDecider(new List<FilterRule>() { ignoreRule.Object });
             var result = decider.ShouldRemoveFromPlan(new ObjectIdentifier("aa"), ModelSchema.Aggregate, StepType.Alter);
@@ -83,16 +84,22 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests
         }
 
         [Test]
+        public void Alter_Step_With_TableColumns_Removes_From_Plan()
+        {
+           //Not possible to have this unit test as AlterStep isn't mockable or instantiatable :( and i don't want to do it through reflection :)
+        }
+
+        [Test]
         public void All_Rules_Ignored_For_Other_Steps()
         {
             var ignoreRule = new Mock<FilterRule>();
             ignoreRule.Setup(p => p.Operation()).Returns(FilterOperation.Ignore);
-            ignoreRule.Setup(p => p.Matches(It.IsAny<ObjectIdentifier>(), It.IsAny<ModelTypeClass>())).Callback(() => Assert.Fail("Ignore Rule should not have been called")); ;
+            ignoreRule.Setup(p => p.Matches(It.IsAny<ObjectIdentifier>(), It.IsAny<ModelTypeClass>(), null)).Callback(() => Assert.Fail("Ignore Rule should not have been called")); ;
 
 
             var keepRule = new Mock<FilterRule>();
             keepRule.Setup(p => p.Operation()).Returns(FilterOperation.Keep);
-            keepRule.Setup(p => p.Matches(It.IsAny<ObjectIdentifier>(), It.IsAny<ModelTypeClass>())).Callback(() => Assert.Fail("Keep Rule should not have been called"));
+            keepRule.Setup(p => p.Matches(It.IsAny<ObjectIdentifier>(), It.IsAny<ModelTypeClass>(), null)).Callback(() => Assert.Fail("Keep Rule should not have been called"));
 
             var decider = new KeeperDecider(new List<FilterRule>() { ignoreRule.Object, keepRule.Object});
             var result = decider.ShouldRemoveFromPlan(new ObjectIdentifier("aa"), ModelSchema.Aggregate, StepType.Other);

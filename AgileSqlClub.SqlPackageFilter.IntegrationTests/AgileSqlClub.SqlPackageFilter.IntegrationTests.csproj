@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FilterTests\IgnoreTests.cs" />
+    <Compile Include="FilterTests\KeepColumnsTests.cs" />
     <Compile Include="FilterTests\KeepTests.cs" />
     <Compile Include="ProcessGateway.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

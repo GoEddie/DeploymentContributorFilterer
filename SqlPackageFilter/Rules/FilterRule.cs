@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using AgileSqlClub.SqlPackageFilter.Filter;
+using Microsoft.SqlServer.Dac.Deployment;
 using Microsoft.SqlServer.Dac.Model;
 
 namespace AgileSqlClub.SqlPackageFilter.Rules
@@ -23,7 +24,7 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
             Regex = new Regex(Match, RegexOptions.Compiled);
         }
 
-        public virtual bool Matches(ObjectIdentifier name, ModelTypeClass objectType)
+        public virtual bool Matches(ObjectIdentifier name, ModelTypeClass objectType, DeploymentStep step = null)
         {
             return false;
         }

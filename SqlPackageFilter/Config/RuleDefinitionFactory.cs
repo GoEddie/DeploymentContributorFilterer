@@ -25,23 +25,29 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                 switch (ruleDefinition.FilterType)
                 {
                     case FilterType.Schema:
-                        rules.Add(new SchemaFilterRule(ruleDefinition.Operation, ruleDefinition.Match, ruleDefinition.MatchType ));
+                        rules.Add(new SchemaFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
+                            ruleDefinition.MatchType));
                         break;
                     case FilterType.Name:
-                        rules.Add(new NamedObjectFilterRule(ruleDefinition.Operation, ruleDefinition.Match, ruleDefinition.MatchType));
+                        rules.Add(new NamedObjectFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
+                            ruleDefinition.MatchType));
                         break;
                     case FilterType.Type:
-                        rules.Add(new ObjectTypeFilterRule(ruleDefinition.Operation, ruleDefinition.Match, ruleDefinition.MatchType));
+                        rules.Add(new ObjectTypeFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
+                            ruleDefinition.MatchType));
                         break;
-
+                    case FilterType.TableColumns:
+                        rules.Add(new TableColumnFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
+                            ruleDefinition.MatchType));
+                        break;
                 }
             }
 
             return rules;
-
         }
 
-        public IEnumerable<RuleDefinition> BuildRuleDefinitions(Dictionary<string, string> contextArgs, DeploymentFilter deploymentFilter)
+        public IEnumerable<RuleDefinition> BuildRuleDefinitions(Dictionary<string, string> contextArgs,
+            DeploymentFilter deploymentFilter)
         {
             var rules = new List<RuleDefinition>();
 
@@ -62,19 +68,18 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                         var level = DisplayMessageLevel.None;
                         if (Enum.TryParse(arg.Value, true, out level))
                         {
-                            _messageHandler.SetMessageLevel(level);    
+                            _messageHandler.SetMessageLevel(level);
                         }
                     }
-
-
                 }
                 catch (Exception e)
                 {
-                    deploymentFilter.ShowMessage(string.Format("Error decoding command line arg: {0}, error: {1}", arg.Value, e.Message));
+                    deploymentFilter.ShowMessage(string.Format("Error decoding command line arg: {0}, error: {1}",
+                        arg.Value, e.Message));
                 }
             }
 
             return rules;
-        } 
+        }
     }
 }

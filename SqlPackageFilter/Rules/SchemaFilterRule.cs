@@ -1,6 +1,8 @@
+using System;
 using System.Linq;
 using AgileSqlClub.SqlPackageFilter.DacExtensions;
 using AgileSqlClub.SqlPackageFilter.Filter;
+using Microsoft.SqlServer.Dac.Deployment;
 using Microsoft.SqlServer.Dac.Model;
 
 namespace AgileSqlClub.SqlPackageFilter.Rules
@@ -11,7 +13,7 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
         {
         }
 
-        public override bool Matches(ObjectIdentifier name, ModelTypeClass type)
+        public override bool Matches(ObjectIdentifier name, ModelTypeClass type, DeploymentStep step = null)
         {
             var schemaName = type == ModelSchema.Schema ? name.Parts.Last() : name.GetSchemaName();
             

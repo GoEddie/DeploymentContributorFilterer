@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AgileSqlClub.SqlPackageFilter.Filter;
+using Microsoft.SqlServer.Dac.Deployment;
 using Microsoft.SqlServer.Dac.Model;
 
 namespace AgileSqlClub.SqlPackageFilter.Rules
@@ -27,8 +28,9 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
         /// <param name="name"></param>
         /// <param name="objectType"></param>
         /// <param name="stepType"></param>
+        /// <param name="step"></param>
         /// <returns></returns>
-        public bool ShouldRemoveFromPlan(ObjectIdentifier name, ModelTypeClass objectType, StepType stepType)
+        public bool ShouldRemoveFromPlan(ObjectIdentifier name, ModelTypeClass objectType, StepType stepType, DeploymentStep step = null)
         {
 
             if (stepType == StepType.Other)
@@ -44,6 +46,11 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
                 }
 
                 if (operation == FilterOperation.Keep && stepType == StepType.Drop && rule.Matches(name, objectType))
+                {
+                    return true;
+                }
+
+                if (operation == FilterOperation.Keep && stepType == StepType.Alter  && rule.Matches(name, objectType, step))  
                 {
                     return true;
                 }

@@ -36,6 +36,9 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                 case FilterType.Type:
                     remove = 4;
                     break;
+                case FilterType.TableColumns:
+                    remove = 12;
+                    break;
                 case FilterType.Security:
                 {
                     return new RuleDefinition()
@@ -90,10 +93,18 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                 return FilterType.Type;
             }
 
+            if (value.StartsWith("TableColumns", StringComparison.OrdinalIgnoreCase))
+            {
+                return FilterType.TableColumns;
+            }
+
+
             if (value.StartsWith("Security", StringComparison.OrdinalIgnoreCase))
             {
                 return FilterType.Security;
             }
+
+
 
             throw new ArgumentException(string.Format("Could not get filter type, either Schema, Name or Type from: {0}", value));
 
