@@ -1,4 +1,6 @@
+using System;
 using System.Linq;
+using System.Windows.Forms;
 using AgileSqlClub.SqlPackageFilter.Filter;
 using Microsoft.SqlServer.Dac.Deployment;
 using Microsoft.SqlServer.Dac.Model;
@@ -17,6 +19,7 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
 
         public override bool Matches(ObjectIdentifier name, ModelTypeClass objectType, DeploymentStep step = null)
         {
+
             if (step == null)
                 return false;
 
@@ -26,6 +29,11 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
             if (!Matches(name.Parts.LastOrDefault()))
             {
                 return false;
+            }
+                
+            if (step is SqlTableMigrationStep)
+            {
+                return true;   //we can't allow a table migration on this table as it would drop our extra columns....
             }
 
             var alterStep = step as AlterElementStep;
@@ -43,6 +51,8 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
             if (batch == null)
                 return false;
             
+            //is there a create table statement for our table? if so abort the whole thing
+            
             var statement = batch.Statements.FirstOrDefault();
 
             var dropTableElementStatement = statement as AlterTableDropTableElementStatement;
@@ -56,8 +66,15 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
             {
                 dropTableElementStatement.AlterTableDropTableElements.Remove(alterTableDropTableElement);
             }
+       
+            if (dropTableElementStatement.AlterTableDropTableElements.Count > 0)
+            {
+                return false;
+            }  //This is a strange one, we remove the bits we want from the drop table element but there might be other things like constraints that should be dropped
 
-            return dropTableElementStatement.AlterTableDropTableElements.Count == 0;  //This is a strange one, we remove the bits we want from the drop table element but there might be other things like constraints that should be dropped
+            script.Batches.RemoveAt(0);   
+
+            return script.Batches.Count == 0;
 
         }
     }
