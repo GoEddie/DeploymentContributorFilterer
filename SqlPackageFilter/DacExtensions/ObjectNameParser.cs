@@ -7,12 +7,7 @@ namespace AgileSqlClub.SqlPackageFilter.DacExtensions
         //get the schema - basically it needs to have at least two parts, maybe return enum
         public static string GetSchemaName(this ObjectIdentifier src)
         {
-            if (src.Parts.Count > 1)
-            {
-                return src.Parts[src.Parts.Count - 2];
-            }
-
-            return null;
+          return src.Parts.Count > 1 ? src.Parts[src.Parts.Count - 2] : null;
         }
     }
 }

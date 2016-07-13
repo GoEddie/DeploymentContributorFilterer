@@ -4,7 +4,6 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using AgileSqlClub.SqlPackageFilter.Filter;
-using Microsoft.SqlServer.Dac.Model;
 
 namespace AgileSqlClub.SqlPackageFilter.Config
 {

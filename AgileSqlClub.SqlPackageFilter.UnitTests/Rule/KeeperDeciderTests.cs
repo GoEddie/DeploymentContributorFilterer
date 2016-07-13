@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using AgileSqlClub.SqlPackageFilter.Filter;
 using AgileSqlClub.SqlPackageFilter.Rules;
 using Microsoft.SqlServer.Dac.Model;
 using Moq;
 using NUnit.Framework;
-using AgileSqlClub.SqlPackageFilter;
 using Microsoft.SqlServer.Dac.Deployment;
 
 namespace AgileSqlClub.SqlPackageFilter.UnitTests

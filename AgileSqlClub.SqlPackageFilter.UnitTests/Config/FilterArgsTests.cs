@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AgileSqlClub.SqlPackageFilter.Config;
+﻿using AgileSqlClub.SqlPackageFilter.Config;
 using AgileSqlClub.SqlPackageFilter.Filter;
 using NUnit.Framework;
-using NUnit.Framework.Constraints;
 
 namespace AgileSqlClub.SqlPackageFilter.UnitTests.Config
 {

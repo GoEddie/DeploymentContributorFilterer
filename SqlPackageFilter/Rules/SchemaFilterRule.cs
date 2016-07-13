@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using AgileSqlClub.SqlPackageFilter.DacExtensions;
 using AgileSqlClub.SqlPackageFilter.Filter;
@@ -17,10 +16,7 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
         {
             var schemaName = type == ModelSchema.Schema ? name.Parts.Last() : name.GetSchemaName();
             
-            if (string.IsNullOrEmpty(schemaName))
-                return false;
-
-            return Matches(schemaName);
+            return !string.IsNullOrEmpty(schemaName) && Matches(schemaName);
         }
     }
 }

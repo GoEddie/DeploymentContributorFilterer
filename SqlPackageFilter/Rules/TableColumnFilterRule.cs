@@ -1,6 +1,4 @@
-using System;
 using System.Linq;
-using System.Windows.Forms;
 using AgileSqlClub.SqlPackageFilter.Filter;
 using Microsoft.SqlServer.Dac.Deployment;
 using Microsoft.SqlServer.Dac.Model;

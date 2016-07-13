@@ -5,6 +5,7 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
         Other,
         Create,
         Alter,
-        Drop
+        Drop,
+        DataLossCheck
     }
 }

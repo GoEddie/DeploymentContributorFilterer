@@ -64,6 +64,9 @@
   <ItemGroup>
     <Compile Include="Config\CommandLineFilterParser.cs" />
     <Compile Include="FileGateway.cs" />
+    <Compile Include="Filter\DataLossCheckStep.cs" />
+    <Compile Include="Filter\DeploymentStepDecision.cs" />
+    <Compile Include="Filter\DeploymentStepDecider.cs" />
     <Compile Include="Filter\DisplayMessageLevel.cs" />
     <Compile Include="Filter\FilterDefinitionType.cs" />
     <Compile Include="Config\FilterDefinitionTypeParser.cs" />
@@ -74,6 +77,7 @@
     <Compile Include="Filter\IDisplayMessageHandler.cs" />
     <Compile Include="Filter\MatchType.cs" />
     <Compile Include="Config\FilterOperation.cs" />
+    <Compile Include="Filter\ObjectIdentifierFactory.cs" />
     <Compile Include="Rules\FilterRule.cs" />
     <Compile Include="Filter\FilterType.cs" />
     <Compile Include="Rules\NamedObjectFilterRule.cs" />
