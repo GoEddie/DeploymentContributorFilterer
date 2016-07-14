@@ -14,9 +14,7 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
 
         public override bool Matches(ObjectIdentifier name, ModelTypeClass type, DeploymentStep step = null)
         {
-            var schemaName = type == ModelSchema.Schema ? name.Parts.Last() : name.GetSchemaName();
-            
-            return !string.IsNullOrEmpty(schemaName) && Matches(schemaName);
+            return Matches(name.GetSchemaName(type));
         }
     }
 }
