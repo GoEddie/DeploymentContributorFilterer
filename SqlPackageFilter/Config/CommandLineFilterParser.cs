@@ -13,7 +13,7 @@ namespace AgileSqlClub.SqlPackageFilter.Config
             _messageHandler = messageHandler;
         }
 
-        private const string SecurityFilterMatch = @"^(User|UserDefinedServerRole|ApplicationRole|BuiltInServerRole|Permission|Role|RoleMembership|ServerRoleMembership|User|UserDefinedServerRole)$";
+        private const string SecurityFilterMatch = @"^(User|UserDefinedServerRole|ApplicationRole|BuiltInServerRole|Permission|Role|RoleMembership|ServerRoleMembership|User|Login|UserDefinedServerRole)$";
 
         public RuleDefinition GetDefinitions(string value)
         {
