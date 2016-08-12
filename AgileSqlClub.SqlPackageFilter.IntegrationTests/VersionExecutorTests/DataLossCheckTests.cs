@@ -5,7 +5,7 @@ using System.IO;
 namespace AgileSqlClub.SqlPackageFilter.IntegrationTests.VersionExecutorTests
 {
     [TestFixture]
-    public class DacpacVersionTests
+    public class DataLossCheckTests
     {
         private readonly SqlGateway _gateway = new SqlGateway(new AppSettingsReader().GetValue("ConnectionString", typeof(string)) as string);
 

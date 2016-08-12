@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using AgileSqlClub.SqlPackageFilter.Config;
 using AgileSqlClub.SqlPackageFilter.Rules;
 using Microsoft.SqlServer.Dac.Deployment;
@@ -6,7 +7,7 @@ using Microsoft.SqlServer.Dac.Extensibility;
 
 namespace AgileSqlClub.SqlPackageFilter.Filter
 {
-  [ExportDeploymentPlanModifier("AgileSqlClub.DeploymentFilterContributor", "1.4.1.0")]
+  [ExportDeploymentPlanModifier("AgileSqlClub.DeploymentFilterContributor", "1.4.3.0")]
   public class DeploymentFilter : DeploymentPlanModifier, IDisplayMessageHandler
   {
     private DisplayMessageLevel _displayLevel = DisplayMessageLevel.Errors;
@@ -29,7 +30,7 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
 
     protected override void OnExecute(DeploymentPlanContributorContext context)
     {
-
+      Debugger.Launch();
 
       try
       {

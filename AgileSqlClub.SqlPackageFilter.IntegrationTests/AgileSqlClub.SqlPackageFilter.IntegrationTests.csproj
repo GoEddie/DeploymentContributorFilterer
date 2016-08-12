@@ -53,7 +53,7 @@
     <Compile Include="SqlGateway.cs" />
     <Compile Include="FilterTests\SecurityTests.cs" />
     <Compile Include="FilterTests\XmlMultiFilterTests.cs" />
-    <Compile Include="VersionExecutorTests\DacpacVersionTests.cs" />
+    <Compile Include="VersionExecutorTests\DataLossCheckTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

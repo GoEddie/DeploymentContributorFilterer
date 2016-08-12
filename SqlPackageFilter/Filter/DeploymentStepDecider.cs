@@ -27,9 +27,9 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
 
       return alterStep == null ? null : new DeploymentStepDecision()
       {
-        Remove = decider.ShouldRemoveFromPlan(alterStep.TargetElement.Name, alterStep.TargetElement.ObjectType, StepType.Alter, alterStep),
+        Remove = decider.ShouldRemoveFromPlan(alterStep.TargetElement?.Name ?? new ObjectIdentifier(), alterStep.TargetElement?.ObjectType, StepType.Alter, alterStep),
         StepType = StepType.Alter,
-        ObjectName = alterStep.TargetElement.Name.ToString()
+        ObjectName = alterStep.TargetElement?.Name?.ToString() ?? ""
       };
     }
 
@@ -39,9 +39,9 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
 
       return dropStep == null ? null : new DeploymentStepDecision()
       {
-        Remove = decider.ShouldRemoveFromPlan(dropStep.TargetElement.Name, dropStep.TargetElement.ObjectType, StepType.Drop),
+        Remove = decider.ShouldRemoveFromPlan(dropStep.TargetElement?.Name ?? new ObjectIdentifier(), dropStep.TargetElement?.ObjectType, StepType.Drop),
         StepType = StepType.Drop,
-        ObjectName = dropStep.TargetElement.Name.ToString()
+        ObjectName = dropStep.TargetElement?.Name?.ToString() ?? ""
       };
     }
 
@@ -51,9 +51,9 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
 
       return createStep == null ? null : new DeploymentStepDecision()
       {
-        Remove = decider.ShouldRemoveFromPlan(createStep.SourceElement.Name, createStep.SourceElement.ObjectType, StepType.Create),
+        Remove = decider.ShouldRemoveFromPlan(createStep.SourceElement?.Name ?? new ObjectIdentifier(), createStep.SourceElement?.ObjectType, StepType.Create),
         StepType = StepType.Create,
-        ObjectName = createStep.SourceElement.Name.ToString()
+        ObjectName = createStep.SourceElement?.Name?.ToString() ?? ""
       };
     }
   }
