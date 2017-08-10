@@ -30,8 +30,7 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
 
     protected override void OnExecute(DeploymentPlanContributorContext context)
     {
-      Debugger.Launch();
-
+      
       try
       {
         PublishMessage(new ExtensibilityError("Starting AgileSqlClub.DeploymentFilterContributor", Severity.Message));
