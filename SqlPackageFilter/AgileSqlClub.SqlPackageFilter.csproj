@@ -93,6 +93,7 @@
     <Compile Include="Filter\MatchType.cs" />
     <Compile Include="Config\FilterOperation.cs" />
     <Compile Include="Filter\ObjectIdentifierFactory.cs" />
+    <Compile Include="Extensions\OptionalExtensions.cs" />
     <Compile Include="Rules\FilterRule.cs" />
     <Compile Include="Filter\FilterType.cs" />
     <Compile Include="Rules\NamedObjectFilterRule.cs" />
