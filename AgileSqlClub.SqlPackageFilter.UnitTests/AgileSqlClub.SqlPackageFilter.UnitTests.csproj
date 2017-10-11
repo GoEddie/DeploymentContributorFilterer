@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AgileSqlClub.SqlPackageFilter.UnitTests</RootNamespace>
     <AssemblyName>AgileSqlClub.SqlPackageFilter.UnitTests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,28 +37,23 @@
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Data.Tools.Schema.Sql, Version=13.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.DacFx.x64.130.3370.2\lib\net40\Microsoft.Data.Tools.Schema.Sql.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Data.Tools.Schema.Sql, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.DacFx.x64.140.3745.1\lib\net46\Microsoft.Data.Tools.Schema.Sql.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Data.Tools.Utilities, Version=13.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.DacFx.x64.130.3370.2\lib\net40\Microsoft.Data.Tools.Utilities.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.Data.Tools.Utilities, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.DacFx.x64.140.3745.1\lib\net46\Microsoft.Data.Tools.Utilities.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.Dac, Version=13.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.DacFx.x64.130.3370.2\lib\net40\Microsoft.SqlServer.Dac.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.SqlServer.Dac, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.DacFx.x64.140.3745.1\lib\net46\Microsoft.SqlServer.Dac.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.Dac.Extensions, Version=13.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.DacFx.x64.130.3370.2\lib\net40\Microsoft.SqlServer.Dac.Extensions.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.SqlServer.Dac.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.DacFx.x64.140.3745.1\lib\net46\Microsoft.SqlServer.Dac.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.TransactSql.ScriptDom, Version=13.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.DacFx.x64.130.3370.2\lib\net40\Microsoft.SqlServer.TransactSql.ScriptDom.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.SqlServer.TransactSql.ScriptDom, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.DacFx.x64.140.3745.1\lib\net46\Microsoft.SqlServer.TransactSql.ScriptDom.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.Types, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.DacFx.x64.130.3370.2\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.DacFx.x64.140.3745.1\lib\net46\Microsoft.SqlServer.Types.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Moq, Version=4.5.13.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
