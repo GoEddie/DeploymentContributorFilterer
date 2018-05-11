@@ -16,9 +16,11 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
 
         public override bool Matches(ObjectIdentifier name, ModelTypeClass type, DeploymentStep step = null)
         {
-            var objectName = name.Parts.LastOrDefault();
-            
-            return !String.IsNullOrEmpty(objectName) && (Matches(objectName));
+            foreach (var part in name.Parts)
+                if (!String.IsNullOrEmpty(part) && (Matches(part)))
+                    return true;
+
+            return false;
         }
     }
 }

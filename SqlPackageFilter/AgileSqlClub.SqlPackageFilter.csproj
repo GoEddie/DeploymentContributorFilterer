@@ -88,6 +88,7 @@
     <Compile Include="Filter\MatchType.cs" />
     <Compile Include="Config\FilterOperation.cs" />
     <Compile Include="Filter\ObjectIdentifierFactory.cs" />
+    <Compile Include="Extensions\OptionalExtensions.cs" />
     <Compile Include="Rules\FilterRule.cs" />
     <Compile Include="Filter\FilterType.cs" />
     <Compile Include="Rules\NamedObjectFilterRule.cs" />
@@ -115,6 +116,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /Y "$(TargetPath)" "C:\Program Files\Microsoft SQL Server\130\DAC\bin"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
