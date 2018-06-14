@@ -33,7 +33,7 @@ Once you know what type of filter you want you need to decide what you will filt
 
 * Name filters work on an objects name, pretty straight forward.
 * Schema filters work on the name of the schema so you can keep or ignore everything in a specific schema
-* Object type filters work on the type of the object as the Dac Fx api sees it, these types are all documented as properties of the ModelSchema class: [link](http://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dac.model.modelschema.aspx)
+* Object type filters work on the type of the object as the DacFx api sees it, these types are all documented as properties of the ModelSchema class: [link](http://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dac.model.modelschema.aspx)
 
 The object types are all fields, so the list starts Aggregate, ApplicationRole etc etc. Once you have decided how you will filter you specify the filter itself which is a regex, but don’t be scared it doesn’t have to be complex.
 
@@ -41,25 +41,27 @@ The object types are all fields, so the list starts Aggregate, ApplicationRole e
 Because of the way we pass the arguments to SqlPackage.exe and it then parses them and passes them onto the deployment contributor it is a little rigid, but essentially the filter itself look like:
 
 To keep everything in dbo:
-
 ```
 KeepSchema(dbo)
 ```
 
 To ignore all Tables:
-
 ```
 IgnoreType(Table)
 ```
 
 To keep a table called MyTable or MyExcellentFunnyTable:
-
 ```
 KeepName(.*yTabl.*)
 ```
 
-When you have decided onthe filter you use need to pass it to SqlPackage.exe using:
+Behind the scenes, matching relies on regex using the default .Net options for the Match method. 
+To only deploy to the dbo schema (ie exclude non-dbo objects):
+```
+IgnoreSchema(^(?!\b(?i)dbo\b).*)
+```
 
+When you have decided on the filter you use need to pass it to SqlPackage.exe using:
 ```
 /p:AdditionalDeploymentContributorArguments="SqlPackageFilter=KeepSecurity"
 ```
