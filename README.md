@@ -8,7 +8,7 @@ Original documentation and discussion adapted from:
 Download the latest release from Github or build yourself. Put the AgileSqlClub.SqlPackageFilter.dll file into the same folder as SqlPackage.exe, and add these commmand line parameters to your deployment:
 
 ```
-/p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor /p:AdditionalDeploymentContributorArguments=“SqlPackageFilter=IgnoreSchema(BLAH)”
+/p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor /p:AdditionalDeploymentContributorArguments="SqlPackageFilter=IgnoreSchema(BLAH)"
 ```
 
 This will neither deploy, drop or alter anything in the BLAH schema.
@@ -61,13 +61,13 @@ KeepName(.*yTabl.*)
 When you have decided onthe filter you use need to pass it to SqlPackage.exe using:
 
 ```
-/p:AdditionalDeploymentContributorArguments=“SqlPackageFilter=KeepSecurity”
+/p:AdditionalDeploymentContributorArguments="SqlPackageFilter=KeepSecurity"
 ```
 
 You can specify multiple filters by seperating them with a semi colon so and adding a uniqeifier to the end of each arg name:
 
 ```
-/p:AdditionalDeploymentContributorArguments=“SqlPackageFilter0=KeepSecurity;SqlPackageFilter1=IgnoreSchema(dev)”
+/p:AdditionalDeploymentContributorArguments="SqlPackageFilter0=KeepSecurity;SqlPackageFilter1=IgnoreSchema(dev)"
 ```
 
 (The reason for the uniqueifier is detailed: https://connect.microsoft.com/SQLServer/feedback/details/1112969)
