@@ -2206,6 +2206,478 @@
             whose problems should be suppressed
             </summary>
         </member>
+        <member name="T:Microsoft.SqlServer.Dac.Compare.DacSchemaComparisonMessage">
+            <summary>
+            Represents a problem encountered during schema comparison.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.DacSchemaComparisonMessage.Exception">
+            <summary>
+            Exception associated with the error, or null
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Compare.SchemaCompareApiResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareApiResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareApiResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareApiResources.ComparisonResultStateDoesNotAllowPublish">
+            <summary>
+              Looks up a localized string similar to Performing publish is not possible for this comparison result..
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareApiResources.ComparisonResultStateDoesNotAllowScriptGeneration">
+            <summary>
+              Looks up a localized string similar to Performing script generation is not possible for this comparison result..
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareApiResources.InvalidConnectionString">
+            <summary>
+              Looks up a localized string similar to The specified connection string is not valid..
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareApiResources.OperationFailedDueToAnUnexpectedException">
+            <summary>
+              Looks up a localized string similar to The operation failed..
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareApiResources.OperationFailedDueToException0">
+            <summary>
+              Looks up a localized string similar to The operation failed. The error was: {0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareApiResources.OperationFailedDueToSourceDrift">
+            <summary>
+              Looks up a localized string similar to The operation could not continue because the source database was modified after schema comparison was completed..
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareApiResources.OperationFailedDueToSourceModelErrors">
+            <summary>
+              Looks up a localized string similar to The operation could not continue because the source model contains errors..
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareApiResources.OperationFailedDueToTargetDrift">
+            <summary>
+              Looks up a localized string similar to The operation could not continue because the target database was modified after schema comparison was completed..
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareApiResources.OperationFailedDueToTargetModelErrors">
+            <summary>
+              Looks up a localized string similar to The operation could not continue because the target model contains errors..
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareApiResources.Path0DoesntContainValidScmpFile">
+            <summary>
+              Looks up a localized string similar to The path &apos;{0}&apos; does not contain a valid schema compare file (.scmp file)..
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareApiResources.SchemaComparisonOnlySupportsDacpacAndDatabase">
+            <summary>
+              Looks up a localized string similar to SchemaComparison only supports database and dacpac endpoint types..
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareApiResources.UnableToDeserializeScmpFile">
+            <summary>
+              Looks up a localized string similar to The specified file could not be opened as a schema comparison file.  The file might be corrupt or it might refer to a target or source endpoint that is not of type database or dacpac. Only database endpoints and dacpac endpoints are supported..
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareApiResources.UpdateScriptsForDacpacsRequireDbName">
+            <summary>
+              Looks up a localized string similar to A non-empty database name must be specified in order to generate an update script for a SchemaCompareDacpacEndpoint..
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Compare.SchemaCompareEndpoint">
+            <summary>
+            Refers to a source or target for schema comparison
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Compare.SchemaCompareDacpacEndpoint">
+            <summary>
+            Refers to a dacpac file as either a source or target for schema comparison
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaCompareDacpacEndpoint.#ctor(System.String)">
+            <summary>
+            Constructs a schema compare endpoint that refers to a dacpac file
+            </summary>
+            <param name="dacpacFilePath">Path to a dacpac file</param>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareDacpacEndpoint.FilePath">
+            <summary>
+            The dacpac file path
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Compare.SchemaCompareDatabaseEndpoint">
+            <summary>
+            Refers to a database as either a source or target for schema comparison
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaCompareDatabaseEndpoint.#ctor(System.String)">
+            <summary>
+            Constructs a schema compare endpoint that refers to a database
+            </summary>
+            <param name="connectionString">A connection string to a database instance</param>
+            <exception cref="T:System.ArgumentNullException">The supplied connection string is null.</exception>
+            <exception cref="T:System.FormatException">Invalid value within the connection string (for example, when a Boolean or numeric value was expected but not supplied).</exception>
+            <exception cref="T:System.ArgumentException">The supplied connectionString is not valid.</exception>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaCompareDatabaseEndpoint.#ctor(System.String,System.Security.SecureString)">
+            <summary>
+            Constructs a schema compare endpoint that refers to a database
+            </summary>
+            <param name="connectionString">A connection string to a database instance</param>
+            <param name="password"><see cref="T:System.Security.SecureString"/> that supplies the password for the database connection used by this instance.</param>
+            <exception cref="T:System.ArgumentNullException">The supplied connection string or password is null.</exception>
+            <exception cref="T:System.FormatException">Invalid value within the connection string (for example, when a Boolean or numeric value was expected but not supplied).</exception>
+            <exception cref="T:System.ArgumentException">The supplied connectionString is not valid.</exception>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaCompareDatabaseEndpoint.#ctor(Microsoft.Data.Tools.Schema.Common.SqlClient.SqlConnectionFactory)">
+            <summary>
+            Constructs a schema compare endpoint that refers to a database
+            </summary>
+            <param name="connectionFactory">A connection string to a database instance</param>
+            <exception cref="T:System.ArgumentNullException">The supplied connection factory is null.</exception>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareDatabaseEndpoint.DatabaseName">
+            <summary>
+            The database name
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Compare.SchemaComparison">
+            <summary>
+            Class that allows comparing schema between two types of entities: databases and dacpac files
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaComparison.#ctor(System.String)">
+            <summary>
+            SchemaComparison constructor that uses a schema compare file (.scmp file) for
+            all comparison settings.  Only dacpac and/or database endpoints may be compared.
+            </summary>
+            <param name="scmpFilePath">The path to a schema compare file (.scmp file)</param>
+            <exception cref="T:System.ArgumentException">If either the source or the target endpoint is neither a database nor a dacpac file.</exception>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaComparison.#ctor(Microsoft.SqlServer.Dac.Compare.SchemaCompareEndpoint,Microsoft.SqlServer.Dac.Compare.SchemaCompareEndpoint)">
+            <summary>
+            SchemaComparison constructor that takes endpoints that specify the source and target for comparison.
+            </summary>
+            <param name="source">A <see cref="T:Microsoft.SqlServer.Dac.Compare.SchemaCompareEndpoint"/> that refers to a schema source.</param>
+            <param name="target">An <see cref="T:Microsoft.SqlServer.Dac.Compare.SchemaCompareEndpoint"/> that refers to a target.  Comparison will update the target to match the source.</param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaComparison.Compare">
+            <summary>
+            Performs schema comparison, populating comparison results.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaComparison.SaveToFile(System.String,System.Boolean)">
+            <summary>
+            Saves the SchemaComparison as an scmp file.
+            </summary>
+            <param name="filePath"></param>
+            <param name="overwrite">When true, any existing file at filePath will be overwritten. If false, save will throw an
+            IOException if a file already exists at filePath.</param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaComparison.SaveToStream(System.IO.Stream)">
+            <summary>
+            Saves the SchemaComparison as an scmp file into a stream
+            </summary>
+            <param name="stream">A stream that supports writing.</param>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaComparison.Source">
+            <summary>
+            The <see cref="T:Microsoft.SqlServer.Dac.Compare.SchemaCompareEndpoint"/> that refers to a schema source.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaComparison.Target">
+            <summary>
+            The <see cref="T:Microsoft.SqlServer.Dac.Compare.SchemaCompareEndpoint"/> that refers to a target.  Comparison will update the target to match the source.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaComparison.ExcludedSourceObjects">
+            <summary>
+            Elements in the source database model to exclude from comparison.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaComparison.ExcludedTargetObjects">
+            <summary>
+            Elements in the target database model to exclude from comparison.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaComparison.Options">
+            <summary>
+            Options that affect the behavior of package deployment.
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Compare.SchemaDifferenceType">
+            <summary>
+            Represents the different possible types of <see cref="T:Microsoft.SqlServer.Dac.Compare.SchemaDifference"/>
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Compare.SchemaDifferenceType.Object">
+            <summary>
+            A model object (for example: column, parameter)
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Compare.SchemaDifferenceType.Property">
+            <summary>
+            A property of a model object (for example: Name, Collation)
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Compare.SchemaComparisonResult">
+            <summary>
+            Class that provides information about the differences between a source and target database.
+            Differences are represented in a tree structure.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaComparisonResult.Include(Microsoft.SqlServer.Dac.Compare.SchemaDifference)">
+            <summary>
+            Used to try to include a difference as part of the set of update actions that are scripted or published.
+            </summary>
+            <param name="node">The tree node to (possibly) modify</param>
+            <returns>Returns true if, after completion, the node's state is included</returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaComparisonResult.Exclude(Microsoft.SqlServer.Dac.Compare.SchemaDifference)">
+            <summary>
+            Used to try to exclude a difference as part of the set of update actions that are scripted or published.
+            </summary>
+            <param name="node">The tree node to (possibly) modify</param>
+            <returns>Returns true if, after completion, the node's state is not included</returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaComparisonResult.GetErrors">
+            <summary>
+            Provides an enumeration of errors that prevent successful schema compare operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaComparisonResult.GenerateScript(System.String)">
+            <summary>
+            Generates a T-SQL update script that makes the target schema consistent with the source schema.
+            </summary>
+            <param name="databaseName">The name of the target database.</param>
+            <returns>SchemaCompareScriptGenerationResult </returns>
+            <exception cref="T:System.ArgumentException">If the target is a dacpac and a null or empty databaseName value was provided.</exception>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaComparisonResult.PublishChangesToTarget">
+            <summary>
+            Generates and then executes a T-SQL update script that makes the target schema consistent with the source schema.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaComparisonResult.IsValid">
+            <summary>
+            Indicates whether comparison resulted in a valid, usable result
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaComparisonResult.IsEqual">
+            <summary>
+            Indicates whether the source and target endpoints are equal
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaComparisonResult.SourceModel">
+            <summary>
+            The source database model
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaComparisonResult.TargetModel">
+            <summary>
+            The target database model
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaComparisonResult.Differences">
+            <summary>
+            A tree that contains results of schema comparison of source and target endpoints.
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Compare.SchemaCompareScriptGenerationResult">
+            <summary>
+            Result of generating scripts
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareScriptGenerationResult.Script">
+            <summary>
+            The generated script
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareScriptGenerationResult.MasterScript">
+            <summary>
+            When needed (e.g. for Azure SQL Database), a separate script to be executed against the master database on the target server
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareScriptGenerationResult.Success">
+            <summary>
+            Indicates whether generating the script was successful.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareScriptGenerationResult.Message">
+            <summary>
+            Provides context information in the event of an error.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaCompareScriptGenerationResult.Exception">
+            <summary>
+            Provides error information in the event of an exception.
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Compare.SchemaComparePublishResult">
+            <summary>
+            Result of publishing comparison result
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaComparePublishResult.Script">
+            <summary>
+            The generated script
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaComparePublishResult.MasterScript">
+            <summary>
+            When needed (e.g. for Azure SQL Database), a separate script to be executed against the master database on the target server
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaComparePublishResult.Success">
+            <summary>
+            Indicates whether generating the script was successful.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaComparePublishResult.Errors">
+            <summary>
+            Any errors encountered while publishing
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Compare.SchemaDifference">
+            <summary>
+            Represents an object or property difference found during comparison of two database models.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaDifference.DifferenceType">
+            <summary>
+            Represents the type of this <see cref="T:Microsoft.SqlServer.Dac.Compare.SchemaDifference"/> node
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaDifference.UpdateAction">
+            <summary>
+            The update action required to make the schema of the target equal to the source schema.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaDifference.Included">
+            <summary>
+            Indicates whether this node and all of its children will be included during script generation or publish of the comparison result.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaDifference.IsExcludable">
+            <summary>
+            Indicates whether this node can be excluded from script generation and publish of the comparison result.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaDifference.Parent">
+            <summary>
+            The parent difference (of type <see cref="F:Microsoft.SqlServer.Dac.Compare.SchemaDifferenceType.Object"/>), if any, of this difference
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaDifference.Children">
+            <summary>
+            Object or property differences, if any, that relate to this difference.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaDifference.SourceObject">
+            <summary>
+            Object from the source database model
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaDifference.TargetObject">
+            <summary>
+            Object from the target database model
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaDifference.Name">
+            <summary>
+            Node name
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Compare.SchemaComparisonExcludedObjectId">
+            <summary>
+            Represents an object by name and type for use in <see cref="T:Microsoft.SqlServer.Dac.Compare.SchemaComparison"/> operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaComparisonExcludedObjectId.#ctor(Microsoft.SqlServer.Dac.Model.ModelTypeClass,Microsoft.SqlServer.Dac.Model.ObjectIdentifier)">
+            <summary>
+            Constructs an identifier that refers to an object by type and name.
+            </summary>
+            <param name="typeClass">The type of an object</param>
+            <param name="identifier">The ObjectIdentifier (name) of an object</param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaComparisonExcludedObjectId.#ctor(Microsoft.SqlServer.Dac.Model.ModelTypeClass,Microsoft.SqlServer.Dac.Model.ObjectIdentifier,Microsoft.SqlServer.Dac.Model.ModelTypeClass,Microsoft.SqlServer.Dac.Model.ObjectIdentifier)">
+            <summary>
+            Constructs an identifier that refers to an object by type and name.
+            </summary>
+            <param name="typeClass">The type of an object</param>
+            <param name="identifier">The ObjectIdentifier (name) of an object</param>
+            <param name="parentTypeClass">The type of the parent object. This is used to refer to an unnamed object by reference to its (named) parent.</param>
+            <param name="parentIdentifier">The name of the parent object. This is used to refer to an unnamed object by reference to its (named) parent.</param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaComparisonExcludedObjectId.#ctor(System.String,Microsoft.SqlServer.Dac.Model.ObjectIdentifier)">
+            <summary>
+            Constructs an identifier that refers to an object by type and name.
+            </summary>
+            <param name="typeName">The type name used by schema comparison</param>
+            <param name="identifier">The possibly null ObjectIdentifier (name) of an object</param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaComparisonExcludedObjectId.#ctor(System.String,Microsoft.SqlServer.Dac.Model.ObjectIdentifier,System.String,Microsoft.SqlServer.Dac.Model.ObjectIdentifier)">
+            <summary>
+            Constructs an identifier that refers to an object by type and name.
+            </summary>
+            <param name="typeName">The type name used by schema comparison</param>
+            <param name="identifier">The possibly null ObjectIdentifier (name) of an object</param>
+            <param name="parentTypeName">The type name of the parent object. This is used to refer to an unnamed object by reference to its (named) parent.</param>
+            <param name="parentIdentifier">The name of the parent object. This is used to refer to an unnamed object by reference to its (named) parent.</param>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaComparisonExcludedObjectId.TypeName">
+            <summary>
+            The type name used by schema comparison
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaComparisonExcludedObjectId.Identifier">
+            <summary>
+            Specifies the name of an object
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaComparisonExcludedObjectId.ParentTypeName">
+            <summary>
+            The type name of the parent object. This is used to refer to an unnamed object by reference to its (named) parent.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Compare.SchemaComparisonExcludedObjectId.ParentIdentifier">
+            <summary>
+            Specifies the name of the parent object. This is used to refer to an unnamed object by reference to its (named) parent.
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Compare.SchemaUpdateAction">
+            <summary>
+            Represents a schema update action
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Compare.SchemaUpdateAction.Delete">
+            <summary>
+            Delete - removing an object from the database
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Compare.SchemaUpdateAction.Change">
+            <summary>
+            Change - modifying an object in the database
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Compare.SchemaUpdateAction.Add">
+            <summary>
+            Add - adding an object to the database
+            </summary>
+        </member>
         <member name="T:Microsoft.SqlServer.Dac.DacPackageExtensions">
             <summary>
             Provides extension methods to support manipulation of DacPackage objects.
@@ -2670,6 +3142,12 @@
             This class is for read-only purpose and cannot be instantiated.
             </summary>
         </member>
+        <member name="T:Microsoft.SqlServer.Dac.Deployment.DacDropTemporalSchemaBoundElementStep">
+            <summary>
+            The step in deployment plan that represents drop of an temporal table schema-bound objects
+            This class is for read-only purpose and cannot be instantiated.
+            </summary>
+        </member>
         <member name="T:Microsoft.SqlServer.Dac.Deployment.DacDisableForeignKeysStep">
             <summary>
             The step in deployment plan that represents disabling foreign keys.
@@ -2906,6 +3384,21 @@
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlColumnEncryptionMigrationStep.TargetTable">
             <summary>
             Gets the target table object
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Deployment.SqlEnableDatabaseChangeTrackingStep">
+            <summary>
+            Represents a step which will enable change tracking on the database
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Deployment.SqlDisableDatabaseChangeTrackingStep">
+            <summary>
+            Represents a step which will disable change tracking on the database
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Deployment.SqlColumnEncryptionSPRefreshStep">
+            <summary>
+            Represents a step which will execute sp_refresh stored procedures
             </summary>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.Deployment.SqlColumnEncryptionRenameToOriginalStep">
@@ -3490,7 +3983,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.BlockWhenDriftDetected">
             <summary>
-            Get or set boolean that specifies whether the system will check for differences between the 
+            Get boolean that specifies whether the system will check for differences between the 
             present state of the database and the registered state of the database and block deployment 
             if changes are detected.  Even if this option is set to true, drift detection will only occur 
             on a database if it was previously deployed with the <see cref="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.RegisterDataTierApplication"/> option enabled.
@@ -3498,19 +3991,19 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.CommentOutSetVarDeclarations">
             <summary>
-            Get or set boolean that specifies whether the declaration of SQLCMD variables are commented 
+            Get boolean that specifies whether the declaration of SQLCMD variables are commented 
             out in the script header.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.CompareUsingTargetCollation">
             <summary>
-            Get or set boolean that specifies whether the target collation will be used for identifier 
+            Get boolean that specifies whether the target collation will be used for identifier 
             comparison.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.CreateNewDatabase">
             <summary>
-            Get or set boolean that specifies whether the existing database will be dropped
+            Get boolean that specifies whether the existing database will be dropped
             and a new database created before proceeding with the actual deployment actions.
             Acquires single-user mode before dropping the existing database.
             </summary>
@@ -3527,7 +4020,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.DisableAndReenableDdlTriggers">
             <summary>
-            Get or set boolean that specifies if all DDL triggers will be disabled for the duration of the 
+            Get boolean that specifies if all DDL triggers will be disabled for the duration of the 
             deployment operation and then re-enabled after all changes are applied.  
             </summary>
             <remarks>
@@ -3536,19 +4029,19 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.DoNotAlterChangeDataCaptureObjects">
             <summary>
-            Get or set boolean that specifies whether items configured for Change Data Capture (CDC)
+            Get boolean that specifies whether items configured for Change Data Capture (CDC)
             should be altered during deployment.  
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.DoNotAlterReplicatedObjects">
             <summary>
-            Get or set boolean that specifies whether items configured for Replication
+            Get boolean that specifies whether items configured for Replication
             should be altered during deployment.  
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.DropConstraintsNotInSource">
             <summary>
-            Get or set boolean that specifies whether to drop all constraints that do not
+            Get boolean that specifies whether to drop all constraints that do not
             exist in the source model.  
             </summary>
             <remarks>
@@ -3557,48 +4050,48 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.DropDmlTriggersNotInSource">
             <summary>
-            Get or set boolean that specifies whether to drop all DML triggers that do not
+            Get boolean that specifies whether to drop all DML triggers that do not
             exist in the source model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.DropExtendedPropertiesNotInSource">
             <summary>
-            Get or set boolean that specifies whether to drop all extended properties that do 
+            Get boolean that specifies whether to drop all extended properties that do 
             not exist in the source model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.DropIndexesNotInSource">
             <summary>
-            Get or set boolean that specifies whether to drop all indexes that do not
+            Get boolean that specifies whether to drop all indexes that do not
             exist in the source model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.DropObjectsNotInSource">
             <summary>
-            Get or set boolean that specifies whether objects that exist in the target but not source should be dropped during deployment.
+            Get boolean that specifies whether objects that exist in the target but not source should be dropped during deployment.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.DropPermissionsNotInSource">
             <summary>
-            Get or set boolean that specifies whether to drop all permissions that do not
+            Get boolean that specifies whether to drop all permissions that do not
             exist in the source model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.DropRoleMembersNotInSource">
             <summary>
-            Get or set boolean that specifies whether to drop all role memberships that do not
+            Get boolean that specifies whether to drop all role memberships that do not
             exist in the source model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.DropStatisticsNotInSource">
             <summary>
-            Get or set boolean that specifies whether to drop all statistics that do not
+            Get boolean that specifies whether to drop all statistics that do not
             exist in the source model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.GenerateSmartDefaults">
             <summary>
-            Get or set boolean that specifies whether default values should be generated to populate NULL columns that are constrained to NOT NULL values.
+            Get boolean that specifies whether default values should be generated to populate NULL columns that are constrained to NOT NULL values.
             </summary>
             <remarks>
             This is useful when needing to add a new NOT NULL column to an existing table with data.
@@ -3606,159 +4099,165 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreAnsiNulls">
             <summary>
-            Get or set boolean that specifies whether to exclude the ANSI_NULL option from 
+            Get boolean that specifies whether to exclude the ANSI_NULL option from 
             consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreAuthorizer">
             <summary>
-            Get or set boolean that specifies whether to exclude the AUTHORIZATION option from 
+            Get boolean that specifies whether to exclude the AUTHORIZATION option from 
             consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreColumnCollation">
             <summary>
-            Get or set boolean that specifies whether to exclude the collation specifier from 
+            Get boolean that specifies whether to exclude the collation specifier from 
             consideration when comparing the source and target model.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreColumnOrder">
+            <summary>
+            Get boolean that specifies whether to exclude from consideration 
+            the order of columns in tables when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreComments">
             <summary>
-            Get or set boolean that specifies whether to exclude comments from 
+            Get boolean that specifies whether to exclude comments from 
             consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreCryptographicProviderFilePath">
             <summary>
-            Get or set boolean that specifies whether to exclude the file specification 
+            Get boolean that specifies whether to exclude the file specification 
             of a cryptographic provider from consideration when comparing the source and 
             target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreDdlTriggerOrder">
             <summary>
-            Get or set boolean that specifies whether to exclude DDL trigger order from 
+            Get boolean that specifies whether to exclude DDL trigger order from 
             consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreDdlTriggerState">
             <summary>
-            Get or set boolean that specifies whether to exclude DDL trigger state from 
+            Get boolean that specifies whether to exclude DDL trigger state from 
             consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreDefaultSchema">
             <summary>
-            Get or set boolean that specifies whether to exclude the DEFAULT_SCHEMA option from 
+            Get boolean that specifies whether to exclude the DEFAULT_SCHEMA option from 
             consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreDmlTriggerOrder">
             <summary>
-            Get or set boolean that specifies whether to exclude DML trigger order from 
+            Get boolean that specifies whether to exclude DML trigger order from 
             consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreDmlTriggerState">
             <summary>
-            Get or set boolean that specifies whether to exclude DML trigger state from 
+            Get boolean that specifies whether to exclude DML trigger state from 
             consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreExtendedProperties">
             <summary>
-            Get or set boolean that specifies whether to exclude all extended properties from 
+            Get boolean that specifies whether to exclude all extended properties from 
             consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreFileAndLogFilePath">
             <summary>
-            Get or set boolean that specifies whether to exclude the FILENAME option of 
+            Get boolean that specifies whether to exclude the FILENAME option of 
             FILE objects from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreFilegroupPlacement">
             <summary>
-            Get or set boolean that specifies whether to exclude the filegroup specifier 
+            Get boolean that specifies whether to exclude the filegroup specifier 
             from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreFileSize">
             <summary>
-            Get or set boolean that specifies whether to exclude the SIZE option of FILE objects 
+            Get boolean that specifies whether to exclude the SIZE option of FILE objects 
             from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreFillFactor">
             <summary>
-            Get or set boolean that specifies whether to exclude the FILLFACTOR option
+            Get boolean that specifies whether to exclude the FILLFACTOR option
             from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreFullTextCatalogFilePath">
             <summary>
-            Get or set boolean that specifies whether to exclude the path specification of 
+            Get boolean that specifies whether to exclude the path specification of 
             FULLTEXT CATALOG objects from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreIdentitySeed">
             <summary>
-            Get or set boolean that specifies whether to exclude the seed value of IDENTITY columns 
+            Get boolean that specifies whether to exclude the seed value of IDENTITY columns 
             from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreIncrement">
             <summary>
-            Get or set boolean that specifies whether to exclude the increment value of IDENTITY columns 
+            Get boolean that specifies whether to exclude the increment value of IDENTITY columns 
             from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreIndexOptions">
             <summary>
-            Get or set boolean that specifies whether to exclude differences in index options 
+            Get boolean that specifies whether to exclude differences in index options 
             from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreIndexPadding">
             <summary>
-            Get or set boolean that specifies whether to exclude the PAD_INDEX option 
+            Get boolean that specifies whether to exclude the PAD_INDEX option 
             from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreKeywordCasing">
             <summary>
-            Get or set boolean that specifies whether to exclude difference in the casing of keywords 
+            Get boolean that specifies whether to exclude difference in the casing of keywords 
             from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreLockHintsOnIndexes">
             <summary>
-            Get or set boolean that specifies whether to exclude the ALLOW_ROW_LOCKS and 
+            Get boolean that specifies whether to exclude the ALLOW_ROW_LOCKS and 
             ALLOW_PAGE_LOGKS options from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreLoginSids">
             <summary>
-            Get or set boolean that specifies whether to exclude the SID option of the LOGIN object 
+            Get boolean that specifies whether to exclude the SID option of the LOGIN object 
             from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreNotForReplication">
             <summary>
-            Get or set boolean that specifies whether to exclude the NOT FOR REPLICATION option 
+            Get boolean that specifies whether to exclude the NOT FOR REPLICATION option 
             from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreObjectPlacementOnPartitionScheme">
             <summary>
-            Get or set boolean that specifies whether to exclude the partition scheme object
+            Get boolean that specifies whether to exclude the partition scheme object
             from consideration when comparing the source and target model for the following
             objects: Table, Index, Unique Key, Primary Key, and Queue.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnorePartitionSchemes">
             <summary>
-            Get or set boolean that specifies whether to exclude the parameter type and 
+            Get boolean that specifies whether to exclude the parameter type and 
             boundary VALUES of a PARTITION FUNCTION from consideration when comparing the 
             source and target model.  Also excludes FILEGROUP and partition function of a 
             PARTITION SCHEMA from consideration when comparing the source and target model.
@@ -3766,124 +4265,124 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnorePermissions">
             <summary>
-            Get or set boolean that specifies whether to exclude all permission statements 
+            Get boolean that specifies whether to exclude all permission statements 
             from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreQuotedIdentifiers">
             <summary>
-            Get or set boolean that specifies whether to exclude the QUOTED_IDENTIFIER option 
+            Get boolean that specifies whether to exclude the QUOTED_IDENTIFIER option 
             from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreRoleMembership">
             <summary>
-            Get or set boolean that specifies whether to exclude all ROLE MEMBERSHIP objects 
+            Get boolean that specifies whether to exclude all ROLE MEMBERSHIP objects 
             from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreRouteLifetime">
             <summary>
-            Get or set boolean that specifies whether to exclude the LIFETIME option of ROUTE objects 
+            Get boolean that specifies whether to exclude the LIFETIME option of ROUTE objects 
             from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreSemicolonBetweenStatements">
             <summary>
-            Get or set boolean that specifies whether to exclude the existence or absence of semi-colons 
+            Get boolean that specifies whether to exclude the existence or absence of semi-colons 
             from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreTableOptions">
             <summary>
-            Get or set boolean that specifies whether the options on the target table are updated 
+            Get boolean that specifies whether the options on the target table are updated 
             to match the source table.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreUserSettingsObjects">
             <summary>
-            Get or set boolean that specifies whether to exclude user settings 
+            Get boolean that specifies whether to exclude user settings 
             from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreWhitespace">
             <summary>
-            Get or set boolean that specifies whether to exclude whitespace 
+            Get boolean that specifies whether to exclude whitespace 
             from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreWithNocheckOnCheckConstraints">
             <summary>
-            Get or set boolean that specifies whether to exclude the CHECK|NO CHECK option of a CHECK 
+            Get boolean that specifies whether to exclude the CHECK|NO CHECK option of a CHECK 
             constraint object from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IgnoreWithNocheckOnForeignKeys">
             <summary>
-            Get or set boolean that specifies whether to exclude the CHECK|NO CHECK option of a FOREIGN KEY  
+            Get boolean that specifies whether to exclude the CHECK|NO CHECK option of a FOREIGN KEY  
             constraint object from consideration when comparing the source and target model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IncludeCompositeObjects">
             <summary>
-            Get or set boolean that specifies whether to include referenced, external elements that also 
+            Get boolean that specifies whether to include referenced, external elements that also 
             compose the source model and then update the target database in a single deployment operation.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.IncludeTransactionalScripts">
             <summary>
-            Get or set boolean that specifies whether to use transations during the deployment operation 
+            Get boolean that specifies whether to use transations during the deployment operation 
             and commit the transaction after all changes are successfully applied.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.NoAlterStatementsToChangeClrTypes">
             <summary>
-            Get or set boolean that specifies whether to force a change to CLR assemblies by dropping and recreating them.
+            Get boolean that specifies whether to force a change to CLR assemblies by dropping and recreating them.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.PopulateFilesOnFileGroups">
             <summary>
-            Get or set boolean that specifies whether files are supplied for filegroups defined in the deployment source.
+            Get boolean that specifies whether files are supplied for filegroups defined in the deployment source.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.RegisterDataTierApplication">
             <summary>
-            Get or set boolean that specifies whether the database will be registered as a Data-Tier Application.  
+            Get boolean that specifies whether the database will be registered as a Data-Tier Application.  
             If the target database is already a registered Data-Tier Application, then the registration will be updated.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.ScriptDatabaseCollation">
             <summary>
-            Get or set boolean that specifies whether the target database should be altered to match the 
+            Get boolean that specifies whether the target database should be altered to match the 
             source model's collation.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.ScriptDatabaseCompatibility">
             <summary>
-            Get or set boolean that specifies whether the target database should be altered to match the 
+            Get boolean that specifies whether the target database should be altered to match the 
             source model's compatibility level.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.ScriptDatabaseOptions">
             <summary>
-            Get or set boolean that specifies whether the database options in the target database should 
+            Get boolean that specifies whether the database options in the target database should 
             be updated to match the source model.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.ScriptDeployStateChecks">
             <summary>
-            Get or set boolean that specifies whether the target database should be checked to ensure that 
+            Get boolean that specifies whether the target database should be checked to ensure that 
             it exists, is online and can be updated.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.ScriptFileSize">
             <summary>
-            Get or set boolean that specifies whether a file size is specified when adding files to file groups.
+            Get boolean that specifies whether a file size is specified when adding files to file groups.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.ScriptNewConstraintValidation">
             <summary>
-            Get or set boolean that specifies whether constraints are validated after all changes are applied.
+            Get boolean that specifies whether constraints are validated after all changes are applied.
             </summary>
             <remarks>
             Constraints are always added with NOCHECK option; as a result their validation is skipped during creation.
@@ -3891,7 +4390,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.ScriptRefreshModule">
             <summary>
-            Get or set boolean that specifies whether referencing procedures are refreshed when referenced objects are updated.
+            Get boolean that specifies whether referencing procedures are refreshed when referenced objects are updated.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.TargetConnectionString">
@@ -3916,19 +4415,19 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.TreatVerificationErrorsAsWarnings">
             <summary>
-            Get or set boolean that specifies whether the deployment operation should proceed when errors are 
+            Get boolean that specifies whether the deployment operation should proceed when errors are 
             generated during plan verification.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.UnmodifiableObjectWarnings">
             <summary>
-            Get or set boolean that specifies whether the deployment operation should proceed when errors are 
+            Get boolean that specifies whether the deployment operation should proceed when errors are 
             generated during plan verification.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.VerifyCollationCompatibility">
             <summary>
-            Get or set boolean that specifies whether deployment will verify that the collation specified in the 
+            Get boolean that specifies whether deployment will verify that the collation specified in the 
             source model is compatible with the collation specified in the target model.
             </summary>
             <value>
@@ -3938,7 +4437,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.VerifyDeployment">
             <summary>
-            Get or set boolean that specifies whether the plan verification phase is executed or not.
+            Get boolean that specifies whether the plan verification phase is executed or not.
             </summary>
             <value>
             True to perform plan verification; otherwise, false to skip it.
@@ -4070,7 +4569,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.AllowDropBlockingAssemblies">
             <summary>
-            Get or set boolean that specifies whether CLR deployment will cause blocking assemblies to be dropped.
+            Get boolean that specifies whether CLR deployment will cause blocking assemblies to be dropped.
             </summary>
             <value>
             True to drop blocking assemblies during CLR deployment; otherwise, false.
@@ -4079,7 +4578,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.AllowIncompatiblePlatform">
             <summary>
-            Get or set boolean that specifies whether deployment will block due to platform compatibility.
+            Get boolean that specifies whether deployment will block due to platform compatibility.
             </summary>
             <value>
             True to block deployment to incompatible platforms; otherwise, false.
@@ -4088,7 +4587,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.BackupDatabaseBeforeChanges">
             <summary>
-            Get or set boolean that specifies whether a database backup will be performed before proceeding 
+            Get boolean that specifies whether a database backup will be performed before proceeding 
             with the actual deployment actions.
             </summary>
             <value>
@@ -4098,7 +4597,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.BlockOnPossibleDataLoss">
             <summary>
-            Get or set boolean that specifies whether deployment should stop if the operation could cause data loss.
+            Get boolean that specifies whether deployment should stop if the operation could cause data loss.
             </summary>
             <value>
             True to stop deployment if possible data loss if detected; otherwise, false.
@@ -4107,7 +4606,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.BlockWhenDriftDetected">
             <summary>
-            Get or set boolean that specifies whether the system will check for differences between the 
+            Get boolean that specifies whether the system will check for differences between the 
             present state of the database and the registered state of the database and block deployment 
             if changes are detected.  Even if this option is set to true, drift detection will only occur 
             on a database if it was previously deployed with the <see cref="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.RegisterDataTierApplication"/> option enabled.
@@ -4119,7 +4618,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.CommentOutSetVarDeclarations">
             <summary>
-            Get or set boolean that specifies whether the declaration of SQLCMD variables are commented 
+            Get boolean that specifies whether the declaration of SQLCMD variables are commented 
             out in the script header.
             </summary>
             <value>
@@ -4129,7 +4628,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.CompareUsingTargetCollation">
             <summary>
-            Get or set boolean that specifies whether the source collation will be used for identifier 
+            Get boolean that specifies whether the source collation will be used for identifier 
             comparison.
             </summary>
             <value>
@@ -4139,7 +4638,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.CreateNewDatabase">
             <summary>
-            Get or set boolean that specifies whether the existing database will be dropped
+            Get boolean that specifies whether the existing database will be dropped
             and a new database created before proceeding with the actual deployment actions.
             Acquires single-user mode before dropping the existing database.
             </summary>
@@ -4150,7 +4649,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.DeployDatabaseInSingleUserMode">
             <summary>
-            Get or set boolean that specifies whether the system will acquire single-user mode on the target
+            Get boolean that specifies whether the system will acquire single-user mode on the target
             database during the duration of the deployment operation.
             </summary>
             <value>
@@ -4164,7 +4663,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.DisableAndReenableDdlTriggers">
             <summary>
-            Get or set boolean that specifies if all DDL triggers will be disabled for the duration of the 
+            Get boolean that specifies if all DDL triggers will be disabled for the duration of the 
             deployment operation and then re-enabled after all changes are applied.  
             </summary>
             <value>
@@ -4177,7 +4676,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.DoNotAlterChangeDataCaptureObjects">
             <summary>
-            Get or set boolean that specifies whether items configured for Change Data Capture (CDC)
+            Get boolean that specifies whether items configured for Change Data Capture (CDC)
             should be altered during deployment.  
             </summary>
             <value>
@@ -4187,7 +4686,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.DoNotAlterReplicatedObjects">
             <summary>
-            Get or set boolean that specifies whether items configured for Replication
+            Get boolean that specifies whether items configured for Replication
             should be altered during deployment.  
             </summary>
             <value>
@@ -4197,7 +4696,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.DropConstraintsNotInSource">
             <summary>
-            Get or set boolean that specifies whether to drop all constraints that do not
+            Get boolean that specifies whether to drop all constraints that do not
             exist in the source model.  
             </summary>
             <value>
@@ -4210,7 +4709,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.DropDmlTriggersNotInSource">
             <summary>
-            Get or set boolean that specifies whether to drop all DML triggers that do not
+            Get boolean that specifies whether to drop all DML triggers that do not
             exist in the source model.
             </summary>
             <value>
@@ -4220,7 +4719,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.DropExtendedPropertiesNotInSource">
             <summary>
-            Get or set boolean that specifies whether to drop all extended properties that do 
+            Get boolean that specifies whether to drop all extended properties that do 
             not exist in the source model.
             </summary>
             <value>
@@ -4230,7 +4729,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.DropIndexesNotInSource">
             <summary>
-            Get or set boolean that specifies whether to drop all indexes that do not
+            Get boolean that specifies whether to drop all indexes that do not
             exist in the source model.
             </summary>
             <value>
@@ -4240,7 +4739,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.DropObjectsNotInSource">
             <summary>
-            Get or set boolean that specifies whether objects that exist in the target but not source should be dropped during deployment.
+            Get boolean that specifies whether objects that exist in the target but not source should be dropped during deployment.
             </summary>
             <value>
             True if objects that exist in the target but not source should be dropped; otherwise false.
@@ -4249,7 +4748,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.DropPermissionsNotInSource">
             <summary>
-            Get or set boolean that specifies whether to drop all permissions that do not
+            Get boolean that specifies whether to drop all permissions that do not
             exist in the source model.
             </summary>
             <value>
@@ -4259,7 +4758,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.DropRoleMembersNotInSource">
             <summary>
-            Get or set boolean that specifies whether to drop all role memberships that do not
+            Get boolean that specifies whether to drop all role memberships that do not
             exist in the source model.
             </summary>
             <value>
@@ -4269,7 +4768,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.DropStatisticsNotInSource">
             <summary>
-            Get or set boolean that specifies whether to drop all statistics that do not
+            Get boolean that specifies whether to drop all statistics that do not
             exist in the source model.
             </summary>
             <value>
@@ -4279,7 +4778,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.GenerateSmartDefaults">
             <summary>
-            Get or set boolean that specifies whether default values should be generated to populate NULL columns that are constrained to NOT NULL values.
+            Get boolean that specifies whether default values should be generated to populate NULL columns that are constrained to NOT NULL values.
             </summary>
             <value>
             True if default values should be generated; otherwise false.
@@ -4291,7 +4790,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreAnsiNulls">
             <summary>
-            Get or set boolean that specifies whether to exclude the ANSI_NULL option from 
+            Get boolean that specifies whether to exclude the ANSI_NULL option from 
             consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4301,7 +4800,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreAuthorizer">
             <summary>
-            Get or set boolean that specifies whether to exclude the AUTHORIZATION option from 
+            Get boolean that specifies whether to exclude the AUTHORIZATION option from 
             consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4311,7 +4810,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreColumnCollation">
             <summary>
-            Get or set boolean that specifies whether to exclude the collation specifier from 
+            Get boolean that specifies whether to exclude the collation specifier from 
             consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4319,9 +4818,19 @@
             Default is false.
             </value>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreColumnOrder">
+            <summary>
+            Get boolean that specifies whether to exclude from consideration 
+            the order of columns in tables when comparing the source and target model.
+            </summary>
+            <value>
+            True to ignore differences in column order; otherwise, false.
+            Default is false.
+            </value>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreComments">
             <summary>
-            Get or set boolean that specifies whether to exclude comments from 
+            Get boolean that specifies whether to exclude comments from 
             consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4331,7 +4840,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreCryptographicProviderFilePath">
             <summary>
-            Get or set boolean that specifies whether to exclude the file specification 
+            Get boolean that specifies whether to exclude the file specification 
             of a cryptographic provider from consideration when comparing the source and 
             target model.
             </summary>
@@ -4342,7 +4851,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreDdlTriggerOrder">
             <summary>
-            Get or set boolean that specifies whether to exclude DDL trigger order from 
+            Get boolean that specifies whether to exclude DDL trigger order from 
             consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4352,7 +4861,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreDdlTriggerState">
             <summary>
-            Get or set boolean that specifies whether to exclude DDL trigger state from 
+            Get boolean that specifies whether to exclude DDL trigger state from 
             consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4362,7 +4871,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreDefaultSchema">
             <summary>
-            Get or set boolean that specifies whether to exclude the DEFAULT_SCHEMA option from 
+            Get boolean that specifies whether to exclude the DEFAULT_SCHEMA option from 
             consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4372,7 +4881,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreDmlTriggerOrder">
             <summary>
-            Get or set boolean that specifies whether to exclude DML trigger order from 
+            Get boolean that specifies whether to exclude DML trigger order from 
             consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4382,7 +4891,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreDmlTriggerState">
             <summary>
-            Get or set boolean that specifies whether to exclude DML trigger state from 
+            Get boolean that specifies whether to exclude DML trigger state from 
             consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4392,7 +4901,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreExtendedProperties">
             <summary>
-            Get or set boolean that specifies whether to exclude all extended properties from 
+            Get boolean that specifies whether to exclude all extended properties from 
             consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4402,7 +4911,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreFileAndLogFilePath">
             <summary>
-            Get or set boolean that specifies whether to exclude the FILENAME option of 
+            Get boolean that specifies whether to exclude the FILENAME option of 
             FILE objects from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4412,7 +4921,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreFilegroupPlacement">
             <summary>
-            Get or set boolean that specifies whether to exclude the filegroup specifier 
+            Get boolean that specifies whether to exclude the filegroup specifier 
             from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4422,7 +4931,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreFileSize">
             <summary>
-            Get or set boolean that specifies whether to exclude the SIZE option of FILE objects 
+            Get boolean that specifies whether to exclude the SIZE option of FILE objects 
             from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4432,7 +4941,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreFillFactor">
             <summary>
-            Get or set boolean that specifies whether to exclude the FILLFACTOR option
+            Get boolean that specifies whether to exclude the FILLFACTOR option
             from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4442,7 +4951,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreFullTextCatalogFilePath">
             <summary>
-            Get or set boolean that specifies whether to exclude the path specification of 
+            Get boolean that specifies whether to exclude the path specification of 
             FULLTEXT CATALOG objects from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4452,7 +4961,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreIdentitySeed">
             <summary>
-            Get or set boolean that specifies whether to exclude the seed value of IDENTITY columns 
+            Get boolean that specifies whether to exclude the seed value of IDENTITY columns 
             from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4462,7 +4971,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreIncrement">
             <summary>
-            Get or set boolean that specifies whether to exclude the increment value of IDENTITY columns 
+            Get boolean that specifies whether to exclude the increment value of IDENTITY columns 
             from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4472,7 +4981,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreIndexOptions">
             <summary>
-            Get or set boolean that specifies whether to exclude differences in index options 
+            Get boolean that specifies whether to exclude differences in index options 
             from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4482,7 +4991,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreIndexPadding">
             <summary>
-            Get or set boolean that specifies whether to exclude the PAD_INDEX option 
+            Get boolean that specifies whether to exclude the PAD_INDEX option 
             from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4492,7 +5001,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreKeywordCasing">
             <summary>
-            Get or set boolean that specifies whether to exclude difference in the casing of keywords 
+            Get boolean that specifies whether to exclude difference in the casing of keywords 
             from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4502,7 +5011,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreLockHintsOnIndexes">
             <summary>
-            Get or set boolean that specifies whether to exclude the ALLOW_ROW_LOCKS and 
+            Get boolean that specifies whether to exclude the ALLOW_ROW_LOCKS and 
             ALLOW_PAGE_LOGKS options from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4512,7 +5021,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreLoginSids">
             <summary>
-            Get or set boolean that specifies whether to exclude the SID option of the LOGIN object 
+            Get boolean that specifies whether to exclude the SID option of the LOGIN object 
             from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4522,7 +5031,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreNotForReplication">
             <summary>
-            Get or set boolean that specifies whether to exclude the NOT FOR REPLICATION option 
+            Get boolean that specifies whether to exclude the NOT FOR REPLICATION option 
             from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4532,7 +5041,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreObjectPlacementOnPartitionScheme">
             <summary>
-            Get or set boolean that specifies whether to exclude the partition scheme object
+            Get boolean that specifies whether to exclude the partition scheme object
             from consideration when comparing the source and target model for the following
             objects: Table, Index, Unique Key, Primary Key, and Queue.
             </summary>
@@ -4543,7 +5052,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnorePartitionSchemes">
             <summary>
-            Get or set boolean that specifies whether to exclude the parameter type and 
+            Get boolean that specifies whether to exclude the parameter type and 
             boundary VALUES of a PARTITION FUNCTION from consideration when comparing the 
             source and target model.  Also excludes FILEGROUP and partition function of a 
             PARTITION SCHEMA from consideration when comparing the source and target model.
@@ -4555,7 +5064,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnorePermissions">
             <summary>
-            Get or set boolean that specifies whether to exclude all permission statements 
+            Get boolean that specifies whether to exclude all permission statements 
             from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4565,7 +5074,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreQuotedIdentifiers">
             <summary>
-            Get or set boolean that specifies whether to exclude the QUOTED_IDENTIFIER option 
+            Get boolean that specifies whether to exclude the QUOTED_IDENTIFIER option 
             from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4575,7 +5084,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreRoleMembership">
             <summary>
-            Get or set boolean that specifies whether to exclude all ROLE MEMBERSHIP objects 
+            Get boolean that specifies whether to exclude all ROLE MEMBERSHIP objects 
             from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4585,7 +5094,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreRouteLifetime">
             <summary>
-            Get or set boolean that specifies whether to exclude the LIFETIME option of ROUTE objects 
+            Get boolean that specifies whether to exclude the LIFETIME option of ROUTE objects 
             from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4595,7 +5104,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreSemicolonBetweenStatements">
             <summary>
-            Get or set boolean that specifies whether to exclude the existence or absence of semi-colons 
+            Get boolean that specifies whether to exclude the existence or absence of semi-colons 
             from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4605,7 +5114,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreTableOptions">
             <summary>
-            Get or set boolean that specifies whether the options on the target table are updated 
+            Get boolean that specifies whether the options on the target table are updated 
             to match the source table.
             </summary>
             <value>
@@ -4615,7 +5124,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreUserSettingsObjects">
             <summary>
-            Get or set boolean that specifies whether to exclude user settings 
+            Get boolean that specifies whether to exclude user settings 
             from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4625,7 +5134,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreWhitespace">
             <summary>
-            Get or set boolean that specifies whether to exclude whitespace 
+            Get boolean that specifies whether to exclude whitespace 
             from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4635,7 +5144,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreWithNocheckOnCheckConstraints">
             <summary>
-            Get or set boolean that specifies whether to exclude the CHECK|NO CHECK option of a CHECK 
+            Get boolean that specifies whether to exclude the CHECK|NO CHECK option of a CHECK 
             constraint object from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4645,7 +5154,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IgnoreWithNocheckOnForeignKeys">
             <summary>
-            Get or set boolean that specifies whether to exclude the CHECK|NO CHECK option of a FOREIGN KEY  
+            Get boolean that specifies whether to exclude the CHECK|NO CHECK option of a FOREIGN KEY  
             constraint object from consideration when comparing the source and target model.
             </summary>
             <value>
@@ -4655,7 +5164,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IncludeCompositeObjects">
             <summary>
-            Get or set boolean that specifies whether to include referenced, external elements that also 
+            Get boolean that specifies whether to include referenced, external elements that also 
             compose the source model and then update the target database in a single deployment operation.
             </summary>
             <value>
@@ -4665,7 +5174,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.IncludeTransactionalScripts">
             <summary>
-            Get or set boolean that specifies whether to use transations during the deployment operation 
+            Get boolean that specifies whether to use transations during the deployment operation 
             and commit the transaction after all changes are successfully applied.
             </summary>
             <value>
@@ -4675,7 +5184,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.NoAlterStatementsToChangeClrTypes">
             <summary>
-            Get or set boolean that specifies whether to force a change to CLR assemblies by dropping and recreating them.
+            Get boolean that specifies whether to force a change to CLR assemblies by dropping and recreating them.
             </summary>
             <value>
             True if CLR assemblies should be dropped; otherwise false to allow ALTER statements to change CLR assemblies.
@@ -4684,7 +5193,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.PopulateFilesOnFileGroups">
             <summary>
-            Get or set boolean that specifies whether files are supplied for filegroups defined in the deployment source.
+            Get boolean that specifies whether files are supplied for filegroups defined in the deployment source.
             </summary>
             <value>
             True to specify files for filegroups; otherwise false.
@@ -4693,7 +5202,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.RegisterDataTierApplication">
             <summary>
-            Get or set boolean that specifies whether the database will be registered as a Data-Tier Application.  
+            Get boolean that specifies whether the database will be registered as a Data-Tier Application.  
             If the target database is already a registered Data-Tier Application, then the registration will be updated.
             </summary>
             <value>
@@ -4703,7 +5212,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.ScriptDatabaseCollation">
             <summary>
-            Get or set boolean that specifies whether the target database should be altered to match the 
+            Get boolean that specifies whether the target database should be altered to match the 
             source model's collation.
             </summary>
             <value>
@@ -4713,7 +5222,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.ScriptDatabaseCompatibility">
             <summary>
-            Get or set boolean that specifies whether the target database should be altered to match the 
+            Get boolean that specifies whether the target database should be altered to match the 
             source model's compatibility level.
             </summary>
             <value>
@@ -4723,7 +5232,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.ScriptDatabaseOptions">
             <summary>
-            Get or set boolean that specifies whether the database options in the target database should 
+            Get boolean that specifies whether the database options in the target database should 
             be updated to match the source model.
             </summary>
             <value>
@@ -4733,7 +5242,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.ScriptDeployStateChecks">
             <summary>
-            Get or set boolean that specifies whether the target database should be checked to ensure that 
+            Get boolean that specifies whether the target database should be checked to ensure that 
             it exists, is online and can be updated.
             </summary>
             <value>
@@ -4743,7 +5252,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.ScriptFileSize">
             <summary>
-            Get or set boolean that specifies whether a file size is specified when adding files to file groups.
+            Get boolean that specifies whether a file size is specified when adding files to file groups.
             </summary>
             <value>
             True to specify a file size when adding files to file groups; otherwise, false.
@@ -4752,7 +5261,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.ScriptNewConstraintValidation">
             <summary>
-            Get or set boolean that specifies whether constraints are validated after all changes are applied.
+            Get boolean that specifies whether constraints are validated after all changes are applied.
             </summary>
             <value>
             True to validate check constraints; otherwise, false.
@@ -4764,7 +5273,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.ScriptRefreshModule">
             <summary>
-            Get or set boolean that specifies whether referencing procedures are refreshed when referenced objects are updated.
+            Get boolean that specifies whether referencing procedures are refreshed when referenced objects are updated.
             </summary>
             <value>
             True to refresh referencing procedures; otherwise false.
@@ -4793,7 +5302,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.TreatVerificationErrorsAsWarnings">
             <summary>
-            Get or set boolean that specifies whether to treat errors that occur during publish verification as warnings. 
+            Get boolean that specifies whether to treat errors that occur during publish verification as warnings. 
             The check is performed against the generated deployment plan before the plan is executed against the target database. 
             Plan verification detects problems, such as the loss of target-only objects (for example, indexes), that must be 
             dropped to make a change. Verification also detects situations where dependencies (such as tables or views) exist 
@@ -4808,7 +5317,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.UnmodifiableObjectWarnings">
             <summary>
-            Get or set boolean that specifies whether warnings should be generated when differences are found 
+            Get boolean that specifies whether warnings should be generated when differences are found 
             in objects that cannot be modified, for example, if the file size or file paths were different for a file.
             </summary>
             <value>
@@ -4818,7 +5327,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.VerifyCollationCompatibility">
             <summary>
-            Get or set boolean that specifies whether deployment will verify that the collation specified in the 
+            Get boolean that specifies whether deployment will verify that the collation specified in the 
             source model is compatible with the collation specified in the target model.
             </summary>
             <value>
@@ -4828,7 +5337,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.VerifyDeployment">
             <summary>
-            Get or set boolean that specifies whether the plan verification phase is executed or not.
+            Get boolean that specifies whether the plan verification phase is executed or not.
             </summary>
             <value>
             True to perform plan verification; otherwise, false to skip it.
@@ -4896,6 +5405,58 @@
         <member name="F:Microsoft.SqlServer.Dac.Model.DacExternalQueryScopes.All">
             <summary>
             All elements in the model, including references to external elements.
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Model.DacModelError">
+            <summary>
+            Represents a model blocking error.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.DacModelError.ErrorType">
+            <summary>
+            Type of model blocking error
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.DacModelError.ErrorCode">
+            <summary>
+            DacModelError error code
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.DacModelError.Line">
+            <summary>
+            Line Number of the error
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.DacModelError.Column">
+            <summary>
+            Column Number of the error
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.DacModelError.Prefix">
+            <summary>
+            DacModelError prefix
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.DacModelError.Message">
+            <summary>
+            Message from DacModelError
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.DacModelError.SourceName">
+            <summary>
+            The TSqlObject with error. 
+            Can be null if the object creation failed completely.
+            Could be a partially constructed object in case of partial failures in object creation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.DacModelError.SourceType">
+            <summary>
+            Type of the TSqlObject associated with the error
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.DacModelError.Severity">
+            <summary>
+            Severity of the error
             </summary>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.Model.DisplayServices">
@@ -4973,6 +5534,48 @@
         <member name="F:Microsoft.SqlServer.Dac.Model.EscapeStyle.EscapeIfNecessary">
             <summary>
             Names should be escaped if not doing so would cause errors
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Model.ElementWithCommentedScriptBody`1">
+            <summary>
+            Base class for elements with commented out script body
+            Parses the given script with all known prior platform parsers until the script is successfully parsed.
+            On successful parssing, extracts the TSqlStatment specified by the type parameter T
+            </summary>
+            <typeparam name="T">The create sql statement</typeparam>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Model.ElementWithCommentedScriptBody`1.GetParsedFragment">
+            <summary>
+            Parse the script with all known prior parsers
+            </summary>
+            <returns>Successfully parsed TSqlFragment parsed. null if not able to parse</returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Model.ElementWithCommentedScriptBody`1.ExtractSingleTSqlStatement">
+            <summary>
+            Extract the single TSQLStatment contained within the successfully parsed script.
+            </summary>
+            <returns>Single TSQLStatment within the successfully parsed script.</returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Model.ElementWithCommentedScriptBody`1.GetTSqlScriptWithCommentedScriptBody">
+            <summary>
+            Implemented by inherited members to comment out the script body of the Statement
+            </summary>
+            <returns>TSqlScipt of the element with commented out script body</returns>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.ElementWithCommentedScriptBody`1.SqlPlatform">
+            <summary>
+            The SqlPlatform parser to first employ when trying to parse the script
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.ElementWithCommentedScriptBody`1.ParsedFragment">
+            <summary>
+            Contains the successfully parsed TSqlFragment parsed by some prior platform parser.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.ElementWithCommentedScriptBody`1.Statement">
+            <summary>
+            The single TSQLStatment contained within the script that was successfully parsed by some prior platform parser.
+            Unpon construction, null value for Statement denotes either script was not successfully parsed or there were more than one statements.
             </summary>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.Model.ModelAnnotationPropertyContext">
@@ -5061,44 +5664,14 @@
             The descriptor represents the same concept as the fragment 
             </summary>
         </member>
-        <member name="T:Microsoft.SqlServer.Dac.Model.Internal.SqlModelDeleter">
+        <member name="T:Microsoft.SqlServer.Dac.Model.CreateProcedureStatementWithCommentedScriptBody">
             <summary>
-            Internal support class that enables deletion of objects from the model.
-            This is required when performing actions such as deleting an existing element and
-            replacing it with a script-backed element during SCA.
-            
-            This code has been ported from the SSDT code base: SchemaToolsSql\DesignServices\DatabaseChangeModel.cs
-            If updates are needed in the future, we should consider merging the two code bases and using this class
-            in both locations
+            Represents substituting a CreateProcedureStatement with commented out script body
             </summary>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.Model.Internal.SqlModelDeleter.DeleteElement(Microsoft.Data.Tools.Schema.Sql.SchemaModel.ISqlModelElement,Microsoft.SqlServer.Dac.Model.Internal.SqlModelDeleter.ChildDelete)">
+        <member name="T:Microsoft.SqlServer.Dac.Model.CreateViewStatementWithCommentedScriptBody">
             <summary>
-            Deletes the specified elements from the model.  Will also delete any hierarchical children that are marked
-            as inline
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.Model.Internal.SqlModelDeleter.DeleteElementHelper(Microsoft.SqlServer.Dac.Model.Internal.SqlModelDeleter.ChildDelete,Microsoft.Data.Tools.Schema.Sql.SchemaModel.ISqlModelElement)">
-            <summary>
-            Helper that returns true/false based on the supplied delete behavior and element
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.Model.Internal.SqlModelDeleter.DeleteElement(Microsoft.Data.Tools.Schema.Sql.SchemaModel.ISqlModelElement,System.Predicate{Microsoft.Data.Tools.Schema.Sql.SchemaModel.ISqlModelElement})">
-            <summary>
-            Deletes the specified element and if the element is a column source any of it's hierahical children based on the
-            response of the predicate
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.Model.Internal.SqlModelDeleter.DoDeleteElement(Microsoft.Data.Tools.Schema.Sql.SchemaModel.ISqlModelElement,System.Boolean)">
-            <summary>
-            Helper method that encapsulates deleting a model-built element from the model
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.Model.Internal.SqlModelDeleter.VisitReferencingElements(Microsoft.Data.Tools.Schema.Sql.SchemaModel.ISqlModelElement,System.Collections.Generic.HashSet{Microsoft.Data.Tools.Schema.SchemaModel.ModelRelationshipType},System.Action{Microsoft.Data.Tools.Schema.Sql.SchemaModel.ISqlModelElement})">
-            <summary>
-            Helper to "visit" elements that are referencing the supplied element.  This method
-            discovers elements by looking at ModelBuilderResolvableAnnotations and can operate
-            correctly on a model that has not been fully resolved
+            Represents substituting a CreateViewStatement with commented out script body
             </summary>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.Model.ModelCollationComparer">
@@ -5268,6 +5841,11 @@
         <member name="P:Microsoft.SqlServer.Dac.Model.DacModelResources.AstNotSupportedError">
             <summary>
               Looks up a localized string similar to AST retrieval not supported for the specified object..
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.DacModelResources.AutoGeneratedCommentedScriptBodyText">
+            <summary>
+              Looks up a localized string similar to \nAuto generated text: The original script body has been commented in order to add this object to the model.\n.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Model.DacModelResources.ConvertObject_SourceNameDifferentFromObjectSource">
@@ -5604,6 +6182,11 @@
             Public constructor to be used by product code
             </summary>
         </member>
+        <member name="M:Microsoft.SqlServer.Dac.Model.SqlSchemaModelObjectService.CreateParserRepository">
+            <summary>
+            Initialize TSqlParserRepository
+            </summary>
+        </member>
         <member name="M:Microsoft.SqlServer.Dac.Model.SqlSchemaModelObjectService.SetScriptBacked(System.Boolean)">
             <summary>
             Internal method that enables setting whether the model is script-backed or not. This can be used to
@@ -5615,6 +6198,21 @@
             <summary>
             Internal utility method - wraps an internal model element in a public TSqlObject. Should never be exposed as part of the service.
             </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Model.SqlSchemaModelObjectService.GetObjects(System.String,Microsoft.SqlServer.Dac.Model.ModelTypeClass[])">
+            <summary>
+            Retrieves all TSqlObjects in a given source document filtered by ModelTypeClass specified by the types parameter
+            </summary>
+            <param name="sourceName">Name of the source document</param>
+            <param name="types">Array of ModelTypeClass that the resulting TSqlObject should be filtered on. 
+            If the parameter is a empty list, all objects will be returned.</param>
+            <returns>List of TSqlObjects</returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Model.SqlSchemaModelObjectService.GetModelErrors">
+            <summary>
+            Retrieves all model errors.
+            </summary>
+            <returns>List of model errors</returns>
         </member>
         <member name="M:Microsoft.SqlServer.Dac.Model.SqlSchemaModelObjectService.GetModelIdForNamedObjectId(Microsoft.SqlServer.Dac.Model.ObjectIdentifier)">
             <summary>
@@ -5724,6 +6322,20 @@
             resolve, hence the caller must ensure the model is resolved once all these operations are completed.  
             </summary>
         </member>
+        <member name="M:Microsoft.SqlServer.Dac.Model.SqlSchemaModelObjectService.DoAddOrUpdateSubstitutedObject(Microsoft.Data.Tools.Schema.Sql.SchemaModel.ISqlModelElement,System.String,Microsoft.SqlServer.Dac.Model.TSqlObjectOptions,System.String,System.String)">
+            <summary>
+            If adding an object to the model fails due to model blocking errors and if the ModelLoadOption is set to not throw on errors,
+            the original object is substituted with a replacement object whose errant parts are removed. These errors are common in case of objects with
+            old deprecated syntax. 
+            This method substitutes stored procedures and views with equivalent new objects that has commented out script body.
+            In case of other types of objects, an empty element with just the name of the errant object is added to the model.
+            </summary>
+            <param name="element">The element that originally failed to add to the model.</param>
+            <param name="sourceName">source name of the object</param>
+            <param name="options">TSqlObjectOptions for the object</param>
+            <param name="script">Script of the object</param>
+            <param name="cacheIdentifier">cache identifier for the object</param>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.Model.SqlSchemaModelObjectService.ModelBuilder">
             <summary>
             Internal for testing purposes only
@@ -5809,6 +6421,46 @@
         <member name="P:Microsoft.SqlServer.Dac.Model.SqlSchemaModelObjectService.ScopeFilter.QueryFilter">
             <summary>
             filter used when retrieving element
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Model.ModelErrorSeverity">
+            <summary>
+            Represents the severity level of the model error
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.ModelErrorSeverity.Unknown">
+            <summary>
+            Severity is unknown
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.ModelErrorSeverity.Error">
+            <summary>
+            Model error
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.ModelErrorSeverity.Warning">
+            <summary>
+            Warning in the model
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Model.ModelErrorType">
+            <summary>
+            The model error type. Represents the various classification of model blocking errors.
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.ModelErrorType.ParserError">
+            <summary>
+            Represents a parser error in an object in the model
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.ModelErrorType.InterpreterError">
+            <summary>
+            Represents a interpreter error in an object in the model
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.ModelErrorType.ModelValidationError">
+            <summary>
+            Any other model blocking validation errors.
             </summary>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.Model.ModelExtractOptions">
@@ -5936,6 +6588,14 @@
             <param name="modelStorageType">Value for the <see cref="P:Microsoft.SqlServer.Dac.Model.ModelLoadOptions.ModelStorageType"/> property</param>
             <param name="loadAsScriptBackedModel">Value for the <see cref="P:Microsoft.SqlServer.Dac.Model.ModelLoadOptions.LoadAsScriptBackedModel"/> property</param>
         </member>
+        <member name="M:Microsoft.SqlServer.Dac.Model.ModelLoadOptions.#ctor(Microsoft.SqlServer.Dac.DacSchemaModelStorageType,System.Boolean,System.Boolean)">
+            <summary>
+            Constructs an instance of <see cref="T:Microsoft.SqlServer.Dac.Model.ModelLoadOptions"/> with the specified options.
+            </summary>
+            <param name="modelStorageType">Value for the <see cref="P:Microsoft.SqlServer.Dac.Model.ModelLoadOptions.ModelStorageType"/> property</param>
+            <param name="loadAsScriptBackedModel">Value for the <see cref="P:Microsoft.SqlServer.Dac.Model.ModelLoadOptions.LoadAsScriptBackedModel"/> property</param>
+            <param name="throwOnModelErrors">Value for the <see cref="P:Microsoft.SqlServer.Dac.Model.ModelLoadOptions.ThrowOnModelErrors"/> property</param>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.Model.ModelLoadOptions.ModelStorageType">
             <summary>
             Should the model be stored in memory or should a file-backed storage be used?
@@ -5961,6 +6621,26 @@
             </summary>
             <remarks>Default value is false, since there is a performance hit involved in creating a script-backed model from a 
             non-scripted source</remarks>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.ModelLoadOptions.ThrowOnModelErrors">
+            <summary>
+            Defines whether the model edit APIs throw a <see cref="T:Microsoft.SqlServer.Dac.Model.DacModelException"/> if there are any blocking errors present in the model.
+            
+            When adding a new object or deleting/modifying existing objects in the model using API calls such as 
+            <see cref="M:Microsoft.SqlServer.Dac.Model.TSqlModel.AddObjects(System.String)"/>, <see cref="M:Microsoft.SqlServer.Dac.Model.TSqlModel.AddOrUpdateObjects(System.String,System.String,Microsoft.SqlServer.Dac.Model.TSqlObjectOptions)"/>, <see cref="M:Microsoft.SqlServer.Dac.Model.TSqlModel.DeleteObjects(System.String)"/> 
+            and <see cref="M:Microsoft.SqlServer.Dac.Model.TSqlModel.ConvertToScriptedObject(Microsoft.SqlServer.Dac.Model.TSqlObject,System.String)"/>, the model throws <see cref="T:Microsoft.SqlServer.Dac.Model.DacModelException"/> signaling 
+            the presence of model blocking errors. Model blocking errors indicates the presence of serious errors such as parser, interpreter and other errors in the objects.
+            Setting this option to false allows building the model even if it has such serious errors. Subsequently those objects with model errors can be retrieved using the
+            <see cref="M:Microsoft.SqlServer.Dac.Model.TSqlModel.GetModelErrors"/> method.
+            
+            When objects with model blocking errors are added to the model, the object is edited such that errant parts are removed or commented out in a 
+            best effort manner to preserve the parts of the object that do not have errors. For instance a stored procedure that has a parser error in the procedure body 
+            will have its body commented out before adding to the model. As a worst case the object is completely dropped while preserving the model errors.
+            
+            Note that current implementation handles objects with model errors as follows
+            1) Sql procedures and views are added to the model with commented body.
+            2) Other object types are completely dropped while preserving the model errors.
+            </summary>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.Model.ModelMetadataClass">
             <summary>
@@ -8744,6 +9424,21 @@
             DdlExternalResourcePoolEvents
             </summary>
         </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.EventGroupType.DdlExternalLibraryEvents">
+            <summary>
+            DdlExternalLibraryEvents
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.EventGroupType.DdlSensitivityEvents">
+            <summary>
+            DdlSensitivityEvents
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.EventGroupType.DdlExternalLanguageEvents">
+            <summary>
+            DdlExternalLanguageEvents
+            </summary>
+        </member>
         <member name="F:Microsoft.SqlServer.Dac.Model.EventGroupType.DdlServiceEvents">
             <summary>
             DdlServiceEvents
@@ -9407,6 +10102,46 @@
         <member name="F:Microsoft.SqlServer.Dac.Model.EventType.DropExternalResourcePool">
             <summary>
             DropExternalResourcePool
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.EventType.CreateExternalLibrary">
+            <summary>
+            CreateExternalLibrary
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.EventType.AlterExternalLibrary">
+            <summary>
+            AlterExternalLibrary
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.EventType.DropExternalLibrary">
+            <summary>
+            DropExternalLibrary
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.EventType.AddSensitivityClassification">
+            <summary>
+            AddSensitivityClassification
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.EventType.DropSensitivityClassification">
+            <summary>
+            DropSensitivityClassification
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.EventType.CreateExternalLanguage">
+            <summary>
+            CreateExternalLanguage
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.EventType.AlterExternalLanguage">
+            <summary>
+            AlterExternalLanguage
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.EventType.DropExternalLanguage">
+            <summary>
+            DropExternalLanguage
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.Model.EventType.DropColumnMasterKey">
@@ -10639,6 +11374,11 @@
             ShardMapManager
             </summary>
         </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.DataSourceType.BlobStorage">
+            <summary>
+            BlobStorage
+            </summary>
+        </member>
         <member name="T:Microsoft.SqlServer.Dac.Model.FileFormatType">
             <summary>
             External file format type options.
@@ -11369,6 +12109,26 @@
             Query store records new data.
             </summary>
         </member>
+        <member name="T:Microsoft.SqlServer.Dac.Model.CatalogCollation">
+            <summary>
+            Catalog collation types
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.CatalogCollation.Database_Default">
+            <summary>
+            Database_Default
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.CatalogCollation.Latin1_General_100_CI_AS_KS_WS_SC">
+            <summary>
+            Latin1_General_100_CI_AS_KS_WS_SC
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.CatalogCollation.SQL_Latin1_General_CP1_CI_AS">
+            <summary>
+            SQL_Latin1_General_CP1_CI_AS
+            </summary>
+        </member>
         <member name="T:Microsoft.SqlServer.Dac.Model.Column">
             <summary>
             Model schema container class for Column
@@ -11464,6 +12224,11 @@
             GeneratedAlwaysType property class of Column
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.Column.GraphType">
+            <summary>
+            GraphType property class of Column
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.Model.Column.IdentityIncrement">
             <summary>
             IdentityIncrement property class of Column
@@ -11487,6 +12252,11 @@
         <member name="P:Microsoft.SqlServer.Dac.Model.Column.IsIdentity">
             <summary>
             IsIdentity property class of Column
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.Column.IsPseudoColumn">
+            <summary>
+            IsPseudoColumn property class of Column
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Model.Column.MaskingFunction">
@@ -11757,6 +12527,16 @@
         <member name="P:Microsoft.SqlServer.Dac.Model.ScalarFunction.SystemDataAccess">
             <summary>
             SystemDataAccess property class of ScalarFunction
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.ScalarFunction.IsInline">
+            <summary>
+            IsInline property class of ScalarFunction
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.ScalarFunction.IsInlineable">
+            <summary>
+            IsInlineable property class of ScalarFunction
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Model.ScalarFunction.IsNativeCompiled">
@@ -13114,6 +13894,11 @@
             MemoryOptimizedElevateToSnapshot property class of DatabaseOptions
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.DatabaseOptions.CatalogCollation">
+            <summary>
+            CatalogCollation property class of DatabaseOptions
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.Model.DatabaseOptions.ChangeTrackingRetentionPeriod">
             <summary>
             ChangeTrackingRetentionPeriod property class of DatabaseOptions
@@ -13264,6 +14049,11 @@
             TargetRecoveryTimeUnit property class of DatabaseOptions
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.DatabaseOptions.TemporalHistoryRetentionEnabled">
+            <summary>
+            TemporalHistoryRetentionEnabled property class of DatabaseOptions
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.Model.DatabaseOptions.TwoDigitYearCutoff">
             <summary>
             TwoDigitYearCutoff property class of DatabaseOptions
@@ -13277,6 +14067,11 @@
         <member name="P:Microsoft.SqlServer.Dac.Model.DatabaseOptions.DefaultFileStreamFilegroup">
             <summary>
             DefaultFileStreamFilegroup relationship class of DatabaseOptions
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.DatabaseOptions.GenericDatabaseScopedConfigurationOptions">
+            <summary>
+            GenericDatabaseScopedConfigurationOptions relationship class of DatabaseOptions
             </summary>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.Model.DataCompressionOption">
@@ -16619,6 +17414,16 @@
             IsAutoGeneratedHistoryTable property class of Table
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.Table.IsEdge">
+            <summary>
+            IsEdge property class of Table
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.Table.IsNode">
+            <summary>
+            IsNode property class of Table
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.Model.Table.IsReplicated">
             <summary>
             IsReplicated property class of Table
@@ -16632,6 +17437,16 @@
         <member name="P:Microsoft.SqlServer.Dac.Model.Table.RemoteDataEnabled">
             <summary>
             RemoteDataEnabled property class of Table
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.Table.RetentionUnit">
+            <summary>
+            RetentionUnit property class of Table
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.Table.RetentionValue">
+            <summary>
+            RetentionValue property class of Table
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Model.Table.TextInRowSize">
@@ -17805,6 +18620,12 @@
             </summary>
             <param name="parts">The parts of the identifier</param>
         </member>
+        <member name="M:Microsoft.SqlServer.Dac.Model.ObjectIdentifier.#ctor(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a object identifier with a name.
+            </summary>
+            <param name="parts">The parts of the identifier</param>
+        </member>
         <member name="M:Microsoft.SqlServer.Dac.Model.ObjectIdentifier.#ctor(System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.String})">
             <summary>
             Creates a object identifier with a name that includes external parts.
@@ -17917,6 +18738,16 @@
             on-premises, version 13.0
             </summary>
         </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.SqlServerVersion.Sql140">
+            <summary>
+            on-premises, version 14.0
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.SqlServerVersion.Sql150">
+            <summary>
+            on-premises, version 15.0
+            </summary>
+        </member>
         <member name="T:Microsoft.SqlServer.Dac.Model.TSqlModel">
             <summary>
             Represents a model of a SQL Server database schema.
@@ -18005,6 +18836,45 @@
             Loads a model from a database using the specified <paramref name="options"/>.
             </summary>
             <param name="connectionString">A connection string specifying the database and catalog to load.</param>
+            <param name="options">
+            Optional <see cref="T:Microsoft.SqlServer.Dac.Model.ModelExtractOptions"/> instance used to specify options that affect the behavior of package extraction.
+            For models to be analyzed in static code analysis, it's recommended that the 
+            <see cref="P:Microsoft.SqlServer.Dac.Model.ModelExtractOptions.LoadAsScriptBackedModel"/> be set to true. This is important since some
+            rules may not work as expected unless this is true.</param> 
+            <param name="cancellationToken">Optional cancellation token used to cancel a load operation.</param>
+            <exception cref="T:System.ArgumentNullException">If connectionString is null.</exception>
+            <exception cref="T:System.ArgumentException">If connectionString is not a valid connection string
+            or options.Storage is not a valid value of the enumerated type.</exception>
+            <exception cref="T:Microsoft.SqlServer.Dac.DacServicesException">
+            If there are problems extracting the model from the specified database. 
+            </exception>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Model.TSqlModel.LoadFromDatabaseWithAuthProvider(System.String,Microsoft.SqlServer.Dac.IUniversalAuthProvider,Microsoft.SqlServer.Dac.Model.ModelExtractOptions,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Loads a model from a database using the specified <paramref name="options"/>.
+            </summary>
+            <param name="connectionString">A connection string specifying the database and catalog to load.</param>
+            <param name="authProvider"> 
+            Optional universal authentication provider used to authenticate a <see cref="T:System.Data.SqlClient.SqlConnection"/> when opening a connection.</param>
+            <param name="options">
+            Optional <see cref="T:Microsoft.SqlServer.Dac.Model.ModelExtractOptions"/> instance used to specify options that affect the behavior of package extraction.
+            For models to be analyzed in static code analysis, it's recommended that the 
+            <see cref="P:Microsoft.SqlServer.Dac.Model.ModelExtractOptions.LoadAsScriptBackedModel"/> be set to true. This is important since some
+            rules may not work as expected unless this is true.</param> 
+            <param name="cancellationToken">Optional cancellation token used to cancel a load operation.</param>
+            <exception cref="T:System.ArgumentNullException">If connectionString is null.</exception>
+            <exception cref="T:System.ArgumentException">If connectionString is not a valid connection string
+            or options.Storage is not a valid value of the enumerated type.</exception>
+            <exception cref="T:Microsoft.SqlServer.Dac.DacServicesException">
+            If there are problems extracting the model from the specified database. 
+            </exception>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Model.TSqlModel.LoadFromDatabase(System.String,System.Security.SecureString,Microsoft.SqlServer.Dac.Model.ModelExtractOptions,System.Nullable{System.Threading.CancellationToken})">
+            <summary>
+            Loads a model from a database using the specified <paramref name="options"/>.
+            </summary>
+            <param name="connectionString">A connection string specifying the database and catalog to load.</param>
+            <param name="password">This password string used when connecting to the specified database.</param>
             <param name="options">
             Optional <see cref="T:Microsoft.SqlServer.Dac.Model.ModelExtractOptions"/> instance used to specify options that affect the behavior of package extraction.
             For models to be analyzed in static code analysis, it's recommended that the 
@@ -18166,6 +19036,33 @@
             <exception cref="T:System.ArgumentNullException">
             If the supplied <paramref name="objectType"/> is null.
             </exception>
+            <exception cref="T:System.Runtime.Remoting.RemotingException">
+            If communication with the <see cref="T:Microsoft.SqlServer.Dac.Model.TSqlObjectService"/> fails.
+            </exception>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Model.TSqlModel.GetObjects(System.String,Microsoft.SqlServer.Dac.Model.ModelTypeClass[])">
+            <summary>
+            Returns all <see cref="T:Microsoft.SqlServer.Dac.Model.TSqlObject"/>s in a given <paramref name="sourceName"/> document filtered by <see cref="T:Microsoft.SqlServer.Dac.Model.ModelTypeClass"/>s
+            specified by the <paramref name="typeFilters"/> parameter.
+            </summary>
+            <param name="sourceName">Name of the source document</param>
+            <param name="typeFilters">Array of ModelTypeClass that the resulting <see cref="T:Microsoft.SqlServer.Dac.Model.TSqlObject"/> should be filtered on.</param>
+            <returns>List of <see cref="T:Microsoft.SqlServer.Dac.Model.TSqlObject"/>s</returns>
+            <remarks>
+            If no <paramref name="typeFilters"/> are supplied all <see cref="T:Microsoft.SqlServer.Dac.Model.ModelTypeClass"/>s are returned.
+            </remarks>
+            <exception cref="T:System.Runtime.Remoting.RemotingException">
+            If communication with the <see cref="T:Microsoft.SqlServer.Dac.Model.TSqlObjectService"/> fails.
+            </exception>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Model.TSqlModel.GetModelErrors">
+            <summary>
+            Returns all <see cref="T:Microsoft.SqlServer.Dac.Model.DacModelError"/>s that are present in the model.
+            </summary>
+            <remarks>
+            Load the model with <see cref="P:Microsoft.SqlServer.Dac.Model.ModelLoadOptions.ThrowOnModelErrors"/> set to false to retrieve model errors.
+            Refer <see cref="P:Microsoft.SqlServer.Dac.Model.ModelLoadOptions.ThrowOnModelErrors"/> for more information on model errors.
+            </remarks>
             <exception cref="T:System.Runtime.Remoting.RemotingException">
             If communication with the <see cref="T:Microsoft.SqlServer.Dac.Model.TSqlObjectService"/> fails.
             </exception>
@@ -18353,6 +19250,15 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.SqlServer.Dac.Model.TSqlModel.CheckVersionCompatibility(Microsoft.SqlServer.Dac.Model.SqlServerVersion,System.Threading.CancellationToken)">
+            <summary>
+            Validates the model to determine whether it contains any elements that are not compatible with a target version of SQL Server or Azure SQL Database, 
+            and returns any errors or warnings.
+            </summary>
+            <param name="targetVersion">The target sql version of the export</param>
+            <param name="cancelToken">A token used for cancelling the model check.</param>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.SqlServer.Dac.Model.TSqlModel.CopyModelOptions">
             <summary>
             Copies the <see cref="T:Microsoft.SqlServer.Dac.Model.DatabaseOptions"/> for the model to a <see cref="T:Microsoft.SqlServer.Dac.Model.TSqlModelOptions"/> object.
@@ -18511,6 +19417,11 @@
         <member name="P:Microsoft.SqlServer.Dac.Model.TSqlModelOptions.AutoUpdateStatisticsAsync">
             <summary>
             Specifies the AUTO_UPDATE_STATISTICS_ASYNC database option.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.TSqlModelOptions.CatalogCollation">
+            <summary>
+            Specifies the CATALOG_COLLATION_TYPE database option
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Model.TSqlModelOptions.ChangeTrackingAutoCleanup">
@@ -19316,6 +20227,16 @@
             Microsoft Azure SQL Database, version 12
             </summary>
         </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.TSqlPlatforms.Sql140">
+            <summary>
+            on-premises, version 14.0
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.TSqlPlatforms.Sql150">
+            <summary>
+            on-premises, version 15.0
+            </summary>
+        </member>
         <member name="F:Microsoft.SqlServer.Dac.Model.TSqlPlatforms.OnPremises">
             <summary>
             All on-premises versions
@@ -19359,6 +20280,11 @@
         <member name="P:Microsoft.SqlServer.Dac.PackageOptions.TreatWarningsAsErrors">
             <summary>
             Indicates whether warnings should be treated as errors during model validation 
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.PackageOptions.IgnoreValidationErrors">
+            <summary>
+            Indicates the list of errors that will be ignored during validation
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.PackageOptions.RefactorLogPath">

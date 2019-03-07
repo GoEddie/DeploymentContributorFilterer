@@ -73,3 +73,10 @@ You can specify multiple filters by seperating them with a semi colon so and add
 ```
 
 (The reason for the uniqueifier is detailed: https://connect.microsoft.com/SQLServer/feedback/details/1112969)
+
+
+
+
+### Contributing
+
+If you would like to contribute and want to run the tests, create a sql local db instance called Fileter - "sqllocaldb c Filter" - all tests are hardcoded to that (sorry ha ha)
