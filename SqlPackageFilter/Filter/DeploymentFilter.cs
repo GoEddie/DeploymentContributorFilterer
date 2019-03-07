@@ -7,7 +7,7 @@ using Microsoft.SqlServer.Dac.Extensibility;
 
 namespace AgileSqlClub.SqlPackageFilter.Filter
 {
-  [ExportDeploymentPlanModifier("AgileSqlClub.DeploymentFilterContributor", "1.4.3.1")]
+  [ExportDeploymentPlanModifier("AgileSqlClub.DeploymentFilterContributor", "1.4.4.1")]
   public class DeploymentFilter : DeploymentPlanModifier, IDisplayMessageHandler
   {
     private DisplayMessageLevel _displayLevel = DisplayMessageLevel.Errors;
@@ -29,10 +29,10 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
     }
 
     protected override void OnExecute(DeploymentPlanContributorContext context)
-    {
-      
+    {            
       try
       {
+
         PublishMessage(new ExtensibilityError("Starting AgileSqlClub.DeploymentFilterContributor", Severity.Message));
 
         var rules = new RuleDefinitionFactory(this).BuildRules(context.Arguments, this);
