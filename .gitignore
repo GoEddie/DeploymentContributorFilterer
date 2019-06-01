@@ -182,7 +182,3 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
-/.vs/AgileSqlClub.SqlPackageFilter/v15/Server/sqlite3/storage.ide-wal
-/.vs/AgileSqlClub.SqlPackageFilter/v15/Server/sqlite3/storage.ide-shm
-/.vs/AgileSqlClub.SqlPackageFilter/v15/Server/sqlite3/storage.ide
-/.vs/AgileSqlClub.SqlPackageFilter/v15/Server/sqlite3/db.lock
