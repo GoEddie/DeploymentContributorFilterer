@@ -1,19 +1,29 @@
 ﻿using AgileSqlClub.SqlPackageFilter.Filter;
 using Microsoft.SqlServer.Dac.Deployment;
 using Microsoft.SqlServer.Dac.Model;
+using System.Collections.Generic;
+using AgileSqlClub.SqlPackageFilter.DacExtensions;
 
 namespace AgileSqlClub.SqlPackageFilter.Rules
 {
     public class ObjectTypeFilterRule : FilterRule
     {
-        public ObjectTypeFilterRule(FilterOperation operation, string match, MatchType matchType) : base(operation, match, matchType)
+        protected readonly string Schema;
+
+        public ObjectTypeFilterRule(FilterOperation operation, string match, MatchType matchType, List<string> options) : base(operation, match, matchType)
         {
-            
+            if (options != null && options.Count > 0)
+            {
+                Schema = options[0];
+            }
         }
 
-        public override  bool Matches(ObjectIdentifier name, ModelTypeClass type, DeploymentStep step = null)
+        public override bool Matches(ObjectIdentifier name, ModelTypeClass type, DeploymentStep step = null)
         {
-            return Matches(type.Name);
+            bool result = (Schema == null || Schema.Equals(name.GetSchemaName(type)))
+                && Matches(type.Name);
+
+            return result;
         }
     }
 }

@@ -34,7 +34,7 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                         break;
                     case FilterType.Type:
                         rules.Add(new ObjectTypeFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
-                            ruleDefinition.MatchType));
+                            ruleDefinition.MatchType, ruleDefinition.Options));
                         break;
                     case FilterType.TableColumns:
                         rules.Add(new TableColumnFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
