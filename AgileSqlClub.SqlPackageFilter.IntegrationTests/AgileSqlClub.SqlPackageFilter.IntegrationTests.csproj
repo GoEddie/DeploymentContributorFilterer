@@ -49,6 +49,7 @@
     <Compile Include="FilterTests\IgnoreTests.cs" />
     <Compile Include="FilterTests\KeepColumnsTests.cs" />
     <Compile Include="FilterTests\KeepTests.cs" />
+    <Compile Include="Path\CopyDll.cs" />
     <Compile Include="ProcessGateway.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlGateway.cs" />
@@ -62,37 +63,24 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-    <None Include="SqlPackage.exe\en\ThirdPartyNoticesDacFramework.rtf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="SqlPackage.exe\sqlpackage.exe.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SqlPackage.exe\1033\DacUnpackResources.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SqlPackageFilter\AgileSqlClub.SqlPackageFilter.csproj">
+      <Project>{27b7311a-dd78-48d5-aa5c-bffcc5ca5fa2}</Project>
+      <Name>AgileSqlClub.SqlPackageFilter</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="SqlPackage.exe\dacunpack.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SqlPackage.exe\EESSDTEXT.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlPackage.exe\en\License_DACFx.txt" />
-    <Content Include="SqlPackage.exe\Extensions\Microsoft.SqlServer.Services.ImportExport.DacFxExtensions.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlPackage.exe\Extensions\Readme.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlPackage.exe\Hyak.Common.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlPackage.exe\Microsoft.Azure.Common.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlPackage.exe\Microsoft.Azure.KeyVault.dll">
+    <Content Include="SqlPackage.exe\Microsoft.Data.Tools.Components.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="SqlPackage.exe\Microsoft.Data.Tools.Contracts.dll">
@@ -110,10 +98,7 @@
     <Content Include="SqlPackage.exe\Microsoft.Data.Tools.Utilities.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SqlPackage.exe\Microsoft.IdentityModel.Clients.ActiveDirectory.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlPackage.exe\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll">
+    <Content Include="SqlPackage.exe\Microsoft.SqlServer.ConnectionInfo.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="SqlPackage.exe\Microsoft.SqlServer.Dac.dll">
@@ -128,39 +113,15 @@
     <Content Include="SqlPackage.exe\Microsoft.SqlServer.Dac.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SqlPackage.exe\Microsoft.SqlServer.DacAzureExtensions.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlPackage.exe\Microsoft.SqlServer.DacAzureExtensions.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlPackage.exe\Microsoft.SqlServer.Management.AlwaysEncrypted.AzureKeyVaultProvider.dll">
+    <Content Include="SqlPackage.exe\Microsoft.SqlServer.SqlClrProvider.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="SqlPackage.exe\Microsoft.SqlServer.TransactSql.ScriptDom.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SqlPackage.exe\Microsoft.SqlServer.Types.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlPackage.exe\Microsoft.Threading.Tasks.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlPackage.exe\Newtonsoft.Json.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="SqlPackage.exe\sqlpackage.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SqlPackageFilter\AgileSqlClub.SqlPackageFilter.csproj">
-      <Project>{27b7311a-dd78-48d5-aa5c-bffcc5ca5fa2}</Project>
-      <Name>AgileSqlClub.SqlPackageFilter</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using NUnit.Framework;
 using System.IO;
+using AgileSqlClub.SqlPackageFilter.IntegrationTests.PathFixer;
 
 namespace AgileSqlClub.SqlPackageFilter.IntegrationTests.VersionExecutorTests
 {
@@ -12,11 +13,13 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests.VersionExecutorTests
         [Test]
         public void Schema_Is_Not_Dropped_When_Name_Is_Ignored()
         {
+            new CopyDll(TestContext.CurrentContext.TestDirectory).Fix();
+
             _gateway.RunQuery("IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'blah') exec sp_executesql N'CREATE SCHEMA blah';");
             _gateway.RunQuery("IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'bloobla') exec sp_executesql N'CREATE table blah.bloobla(id int)';");
 
             var args =
-            $"/Action:Publish /TargetServerName:localhost /SourceFile:{Path.Combine(TestContext.CurrentContext.TestDirectory, "Dacpac.Dacpac")}  /TargetDatabaseName:Filters /p:DropObjectsNotInSource=True /p:AllowIncompatiblePlatform=true";
+            $"/Action:Publish /TargetServerName:(localdb)\\Filter /SourceFile:{Path.Combine(TestContext.CurrentContext.TestDirectory, "Dacpac.Dacpac")}  /TargetDatabaseName:Filters /p:DropObjectsNotInSource=True /p:AllowIncompatiblePlatform=true /p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor /p:AdditionalDeploymentContributorArguments=\"SqlPackageFilter=KeepSchema(blah)\"";
 
             var proc = new ProcessGateway( Path.Combine(TestContext.CurrentContext.TestDirectory,   "SqlPackage.exe\\SqlPackage.exe"), args);
             proc.Run();

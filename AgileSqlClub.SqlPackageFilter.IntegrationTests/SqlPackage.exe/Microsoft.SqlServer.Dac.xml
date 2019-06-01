@@ -90,6 +90,102 @@
             If there is a problem reading the package; or if the package does not contain exported data.
             </exception>
         </member>
+        <member name="T:Microsoft.SqlServer.Dac.IUniversalAuthProvider">
+            <summary>
+            Implement this interface to create a string access token. This access token will be used to set 
+            the <see cref="P:System.Data.SqlClient.SqlConnection.AccessToken"/> for any SqlConnection instances created when connecting to a database.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.IUniversalAuthProvider.GetValidAccessToken">
+            <summary>
+            Returns an valid access token.
+            </summary>
+            <returns>The access token to be used to set the AccessToken property of the SqlConnection.</returns>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.PublishResult">
+            <summary>
+            Contains the results of a publish or script operation. This will contain at least one of the <see cref="P:Microsoft.SqlServer.Dac.PublishResult.DeploymentReport"/>
+            or <see cref="P:Microsoft.SqlServer.Dac.PublishResult.DatabaseScript"/> properties depending on what was requested in the <see cref="T:Microsoft.SqlServer.Dac.PublishOptions"/>
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.PublishResult.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructs a <see cref="T:Microsoft.SqlServer.Dac.PublishResult"/> with the specified contents
+            </summary>
+            <param name="deployReport">set as the <see cref="P:Microsoft.SqlServer.Dac.PublishResult.DeploymentReport"/> to return</param>
+            <param name="dbScript">set as the <see cref="P:Microsoft.SqlServer.Dac.PublishResult.DatabaseScript"/> to return</param>
+            <param name="masterScript">set as the <see cref="P:Microsoft.SqlServer.Dac.PublishResult.MasterDbScript"/> to return</param>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.PublishResult.DeploymentReport">
+            <summary>
+            A Deployment Report, if one was requested.
+            This report is a high-level summary of actions being performed during deployment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.PublishResult.DatabaseScript">
+            <summary>
+            The DB-level deployment script, if one was requested.
+            This script contains all operations that must be done against the database during deployment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.PublishResult.MasterDbScript">
+            <summary>
+            The master database-level deployment script, if one was requested.
+            This script is only created if Azure SQL DB is the target as USE statements are not supported on that platform.
+            It contains all operations that must be done against the master database, for instance Create Database statements
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.PublishOptions">
+            <summary>
+            Configures options for what will be reported when performing certain operations from <see cref="T:Microsoft.SqlServer.Dac.DacServices"/>,
+            in particular whether a DeployReport and/or DeployScript will be generated
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.PublishOptions.#ctor">
+            <summary>
+            Configures options for what will be reported when performing certain operations from <see cref="T:Microsoft.SqlServer.Dac.DacServices"/>,
+            in particular whether a DeployReport and/or DeployScript will be generated
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.PublishOptions.GenerateDeploymentScript">
+            <summary>
+            Sets whether Deployment Script(s) should be generated during deploy.
+            If true, a script to update the database will be generated, and a script to
+            update Master may also be generated if the target is an Azure SQL DB and this
+            database has not yet been created.
+            </summary>
+            <value>Defaults to true</value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.PublishOptions.GenerateDeploymentReport">
+            <summary>
+            Sets whether a Deployment Report should be generated during deploy.
+            This report is a high-level summary of actions being performed during deployment.
+            </summary>
+            <value>Defaults to false</value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.PublishOptions.DatabaseScriptPath">
+            <summary>
+            Optional path to write the DB-level deployment script, if <see cref="P:Microsoft.SqlServer.Dac.PublishOptions.GenerateDeploymentScript"/> is true.
+            This script contains all operations that must be done against the database during deployment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.PublishOptions.MasterDbScriptPath">
+            <summary>
+            Optional path to write the master database-level deployment script, if <see cref="P:Microsoft.SqlServer.Dac.PublishOptions.GenerateDeploymentScript"/> is true.
+            This script is only created if Azure SQL DB is the target as USE statements are not supported on that platform.
+            It contains all operations that must be done against the master database, for instance Create Database statements
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.PublishOptions.DeployOptions">
+            <summary>
+            Optional <see cref="T:Microsoft.SqlServer.Dac.DacDeployOptions"/> to configure a range of deployment options. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.PublishOptions.CancelToken">
+            <summary>
+            Nullable <see cref="T:System.Threading.CancellationToken"/> to allow the caller to cancel a deployment
+            </summary>
+        </member>
         <member name="T:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService">
             <summary>
             Provides a service for discovering and configuring a <see cref="T:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthenticator"/> to handle key vault access requests.
@@ -138,6 +234,13 @@
         <member name="P:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.Trace">
             <summary>
             Trace object to use for tracing
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.BlockifMissingAuthentication">
+            <summary>
+            Gives a way to set early failure if Azure Key Vault Provider is not setup.
+            When this is true, deployment fails to start if there is no Provider defined
+            contrary to default mode which lets the deployment go through and fails only when key is actually used.
             </summary>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.KeyVault.ClientAndSecretAuthInfo">
@@ -745,6 +848,16 @@
             Default is false.
             </value>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.IgnoreColumnOrder">
+            <summary>
+            Get or set boolean that specifies whether to exclude from consideration 
+            the order of columns in tables when comparing the source and target model.
+            </summary>
+            <value>
+            True to ignore differences in column order; otherwise, false.
+            Default is false.
+            </value>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.IgnoreComments">
             <summary>
             Get or set boolean that specifies whether to exclude comments from 
@@ -1085,6 +1198,15 @@
             Default is false.
             </value>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.AllowUnsafeRowLevelSecurityDataMovement">
+            <summary>
+            Get or set boolean that specifies whether to ignore blocking data motion on RLS enabled tables
+            </summary>
+            <value>
+            True to ignore block on data motion when Row level security is enabled on a table
+            Default is false i.e. data motion is blocked with RLS by default.
+            </value>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.IncludeCompositeObjects">
             <summary>
             Get or set boolean that specifies whether to include referenced, external elements that also 
@@ -1365,6 +1487,11 @@
               Looks up a localized string similar to Table with schema &quot;{0}&quot; and name &quot;{1}&quot; was specified for data import or export, but does not exist in the database schema..
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorDeletingFile">
+            <summary>
+              Looks up a localized string similar to An error occurred when deleting file &apos;{0}&apos;.
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorDeployingPackage">
             <summary>
               Looks up a localized string similar to Could not deploy package..
@@ -1403,6 +1530,11 @@
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorGeneratingDeploymentReport">
             <summary>
               Looks up a localized string similar to Could not generate deployment report..
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorGeneratingDeploymentResults">
+            <summary>
+              Looks up a localized string similar to Could not generate deployment results..
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorGeneratingDeploymentScript">
@@ -1445,6 +1577,11 @@
               Looks up a localized string similar to Could not load data-tier application metadata from package..
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorReadingFromFile">
+            <summary>
+              Looks up a localized string similar to An error occurred reading the contents of file &apos;{0}&apos;.
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorReadingModelFromPackage">
             <summary>
               Looks up a localized string similar to Could not load schema model from package..
@@ -1457,7 +1594,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorReadingProfile">
             <summary>
-              Looks up a localized string similar to Could not read profile properties: {0}.
+              Looks up a localized string similar to Could not read profile xml..
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorReadingProfileProperties">
@@ -1600,6 +1737,11 @@
               Looks up a localized string similar to The referenced package &apos;{0}&apos; doesn&apos;t exist..
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ScriptRequiresOneOfTwoOptions">
+            <summary>
+              Looks up a localized string similar to At least one of the options {0} or {1} must be enabled..
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.TranslatingModelFailed">
             <summary>
               Looks up a localized string similar to Translating the model failed..
@@ -1658,6 +1800,11 @@
             CREATE DATABASE database_name EDITION = <b>'premium'</b>
             </summary>
         </member>
+        <member name="F:Microsoft.SqlServer.Dac.DacAzureEdition.PremiumRS">
+            <summary>
+            CREATE DATABASE database_name EDITION = <b>'premiumRS'</b>
+            </summary>
+        </member>
         <member name="F:Microsoft.SqlServer.Dac.DacAzureEdition.Default">
             <summary>
             CREATE DATABASE database_name
@@ -1686,8 +1833,8 @@
             {edition_options} ::= 
             {
                (MAXSIZE = { 100 MB | 500 MB | 1 | 5 | 10 | 20 | 30 ... 150 ... 500 } GB
-                |<b>(EDITION = {'web' | 'business' | 'basic' | 'standard' | 'premium'})</b>
-                |<b>(SERVICE_OBJECTIVE = { 'shared' | 'basic' | 'S0' | 'S1' | 'S2' | 'S3' | 'P1' | 'P2' | 'P3' | 'P4' | 'P6' | 'P11' })</b>
+                |<b>(EDITION = {'web' | 'business' | 'basic' | 'standard' | 'premium' | 'premiumRS'})</b>
+                |<b>(SERVICE_OBJECTIVE = { 'shared' | 'basic' | 'S0' | 'S1' | 'S2' | 'S3' | 'P1' | 'P2' | 'P3' | 'P4' | 'P6' | 'P11' | 'P15' | 'PRS1' | 'PRS2' | 'PRS4' | 'PRS6' })</b>
             }
             </remarks>
         </member>
@@ -1704,8 +1851,8 @@
             {edition_options} ::= 
             {
                <b>(MAXSIZE = { 100 MB | 500 MB | 1 | 5 | 10 | 20 | 30 ... 150 ... 500 } GB</b>
-                |(EDITION = {'web' | 'business' | 'basic' | 'standard' | 'premium'})
-                |(SERVICE_OBJECTIVE = { 'shared' | 'basic' | 'S0' | 'S1' | 'S2' | 'S3' | 'P1' | 'P2' | 'P3' | 'P4' | 'P6' | 'P11' })
+                |(EDITION = {'web' | 'business' | 'basic' | 'standard' | 'premium' | 'premiumRS'})
+                |(SERVICE_OBJECTIVE = { 'shared' | 'basic' | 'S0' | 'S1' | 'S2' | 'S3' | 'P1' | 'P2' | 'P3' | 'P4' | 'P6' | 'P11' | 'P15' | 'PRS1' | 'PRS2' | 'PRS4' | 'PRS6' })
             }
             </remarks>
         </member>
@@ -1722,8 +1869,8 @@
             {edition_options} ::= 
             {
                (MAXSIZE = { 100 MB | 500 MB | 1 | 5 | 10 | 20 | 30 ... 150 ... 500 } GB  
-                |(EDITION = {'web' | 'business' | 'basic' | 'standard' | 'premium'})
-                |<b>(SERVICE_OBJECTIVE = { 'shared' | 'basic' | 'S0' | 'S1' | 'S2' | 'S3' | 'P1' | 'P2' | 'P3' | 'P4' | 'P6' | 'P11' })</b>
+                |(EDITION = {'web' | 'business' | 'basic' | 'standard' | 'premium' | 'premiumRS'})
+                |<b>(SERVICE_OBJECTIVE = { 'shared' | 'basic' | 'S0' | 'S1' | 'S2' | 'S3' | 'P1' | 'P2' | 'P3' | 'P4' | 'P6' | 'P11' | 'P15' | 'PRS1' | 'PRS2' | 'PRS4' | 'PRS6' })</b>
             }
             </remarks>
         </member>
@@ -2279,9 +2426,9 @@
             Provides operations to create and consume DAC packages represented by <see cref="T:Microsoft.SqlServer.Dac.DacPackage"/> instances.
             </summary>
         </member>
-        <member name="F:Microsoft.SqlServer.Dac.DacServices._userConnectionString">
+        <member name="F:Microsoft.SqlServer.Dac.DacServices._userConnectionFactory">
             <summary>
-            Connection string supplied by caller.
+            Connection factory using the connection string supplied by caller.
             </summary>
         </member>
         <member name="M:Microsoft.SqlServer.Dac.DacServices.Initialize">
@@ -2296,6 +2443,43 @@
             </summary>
             <param name="connectionString">
             String that supplies connection information for the database connection used by this instance.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <paramref name="connectionString"/> is a null reference.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            If the supplied <paramref name="connectionString"/> is not valid.
+            </exception>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacServices.#ctor(System.String,Microsoft.SqlServer.Dac.IUniversalAuthProvider)">
+            <summary>
+            Construct a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacServices"/> class
+            that operates against the database specified by the supplied connection string and authentication provider.
+            </summary>
+            <param name="connectionString">
+            String that supplies connection information for the database connection used by this instance.
+            </param>
+            <param name="authProvider">
+            Provide the up-to-date access token for AAD Universal Login (smartcard, phone, etc) 
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <paramref name="connectionString"/> is a null reference.
+            If <paramref name="authProvider"/> is a null reference.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            If the supplied <paramref name="connectionString"/> is not valid.
+            </exception>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacServices.#ctor(System.String,System.Security.SecureString)">
+            <summary>
+            Construct a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacServices"/> class
+            that operates against the database specified by the supplied connection string.
+            </summary>
+            <param name="connectionString">
+            String that supplies connection information for the database connection used by this instance.
+            </param>
+            <param name="password">
+            SecureString that supplies password for the database connection used by this instance.
             </param>
             <exception cref="T:System.ArgumentNullException">
             If <paramref name="connectionString"/> is a null reference.
@@ -2394,6 +2578,89 @@
             If the <see cref="T:System.Threading.CancellationToken"/> has a cancellation requested and the operation could be cancelled.
             </exception>
         </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacServices.Script(Microsoft.SqlServer.Dac.DacPackage,System.String,Microsoft.SqlServer.Dac.PublishOptions)">
+            <summary>
+            Scripts the steps for a publish operation as a deployment script, deployment report, or both. 
+            At least one of the <see cref="P:Microsoft.SqlServer.Dac.PublishOptions.GenerateDeploymentScript"/> or <see cref="P:Microsoft.SqlServer.Dac.PublishOptions.GenerateDeploymentReport"/> 
+            options must be set to true. This method will not publish to the database 
+            </summary>
+            <param name="package">
+            <see cref="T:Microsoft.SqlServer.Dac.DacPackage"/> containing schema to be deployed.
+            </param>
+            <param name="targetDatabaseName">
+            Name of the target database for deployment.
+            </param>
+            <param name="publishOptions">
+            Instance of <see cref="T:Microsoft.SqlServer.Dac.PublishOptions"/> that specifies what is reported back - the deployment script,
+            deployment report, as well as how to configure various aspects of the deployment.
+            </param>
+            <returns><see cref="T:Microsoft.SqlServer.Dac.PublishResult"/>, containing the script(s) and/or report if requested by the caller</returns>
+            <exception cref="T:System.ArgumentException">
+            If the value for any of the required parameters is a null reference or an empty string.
+            </exception>
+            <exception cref="T:Microsoft.SqlServer.Dac.DacServicesException">
+            If an error occurs during deployment.
+            </exception>
+            <exception cref="T:System.OperationCanceledException">
+            If the <see cref="T:System.Threading.CancellationToken"/> has a cancellation requested and the operation could be cancelled.
+            </exception>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacServices.Script(Microsoft.SqlServer.Dac.DacPackage,Microsoft.SqlServer.Dac.DacPackage,System.String,Microsoft.SqlServer.Dac.PublishOptions)">
+            <summary>
+            Scripts the steps for a publish operation as a deployment script, deployment report, or both. 
+            At least one of the <see cref="P:Microsoft.SqlServer.Dac.PublishOptions.GenerateDeploymentScript"/> or <see cref="P:Microsoft.SqlServer.Dac.PublishOptions.GenerateDeploymentReport"/> 
+            options must be set to true. This method will not modify the target
+            </summary>
+            <param name="sourcePackage">
+            <see cref="T:Microsoft.SqlServer.Dac.DacPackage"/> containing schema to be deployed.
+            </param>
+            <param name="targetPackage">
+            <see cref="T:Microsoft.SqlServer.Dac.DacPackage"/> containing schema representing the target database.
+            </param>
+            <param name="targetDatabaseName">
+            Name of the target database for deployment.
+            </param>
+            <param name="publishOptions">
+            Instance of <see cref="T:Microsoft.SqlServer.Dac.PublishOptions"/> that specifies what is reported back - the deployment script,
+            deployment report, as we all how to configure various aspects of the deployment.
+            </param>
+            <returns><see cref="T:Microsoft.SqlServer.Dac.PublishResult"/>, containing the script(s) and/or report if requested by the caller</returns>
+            <exception cref="T:System.ArgumentException">
+            If the value for any of the required parameters is a null reference or an empty string.
+            </exception>
+            <exception cref="T:Microsoft.SqlServer.Dac.DacServicesException">
+            If an error occurs during deployment.
+            </exception>
+            <exception cref="T:System.OperationCanceledException">
+            If the <see cref="T:System.Threading.CancellationToken"/> has a cancellation requested and the operation could be cancelled.
+            </exception>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacServices.Publish(Microsoft.SqlServer.Dac.DacPackage,System.String,Microsoft.SqlServer.Dac.PublishOptions)">
+            <summary>
+            Publish the supplied package to a database. This method supports returning the script used when publishing along with
+            a deployment report summarizing the actions taken during Publish
+            </summary>
+            <param name="package">
+            <see cref="T:Microsoft.SqlServer.Dac.DacPackage"/> containing schema to be deployed.
+            </param>
+            <param name="targetDatabaseName">
+            Name of the target database for deployment.
+            </param>
+            <param name="publishOptions">
+            Instance of <see cref="T:Microsoft.SqlServer.Dac.PublishOptions"/> that specifies what is reported back - the deployment script,
+            deployment report, as we all how to configure various aspects of the deployment.
+            </param>
+            <returns><see cref="T:Microsoft.SqlServer.Dac.PublishResult"/>, containing the script(s) and/or report if requested by the caller</returns>
+            <exception cref="T:System.ArgumentException">
+            If the value for any of the required parameters is a null reference or an empty string.
+            </exception>
+            <exception cref="T:Microsoft.SqlServer.Dac.DacServicesException">
+            If an error occurs during deployment.
+            </exception>
+            <exception cref="T:System.OperationCanceledException">
+            If the <see cref="T:System.Threading.CancellationToken"/> has a cancellation requested and the operation could be cancelled.
+            </exception>
+        </member>
         <member name="M:Microsoft.SqlServer.Dac.DacServices.Deploy(Microsoft.SqlServer.Dac.DacPackage,System.String,System.Boolean,Microsoft.SqlServer.Dac.DacDeployOptions,System.Nullable{System.Threading.CancellationToken})">
             <summary>
             Deploy the supplied package to a database.
@@ -2485,6 +2752,13 @@
             <summary>
             Creates an <see cref="T:Microsoft.Data.Tools.Schema.Sql.Deployment.IDeploymentController"/>, handling any errors thrown during contstruction
             </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacServices.GenerateUniqueScriptFileName(System.String,System.Boolean)">
+            <summary>
+            Generate unique filename for a script
+            </summary>
+            <param name="databaseName">The target database name</param>
+            <param name="isMaster">Is this the master database script</param>
         </member>
         <member name="M:Microsoft.SqlServer.Dac.DacServices.GenerateDriftReport(System.String,System.Nullable{System.Threading.CancellationToken})">
             <summary>
@@ -2894,6 +3168,11 @@
             <param name="handledExceptionMessage">Message for handled exception.</param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacServices.SafeFileAction(System.Action,System.String)">
+            <summary>
+            Catches common error cases when doing I/O operations and throws a <see cref="T:Microsoft.SqlServer.Dac.DacServicesException"/> with a predefined error message
+            </summary>
+        </member>
         <member name="M:Microsoft.SqlServer.Dac.DacServices.GenerateCreateScript(Microsoft.SqlServer.Dac.DacPackage,System.String,Microsoft.SqlServer.Dac.DacDeployOptions)">
             <summary>
             Create T-SQL script that can be used to deploy the schema of the supplied <see cref="T:Microsoft.SqlServer.Dac.DacPackage"/> to a database.
@@ -3026,18 +3305,26 @@
             If a problem occurs during report generation.
             </exception>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.DacServices.ParseAndThrowIfUnsupportedConnectionString(System.String)">
+        <member name="M:Microsoft.SqlServer.Dac.DacServices.ParseAndThrowIfUnsupportedConnectionStringBuilder(Microsoft.Data.Tools.Schema.Common.SqlClient.SqlConnectionFactory)">
             <summary>
-            Parses the connection string and determine if supplied connection string is valid and supported by <see cref="T:Microsoft.SqlServer.Dac.DacServices"/>.
+            Evaluate the connection factory and determine if supplied connection factory is valid and supported by <see cref="T:Microsoft.SqlServer.Dac.DacServices"/>.
             </summary>
-            <param name="connectionString">
-            Connection string to be validated.
+            <param name="connectionFactory">
+            Connection factory to be validated.
             </param>
-            <returns>Parsed connection string with only supported arguments present.</returns>
+            <returns>Validated connection factory with only supported arguments present.</returns>
             <exception cref="T:System.ArgumentException">
-            If the supplied <paramref name="connectionString"/> is not valid (as determined by <see cref="T:System.Data.SqlClient.SqlConnectionStringBuilder"/>),
-            or if it specifies properties or property values that are not supported by <see cref="T:Microsoft.SqlServer.Dac.DacServices"/>.
+            If the supplied <paramref name="connectionFactory"/> is not valid or if it specifies properties 
+            or property values that are not supported by <see cref="T:Microsoft.SqlServer.Dac.DacServices"/>.
             </exception>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacServices.ProbeIsolatedStorageAndSetAppDomainEvidenceIfNeccessary">
+            <summary>
+            Some CLR hosts do not set the AppDomain Evidence which is required for IsolatedStorage to function properly.  This 
+            method probes if isolated storage is usable for the current user.  If isolated storage is not usable, it will attempt 
+            to fix this by setting the AppDomain Evidence using private reflection.  Fixing isolated storage is a best effort
+            attempt.  This method swallows all exceptions and lets the program proceed.
+            </summary>cd
         </member>
         <member name="E:Microsoft.SqlServer.Dac.DacServices.ProgressChanged">
             <summary>
@@ -3102,7 +3389,7 @@
             such as a model and data
             </summary>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.Deployment.DatabasePointer.AddNewConstraints(Microsoft.Data.Tools.Schema.Sql.Deployment.ConstraintManager,System.Data.SqlClient.SqlConnectionStringBuilder)">
+        <member name="M:Microsoft.SqlServer.Dac.Deployment.DatabasePointer.AddNewConstraints(Microsoft.Data.Tools.Schema.Sql.Deployment.ConstraintManager,Microsoft.Data.Tools.Schema.Common.SqlClient.SqlConnectionFactory)">
             <summary>
             Adds new constraints to the specified constraint manager.  Will throw a DataException if a error
             occurs with the connection to the DB
@@ -3157,6 +3444,17 @@
             
              Assumption: the Options and Source model are populted before this method is called
              </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Deployment.Data.RipReplaceStrategy.AddToListIfNeeded(System.Collections.Generic.List{Microsoft.SqlServer.Dac.Deployment.Data.RipReplaceStrategy.GraphElem}@,Microsoft.Data.Tools.Schema.SchemaModel.IModelElement,Microsoft.SqlServer.Dac.Deployment.Data.RipReplaceStrategy.GraphElem)">
+            <summary>
+            This method adds new element to the list of schema-bound objects we're about to drop and re-create.
+            If the input element is not present in the list, we create a new graph node and establish
+            parent-child relationships. If already in the list, we just update parent-child relationship lists.
+            </summary>
+            <param name="list"></param>
+            <param name="modelObject"></param>
+            <param name="child"></param>
+            <returns></returns>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.Deployment.PlanExecutor">
             <summary>
@@ -3511,6 +3809,11 @@
             Assembly objects
             </summary>
         </member>
+        <member name="F:Microsoft.SqlServer.Dac.ObjectType.AssemblyFiles">
+            <summary>
+            Assembly files
+            </summary>
+        </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.AsymmetricKeys">
             <summary>
             Asymmetric key objects
@@ -3539,6 +3842,11 @@
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Contracts">
             <summary>
             Contract objects
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.ObjectType.DatabaseOptions">
+            <summary>
+            Database options
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.DatabaseRoles">
@@ -3741,6 +4049,11 @@
             Database audit specification objects
             </summary>
         </member>
+        <member name="F:Microsoft.SqlServer.Dac.ObjectType.DatabaseEncryptionKeys">
+            <summary>
+            Database encryption keys
+            </summary>
+        </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.DatabaseScopedCredentials">
             <summary>
             Database scoped credential objects
@@ -3779,6 +4092,11 @@
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Logins">
             <summary>
             Login objects
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.ObjectType.MasterKeys">
+            <summary>
+            Master keys
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Routes">
@@ -3937,6 +4255,11 @@
         <member name="P:Microsoft.SqlServer.Dac.OperationResources.RemoveLoginsMessage">
             <summary>
               Looks up a localized string similar to Removing references from users to logins.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.OperationResources.ReportDeploymentPlanCaption">
+            <summary>
+              Looks up a localized string similar to Reporting deployment plan.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.OperationResources.ResolverCaption">
