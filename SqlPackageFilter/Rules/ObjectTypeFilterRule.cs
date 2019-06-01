@@ -10,7 +10,7 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
     {
         protected readonly string Schema;
 
-        public ObjectTypeFilterRule(FilterOperation operation, string match, MatchType matchType, List<string> options) : base(operation, match, matchType)
+        public ObjectTypeFilterRule(FilterOperation operation, string match, MatchType matchType, List<string> options = null) : base(operation, match, matchType)
         {
             if (options != null && options.Count > 0)
             {
