@@ -58,7 +58,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
             var args =
             $"/Action:Publish /TargetServerName:localhost /SourceFile:{Path.Combine(TestContext.CurrentContext.TestDirectory, "Dacpac.Dacpac")} /p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor /p:AdditionalDeploymentContributorArguments=\"SqlPackageFilter=IgnoreType(.*Proced.*)\"  /TargetDatabaseName:Filters /p:DropObjectsNotInSource=True /p:AllowIncompatiblePlatform=true";
 
-            var proc = new ProcessGateway( Path.Combine(TestContext.CurrentContext.TestDirectory,   "SqlPackage.exe\\SqlPackage.exe"), args);
+            var proc = new ProcessGateway( Path.Combine(TestContext.CurrentContext.TestDirectory, "SqlPackage.exe\\SqlPackage.exe"), args);
             proc.Run();
 
             procCount = _gateway.GetInt("SELECT COUNT(*) FROM sys.procedures where name = 'proc_to_ignore';");
@@ -66,6 +66,49 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
             Assert.AreEqual(1, procCount, proc.Messages);
 
         }
+
+        [Test]
+        public void Stored_Procedures_Are_Ignored_When_Objects_Ignored_And_Schema_Matchs()
+        {
+            _gateway.RunQuery("IF NOT EXISTS (SELECT * FROM sys.procedures WHERE name = 'proc_to_ignore' AND SCHEMA_NAME(schema_id) = 'dbo')\r\nBEGIN exec sp_executesql N'create procedure [dbo].[proc_to_ignore] as select 1;'\r\nEND;");
+
+            var procCount = _gateway.GetInt("SELECT COUNT(*) FROM sys.procedures where name = 'proc_to_ignore' AND SCHEMA_NAME(schema_id) = 'dbo';");
+
+            Assert.AreEqual(1, procCount);
+
+            var args =
+            $"/Action:Publish /TargetServerName:localhost /SourceFile:{Path.Combine(TestContext.CurrentContext.TestDirectory, "Dacpac.Dacpac")} /p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor /p:AdditionalDeploymentContributorArguments=\"SqlPackageFilter=IgnoreType(.*Proced.*, dbo)\"  /TargetDatabaseName:Filters /p:DropObjectsNotInSource=True /p:AllowIncompatiblePlatform=true";
+
+            var proc = new ProcessGateway( Path.Combine(TestContext.CurrentContext.TestDirectory,   "SqlPackage.exe\\SqlPackage.exe"), args);
+            proc.Run();
+
+            procCount = _gateway.GetInt("SELECT COUNT(*) FROM sys.procedures where name = 'proc_to_ignore' AND SCHEMA_NAME(schema_id) = 'dbo';");
+
+            Assert.AreEqual(1, procCount, proc.Messages);
+
+        }
+
+        [Test]
+        public void Stored_Procedures_Are_Dropped_When_Objects_Ignored_And_Schema_Does_Not_Matchs()
+        {
+            _gateway.RunQuery("IF NOT EXISTS (SELECT * FROM sys.procedures WHERE name = 'proc_to_drop' AND SCHEMA_NAME(schema_id) = 'dbo')\r\nBEGIN exec sp_executesql N'create procedure [dbo].[proc_to_drop] as select 1;'\r\nEND;");
+
+            var procCount = _gateway.GetInt("SELECT COUNT(*) FROM sys.procedures where name = 'proc_to_drop' AND SCHEMA_NAME(schema_id) = 'dbo';");
+
+            Assert.AreEqual(1, procCount);
+
+            var args =
+            $"/Action:Publish /TargetServerName:localhost /SourceFile:{Path.Combine(TestContext.CurrentContext.TestDirectory, "Dacpac.Dacpac")} /p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor /p:AdditionalDeploymentContributorArguments=\"SqlPackageFilter=IgnoreType(.*Proced.*, guest)\"  /TargetDatabaseName:Filters /p:DropObjectsNotInSource=True /p:AllowIncompatiblePlatform=true";
+
+            var proc = new ProcessGateway( Path.Combine(TestContext.CurrentContext.TestDirectory,   "SqlPackage.exe\\SqlPackage.exe"), args);
+            proc.Run();
+
+            procCount = _gateway.GetInt("SELECT COUNT(*) FROM sys.procedures where name = 'proc_to_drop' AND SCHEMA_NAME(schema_id) = 'dbo';");
+
+            Assert.AreEqual(0, procCount, proc.Messages);
+
+        }
+
 
         [Test]
         public void Everything_Is_Ignored_Except_For_Schema_With_A_Negative_Filter()
