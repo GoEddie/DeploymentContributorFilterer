@@ -67,6 +67,24 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests.Config
         }
 
         [Test]
+        public void Parses_MultiPartName_Type()
+        {
+            var parser = new CommandLineFilterParser(_handler);
+            var definition = parser.GetDefinitions("KeepMultiPartName([a-zA-Z]99.*)");
+
+            Assert.AreEqual(FilterType.MultiPartName, definition.FilterType);
+        }
+
+        [Test]
+        public void Parses_Name_As_MultiPartName_Type()
+        {
+            var parser = new CommandLineFilterParser(_handler);
+            var definition = parser.GetDefinitions("KeepName(dev,Table.*)");
+
+            Assert.AreEqual(FilterType.MultiPartName, definition.FilterType);
+        }
+
+        [Test]
         public void Parses_Match()
         {
             var parser = new CommandLineFilterParser(_handler);
