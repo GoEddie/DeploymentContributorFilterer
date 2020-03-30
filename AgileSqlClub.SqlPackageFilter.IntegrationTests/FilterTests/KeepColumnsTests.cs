@@ -24,11 +24,12 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
             var count = _gateway.GetInt("SELECT COUNT(*) FROM sys.columns where name = 'ohwahweewah';");
             Assert.AreEqual(1, count);
 
+            var profilePath = Path.Combine( TestContext.CurrentContext.TestDirectory, "Profile\\test.publish.xml" );
 
             var args =
                 $"/Action:Publish /TargetServerName:localhost /SourceFile:{Path.Combine(TestContext.CurrentContext.TestDirectory, "Dacpac.Dacpac")} /p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor " +
                 " /TargetDatabaseName:Filters /p:DropObjectsNotInSource=True " +
-                "/p:AdditionalDeploymentContributorArguments=\"SqlPackageFilter=KeepTableColumns(Employees)\" /p:AllowIncompatiblePlatform=true /p:GenerateSmartDefaults=true";
+                $"/p:AdditionalDeploymentContributorArguments=\"SqlPackageFilter=KeepTableColumns(Employees)\" /p:AllowIncompatiblePlatform=true /p:GenerateSmartDefaults=true /Profile:\"{profilePath}\"";
 
             var proc = new ProcessGateway( Path.Combine(TestContext.CurrentContext.TestDirectory,   "SqlPackage.exe\\SqlPackage.exe"), args);
             proc.Run();
