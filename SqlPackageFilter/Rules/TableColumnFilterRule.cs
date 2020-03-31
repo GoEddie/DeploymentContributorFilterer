@@ -44,7 +44,7 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
             if (script == null)
                 return false;
 
-            var batch = script.Batches.FirstOrDefault();
+            var batch = script.Batches.FirstOrDefault(b => b.Statements.Any(s => s as AlterTableDropTableElementStatement != null));
 
             if (batch == null)
                 return false;
@@ -70,7 +70,7 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
                 return false;
             }  //This is a strange one, we remove the bits we want from the drop table element but there might be other things like constraints that should be dropped
 
-            script.Batches.RemoveAt(0);   
+            script.Batches.Remove(batch);
 
             return script.Batches.Count == 0;
 
