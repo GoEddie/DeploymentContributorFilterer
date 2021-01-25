@@ -40,6 +40,10 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                         rules.Add(new TableColumnFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
                             ruleDefinition.MatchType));
                         break;
+                    case FilterType.MultiPartName:
+                        rules.Add(new MultiPartNamedObjectFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
+                            ruleDefinition.MatchType));
+                        break;
                 }
             }
 

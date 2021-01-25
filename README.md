@@ -31,7 +31,7 @@ Keep are really only ever used in combination with */p:DropObjectsInSource=True*
 
 Once you know what type of filter you want you need to decide what you will filter on, your choices are: **Name**, **SchemaName** and **object type** (stored procedure, function, table, user, role, rolemembership etc etc).
 
-* Name filters work on an objects name, pretty straight forward.
+* Name filters work on an objects name, pretty straight forward. You can also specify a comma-separated set of names to match multipart identifiers. See the examples section for more details. Note that parts are matched from right to left.
 * Schema filters work on the name of the schema so you can keep or ignore everything in a specific schema
 * Object type filters work on the type of the object as the DacFx api sees it, these types are all documented as properties of the ModelSchema class: [link](http://msdn.microsoft.com/en-us/library/microsoft.sqlserver.dac.model.modelschema.aspx)
 
@@ -54,6 +54,17 @@ To keep a table called MyTable or MyExcellentFunnyTable:
 ```
 KeepName(.*yTabl.*)
 ```
+
+Note that this will match the right-most part of a multipart identifier, so this matches: `[dbo].[MyTable]`, `[dbo].[MyExcellentFunnyTable]`,
+`[dev].[MyTable]`, `[dbo].[SomeOtherTable].[MyTabletColumnId]`, etc.
+
+You can match against multiple parts of a multipart identifier, matching from right part to left, by specifying multiple
+values (regexes) separated by a comma:
+```
+KeepName(dbo,.*yTabl.*)
+```
+
+Using the example above, this instead matches only `[dbo].[MyTable]` or `[dbo].[MyExcellentFunnyTable]`.
 
 Behind the scenes, matching relies on regex using the default .Net options for the Match method. 
 To only deploy to the dbo schema (ie exclude non-dbo objects):

@@ -89,6 +89,7 @@
     <Compile Include="Filter\ObjectIdentifierFactory.cs" />
     <Compile Include="Rules\FilterRule.cs" />
     <Compile Include="Filter\FilterType.cs" />
+    <Compile Include="Rules\MultiPartNamedObjectFilterRule.cs" />
     <Compile Include="Rules\NamedObjectFilterRule.cs" />
     <Compile Include="Rules\ObjectTypeFilterRule.cs" />
     <Compile Include="Rules\RuleFactory.cs" />
