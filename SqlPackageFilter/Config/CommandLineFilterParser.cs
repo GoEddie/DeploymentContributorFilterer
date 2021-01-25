@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using AgileSqlClub.SqlPackageFilter.Filter;
+using AgileSqlClub.SqlPackageFilter.Rules;
 
 namespace AgileSqlClub.SqlPackageFilter.Config
 {
@@ -39,6 +40,9 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                 case FilterType.TableColumns:
                     remove = 12;
                     break;
+                case FilterType.MultiPartName:
+                    remove = 13;
+                    break;
                 case FilterType.Security:
                 {
                     return new RuleDefinition()
@@ -64,6 +68,12 @@ namespace AgileSqlClub.SqlPackageFilter.Config
             }
             
             var match = value.Trim(new []{'(',')', ' '});
+
+            if (type == FilterType.Name && match.IndexOf(MultiPartNamedObjectFilterRule.Separator) != -1)
+            {
+                // Argument has commas. Assume this is a request to match a multipart name.
+                type = FilterType.MultiPartName;
+            }
             
             var definiton = new RuleDefinition()
             {
@@ -98,6 +108,10 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                 return FilterType.TableColumns;
             }
 
+            if (value.StartsWith("MultiPartName", StringComparison.OrdinalIgnoreCase))
+            {
+                return FilterType.MultiPartName;
+            }
 
             if (value.StartsWith("Security", StringComparison.OrdinalIgnoreCase))
             {
