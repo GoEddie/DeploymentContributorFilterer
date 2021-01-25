@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using AgileSqlClub.SqlPackageFilter.Filter;
 using AgileSqlClub.SqlPackageFilter.Rules;
@@ -50,7 +51,8 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                         Operation = operation,
                         FilterType = FilterType.Type,
                         Match = SecurityFilterMatch,
-                        MatchType = MatchType.DoesMatch
+                        MatchType = MatchType.DoesMatch,
+                        Options = null
                     };      
                 }
                     
@@ -67,6 +69,12 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                 value = value.Substring(1).Trim();
             }
             
+
+            List<string> options = value.Trim(new[] { '(', ')', ' ' }).Split(',').Select(val => val.Trim()).ToList<string>();
+            string match = options[0];
+            options.RemoveAt(0);
+
+
             var match = value.Trim(new []{'(',')', ' '});
 
             if (type == FilterType.Name && match.IndexOf(MultiPartNamedObjectFilterRule.Separator) != -1)
@@ -75,12 +83,14 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                 type = FilterType.MultiPartName;
             }
             
+
             var definiton = new RuleDefinition()
             {
                 Operation = operation,
                 FilterType = type,
                 Match = match,
-                MatchType = matchType
+                MatchType = matchType,
+                Options = options
             };
 
             return definiton;
