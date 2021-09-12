@@ -74,9 +74,6 @@ namespace AgileSqlClub.SqlPackageFilter.Config
             string match = options[0];
             options.RemoveAt(0);
 
-
-            var match = value.Trim(new []{'(',')', ' '});
-
             if (type == FilterType.Name && match.IndexOf(MultiPartNamedObjectFilterRule.Separator) != -1)
             {
                 // Argument has commas. Assume this is a request to match a multipart name.
