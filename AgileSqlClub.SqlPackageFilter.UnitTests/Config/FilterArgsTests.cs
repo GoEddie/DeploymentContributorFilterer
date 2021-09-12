@@ -29,7 +29,22 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests.Config
             Assert.AreEqual(FilterOperation.Ignore, definition.Operation);
             
         }
-        
+
+        [Test]
+        public void Parses_Ignore_TableInSchema_Operation()
+        {
+            var parser = new CommandLineFilterParser(_handler);
+            var definition = parser.GetDefinitions("IgnoreType(Table, dbo)");
+
+            Assert.AreEqual(FilterOperation.Ignore, definition.Operation); 
+            Assert.AreEqual(FilterType.Type, definition.FilterType); 
+            Assert.AreEqual("Table", definition.Match); 
+            Assert.AreEqual(MatchType.DoesMatch, definition.MatchType); 
+            Assert.AreEqual(FilterOperation.Ignore, definition.Operation);
+            Assert.AreEqual(1, definition.Options.Count);
+            Assert.AreEqual("dbo", definition.Options[0]);
+        }
+
         [Test]
         public void Parses_Keep_Operation()
         {
@@ -82,6 +97,7 @@ namespace AgileSqlClub.SqlPackageFilter.UnitTests.Config
             var definition = parser.GetDefinitions("KeepName(dev,Table.*)");
 
             Assert.AreEqual(FilterType.MultiPartName, definition.FilterType);
+            Assert.AreEqual("dev,Table.*", definition.Match);
         }
 
         [Test]

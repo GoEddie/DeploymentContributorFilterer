@@ -68,13 +68,21 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                 matchType = MatchType.DoesNotMatch;
                 value = value.Substring(1).Trim();
             }
+
+            var trimmedValue = value.Trim(new[] { '(', ')', ' ' });
+
+            //extra parts that the some rules need
+            List<string> options = null;
+            string match = trimmedValue;
             
-
-            List<string> options = value.Trim(new[] { '(', ')', ' ' }).Split(',').Select(val => val.Trim()).ToList<string>();
-            string match = options[0];
-            options.RemoveAt(0);
-
-            if (type == FilterType.Name && match.IndexOf(MultiPartNamedObjectFilterRule.Separator) != -1)
+            if (type == FilterType.Type)
+            {
+                //expects a comma separated value as the argument
+                options = trimmedValue.Split(',').Select(val => val.Trim()).ToList<string>();
+                match = options[0];
+                options.RemoveAt(0);
+            }
+            else if (type == FilterType.Name && (trimmedValue.IndexOf(MultiPartNamedObjectFilterRule.Separator) != -1))
             {
                 // Argument has commas. Assume this is a request to match a multipart name.
                 type = FilterType.MultiPartName;
