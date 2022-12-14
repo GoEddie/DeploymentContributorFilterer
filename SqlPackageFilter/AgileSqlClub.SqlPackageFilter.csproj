@@ -18,14 +18,14 @@
 
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.SqlServer.DacFx" Version="161.6374.0" />
+		<PackageReference Include="Microsoft.SqlServer.DacFx" Version="161.6374.0" ExcludeAssets="runtime" />
 	</ItemGroup>
 
 
 	<ItemGroup Condition="$(TargetFramework)=='netstandard2.1'">
 		<PackageReference Include="System.ComponentModel.Composition" Version="7.0.0" />
 	</ItemGroup>
-	<ItemGroup>
+	<ItemGroup Condition="$(TargetFramework)=='net4.8'">
 	  <Reference Include="System.ComponentModel.Composition" />
 	</ItemGroup>
 </Project>
