@@ -17,7 +17,7 @@
 
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.SqlServer.DacFx" Version="150.5282.3" />
+		<PackageReference Include="Microsoft.SqlServer.DacFx" Version="161.6374.0" />
 		<PackageReference Include="Moq" Version="4.18.2" />
 		<PackageReference Include="NUnit" Version="3.13.3" />
 		<PackageReference Include="NUnit3TestAdapter" Version="4.3.1" />
