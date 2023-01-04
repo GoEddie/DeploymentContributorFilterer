@@ -53,5 +53,5 @@ jobs:
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: Package
+        name: AgileSqlClub.SqlPackageFilter
         path: SqlPackageFilter/bin/**/AgileSqlClub.SqlPackageFilter.*
