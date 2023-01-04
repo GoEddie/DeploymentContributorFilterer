@@ -87,8 +87,8 @@ jobs:
       run: dotnet test $env:Test_Project_Path
 
     # Upload the package: https://github.com/marketplace/actions/upload-a-build-artifact
-#    - name: Upload build artifacts
-#      uses: actions/upload-artifact@v3
-#      with:
-#        name: Package
-#        path: **\AgileSqlClub.SqlPackageFilter.*
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: Package
+        path: SqlPackageFilter/bin/**/AgileSqlClub.SqlPackageFilter.*
