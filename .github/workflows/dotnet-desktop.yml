@@ -47,15 +47,11 @@ jobs:
 
     # Execute all unit tests in the solution
     - name: Execute unit tests
-      run: dotnet test ${{ env.Test_Project_Path }} --no-restore --verbosity normal --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
-    - name: Upload dotnet test results
-      uses: actions/upload-artifact@v3
-      with:
-        name: dotnet-results-${{ matrix.dotnet-version }}
-        path: TestResults-${{ matrix.dotnet-version }}
-      # Use always() to always run this step to publish test results when there are test failures
-      if: ${{ always() }}
-          
+      uses: microsoft-approved-actions/vstest@master
+      with: 
+        testAssembly: AgileSqlClub.SqlPackageFilter.UnitTests.dll
+        searchFolder: ./AgileSqlClub.SqlPackageFilter.UnitTests/bin/${{ matrix.configuration }}/
+        
     # Upload the package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
