@@ -47,7 +47,7 @@ jobs:
 
     # Execute all unit tests in the solution
     - name: Execute unit tests
-      run: dotnet test ${{ env.Test_Project_Path }} --no-restore --verbosity normal
+      run: dotnet test ${{ env.Test_Project_Path }} --no-restore --verbosity normal --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"
     - name: Upload dotnet test results
       uses: actions/upload-artifact@v3
       with:
