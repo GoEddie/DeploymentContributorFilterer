@@ -50,7 +50,7 @@ jobs:
       uses: microsoft/vstest-action@v1.0.0
       with: 
         testAssembly: AgileSqlClub.SqlPackageFilter.UnitTests.dll
-        searchFolder: ./AgileSqlClub.SqlPackageFilter.UnitTests/bin/${{ matrix.configuration }}/
+        searchFolder: ./AgileSqlClub.SqlPackageFilter.UnitTests/bin/${{ matrix.configuration }}/net4.8/
         
     # Upload the package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
