@@ -1,4 +1,7 @@
 # DeploymentContributorFilterer
+
+[![Build](https://github.com/GoEddie/DeploymentContributorFilterer/actions/workflows/dotnet-desktop.yml/badge.svg)](https://github.com/GoEddie/DeploymentContributorFilterer/actions/workflows/dotnet-desktop.yml)
+
 Generic implementation of a DacFx deployment contributor in .net. Use this tool to filter sql objects during dacpac deployment process by SqlPackage.exe.
 
 Original documentation and discussion adapted from:
