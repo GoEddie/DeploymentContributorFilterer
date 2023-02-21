@@ -8,19 +8,24 @@ Original documentation and discussion adapted from:
 *https://the.agilesql.club/2015/01/howto-filter-dacpac-deployments/*
 
 ## Basic Usage
-Download the latest release from Github or build yourself. Put the AgileSqlClub.SqlPackageFilter.dll file into the same folder as SqlPackage.exe, and add these commmand line parameters to your deployment:
+Download the latest release from Github or build yourself. 
+
+Put the AgileSqlClub.SqlPackageFilter.dll file into some folder (eg, c:\dac160tools\), and add these commmand line parameters to your deployment:
 
 ```
-/p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor /p:AdditionalDeploymentContributorArguments="SqlPackageFilter=IgnoreSchema(BLAH)"
+/p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor 
+/p:AdditionalDeploymentContributorPaths=c:\dac160tools\ 
+/p:AdditionalDeploymentContributorArguments="SqlPackageFilter=IgnoreSchema(BLAH)"
 ```
 
 This will neither deploy, drop or alter anything in the BLAH schema.
 
 ## Bootstrapping custom filters with SqlPackage.exe
-Ok so the way the DacFx api works is that you need to put the dll that contains the contributor into the same folder as sqlpackage.exe. Once the dll is in the same folder as sqlpackage.exe you need to tell it to load the contributor which you do using this argument:
+Ok so the way the DacFx api works is it needs to load the contributor dlls. It can do this by looking in its own folder, or looking in the paths specified with the AdditionalDeploymentContributorPaths argument.  This becomes necessary when SqlPackage is installed as a dotnet global tool.
 
 ```
-/p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor
+/p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor 
+/p:AdditionalDeploymentContributorPath=C:\dac160tools\
 ```
 
 **Note:** Windows may block the AgileSqlClub.DeploymentFilterContributor.dll after downloading.  You will need to view the file properties and *Unblock* it.
