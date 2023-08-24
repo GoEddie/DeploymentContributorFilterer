@@ -90,416 +90,165 @@
             If there is a problem reading the package; or if the package does not contain exported data.
             </exception>
         </member>
-        <member name="T:Microsoft.SqlServer.Dac.IUniversalAuthProvider">
+        <member name="T:Microsoft.SqlServer.Dac.DacAzureEdition">
             <summary>
-            Implement this interface to create a string access token. This access token will be used to set 
-            the <see cref="P:System.Data.SqlClient.SqlConnection.AccessToken"/> for any SqlConnection instances created when connecting to a database.
+            List of possible editions for a Microsoft Azure SQL Database
             </summary>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.IUniversalAuthProvider.GetValidAccessToken">
+        <member name="F:Microsoft.SqlServer.Dac.DacAzureEdition.Web">
             <summary>
-            Returns an valid access token.
-            </summary>
-            <returns>The access token to be used to set the AccessToken property of the SqlConnection.</returns>
-        </member>
-        <member name="T:Microsoft.SqlServer.Dac.PublishResult">
-            <summary>
-            Contains the results of a publish or script operation. This will contain at least one of the <see cref="P:Microsoft.SqlServer.Dac.PublishResult.DeploymentReport"/>
-            or <see cref="P:Microsoft.SqlServer.Dac.PublishResult.DatabaseScript"/> properties depending on what was requested in the <see cref="T:Microsoft.SqlServer.Dac.PublishOptions"/>
+            CREATE DATABASE database_name EDITION = <b>'web'</b>
             </summary>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.PublishResult.#ctor(System.String,System.String,System.String)">
+        <member name="F:Microsoft.SqlServer.Dac.DacAzureEdition.Business">
             <summary>
-            Constructs a <see cref="T:Microsoft.SqlServer.Dac.PublishResult"/> with the specified contents
-            </summary>
-            <param name="deployReport">set as the <see cref="P:Microsoft.SqlServer.Dac.PublishResult.DeploymentReport"/> to return</param>
-            <param name="dbScript">set as the <see cref="P:Microsoft.SqlServer.Dac.PublishResult.DatabaseScript"/> to return</param>
-            <param name="masterScript">set as the <see cref="P:Microsoft.SqlServer.Dac.PublishResult.MasterDbScript"/> to return</param>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.PublishResult.DeploymentReport">
-            <summary>
-            A Deployment Report, if one was requested.
-            This report is a high-level summary of actions being performed during deployment.
+            CREATE DATABASE database_name EDITION = <b>'business'</b>
             </summary>
         </member>
-        <member name="P:Microsoft.SqlServer.Dac.PublishResult.DatabaseScript">
+        <member name="F:Microsoft.SqlServer.Dac.DacAzureEdition.Basic">
             <summary>
-            The DB-level deployment script, if one was requested.
-            This script contains all operations that must be done against the database during deployment.
+            CREATE DATABASE database_name EDITION = <b>'basic'</b>
             </summary>
         </member>
-        <member name="P:Microsoft.SqlServer.Dac.PublishResult.MasterDbScript">
+        <member name="F:Microsoft.SqlServer.Dac.DacAzureEdition.Standard">
             <summary>
-            The master database-level deployment script, if one was requested.
-            This script is only created if Azure SQL DB is the target as USE statements are not supported on that platform.
-            It contains all operations that must be done against the master database, for instance Create Database statements
+            CREATE DATABASE database_name EDITION = <b>'standard'</b>
             </summary>
         </member>
-        <member name="T:Microsoft.SqlServer.Dac.PublishOptions">
+        <member name="F:Microsoft.SqlServer.Dac.DacAzureEdition.Premium">
             <summary>
-            Configures options for what will be reported when performing certain operations from <see cref="T:Microsoft.SqlServer.Dac.DacServices"/>,
-            in particular whether a DeployReport and/or DeployScript will be generated
+            CREATE DATABASE database_name EDITION = <b>'premium'</b>
             </summary>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.PublishOptions.#ctor">
+        <member name="F:Microsoft.SqlServer.Dac.DacAzureEdition.PremiumRS">
             <summary>
-            Configures options for what will be reported when performing certain operations from <see cref="T:Microsoft.SqlServer.Dac.DacServices"/>,
-            in particular whether a DeployReport and/or DeployScript will be generated
+            CREATE DATABASE database_name EDITION = <b>'premiumRS'</b>
             </summary>
         </member>
-        <member name="P:Microsoft.SqlServer.Dac.PublishOptions.GenerateDeploymentScript">
+        <member name="F:Microsoft.SqlServer.Dac.DacAzureEdition.DataWarehouse">
             <summary>
-            Sets whether Deployment Script(s) should be generated during deploy.
-            If true, a script to update the database will be generated, and a script to
-            update Master may also be generated if the target is an Azure SQL DB and this
-            database has not yet been created.
-            </summary>
-            <value>Defaults to true</value>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.PublishOptions.GenerateDeploymentReport">
-            <summary>
-            Sets whether a Deployment Report should be generated during deploy.
-            This report is a high-level summary of actions being performed during deployment.
-            </summary>
-            <value>Defaults to false</value>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.PublishOptions.DatabaseScriptPath">
-            <summary>
-            Optional path to write the DB-level deployment script, if <see cref="P:Microsoft.SqlServer.Dac.PublishOptions.GenerateDeploymentScript"/> is true.
-            This script contains all operations that must be done against the database during deployment.
+            CREATE DATABASE database_name EDITION = <b>'dataWarehouse'</b>
             </summary>
         </member>
-        <member name="P:Microsoft.SqlServer.Dac.PublishOptions.MasterDbScriptPath">
+        <member name="F:Microsoft.SqlServer.Dac.DacAzureEdition.GeneralPurpose">
             <summary>
-            Optional path to write the master database-level deployment script, if <see cref="P:Microsoft.SqlServer.Dac.PublishOptions.GenerateDeploymentScript"/> is true.
-            This script is only created if Azure SQL DB is the target as USE statements are not supported on that platform.
-            It contains all operations that must be done against the master database, for instance Create Database statements
+            CREATE DATABASE database_name EDITION = <b>'GeneralPurpose'</b>
             </summary>
         </member>
-        <member name="P:Microsoft.SqlServer.Dac.PublishOptions.DeployOptions">
+        <member name="F:Microsoft.SqlServer.Dac.DacAzureEdition.BusinessCritical">
             <summary>
-            Optional <see cref="T:Microsoft.SqlServer.Dac.DacDeployOptions"/> to configure a range of deployment options. 
+            CREATE DATABASE database_name EDITION = <b>'BusinessCritical'</b>
             </summary>
         </member>
-        <member name="P:Microsoft.SqlServer.Dac.PublishOptions.CancelToken">
+        <member name="F:Microsoft.SqlServer.Dac.DacAzureEdition.Hyperscale">
             <summary>
-            Nullable <see cref="T:System.Threading.CancellationToken"/> to allow the caller to cancel a deployment
+            CREATE DATABASE database_name EDITION = <b>'Hyperscale'</b>
             </summary>
         </member>
-        <member name="T:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService">
+        <member name="F:Microsoft.SqlServer.Dac.DacAzureEdition.Default">
             <summary>
-            Provides a service for discovering and configuring a <see cref="T:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthenticator"/> to handle key vault access requests.
-            These requests will occur during deployment if an encrypted table is being altered. It also supports initialization of general 
-            key vault support in an application
+            CREATE DATABASE database_name
             </summary>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.SetExtensionProperties(Microsoft.SqlServer.Dac.Extensibility.ExtensionProperties)">
+        <member name="T:Microsoft.SqlServer.Dac.DacAzureDatabaseSpecification">
             <summary>
-            Internal for testing purposes only
+            Defines optional parameters specific to a Microsoft Azure SQL Database
             </summary>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.SetDependencyManager(Microsoft.SqlServer.Dac.Extensibility.IDependencyManager)">
-            <summary>
-            Internal for testing purposes only.
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.UpdateAuthInfo(Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthInfoBase)">
-            <summary>
-            Passes a <see cref="T:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthInfoBase"/> object to the <see cref="T:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthenticator"/>, to support scenarios
-            where a user changes authentication method, for instance by logging into a different Azure account
-            </summary>
-            <param name="authInfo"></param>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.InitializeAuthenticator">
-            <summary>
-            Gives the authenticator the opportunity to register with the core AlwaysEncrypted callstack. This is important
-            in scenarios where Interactive authentication is being used and this is the global authenticator to be used in the application
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.Validate(System.Collections.Generic.IList{System.String},System.Threading.CancellationToken)">
-            <summary>
-            Callback function to validate the presence of AKV token for Column Master Key access
-            </summary>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.Instance">
-            <summary>
-            Singleton instance object for the <see cref="T:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService"/>. 
-            </summary>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.DependencyManager">
-            <summary>
-            Get DependencyManager
-            </summary>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.Trace">
-            <summary>
-            Trace object to use for tracing
-            </summary>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.BlockifMissingAuthentication">
-            <summary>
-            Gives a way to set early failure if Azure Key Vault Provider is not setup.
-            When this is true, deployment fails to start if there is no Provider defined
-            contrary to default mode which lets the deployment go through and fails only when key is actually used.
-            </summary>
-        </member>
-        <member name="T:Microsoft.SqlServer.Dac.KeyVault.ClientAndSecretAuthInfo">
-            <summary>
-            Authentication info for client ID and Secret, which is commonly supported in command line scenarios.
-            This can be obtained by using the Azure SDK to log into Azure and obtain this information.
-            </summary>
-        </member>
-        <member name="T:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthInfoBase">
-            <summary>
-            Data class to define authentication info that can be passed to a <see cref="T:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthenticator"/> when
-            configuring 
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.KeyVault.ClientAndSecretAuthInfo.#ctor(System.String,System.String)">
-            <summary>
-            Constructor
-            </summary>
-            <param name="clientId">Must not be null or whitespace</param>
-            <param name="secret">Must not be null</param>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.KeyVault.ClientAndSecretAuthInfo.ClientId">
-            <summary>
-            Client ID used to log in to Azure
-            </summary>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.KeyVault.ClientAndSecretAuthInfo.Secret">
-            <summary>
-            Secret that verifies the authentication to Azure
-            </summary>
-        </member>
-        <member name="T:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthenticator">
-            <summary>
-            Base class for any Azure Key Vault authentication provider. This is responsible for logging into Azure, obtaining
-            access keys and returning to the caller. 
-            Notes: Only one provider is allowed per process, with the first to register being the successful provider. In order to
-            support <see cref="T:Microsoft.SqlServer.Dac.DacServices"/> and related APIs being used in multiple UI tools and the SqlPackage command line the
-            binding to Azure Authentication DLLs is loosely coupled to the core Dac Framework using MEF. A default provider is available
-            for use in SqlPackage and other command line scenarios, supporting basic credential based authentication. This can be 
-            overridden in order to integrate with custom authentication pipelines or into your UI application by extending this method
-            and providing an <see cref="T:Microsoft.SqlServer.Dac.Extensibility.ExportableAttribute"/> with typeof(KeyVaultAuthenticator), a unique ID and high priority
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthenticator.GetToken(System.String,System.String,System.String)">
-            <summary>
-            Azure Key Vault authentication callback
-            </summary>
-            <param name="authority"></param>
-            <param name="resource"></param>
-            <param name="scope"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthenticator.UpdateAuthInfo(Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthInfoBase)">
-            <summary>
-            Passes a <see cref="T:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthInfoBase"/> object to the KeyVaultAuthenticator, to support scenarios
-            where a user changes authentication method, for instance by logging into a different Azure account
-            </summary>
-            <param name="authInfo"></param>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthenticator.InitializeAuthenticator">
-            <summary>
-            Gives the authenticator the opportunity to register with the core AlwaysEncrypted callstack. This is important
-            in scenarios where Interactive authentication is being used and this is the global authenticator to be used in the application
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthenticator.Validate(System.Collections.Generic.IList{System.String},System.Threading.CancellationToken)">
-            <summary>
-            Called before Dac operations that may cause data movement against a table with encrypted columns will occur,
-            for instance deployment of a dacpac
-            </summary>
-            <param name="keyVaultUrls">
-            A list of URLs representing every Key Vault referenced by column master keys, where the key is involved in a data motion
-            operation. 
-            </param>
-            <param name="cancelToken"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Microsoft.SqlServer.Dac.KeyVault.KeyVaultValidationResult">
-            <summary>
-            Result returned from a key vault validator. Indicates success or failure, and any 
-            relevant error messages
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.KeyVault.KeyVaultValidationResult.#ctor">
+        <member name="M:Microsoft.SqlServer.Dac.DacAzureDatabaseSpecification.#ctor">
             <summary>
             Default constructor
             </summary>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.KeyVault.KeyVaultValidationResult.AddError(System.String)">
+        <member name="P:Microsoft.SqlServer.Dac.DacAzureDatabaseSpecification.Edition">
             <summary>
-            Adds an error to the list of Validation errors
+            Database Edition
             </summary>
-            <param name="message"></param>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.KeyVault.KeyVaultValidationResult.IsValid">
-            <summary>
-            Was validation successful?
-            </summary>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.KeyVault.KeyVaultValidationResult.ValidationErrors">
-            <summary>
-            Errors that caused validation to fail, if any
-            </summary>
-        </member>
-        <member name="T:Microsoft.SqlServer.Dac.NestedDeploymentPropertyAttribute">
-            <summary>
-            This class supports the product infrastructure and is not intended to be used directly 
-            from your code.
-            Indicates that a deployment property should be expanded for commandline property overriding
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.NestedDeploymentPropertyAttribute.#ctor">
-            <summary>
-            Default Constructor
-            </summary>
-        </member>
-        <member name="T:Microsoft.SqlServer.Dac.DacExportOptions">
-            <summary>
-            Defines options that affect the behavior of package export from a database.
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.DacExportOptions.#ctor">
-            <summary>
-            Construct a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacExportOptions"/> class.
-            </summary>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacExportOptions.CommandTimeout">
-            <summary>
-            Specifies the command timeout in seconds when executing queries against SQLServer.
-            </summary>
-            <value>
-            The command timeout in seconds.
-            Default is 60
-            </value>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacExportOptions.Storage">
-            <summary>
-            Get the type of backing storage for the schema model used during extraction.
-            </summary>
-            <value>
-            Enumeration value that specifies the type of backing storage for the schema model used during extraction.
-            Default value is File.
-            </value>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacExportOptions.TargetEngineVersion">
-            <summary>
-            Specifies what the target engine version is expected to be. 
-            This is used during export to define the allowed engine version to validate against
-            and whether the features of the database match the capabilities of that engine version.
-            </summary>
-            <value>
-            The latest version of Azure contains support for additional capabilities. When this value is
-            <see cref="F:Microsoft.SqlServer.Dac.EngineVersion.Default"/> or <see cref="F:Microsoft.SqlServer.Dac.EngineVersion.V11"/>,
-            the export operation will fail if the target database is found to contain any objects that
-            require a newer engine version.
+            <remarks>
+            CREATE DATABASE database_name  [ COLLATE collation_name ]
+            {
+               ({edition_options} [, ...n]) 
+            }
             
-            The default value for this option is <see cref="F:Microsoft.SqlServer.Dac.EngineVersion.Latest"/>, which means that 
-            validation will ensure that the export operation will only fail if the target database is 
-            found to contain any objects that are not supported in the latest engine version.
-            </value>
+            {edition_options} ::= 
+            {
+               MAXSIZE = { 100 MB | 250 MB | 500 MB | 1 ... 1024 ... 4096 GB }
+                |<b>(EDITION = {'web' | 'business' | 'basic' | 'standard' | 'premium' | 'GeneralPurpose' | 'BusinessCritical' | 'Hyperscale'})</b>
+                |<b>(SERVICE_OBJECTIVE =  {'basic' 
+                  | 'S0' | 'S1' | 'S2' | 'S3' | 'S4'| 'S6'| 'S7'| 'S9'| 'S12'
+                  | 'P1' | 'P2' | 'P4'| 'P6' | 'P11' | 'P15'
+                  | 'GP_GEN4_1' | 'GP_GEN4_2' | 'GP_GEN4_3' | 'GP_GEN4_4' | 'GP_GEN4_5' | 'GP_GEN4_6'
+                  | 'GP_Gen4_7' | 'GP_Gen4_8' | 'GP_Gen4_9' | 'GP_Gen4_10' | 'GP_Gen4_16' | 'GP_Gen4_24'
+                  | 'GP_Gen5_2' | 'GP_Gen5_4' | 'GP_Gen5_6' | 'GP_Gen5_8' | 'GP_Gen5_10' | 'GP_Gen5_12' | 'GP_Gen5_14'
+                  | 'GP_Gen5_16' | 'GP_Gen5_18' | 'GP_Gen5_20' | 'GP_Gen5_24' | 'GP_Gen5_32' | 'GP_Gen5_40' | 'GP_Gen5_80'
+                  | 'BC_Gen4_1' | 'BC_Gen4_2' | 'BC_Gen4_3' | 'BC_Gen4_4' | 'BC_Gen4_5' | 'BC_Gen4_6'
+                  | 'BC_Gen4_7' | 'BC_Gen4_8' | 'BC_Gen4_9' | 'BC_Gen4_10' | 'BC_Gen4_16' | 'BC_Gen4_24'
+                  | 'BC_Gen5_2' | 'BC_Gen5_4' | 'BC_Gen5_6' | 'BC_Gen5_8' | 'BC_Gen5_10' | 'BC_Gen5_12' | 'BC_Gen5_14'
+                  | 'BC_Gen5_16' | 'BC_Gen5_18' | 'BC_Gen5_20' | 'BC_Gen5_24' | 'BC_Gen5_32' | 'BC_Gen5_40' | 'BC_Gen5_80'
+                  | 'HS_GEN4_1' | 'HS_GEN4_2' | 'HS_GEN4_4' | 'HS_GEN4_8' | 'HS_GEN4_16' | 'HS_GEN4_24'F
+                  | 'HS_GEN5_2' | 'HS_GEN5_4' | 'HS_GEN5_8' | 'HS_GEN5_16' | 'HS_GEN5_24' | 'HS_GEN5_32' | 'HS_GEN5_48' | 'HS_GEN5_80' })</b>
+            }
+            </remarks>
         </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacExportOptions.VerifyFullTextDocumentTypesSupported">
+        <member name="P:Microsoft.SqlServer.Dac.DacAzureDatabaseSpecification.MaximumSize">
             <summary>
-            Get or set boolean that specifies whether the supported full-text document types for Microsoft Azure SQL Database v12 should be verified.
+            Maximum size, in GB
             </summary>
-            <value>
-            True if the package should be verified; otherwise false.
-            Default value is false.
-            </value> 
+            <remarks>
+            CREATE DATABASE database_name  [ COLLATE collation_name ]
+            {
+               ({edition_options} [, ...n]) 
+            }
+            
+            {edition_options} ::= 
+            {
+               MAXSIZE = { 100 MB | 250 MB | 500 MB | 1 ... 1024 ... 4096 GB }
+                |<b>(EDITION = {'web' | 'business' | 'basic' | 'standard' | 'premium' | 'GeneralPurpose' | 'BusinessCritical' | 'Hyperscale'})</b>
+                |<b>(SERVICE_OBJECTIVE =  {'basic' 
+                  | 'S0' | 'S1' | 'S2' | 'S3' | 'S4'| 'S6'| 'S7'| 'S9'| 'S12'
+                  | 'P1' | 'P2' | 'P4'| 'P6' | 'P11' | 'P15'
+                  | 'GP_GEN4_1' | 'GP_GEN4_2' | 'GP_GEN4_3' | 'GP_GEN4_4' | 'GP_GEN4_5' | 'GP_GEN4_6'
+                  | 'GP_Gen4_7' | 'GP_Gen4_8' | 'GP_Gen4_9' | 'GP_Gen4_10' | 'GP_Gen4_16' | 'GP_Gen4_24'
+                  | 'GP_Gen5_2' | 'GP_Gen5_4' | 'GP_Gen5_6' | 'GP_Gen5_8' | 'GP_Gen5_10' | 'GP_Gen5_12' | 'GP_Gen5_14'
+                  | 'GP_Gen5_16' | 'GP_Gen5_18' | 'GP_Gen5_20' | 'GP_Gen5_24' | 'GP_Gen5_32' | 'GP_Gen5_40' | 'GP_Gen5_80'
+                  | 'BC_Gen4_1' | 'BC_Gen4_2' | 'BC_Gen4_3' | 'BC_Gen4_4' | 'BC_Gen4_5' | 'BC_Gen4_6'
+                  | 'BC_Gen4_7' | 'BC_Gen4_8' | 'BC_Gen4_9' | 'BC_Gen4_10' | 'BC_Gen4_16' | 'BC_Gen4_24'
+                  | 'BC_Gen5_2' | 'BC_Gen5_4' | 'BC_Gen5_6' | 'BC_Gen5_8' | 'BC_Gen5_10' | 'BC_Gen5_12' | 'BC_Gen5_14'
+                  | 'BC_Gen5_16' | 'BC_Gen5_18' | 'BC_Gen5_20' | 'BC_Gen5_24' | 'BC_Gen5_32' | 'BC_Gen5_40' | 'BC_Gen5_80'
+                  | 'HS_GEN4_1' | 'HS_GEN4_2' | 'HS_GEN4_4' | 'HS_GEN4_8' | 'HS_GEN4_16' | 'HS_GEN4_24'
+                  | 'HS_GEN5_2' | 'HS_GEN5_4' | 'HS_GEN5_8' | 'HS_GEN5_16' | 'HS_GEN5_24' | 'HS_GEN5_32' | 'HS_GEN5_48' | 'HS_GEN5_80' })</b>
+            }
+            </remarks>
         </member>
-        <member name="T:Microsoft.SqlServer.Dac.DacImportOptions">
+        <member name="P:Microsoft.SqlServer.Dac.DacAzureDatabaseSpecification.ServiceObjective">
             <summary>
-            Defines options that affect the behavior of package import to a database.
+            Database Performance Level
             </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.DacImportOptions.#ctor">
-            <summary>
-            Construct a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacImportOptions"/> class.
-            </summary>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacImportOptions.ImportContributors">
-            <summary>
-            Specifies additional deployment contributors which should run.
-            </summary>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacImportOptions.ImportContributorArguments">
-            <summary>
-            Specifies additional deployment contributor arguments.
-            </summary>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacImportOptions.DatabaseSpecification">
-            <summary>
-            Defines optional parameters specific to a Microsoft Azure SQL Database.
-            </summary>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacImportOptions.CommandTimeout">
-            <summary>
-            Specifies the command timeout in seconds when executing queries against SQLServer.
-            </summary>
-            <value>
-            The command timeout in seconds.
-            Default is 60
-            </value>
-        </member>
-        <member name="T:Microsoft.SqlServer.Dac.DacOperationProgressMessage">
-            <summary>
-             Progress message associated with the overal progress import or export operation.
-            </summary>
-        </member>
-        <member name="T:Microsoft.SqlServer.Dac.DacMessage">
-            <summary>
-            Data associated with an executing operation to report status updates or errors.
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.DacMessage.ToString">
-            <summary>
-            Return a string that represents the current object.
-            </summary>
-            <returns>
-            String that represents the current object.
-            </returns>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacMessage.MessageType">
-            <summary>
-            Get the type of the event message.
-            </summary>
-            <value>
-            Enumeration value that specifies the type of the event message.
-            </value>
-            <seealso cref="P:Microsoft.SqlServer.Dac.DacMessage.Message"/>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacMessage.Number">
-            <summary>
-            Get numeric value associated with the event message.
-            </summary>
-            <value>
-            Numeric value associated with the message.
-            </value>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacMessage.Prefix">
-            <summary>
-            Get string prefix associated with the source of the event message.
-            </summary>
-            <value>
-            String prefix associated with the source of the event message.
-            </value>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacMessage.Message">
-            <summary>
-            Get friendly message for the current status of an operation.
-            </summary>
-            <value>
-            String message for the current status of an operation.
-            </value>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacOperationProgressMessage.Progress">
-            <summary>
-            Current progress in percent complete.
-            </summary>
+            <remarks>
+            CREATE DATABASE database_name  [ COLLATE collation_name ]
+            {
+               ({edition_options} [, ...n]) 
+            }
+            
+            {edition_options} ::= 
+            {
+               MAXSIZE = { 100 MB | 250 MB | 500 MB | 1 ... 1024 ... 4096 GB }
+                |<b>(EDITION = {'web' | 'business' | 'basic' | 'standard' | 'premium' | 'GeneralPurpose' | 'BusinessCritical' | 'Hyperscale'})</b>
+                |<b>(SERVICE_OBJECTIVE =  {'basic' 
+                  | 'S0' | 'S1' | 'S2' | 'S3' | 'S4'| 'S6'| 'S7'| 'S9'| 'S12'
+                  | 'P1' | 'P2' | 'P4'| 'P6' | 'P11' | 'P15'
+                  | 'GP_GEN4_1' | 'GP_GEN4_2' | 'GP_GEN4_3' | 'GP_GEN4_4' | 'GP_GEN4_5' | 'GP_GEN4_6'
+                  | 'GP_Gen4_7' | 'GP_Gen4_8' | 'GP_Gen4_9' | 'GP_Gen4_10' | 'GP_Gen4_16' | 'GP_Gen4_24'
+                  | 'GP_Gen5_2' | 'GP_Gen5_4' | 'GP_Gen5_6' | 'GP_Gen5_8' | 'GP_Gen5_10' | 'GP_Gen5_12' | 'GP_Gen5_14'
+                  | 'GP_Gen5_16' | 'GP_Gen5_18' | 'GP_Gen5_20' | 'GP_Gen5_24' | 'GP_Gen5_32' | 'GP_Gen5_40' | 'GP_Gen5_80'
+                  | 'BC_Gen4_1' | 'BC_Gen4_2' | 'BC_Gen4_3' | 'BC_Gen4_4' | 'BC_Gen4_5' | 'BC_Gen4_6'
+                  | 'BC_Gen4_7' | 'BC_Gen4_8' | 'BC_Gen4_9' | 'BC_Gen4_10' | 'BC_Gen4_16' | 'BC_Gen4_24'
+                  | 'BC_Gen5_2' | 'BC_Gen5_4' | 'BC_Gen5_6' | 'BC_Gen5_8' | 'BC_Gen5_10' | 'BC_Gen5_12' | 'BC_Gen5_14'
+                  | 'BC_Gen5_16' | 'BC_Gen5_18' | 'BC_Gen5_20' | 'BC_Gen5_24' | 'BC_Gen5_32' | 'BC_Gen5_40' | 'BC_Gen5_80'
+                  | 'HS_GEN4_1' | 'HS_GEN4_2' | 'HS_GEN4_4' | 'HS_GEN4_8' | 'HS_GEN4_16' | 'HS_GEN4_24'
+                  | 'HS_GEN5_2' | 'HS_GEN5_4' | 'HS_GEN5_8' | 'HS_GEN5_16' | 'HS_GEN5_24' | 'HS_GEN5_32' | 'HS_GEN5_48' | 'HS_GEN5_80' })</b>
+            }
+            </remarks>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.DacDataProgressMessage">
             <summary>
@@ -526,43 +275,10 @@
             Defines options that affect the behavior of package deployment to a database.
             </summary>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.DacDeployOptions.#ctor">
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.AdditionalDeploymentContributorPaths">
             <summary>
-            Create a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacDeployOptions"/> class
-            with default options.
+            Specifies paths to load additional deployment contributors. This should be a semi-colon delimited list of values.
             </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.DacDeployOptions.EnableDnrOrdering(System.Boolean)">
-            <summary>
-            Interal mechanism to control deployment DNR ordering behavior
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.DacDeployOptions.#ctor(Microsoft.Data.Tools.Schema.Sql.Deployment.SqlDeploymentOptions)">
-            <summary>
-            Create a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacDeployOptions"/> class
-            with specified options.
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.DacDeployOptions.#ctor(Microsoft.Data.Tools.Schema.Sql.Deployment.SqlDeploymentOptions,System.Boolean)">
-            <summary>
-            Create a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacDeployOptions"/> class
-            with specified options.
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.DacDeployOptions.InitializeDefaults(Microsoft.Data.Tools.Schema.Sql.Deployment.SqlDeploymentOptions)">
-            <summary>
-            Initialize the expected defaults for this API.
-            </summary>
-            <remarks>
-            Only defined where default values differ from the core defaults.
-            When new options are added to SqlDeploymentOptions or a default value changed,
-            all clients must determine if they must override the default.
-            Redundantly specifying existing defaults doesn't reduce need for this
-            process when adding options or changing defaults.  Unit tests should
-            be employed to validating expectations for each deployment client
-            that overrides default options (e.g. power-buffer, schema-compare, this api).
-            When removing or renaming an option, the compiler will complain (good).
-            </remarks>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.AdditionalDeploymentContributors">
             <summary>
@@ -585,12 +301,32 @@
             Default is false.
             </value>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.AllowExternalLanguagePaths">
+            <summary>
+            Get or set boolean that specifies whether file paths should be used for
+            external language deployment.
+            </summary>
+            <value>
+            True to use file paths (instead of content) for external languages; otherwise, false.
+            Default is false.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.AllowExternalLibraryPaths">
+            <summary>
+            Get or set boolean that specifies whether file paths should be used for
+            external library deployment.
+            </summary>
+            <value>
+            True to use file paths (instead of content) for external libraries; otherwise, false.
+            Default is false.
+            </value>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.AllowIncompatiblePlatform">
             <summary>
             Get or set boolean that specifies whether deployment will block due to platform compatibility.
             </summary>
             <value>
-            True to block deployment to incompatible platforms; otherwise, false.
+            True to allow deployment to incompatible platforms; otherwise, deployment will not proceed for incompatible platforms.
             Default is false.
             </value>
         </member>
@@ -632,6 +368,79 @@
             <value>
             The command timeout in seconds.
             Default is 60
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.LongRunningCommandTimeout">
+            <summary>
+            Specifies the long running command timeout in seconds when executing queries against SQLServer.
+            </summary>
+            <value>
+            The command timeout in seconds.
+            Default is 0 which will wait indefinitely
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.DatabaseLockTimeout">
+            <summary>
+            Specifies the database lock timeout in seconds when executing queries against SQLServer.
+            </summary>
+            <value>
+            The database lock timeout in seconds.
+            Default is 60
+            Specify -1 to wait indefinitely
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.AzureStorageBlobEndpoint">
+            <summary>
+            Azure storage blob endpoint for Azure Synapse Analytics data from parquet files.
+            </summary>
+            <value>
+            Set this for deploy operation.
+            Default value is null
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.AzureStorageContainer">
+            <summary>
+            Azure storage container name for Azure Synapse Analytics data from parquet files.
+            </summary>
+            <value>
+            Set this for deploy operation.
+            Default value is null
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.AzureStorageKey">
+            <summary>
+            Azure storage key for Azure Synapse Analytics data from parquet files.
+            </summary>
+            <value>
+            Set this for deploy operation to authenticate with the storage account key.
+            Default value is null
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.AzureStorageRootPath">
+            <summary>
+            The storage root path under the container for Azure Synapse Analytics data from parquet files.
+            </summary>
+            <value>
+            Set this for deploy operation.
+            Default value is null
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.AzureSharedAccessSignatureToken">
+            <summary>
+            Azure Shared Access Signature token
+            </summary>
+            <value>
+            Specify a valid SAS token with access to the storage container path to authenticate with using Shared Access Signature identity.
+            Default value is null
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.DataOperationStateProvider">
+            <summary>
+            Data operation state provider.
+            </summary>
+            <value>
+            if not null, use parquet file format; otherwise, null.
+            Default is null.
             </value>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.CommentOutSetVarDeclarations">
@@ -683,6 +492,15 @@
             The database will be returned to multi-user mode after all changes are applied.
             Database may remain in single-user mode if an error occurs during execution.
             </remarks>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.IsAlwaysEncryptedParameterizationEnabled">
+            <summary>
+            Set Always Encrypted Parameterization Mode
+            </summary>
+            <value>
+            True to enable parameterization variables in post/pre deployment scripts
+            Default is false.
+            </value>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.DisableAndReenableDdlTriggers">
             <summary>
@@ -747,6 +565,26 @@
             Default is true.
             </value>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.IgnoreDatabaseWorkloadGroups">
+            <summary>
+            Get or set boolean that specifies whether to exclude Database Workload Groups that do not
+            exist in the source model.
+            </summary>
+            <value>
+            True to exclude Database Workload Groups in the source model; otherwise, false.
+            Default is true.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.IgnoreWorkloadClassifiers">
+            <summary>
+            Get or set boolean that specifies whether to exclude WorkloadClassifiers that do not
+            exist in the source model.
+            </summary>
+            <value>
+            True to exclude WorkloadClassifiers in the source model; otherwise, false.
+            Default is true.
+            </value>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.DropExtendedPropertiesNotInSource">
             <summary>
             Get or set boolean that specifies whether to drop all extended properties that do 
@@ -806,6 +644,44 @@
             Default is false.
             </value>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.DoNotDropDatabaseWorkloadGroups">
+            <summary>
+            Get or set boolean that specifies whether to drop all database workload groups that do not
+            exist in the source model.
+            </summary>
+            <value>
+            True to drop database workload groups not in the source model; otherwise, false.
+            Default is false.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.DoNotDropWorkloadClassifiers">
+            <summary>
+            Get or set boolean that specifies whether to drop all database workload groups that do not
+            exist in the source model.
+            </summary>
+            <value>
+            True to drop database workload classifiers not in the source model; otherwise, false.
+            Default is false.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.EnclaveAttestationUrl">
+            <summary>
+            Specifies the enclave attestation Url (an attestation service endpoint) to be used with enclave based Always Encrypted.
+            </summary>
+            <remarks>
+            DacFx must enable ColumnEncryptionSetting and correctly set both this and <see cref="P:Microsoft.SqlServer.Dac.DacDeployOptions.EnclaveAttestationProtocol"/>
+            on the connection string to enable Always Encrypted with secure enclaves during deploy operations.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.EnclaveAttestationProtocol">
+            <summary>
+            Specifies an attestation protocol to be used with enclave based Always Encrypted.
+            </summary>
+            <remarks>
+            DacFx must enable ColumnEncryptionSetting and correctly set both this and <see cref="P:Microsoft.SqlServer.Dac.DacDeployOptions.EnclaveAttestationUrl"/>
+            on the connection string to enable Always Encrypted with secure enclaves during deploy operations.
+            </remarks>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.GenerateSmartDefaults">
             <summary>
             Get or set boolean that specifies whether default values should be generated to populate NULL columns that are constrained to NOT NULL values.
@@ -817,6 +693,15 @@
             <remarks>
             This is useful when needing to add a new NOT NULL column to an existing table with data.
             </remarks>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.HashObjectNamesInLogs">
+            <summary>
+            Get or set boolean that specifies whether to hash object names in logs
+            </summary>
+            <value>
+            True to replace all object names in logs with a random hash value; otherwise, false.
+            Default is false
+            </value>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.IgnoreAnsiNulls">
             <summary>
@@ -1086,6 +971,11 @@
             Default is true.
             </value>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.DoNotEvaluateSqlCmdVariables">
+            <summary>
+            Specified whether SQLCMD variable names should be used when comparing schema or their values
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.IgnorePartitionSchemes">
             <summary>
             Get or set boolean that specifies whether to exclude the parameter type and 
@@ -1095,6 +985,17 @@
             </summary>
             <value>
             True to ignore aspects of partition functions and schemes; otherwise, false.
+            Default is false.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.IgnoreTablePartitionOptions">
+            <summary>
+            Get or set boolean that specifies whether to exclude the RANGE and BOUNDARY VALUES
+            of a table partition option from consideration when comparing the source and target
+            model.
+            </summary>
+            <value>
+            True to ignore aspects of table partition option; otherwise, false.
             Default is false.
             </value>
         </member>
@@ -1147,6 +1048,19 @@
             True to ignore semi-colons; otherwise, false.
             Default is true.
             </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.IgnoreSensitivityClassifications">
+            <summary>
+            Get or set boolean that specifies whether to exclude data sensitivity classifications on columns
+            when comparing the source and target model.
+            </summary>
+            <value>
+            True to ignore sensitivity classifications; otherwise, false.
+            Default is false.
+            </value>
+            <remarks>
+            This option only works for sensitivity classifications added with the ADD SENSITIVITY CLASSIFICATION syntax introduced in SQL 2019.
+            </remarks>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.IgnoreTableOptions">
             <summary>
@@ -1243,6 +1157,15 @@
             <value>
             True to specify files for filegroups; otherwise false.
             Default is true.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.PreserveIdentityLastValues">
+            <summary>
+            Get or set boolean that specifies whether the last values used for identity columns should be preserved.
+            </summary>
+            <value>
+            True to specify that source identity last values should be used in target.
+            Default is false.
             </value>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.RegisterDataTierApplication">
@@ -1346,6 +1269,37 @@
             Default is false.
             </value>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.RebuildIndexesOfflineForDataPhase">
+            <summary>
+            Gets or set a boolean that specifies if indexes should be rebuilt offline after importing data into SQL Server.
+            </summary>
+            <value>
+            True to rebuild indexes offline after importing data.
+            Default is false.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.RestoreSequenceCurrentValue">
+            <summary>
+             Gets or set a boolean that specifies if sequence value should be enabled or disabled before deploying the script into SQL Server.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.DisableIndexesForDataPhase">
+            <summary>
+            Gets or set a boolean that specifies if indexes should be disabled before importing data into SQL Server.
+            </summary>
+            <value>
+            False to leave indexes enabled while importing data.
+            Default is true.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.DisableParallelismForEnablingIndexes">
+            <summary>
+            Gets or set a boolean that specifies if rebuilding indexes should not use parallelism for importing data into SQL Server.
+            </summary>
+            <value>
+            Default is false.
+            </value>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.UnmodifiableObjectWarnings">
             <summary>
             Get or set boolean that specifies whether warnings should be generated when differences are found 
@@ -1386,6 +1340,51 @@
             Valid values must be provided for every variable before deployment, or failures may occur during deployment.
             </remarks>
         </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacDeployOptions.SetVariable(System.String,System.String)">
+            <summary>
+            Override sqlcmd variable with given value
+            </summary>
+            <param name="name"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacDeployOptions.#ctor">
+            <summary>
+            Create a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacDeployOptions"/> class
+            with default options.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacDeployOptions.EnableDnrOrdering(System.Boolean)">
+            <summary>
+            Interal mechanism to control deployment DNR ordering behavior
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacDeployOptions.#ctor(Microsoft.Data.Tools.Schema.Sql.Deployment.SqlDeploymentOptions)">
+            <summary>
+            Create a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacDeployOptions"/> class
+            with specified options.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacDeployOptions.#ctor(Microsoft.Data.Tools.Schema.Sql.Deployment.SqlDeploymentOptions,System.Boolean)">
+            <summary>
+            Create a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacDeployOptions"/> class
+            with specified options.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacDeployOptions.InitializeDefaults(Microsoft.Data.Tools.Schema.Sql.Deployment.SqlDeploymentOptions)">
+            <summary>
+            Initialize the expected defaults for this API.
+            </summary>
+            <remarks>
+            Only defined where default values differ from the core defaults.
+            When new options are added to SqlDeploymentOptions or a default value changed,
+            all clients must determine if they must override the default.
+            Redundantly specifying existing defaults doesn't reduce need for this
+            process when adding options or changing defaults.  Unit tests should
+            be employed to validating expectations for each deployment client
+            that overrides default options (e.g. power-buffer, schema-compare, this api).
+            When removing or renaming an option, the compiler will complain (good).
+            </remarks>
+        </member>
         <member name="T:Microsoft.SqlServer.Dac.DacErrorResources">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -1412,6 +1411,16 @@
               Looks up a localized string similar to Cannot apply updates to a package loaded for read only..
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ConflictingDatabaseWorkloadClassifierDropSetting">
+            <summary>
+              Looks up a localized string similar to DoNotDropWorkloadClassifier setting conflicts with the selected DoNotDropObjectType.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ConflictingDatabaseWorkloadGroupDropSetting">
+            <summary>
+              Looks up a localized string similar to DoNotDropDatabaseWorkloadGroups setting conflicts with the selected DoNotDropObjectType.
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ConflictingExtendedPropertyDropSetting">
             <summary>
               Looks up a localized string similar to DropExtendedPropertiesNotInSource conflicts with the selected DoNotDropObjectType ExtendedProperties.
@@ -1425,6 +1434,11 @@
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ConflictingRoleMembershipDropSetting">
             <summary>
               Looks up a localized string similar to DropRoleMembersNotInSource conflicts with the selected DoNotDropObjectType RoleMembership.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ConnectionEncryptionWarning">
+            <summary>
+              Looks up a localized string similar to Changes to connection setting default values were incorporated in a recent release.  More information is available at https://aka.ms/dacfx-connection.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.DacMessageFormat">
@@ -1654,7 +1668,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorUnsupportedClrElementForDataPackage">
             <summary>
-              Looks up a localized string similar to Element {0} is an unsupported CLR element that is not allowed when used as part of a data package..
+              Looks up a localized string similar to Element {0}: {1} is an unsupported CLR element that is not allowed when used as part of a data package..
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorUnsupportedContainedUserElementForDataPackage">
@@ -1669,17 +1683,27 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorUnsupportedElementPropertyForDataPackage">
             <summary>
-              Looks up a localized string similar to Element {0} has an unsupported property {1} set and is not supported when used as part of a data package..
+              Looks up a localized string similar to Element {0}: {1} has an unsupported property {2} set and is not supported when used as part of a data package..
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorUnsupportedFileStreamColumnForDataPackage">
             <summary>
-              Looks up a localized string similar to Element {0} is an unsupported FILESTREAM column that is not allowed when used as part of a data package..
+              Looks up a localized string similar to Element {0}: {1} is an unsupported FILESTREAM column that is not allowed when used as part of a data package..
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorUnsupportedMultiPartNameForSynonym">
             <summary>
               Looks up a localized string similar to {0} is not supported on Microsoft Azure SQL Database as it aliases the external element {1}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorUnsupportedPlatformForDataPackage">
+            <summary>
+              Looks up a localized string similar to Azure Synapse Dedicated SQL Pool does not support data operations such as the Export or Import task..
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorUnsupportedPlatformForDataPackage_Serverless">
+            <summary>
+              Looks up a localized string similar to Azure Synapse Serverless SQL Pool does not support data operations such as the Export or Import task..
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorUnsupportUserDefinedTypeColumnForDataPackage">
@@ -1770,118 +1794,123 @@
             Exception object associated with the message.
             </value>
         </member>
-        <member name="T:Microsoft.SqlServer.Dac.DacAzureEdition">
+        <member name="T:Microsoft.SqlServer.Dac.DacExportOptions">
             <summary>
-            List of possible editions for a Microsoft Azure SQL Database
+            Defines options that affect the behavior of package export from a database.
             </summary>
         </member>
-        <member name="F:Microsoft.SqlServer.Dac.DacAzureEdition.Web">
+        <member name="M:Microsoft.SqlServer.Dac.DacExportOptions.#ctor">
             <summary>
-            CREATE DATABASE database_name EDITION = <b>'web'</b>
+            Construct a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacExportOptions"/> class.
             </summary>
         </member>
-        <member name="F:Microsoft.SqlServer.Dac.DacAzureEdition.Business">
+        <member name="P:Microsoft.SqlServer.Dac.DacExportOptions.CommandTimeout">
             <summary>
-            CREATE DATABASE database_name EDITION = <b>'business'</b>
+            Specifies the command timeout in seconds when executing queries against SQLServer.
             </summary>
+            <value>
+            The command timeout in seconds.
+            Default is 60
+            </value>
         </member>
-        <member name="F:Microsoft.SqlServer.Dac.DacAzureEdition.Basic">
+        <member name="P:Microsoft.SqlServer.Dac.DacExportOptions.LongRunningCommandTimeout">
             <summary>
-            CREATE DATABASE database_name EDITION = <b>'basic'</b>
+            Specifies the long running command timeout in seconds when executing queries against SQLServer.
             </summary>
+            <value>
+            The command timeout in seconds.
+            Default is 0 which will wait indefinitely
+            </value>
         </member>
-        <member name="F:Microsoft.SqlServer.Dac.DacAzureEdition.Standard">
+        <member name="P:Microsoft.SqlServer.Dac.DacExportOptions.DatabaseLockTimeout">
             <summary>
-            CREATE DATABASE database_name EDITION = <b>'standard'</b>
+            Specifies the database lock timeout in seconds when executing queries against SQLServer.
             </summary>
+            <value>
+            The database lock timeout in seconds
+            Default is 60
+            Specify -1 to wait indefinitely
+            </value>
         </member>
-        <member name="F:Microsoft.SqlServer.Dac.DacAzureEdition.Premium">
+        <member name="P:Microsoft.SqlServer.Dac.DacExportOptions.TempDirectoryForTableData">
             <summary>
-            CREATE DATABASE database_name EDITION = <b>'premium'</b>
+            Specifies the temporary directory used to buffer table data before being written to the package file.
             </summary>
+            <value>
+            The path to the temporary directory.  If null or empty, the default is the users temporary folder.
+            </value>
         </member>
-        <member name="F:Microsoft.SqlServer.Dac.DacAzureEdition.PremiumRS">
+        <member name="P:Microsoft.SqlServer.Dac.DacExportOptions.Storage">
             <summary>
-            CREATE DATABASE database_name EDITION = <b>'premiumRS'</b>
+            Get the type of backing storage for the schema model used during extraction.
             </summary>
+            <value>
+            Enumeration value that specifies the type of backing storage for the schema model used during extraction.
+            Default value is File.
+            </value>
         </member>
-        <member name="F:Microsoft.SqlServer.Dac.DacAzureEdition.Default">
+        <member name="P:Microsoft.SqlServer.Dac.DacExportOptions.TargetEngineVersion">
             <summary>
-            CREATE DATABASE database_name
+            Specifies what the target engine version is expected to be. 
+            This is used during export to define the allowed engine version to validate against
+            and whether the features of the database match the capabilities of that engine version.
             </summary>
-        </member>
-        <member name="T:Microsoft.SqlServer.Dac.DacAzureDatabaseSpecification">
-            <summary>
-            Defines optional parameters specific to a Microsoft Azure SQL Database
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.DacAzureDatabaseSpecification.#ctor">
-            <summary>
-            Default constructor
-            </summary>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacAzureDatabaseSpecification.Edition">
-            <summary>
-            Database Edition
-            </summary>
-            <remarks>
-            CREATE DATABASE database_name  [ COLLATE collation_name ]
-            {
-               ({edition_options} [, ...n]) 
-            }
+            <value>
+            The latest version of Azure contains support for additional capabilities. When this value is
+            <see cref="F:Microsoft.SqlServer.Dac.EngineVersion.Default"/> or <see cref="F:Microsoft.SqlServer.Dac.EngineVersion.V11"/>,
+            the export operation will fail if the target database is found to contain any objects that
+            require a newer engine version.
             
-            {edition_options} ::= 
-            {
-               (MAXSIZE = { 100 MB | 500 MB | 1 | 5 | 10 | 20 | 30 ... 150 ... 500 } GB
-                |<b>(EDITION = {'web' | 'business' | 'basic' | 'standard' | 'premium' | 'premiumRS'})</b>
-                |<b>(SERVICE_OBJECTIVE = { 'shared' | 'basic' | 'S0' | 'S1' | 'S2' | 'S3' | 'P1' | 'P2' | 'P3' | 'P4' | 'P6' | 'P11' | 'P15' | 'PRS1' | 'PRS2' | 'PRS4' | 'PRS6' })</b>
-            }
-            </remarks>
+            The default value for this option is <see cref="F:Microsoft.SqlServer.Dac.EngineVersion.Latest"/>, which means that 
+            validation will ensure that the export operation will only fail if the target database is 
+            found to contain any objects that are not supported in the latest engine version.
+            </value>
         </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacAzureDatabaseSpecification.MaximumSize">
+        <member name="P:Microsoft.SqlServer.Dac.DacExportOptions.VerifyFullTextDocumentTypesSupported">
             <summary>
-            Maximum size, in GB
+            Get or set boolean that specifies whether the supported full-text document types for Microsoft Azure SQL Database v12 should be verified.
             </summary>
-            <remarks>
-            CREATE DATABASE database_name  [ COLLATE collation_name ]
-            {
-               ({edition_options} [, ...n]) 
-            }
-            
-            {edition_options} ::= 
-            {
-               <b>(MAXSIZE = { 100 MB | 500 MB | 1 | 5 | 10 | 20 | 30 ... 150 ... 500 } GB</b>
-                |(EDITION = {'web' | 'business' | 'basic' | 'standard' | 'premium' | 'premiumRS'})
-                |(SERVICE_OBJECTIVE = { 'shared' | 'basic' | 'S0' | 'S1' | 'S2' | 'S3' | 'P1' | 'P2' | 'P3' | 'P4' | 'P6' | 'P11' | 'P15' | 'PRS1' | 'PRS2' | 'PRS4' | 'PRS6' })
-            }
-            </remarks>
+            <value>
+            True if the package should be verified; otherwise false.
+            Default value is false.
+            </value> 
         </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacAzureDatabaseSpecification.ServiceObjective">
+        <member name="P:Microsoft.SqlServer.Dac.DacExportOptions.CompressionOption">
             <summary>
-            Database Performance Level
+            Sets the compression option in the final package
             </summary>
-            <remarks>
-            CREATE DATABASE database_name  [ COLLATE collation_name ]
-            {
-               ({edition_options} [, ...n]) 
-            }
-            
-            {edition_options} ::= 
-            {
-               (MAXSIZE = { 100 MB | 500 MB | 1 | 5 | 10 | 20 | 30 ... 150 ... 500 } GB  
-                |(EDITION = {'web' | 'business' | 'basic' | 'standard' | 'premium' | 'premiumRS'})
-                |<b>(SERVICE_OBJECTIVE = { 'shared' | 'basic' | 'S0' | 'S1' | 'S2' | 'S3' | 'P1' | 'P2' | 'P3' | 'P4' | 'P6' | 'P11' | 'P15' | 'PRS1' | 'PRS2' | 'PRS4' | 'PRS6' })</b>
-            }
-            </remarks>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacExportOptions.IgnoreIndexesStatisticsOnEnclaveEnabledColumns">
+            <summary>
+            Get or set boolean that specifies whether Indexes/Statistics should be dropped or not
+            with the actual deployment actions.
+            </summary>
+            <value>
+            True to perform a drop statistics or Indexes prior to deployment; otherwise, false.
+            Default is false.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacExportOptions.HashObjectNamesInLogs">
+            <summary>
+            Get or set boolean that specifies whether to hash object names in logs
+            </summary>
+            <value>
+            True to replace all object names in logs with a random hash value; otherwise, false.
+            Default is false
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacExportOptions.VerifyExtraction">
+            <summary>
+            Get or set boolean that specifies whether the extracted package should be verified.
+            </summary>
+            <value>
+            True if the package should be verified; otherwise false.
+            Default value is true.
+            </value> 
         </member>
         <member name="T:Microsoft.SqlServer.Dac.DacExtractOptions">
             <summary>
             Defines options that affect the behavior of package extraction.
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.DacExtractOptions.#ctor">
-            <summary>
-            Construct a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacExtractOptions"/> class.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.CommandTimeout">
@@ -1893,6 +1922,25 @@
             Default is 60
             </value>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.LongRunningCommandTimeout">
+            <summary>
+            Specifies the long running command timeout in seconds when executing queries against SQLServer.
+            </summary>
+            <value>
+            The command timeout in seconds.
+            Default is 0 which will wait indefinitely
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.DatabaseLockTimeout">
+            <summary>
+            Specifies the database lock timeout in seconds when executing queries against SQLServer.
+            </summary>
+            <value>
+            The database lock timeout in seconds
+            Default is 60
+            Specify -1 to wait indefinitely
+            </value>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.ExtractAllTableData">
             <summary>
             Get or set boolean that specifies whether data for all user tables will be extracted.
@@ -1900,6 +1948,14 @@
             <value>
             True if data for all user tables will be extracted; otherwise false.
             Default value is false.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.TempDirectoryForTableData">
+            <summary>
+            Specifies the temporary directory used to buffer table data before being written to the package file.
+            </summary>
+            <value>
+            The path to the temporary directory.  If null or empty, the default is the users temporary folder.
             </value>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.ExtractReferencedServerScopedElements">
@@ -1976,6 +2032,263 @@
             Default value is false.
             </value>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.AzureStorageBlobEndpoint">
+            <summary>
+            Azure storage blob endpoint for Azure Synapse Analytics data to parquet files.
+            </summary>
+            <value>
+            Set this for data extract operation.
+            Default value is null
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.AzureStorageContainer">
+            <summary>
+            Azure storage container name for Azure Synapse Analytics data to parquet files.
+            </summary>
+            <value>
+            Set this for data extract operation.
+            Default value is null
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.AzureStorageKey">
+            <summary>
+            Azure storage key  for Azure Synapse Analytics data to parquet files.
+            </summary>
+            <value>
+            Set this for data extract operation.
+            Default value is null
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.ExtractTarget">
+            <summary>
+            Get the type of extract target used when extracting a database to file system or a dacpac.
+            </summary>
+            <value>
+            Enumeration value that specifies the type of extract target used when extracting a database to file system.
+            Default value is Dacpac.
+            </value> 
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.AzureStorageRootPath">
+            <summary>
+            The storage root path under the container for Azure Synapse Analytics data to parquet files.
+            </summary>
+            <value>
+            Set this for data extract operation.
+            Default value is null
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.HashObjectNamesInLogs">
+            <summary>
+            Get or set boolean that specifies whether to hash object names in logs
+            </summary>
+            <value>
+            True to replace all object names in logs with a random hash value; otherwise, false.
+            Default is false
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.DataOperationStateProvider">
+            <summary>
+            Data operation state provider.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.CompressionOption">
+            <summary>
+            Sets the compression option in the final package
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacExtractOptions.#ctor">
+            <summary>
+            Construct a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacExtractOptions"/> class.
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.DacExtractTarget">
+            <summary>
+            Specifies the different extract targets when extracting a database.
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.DacExtractTarget.DacPac">
+            <summary>
+            Specifies no .sql files will be output, but a dacpac instead.
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.DacExtractTarget.File">
+            <summary>
+            Specifies a single .sql file will be output.
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.DacExtractTarget.Flat">
+            <summary>
+            Specifies .sql files for all database objects will be output to a single directory.
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.DacExtractTarget.ObjectType">
+            <summary>
+            Specifies .sql files will be output into folders grouped by the database object type.
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.DacExtractTarget.Schema">
+            <summary>
+            Specifies .sql files will be output into folders grouped by the database schema names.
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.DacExtractTarget.SchemaObjectType">
+            <summary>
+            Specifies .sql files will be output into folders grouped by the database schema name and the database object type.
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.DacImportOptions">
+            <summary>
+            Defines options that affect the behavior of package import to a database.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacImportOptions.#ctor">
+            <summary>
+            Construct a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacImportOptions"/> class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacImportOptions.ImportContributorPaths">
+            <summary>
+            Specifies paths to load additional import contributors. This should be a semi-colon delimited list of values.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacImportOptions.ImportContributors">
+            <summary>
+            Specifies additional deployment contributors which should run.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacImportOptions.ImportContributorArguments">
+            <summary>
+            Specifies additional deployment contributor arguments.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacImportOptions.DatabaseSpecification">
+            <summary>
+            Defines optional parameters specific to a Microsoft Azure SQL Database.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacImportOptions.CommandTimeout">
+            <summary>
+            Specifies the command timeout in seconds when executing queries against SQL Server.
+            </summary>
+            <value>
+            The command timeout in seconds.
+            Default is 60
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacImportOptions.LongRunningCommandTimeout">
+            <summary>
+            Specifies the long running command timeout in seconds when executing queries against SQL Server.
+            </summary>
+            <value>
+            The command timeout in seconds.
+            Default is 0 which will wait indefinitely
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacImportOptions.DatabaseLockTimeout">
+            <summary>
+            Specifies the database lock timeout in seconds when executing queries against SQL Server.
+            </summary>
+            <value>
+            The database lock timeout in seconds
+            Default is 60
+            Specify -1 to wait indefinitely
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacImportOptions.RebuildIndexesOfflineForDataPhase">
+            <summary>
+            Gets or set a boolean that specifies if indexes should be rebuilt offline after importing data into SQL Server.
+            </summary>
+            <value>
+            True to rebuild indexes offline after importing data.
+            Default is false.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacImportOptions.DisableIndexesForDataPhase">
+            <summary>
+            Gets or set a boolean that specifies if indexes should be disabled before importing data into SQL Server.
+            </summary>
+            <value>
+            False to leave indexes enabled while importing data.
+            Default is true.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacImportOptions.DisableParallelismForEnablingIndexes">
+            <summary>
+            Gets or set a boolean that specifies if rebuilding indexes should not use parallelism for importing data into SQL Server.
+            </summary>
+            <value>
+            Default is false.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacImportOptions.HashObjectNamesInLogs">
+            <summary>
+            Get or set boolean that specifies whether to hash object names in logs
+            </summary>
+            <value>
+            True to replace all object names in logs with a random hash value; otherwise, false.
+            Default is false
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacImportOptions.PreserveIdentityLastValues">
+            <summary>
+            Get or set boolean that specifies whether the last values used for identity columns should be preserved.
+            </summary>
+            <value>
+            True to specify that source identity last values should be used in target.
+            Default is false.
+            </value>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.DacMessage">
+            <summary>
+            Data associated with an executing operation to report status updates or errors.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacMessage.MessageType">
+            <summary>
+            Get the type of the event message.
+            </summary>
+            <value>
+            Enumeration value that specifies the type of the event message.
+            </value>
+            <seealso cref="P:Microsoft.SqlServer.Dac.DacMessage.Message"/>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacMessage.Number">
+            <summary>
+            Get numeric value associated with the event message.
+            </summary>
+            <value>
+            Numeric value associated with the message.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacMessage.Prefix">
+            <summary>
+            Get string prefix associated with the source of the event message.
+            </summary>
+            <value>
+            String prefix associated with the source of the event message.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacMessage.Message">
+            <summary>
+            Get friendly message for the current status of an operation.
+            </summary>
+            <value>
+            String message for the current status of an operation.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacMessage.ElementType">
+            <summary>
+            The type of element if the error is a validation error related to an element
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacMessage.ToString">
+            <summary>
+            Return a string that represents the current object.
+            </summary>
+            <returns>
+            String that represents the current object.
+            </returns>
+        </member>
         <member name="T:Microsoft.SqlServer.Dac.DacMessageEventArgs">
             <summary>
             Data associated with event raised as an executing operation reports status updates or errors.
@@ -2004,6 +2317,16 @@
         <member name="F:Microsoft.SqlServer.Dac.DacMessageType.Error">
             <summary>
             Serious, possibly fatal issue.
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.DacOperationProgressMessage">
+            <summary>
+             Progress message associated with the overall progress import or export operation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacOperationProgressMessage.Progress">
+            <summary>
+            Current progress in percent complete.
             </summary>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.DacOperationStatus">
@@ -2040,6 +2363,46 @@
             <summary>
             Representation of the artifact that contains the definition of a data-tier application.
             </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacPackage.Name">
+            <summary>
+            Get identifier for this package.
+            </summary>
+            <value>
+            String identifier for this package.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacPackage.Description">
+            <summary>
+            Get an optional summary of this package.
+            </summary>
+            <value>
+            String summary of this package; or null reference if there is no summary.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacPackage.Version">
+            <summary>
+            Get version information for this package.
+            </summary>
+            <value>
+            <see cref="P:Microsoft.SqlServer.Dac.DacPackage.Version"/> structure that specifies the version information for this package.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacPackage.PreDeploymentScript">
+            <summary>
+            Get stream used to read and write script executed prior to deploying schema contained in this package.
+            </summary>
+            <value>
+            <see cref="T:System.IO.Stream"/> instance used to read and write script contents.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacPackage.PostDeploymentScript">
+            <summary>
+            Get stream used to read and write script executed after deploying schema contained in this package.
+            </summary>
+            <value>
+            <see cref="T:System.IO.Stream"/> instance used to read and write script contents.
+            </value>
         </member>
         <member name="M:Microsoft.SqlServer.Dac.DacPackage.Dispose">
             <summary>
@@ -2173,6 +2536,29 @@
             If there is a problem reading the package; or if the package contains exported data.
             </exception>
         </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacPackage.Save(System.IO.Packaging.Package,Microsoft.Data.Tools.Schema.SchemaModel.DataSchemaModel,Microsoft.Data.Tools.Schema.Sql.Dac.DacMetadata,System.UInt32@,System.Byte[]@,System.Nullable{System.UInt32})">
+            <summary>
+            Write package with the supplied schema model and DAC metadata to the supplied <see cref="T:System.IO.Stream"/>.
+            </summary>
+            <param name="package">
+            <see cref="T:System.IO.Packaging.Package"/> to which to write the package.
+            </param>
+            <param name="model">
+            Schema model to be serialized into package.
+            </param>
+            <param name="metadata">
+            DAC metadata to be serialized into package.
+            </param>
+            <param name="modelVersion">
+            The model version.
+            </param>
+            <param name="checksum">
+            The checksum of the model.xml.
+            </param>
+            <param name="minModelVersion">
+            Optional minimum model schema version to use when saving model.
+            </param>
+        </member>
         <member name="M:Microsoft.SqlServer.Dac.DacPackage.Save(System.IO.Stream,Microsoft.Data.Tools.Schema.SchemaModel.DataSchemaModel,Microsoft.Data.Tools.Schema.Sql.Dac.DacMetadata,System.Nullable{System.UInt32})">
             <summary>
             Write package with the supplied schema model and DAC metadata to the supplied <see cref="T:System.IO.Stream"/>.
@@ -2191,50 +2577,34 @@
             </param>
             <returns>The model version used for the serialization</returns>
         </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacPackage.Name">
-            <summary>
-            Get identifier for this package.
-            </summary>
-            <value>
-            String identifier for this package.
-            </value>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacPackage.Description">
-            <summary>
-            Get an optional summary of this package.
-            </summary>
-            <value>
-            String summary of this package; or null reference if there is no summary.
-            </value>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacPackage.Version">
-            <summary>
-            Get version information for this package.
-            </summary>
-            <value>
-            <see cref="P:Microsoft.SqlServer.Dac.DacPackage.Version"/> structure that specifies the version information for this package.
-            </value>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacPackage.PreDeploymentScript">
-            <summary>
-            Get stream used to read and write script executed prior to deploying schema contained in this package.
-            </summary>
-            <value>
-            <see cref="T:System.IO.Stream"/> instance used to read and write script contents.
-            </value>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacPackage.PostDeploymentScript">
-            <summary>
-            Get stream used to read and write script executed after deploying schema contained in this package.
-            </summary>
-            <value>
-            <see cref="T:System.IO.Stream"/> instance used to read and write script contents.
-            </value>
-        </member>
         <member name="T:Microsoft.SqlServer.Dac.DacProfile">
             <summary>
             Contains settings related to a specific deployment configuration.
             </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacProfile.DeployOptions">
+            <summary>
+            Get deployment options associated with this profile.
+            </summary>
+            <value>
+            <see cref="T:Microsoft.SqlServer.Dac.DacDeployOptions"/> instance that specifies deployment options.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacProfile.TargetDatabaseName">
+            <summary>
+            Get or set name of database used as the target of a deployment.
+            </summary>
+            <value>
+            String name of target database.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacProfile.TargetConnectionString">
+            <summary>
+            Get or set connection string for database server used as the target of a deployment.
+            </summary>
+            <value>
+            String that specifies database server connection information.
+            </value>
         </member>
         <member name="M:Microsoft.SqlServer.Dac.DacProfile.#ctor">
             <summary>
@@ -2274,29 +2644,20 @@
             <see cref="T:Microsoft.SqlServer.Dac.DacProfile"/> instance initialized from the serialized file data.
             </returns>
         </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacProfile.DeployOptions">
+        <member name="M:Microsoft.SqlServer.Dac.DacProfile.Save(System.String)">
             <summary>
-            Get deployment options associated with this profile.
+            Saves the DacProfile to a publish profile
             </summary>
-            <value>
-            <see cref="T:Microsoft.SqlServer.Dac.DacDeployOptions"/> instance that specifies deployment options.
-            </value>
+            <param name="filepath">path to save the profile to</param>
         </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacProfile.TargetDatabaseName">
+        <!-- Badly formed XML comment ignored for member "M:Microsoft.SqlServer.Dac.DacProfile.CreateDeployOptionsUniquePropertyMapping(Microsoft.SqlServer.Dac.DacDeployOptions)" -->
+        <member name="M:Microsoft.SqlServer.Dac.DacProfile.GetNonDefaultProperties(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>
-            Get or set name of database used as the target of a deployment.
+            Create dictionary of properties that are different from their default values
             </summary>
-            <value>
-            String name of target database.
-            </value>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacProfile.TargetConnectionString">
-            <summary>
-            Get or set connection string for database server used as the target of a deployment.
-            </summary>
-            <value>
-            String that specifies database server connection information.
-            </value>
+            <param name="deployOptionsProperties">Dictionary of deployment properties received from ADS</param>
+            <param name="defaultDeployOptionsProperties">Dictionary of deployment properties with their default values</param>
+            <returns>Dictionary of non-default properties to be saved in publish profile xml</returns>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.DacProgressEventArgs">
             <summary>
@@ -2369,58 +2730,6 @@
             Model is stored completely in-memory.
             </summary>
         </member>
-        <member name="T:Microsoft.SqlServer.Dac.DacServicesException">
-            <summary>
-            Exception thrown for DAC service errors.
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.DacServicesException.#ctor">
-            <summary>
-            Construct a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacServicesException"/> class.
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.DacServicesException.#ctor(System.String)">
-            <summary>
-            Construct a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacServicesException"/> class with the specified error message.
-            </summary>
-            <param name="message">
-            The message that describes the error.
-            </param>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.DacServicesException.#ctor(System.String,System.Exception)">
-            <summary>
-            Construct a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacServicesException"/> class with the specified error message 
-            and a reference to the inner exception that is the cause of this exception.
-            </summary>
-            <param name="message">
-            The message that describes the error.
-            </param>
-            <param name="innerException">
-            The exception that is the cause of the current exception, or a null reference if no inner exception is specified. 
-            </param>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.DacServicesException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
-            <summary>
-            Write exception information to the supplied <see cref="T:System.Runtime.Serialization.SerializationInfo"/> object.
-            </summary>
-            <param name="info">
-            <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data.
-            </param>
-            <param name="context">
-            <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.
-            </param>
-            <exception cref="T:System.ArgumentNullException">
-            If <paramref name="info"/> is a null reference.
-            </exception>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacServicesException.Messages">
-            <summary>
-            Get collection of additional error, warning, and informational messages associated with this exception.
-            </summary>
-            <value>
-            Collection of additional messages associated with this exception.
-            </value>
-        </member>
         <member name="T:Microsoft.SqlServer.Dac.DacServices">
             <summary>
             Provides operations to create and consume DAC packages represented by <see cref="T:Microsoft.SqlServer.Dac.DacPackage"/> instances.
@@ -2429,6 +2738,36 @@
         <member name="F:Microsoft.SqlServer.Dac.DacServices._userConnectionFactory">
             <summary>
             Connection factory using the connection string supplied by caller.
+            </summary>
+        </member>
+        <member name="E:Microsoft.SqlServer.Dac.DacServices.ProgressChanged">
+            <summary>
+            Invoked as the state of an operation changes.
+            </summary>
+        </member>
+        <member name="E:Microsoft.SqlServer.Dac.DacServices.Message">
+            <summary>
+            Invoked as an operation reports status updates or errors.
+            </summary>
+        </member>
+        <member name="E:Microsoft.SqlServer.Dac.DacServices.LogObjectHashed">
+            <summary>
+            Invoked as the logger hashes an object name when HashObjectNamesInLogs is set to true.
+            </summary>
+        </member>
+        <member name="E:Microsoft.SqlServer.Dac.DacServices.SqlConnectionCreated">
+            <summary>
+            Invoked after each SqlConnection instance is created.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacServices.DiagnosticTrace">
+            <summary>
+            Get the <see cref="T:System.Diagnostics.TraceSource"/> for diagnostics traces.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacServices.PerformanceTrace">
+            <summary>
+            Get the TraceSource for PerfTracer which includes durations for various operations.
             </summary>
         </member>
         <member name="M:Microsoft.SqlServer.Dac.DacServices.Initialize">
@@ -2488,11 +2827,19 @@
             If the supplied <paramref name="connectionString"/> is not valid.
             </exception>
         </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacServices.EnableTelemetry(System.String,System.Version)">
+            <summary>
+            Enables telemetry globally and set the application and version name to get included in telemetry events 
+            </summary>
+            <param name="applicationName">Application Name</param>
+            <param name="applicationVersion">Application Version</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Microsoft.SqlServer.Dac.DacServices.DisableTelemetry" -->
         <member name="M:Microsoft.SqlServer.Dac.DacServices.Extract(System.String,System.String,System.String,System.Version,System.String,System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}},Microsoft.SqlServer.Dac.DacExtractOptions,System.Nullable{System.Threading.CancellationToken})">
             <summary>
             Extract the schema from a database into a package.
             </summary>
-            <param name="packageFileName">
+            <param name="targetPath">
             Path to the package file to be created.
             </param>
             <param name="databaseName">
@@ -2577,6 +2924,17 @@
             <exception cref="T:System.OperationCanceledException">
             If the <see cref="T:System.Threading.CancellationToken"/> has a cancellation requested and the operation could be cancelled.
             </exception>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacServices.CreateDacpacValidationOperation(System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}},System.Nullable{System.Threading.CancellationToken},Microsoft.SqlServer.Dac.ExtractOperation,Microsoft.SqlServer.Dac.DacLoggingContext)">
+            <summary>
+            Creates a dacpac validation operation that verifies the
+            SqlSchemaModel has a valid schema when doing an extract without data.
+            </summary>
+            <param name="tables">Tables.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+            <param name="extractOperation">Extract operation.</param>
+            <param name="loggingContext">Logging context.</param>
+            <returns></returns>
         </member>
         <member name="M:Microsoft.SqlServer.Dac.DacServices.Script(Microsoft.SqlServer.Dac.DacPackage,System.String,Microsoft.SqlServer.Dac.PublishOptions)">
             <summary>
@@ -3079,6 +3437,12 @@
             the ambient settings for consumption further down the stack
             </summary>
         </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacServices.ClearLogSettings">
+            <summary>
+            Clears the values in _logSettings dictionary at the end of each operation.
+            This ensures that a new hash salt will be generated for each DacServices operation.
+            </summary>
+        </member>
         <member name="M:Microsoft.SqlServer.Dac.DacServices.ImportBacpac(Microsoft.SqlServer.Dac.BacPackage,System.String,System.Nullable{System.Threading.CancellationToken})">
             <summary>
             Deploy schema and import table data from the supplied package to a database.
@@ -3318,23 +3682,206 @@
             or property values that are not supported by <see cref="T:Microsoft.SqlServer.Dac.DacServices"/>.
             </exception>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.DacServices.ProbeIsolatedStorageAndSetAppDomainEvidenceIfNeccessary">
+        <member name="M:Microsoft.SqlServer.Dac.DacServices.ExcludeRandomizedIndexesFromBacpac(Microsoft.Data.Tools.Schema.SchemaModel.DataSchemaModel,System.Collections.Generic.IList{Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlTable},System.Boolean,Microsoft.SqlServer.Dac.DacLoggingContext)">
             <summary>
-            Some CLR hosts do not set the AppDomain Evidence which is required for IsolatedStorage to function properly.  This 
-            method probes if isolated storage is usable for the current user.  If isolated storage is not usable, it will attempt 
-            to fix this by setting the AppDomain Evidence using private reflection.  Fixing isolated storage is a best effort
-            attempt.  This method swallows all exceptions and lets the program proceed.
-            </summary>cd
-        </member>
-        <member name="E:Microsoft.SqlServer.Dac.DacServices.ProgressChanged">
-            <summary>
-            Invoked as the state of an operation changes.
+            Retrieving Indexes and Statistics - Import/Export Scenario
+            if "ignoreIndexesStatisticsOnEnclaveEnabledColumns" is true: new export option added.Indexes and statistics(randomized) will be dropped.
+            if option is false : export will fail which has indexes and statistics(randomized) with an error message.
+            <param name="ignoreIndexesStatisticsOnEnclaveEnabledColumns"></param>
+            <param name="loggingContext"></param>
+            <param name="tableElements"></param>
+            <param name="model"></param>
             </summary>
         </member>
-        <member name="E:Microsoft.SqlServer.Dac.DacServices.Message">
+        <member name="T:Microsoft.SqlServer.Dac.DacServicesException">
             <summary>
-            Invoked as an operation reports status updates or errors.
+            Exception thrown for DAC service errors.
             </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacServicesException.Messages">
+            <summary>
+            Get collection of additional error, warning, and informational messages associated with this exception.
+            </summary>
+            <value>
+            Collection of additional messages associated with this exception.
+            </value>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacServicesException.#ctor">
+            <summary>
+            Construct a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacServicesException"/> class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacServicesException.#ctor(System.String)">
+            <summary>
+            Construct a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacServicesException"/> class with the specified error message.
+            </summary>
+            <param name="message">
+            The message that describes the error.
+            </param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacServicesException.#ctor(System.String,System.Exception)">
+            <summary>
+            Construct a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacServicesException"/> class with the specified error message 
+            and a reference to the inner exception that is the cause of this exception.
+            </summary>
+            <param name="message">
+            The message that describes the error.
+            </param>
+            <param name="innerException">
+            The exception that is the cause of the current exception, or a null reference if no inner exception is specified. 
+            </param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacServicesException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Write exception information to the supplied <see cref="T:System.Runtime.Serialization.SerializationInfo"/> object.
+            </summary>
+            <param name="info">
+            <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data.
+            </param>
+            <param name="context">
+            <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            If <paramref name="info"/> is a null reference.
+            </exception>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.DataStorageType">
+            <summary>
+            The possible data storage types
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.DataStorageType.AzureStorage">
+            <summary>
+            The data will be stored on Azure storage.
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.DataStorageType.LocalStorage">
+            <summary>
+            The data will be storaged locally.
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.DataOperationStepState">
+            <summary>
+            The possible states that a single step in the Data operation can be in.
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.DataOperationStepState.NotStarted">
+            <summary>
+            Step not started.
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.DataOperationStepState.Started">
+            <summary>
+            Step started. Step is either still progressing (or was canceled or experienced a failure or interruption,
+            in which case, this step is expected to be retried on resume)
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.DataOperationStepState.Complete">
+            <summary>
+            Step complete.
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.DataOperationStepState.NotFound">
+            <summary>
+            Step complete.
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.DataOperationStateProvider">
+            <summary>
+            Implement this interface to manage extracting the database user data tables to the Azure storage account, 
+            and publishing from Azure storage the tables data to the target database.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DataOperationStateProvider.StorageType">
+            <summary>
+            Gets the data storage location that the state provider is using to store the database tables content.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DataOperationStateProvider.DataOperationIsResuming">
+            <summary>
+            Return true if the data operation is resuming.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DataOperationStateProvider.OperationId">
+            <summary>
+            Gets the data operation unique identifier. Operations that need to create one or more temporary database object
+            can use this unique string in their object names. This property cannot be empty or null, must be 6 chars and 
+            must remain constant throughout the data operation lifetime (and resume attempts). 
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataOperationStateProvider.TryGetStepStateAsync(System.String,System.String)">
+            <summary>
+            Try get the step state.
+            </summary>
+            <param name="schemaName">The schema name</param>
+            <param name="tableStepName">The table name</param>
+            <returns>DataOperationStepState NotFound if a record was not found for the table step. Otherwise the state.</returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataOperationStateProvider.MarkStepNotStartedAsync(System.String,System.String)">
+            <summary>
+            Mark the step state as not started, if a step state does not exist yet, add it with value not started.
+            </summary>
+            <param name="schemaName">The schema name</param>
+            <param name="tableStepName">The table name</param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataOperationStateProvider.MarkStepStartedAsync(System.String,System.String)">
+            <summary>
+            Mark the step state as started.
+            </summary>
+            <param name="schemaName">The schema name</param>
+            <param name="tableStepName">The table name</param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataOperationStateProvider.MarkStepCompleteAsync(System.String,System.String)">
+            <summary>
+            Mark the step state as complete.
+            </summary>
+            <param name="schemaName">The schema name</param>
+            <param name="tableStepName">The table name</param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataOperationStateProvider.CleanupDataStorageAsync(System.String,System.String)">
+            <summary>
+            Removes the data for this table in the storage.
+            </summary>
+            <param name="schemaName">The schema name</param>
+            <param name="tableStepName">The table name</param>
+            <returns>True if successful</returns>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.DataPhase.IOperationStep">
+            <summary>
+            Defines a data transfer step, step is an unit of work like setup the database or transfer a table's data.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhase.IOperationStep.Execute(System.Threading.CancellationToken)">
+            <summary>
+            Execute operation step. Each step will run one or multiple commands against a server.
+            </summary>
+            <param name="token">Cancellation token</param>
+            <returns>Async Task (void)</returns>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.DataPhase.IStepExecutor">
+            <summary>
+            Defines the methods that are needed to run operations step in concurrent way.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhase.IStepExecutor.Produce(System.Collections.Generic.IEnumerable{Microsoft.SqlServer.Dac.DataPhase.IOperationStep},System.Threading.CancellationToken)">
+            <summary>
+            Add a new item to concurrent queue for each table step
+            </summary>
+            <param name="tableSteps"></param>
+            <param name="token">Cancellation token</param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhase.IStepExecutor.StartConsumers(System.Collections.Generic.IEnumerable{Microsoft.SqlServer.Dac.DataPhase.IOperationStep},System.Threading.CancellationToken)">
+            <summary>
+            Starts consumer to run each table step.
+            </summary>
+            <param name="tableSteps"></param>
+            <param name="token">Cancellation token</param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhase.IStepExecutor.WaitToFinish(System.Threading.CancellationToken)">
+            <summary>
+            Wait until all the steps are done.
+            </summary>
+            <returns>Parent task of all the table step tasks.</returns>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.Data.DataException">
             <summary>
@@ -3373,6 +3920,11 @@
               Looks up a localized string similar to Failed to retrieve information from target database to correctly model the database.
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.Data.DataResources.NoPKDefinedOnTable">
+            <summary>
+              Looks up a localized string similar to No primary key defined on table {0}.
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.Data.DataResources.Skipped_SelectedColumn">
             <summary>
               Looks up a localized string similar to Excluded column [{0}].[{1}].[{2}] does not exist in the source model..
@@ -3381,84 +3933,6 @@
         <member name="P:Microsoft.SqlServer.Dac.Data.DataResources.Skipped_SelectedTable">
             <summary>
               Looks up a localized string similar to Selected table [{0}].[{1}] does not have data and will not be populated..
-            </summary>
-        </member>
-        <member name="T:Microsoft.SqlServer.Dac.Deployment.DatabasePointer">
-            <summary>
-            Logically represents a database.  Can be used to retrieve information about the database
-            such as a model and data
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.Deployment.DatabasePointer.AddNewConstraints(Microsoft.Data.Tools.Schema.Sql.Deployment.ConstraintManager,Microsoft.Data.Tools.Schema.Common.SqlClient.SqlConnectionFactory)">
-            <summary>
-            Adds new constraints to the specified constraint manager.  Will throw a DataException if a error
-            occurs with the connection to the DB
-            </summary>
-        </member>
-        <member name="T:Microsoft.SqlServer.Dac.Deployment.Data.DataDeployment">
-            <summary>
-            Represents a "top of stack" incremental data deployment engine.  This engine acts primarly as an orchestrator
-            between other more fine-grained data deployment components.  It is meant to be a fire-and-dispose component, access to and control of 
-            more fine grained components is left to direct manipulation of those components directly to avoid lifetime issues
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.Deployment.Data.DataDeploymentOptions.AddSelectedTable(System.Tuple{System.String,System.String})">
-            <summary>
-            Adds a table to be considered when creating the data deployment plan
-            </summary>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.Deployment.Data.DataDeploymentOptions.TableSelectionPolicy">
-            <summary>
-            Configures how tables will be selected for data deployment
-            </summary>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.Deployment.Data.DataDeploymentOptions.StorageType">
-            <summary>
-            Storage to use when creating models of the source/target databases
-            </summary>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.Deployment.Data.DataDeploymentOptions.TargetDatabaseName">
-            <summary>
-            Name of the target database.
-            </summary>
-        </member>
-        <member name="T:Microsoft.SqlServer.Dac.Deployment.Data.DataPlanHandle">
-            <summary>
-            This class represents the disposable parts of the deployment plan.
-            </summary>
-        </member>
-        <member name="T:Microsoft.SqlServer.Dac.Deployment.Data.DataPlanStrategy">
-            <summary>
-            Base class for different data deployment plan generation strategies
-            </summary>
-        </member>
-        <member name="T:Microsoft.SqlServer.Dac.Deployment.Data.PlanCreationContext">
-            <summary>
-            A data transfer object used to pass state between components used in plan creation
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.Deployment.Data.PlanCreationContext.PopulateIncludedTables(System.Collections.Generic.HashSet{Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlElementDescriptor})">
-             <summary>
-             Called to populate selected data tables and columns based on
-             policy specified in the options
-            
-             Assumption: the Options and Source model are populted before this method is called
-             </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.Deployment.Data.RipReplaceStrategy.AddToListIfNeeded(System.Collections.Generic.List{Microsoft.SqlServer.Dac.Deployment.Data.RipReplaceStrategy.GraphElem}@,Microsoft.Data.Tools.Schema.SchemaModel.IModelElement,Microsoft.SqlServer.Dac.Deployment.Data.RipReplaceStrategy.GraphElem)">
-            <summary>
-            This method adds new element to the list of schema-bound objects we're about to drop and re-create.
-            If the input element is not present in the list, we create a new graph node and establish
-            parent-child relationships. If already in the list, we just update parent-child relationship lists.
-            </summary>
-            <param name="list"></param>
-            <param name="modelObject"></param>
-            <param name="child"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Microsoft.SqlServer.Dac.Deployment.PlanExecutor">
-            <summary>
-            Executes a deployment plan against the specified target database
             </summary>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.Data.LocalDb.LocalDbInstanceException">
@@ -3470,6 +3944,11 @@
             <summary>
             This class encapsulates dealing with the Serverless SQL Express technology SqlStudio uses
             as a default destination for database project deployment 
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Data.LocalDb.LocalDbInstanceManager.LocalDbInstalled">
+            <summary>
+            Returns true is localDb is install on the user's machine
             </summary>
         </member>
         <member name="M:Microsoft.SqlServer.Dac.Data.LocalDb.LocalDbInstanceManager.CreateLocaldbInstanceName(System.String)">
@@ -3520,7 +3999,7 @@
             Helper to create a safe name prefix
             </summary>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.Data.LocalDb.LocalDbInstanceManager.DoesDatabaseExist(System.Data.SqlClient.SqlConnection,System.String)">
+        <member name="M:Microsoft.SqlServer.Dac.Data.LocalDb.LocalDbInstanceManager.DoesDatabaseExist(Microsoft.Data.SqlClient.SqlConnection,System.String)">
             <summary>
             Helper to check if a database exists
             </summary>
@@ -3537,7 +4016,7 @@
             Sets up the LocalDB instance.  Returns named pipe if successful
             </summary>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.Data.LocalDb.LocalDbInstanceManager.BeginNewDatabaseWarmup(System.Data.SqlClient.SqlConnectionStringBuilder,System.String)">
+        <member name="M:Microsoft.SqlServer.Dac.Data.LocalDb.LocalDbInstanceManager.BeginNewDatabaseWarmup(Microsoft.Data.SqlClient.SqlConnectionStringBuilder,System.String)">
             <summary>
             Helper method to "warmup" a new database after it has been created/attached
             </summary>
@@ -3562,21 +4041,21 @@
             <param name="databaseName"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.Data.LocalDb.LocalDbInstanceManager.ExecuteScript(System.Data.SqlClient.SqlConnection,Microsoft.SqlServer.TransactSql.ScriptDom.TSqlScript)">
+        <member name="M:Microsoft.SqlServer.Dac.Data.LocalDb.LocalDbInstanceManager.ExecuteScript(Microsoft.Data.SqlClient.SqlConnection,Microsoft.SqlServer.TransactSql.ScriptDom.TSqlScript)">
             <summary>
             Helper method that executes a set of batches against provided connection
             </summary>
             <param name="conn"></param>
             <param name="script"></param>
         </member>
-        <member name="P:Microsoft.SqlServer.Dac.Data.LocalDb.LocalDbInstanceManager.LocalDbInstalled">
-            <summary>
-            Returns true is localDb is install on the user's machine
-            </summary>
-        </member>
         <member name="T:Microsoft.SqlServer.Dac.Data.LocalDb.LocalDbInstanceManager.LocalDbWrapper">
             <summary>
             This class encalsulates management of LocalDB instances via the native control .dll
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Data.LocalDb.LocalDbInstanceManager.LocalDbWrapper.Installed">
+            <summary>
+            Returns true is LocalDB is installed
             </summary>
         </member>
         <member name="M:Microsoft.SqlServer.Dac.Data.LocalDb.LocalDbInstanceManager.LocalDbWrapper.Create(System.String)">
@@ -3624,11 +4103,6 @@
             control library 12 and then specify that we want version 11 in a CreateInstance call.
             </summary>
         </member>
-        <member name="P:Microsoft.SqlServer.Dac.Data.LocalDb.LocalDbInstanceManager.LocalDbWrapper.Installed">
-            <summary>
-            Returns true is LocalDB is installed
-            </summary>
-        </member>
         <member name="T:Microsoft.SqlServer.Dac.Data.LocalDb.LocalDbInstanceManager.LocalDbWrapper.ReturnCodes">
             <summary>
             Encapsulates return codes from LocalDB
@@ -3656,6 +4130,121 @@
             find the control function addresses.
             </summary>
         </member>
+        <member name="T:Microsoft.SqlServer.Dac.DeploymentPropertyAliasAttribute">
+            <summary>
+            This class supports the product infrastructure and is not intended to be used directly 
+            from your code.
+            Defines an alias for the deployment property when used for commandline property overriding
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DeploymentPropertyAliasAttribute.#ctor(System.String)">
+            <summary>
+            Defines an alias for a property.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DeploymentPropertyAliasAttribute.Alias">
+            <summary>
+            Returns the alias
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Deployment.DatabasePointer">
+            <summary>
+            Logically represents a database.  Can be used to retrieve information about the database
+            such as a model and data
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Deployment.DatabasePointer.AddNewConstraints(Microsoft.Data.Tools.Schema.Sql.Deployment.ConstraintManager,Microsoft.Data.Tools.Schema.Common.SqlClient.SqlConnectionFactory)">
+            <summary>
+            Adds new constraints to the specified constraint manager.  Will throw a DataException if a error
+            occurs with the connection to the DB
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Deployment.Data.DataDeployment">
+            <summary>
+            Represents a "top of stack" incremental data deployment engine.  This engine acts primarly as an orchestrator
+            between other more fine-grained data deployment components.  It is meant to be a fire-and-dispose component, access to and control of 
+            more fine grained components is left to direct manipulation of those components directly to avoid lifetime issues
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Deployment.Data.DataDeploymentOptions.TableSelectionPolicy">
+            <summary>
+            Configures how tables will be selected for data deployment
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Deployment.Data.DataDeploymentOptions.StorageType">
+            <summary>
+            Storage to use when creating models of the source/target databases
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Deployment.Data.DataDeploymentOptions.TargetDatabaseName">
+            <summary>
+            Name of the target database.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Deployment.Data.DataDeploymentOptions.AddSelectedTable(System.Tuple{System.String,System.String})">
+            <summary>
+            Adds a table to be considered when creating the data deployment plan
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Deployment.Data.DataPlanHandle">
+            <summary>
+            This class represents the disposable parts of the deployment plan.
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Deployment.Data.DataPlanStrategy">
+            <summary>
+            Base class for different data deployment plan generation strategies
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Deployment.Data.PlanCreationContext">
+            <summary>
+            A data transfer object used to pass state between components used in plan creation
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Deployment.Data.PlanCreationContext.PopulateIncludedTables(System.Collections.Generic.HashSet{Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlElementDescriptor})">
+             <summary>
+             Called to populate selected data tables and columns based on
+             policy specified in the options
+            
+             Assumption: the Options and Source model are populted before this method is called
+             </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Deployment.Data.RipReplaceStrategy.AddToListIfNeeded(System.Collections.Generic.List{Microsoft.SqlServer.Dac.Deployment.Data.RipReplaceStrategy.GraphElem}@,Microsoft.Data.Tools.Schema.SchemaModel.IModelElement,Microsoft.SqlServer.Dac.Deployment.Data.RipReplaceStrategy.GraphElem)">
+            <summary>
+            This method adds new element to the list of schema-bound objects we're about to drop and re-create.
+            If the input element is not present in the list, we create a new graph node and establish
+            parent-child relationships. If already in the list, we just update parent-child relationship lists.
+            </summary>
+            <param name="list"></param>
+            <param name="modelObject"></param>
+            <param name="child"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Deployment.Data.RipReplaceStrategy.GetImmediateParents(System.Collections.Generic.List{Microsoft.SqlServer.Dac.Deployment.Data.RipReplaceStrategy.GraphElem}@,Microsoft.SqlServer.Dac.Deployment.Data.RipReplaceStrategy.GraphElem)">
+            <summary>
+            Recursive call to populate dependency graph containing all the parents up to the root object starting from the given table.
+            </summary>
+            <param name="result"></param>
+            <param name="child"></param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Deployment.Data.RipReplaceStrategy.GetSecurityPoliciesContainingBlockPredicates(System.Collections.Generic.HashSet{Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlModelElement})">
+            <summary>
+            Get the enabled security policies with block predicates
+            Also, excluding the temporalBoundElementsToDrop security policies because they are dropping and re-adding at last
+            </summary>
+            <param name="temporalBoundElementsToDrop"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Deployment.PlanExecutor">
+            <summary>
+            Executes a deployment plan against the specified target database
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DeployOperation.TargetDatabaseExists">
+            <summary>
+            Returns true is target database exists for the deploy
+            </summary>
+        </member>
         <member name="M:Microsoft.SqlServer.Dac.DeployOperation.UpdateDatabaseData(Microsoft.Data.Tools.Schema.Sql.Dac.LoggingContext,System.Threading.CancellationToken)">
             <summary>
             Update's the target database's data using the model's / data that has already be created.  Assumption - this
@@ -3665,6 +4254,97 @@
         <member name="M:Microsoft.SqlServer.Dac.DeployOperation.SnapshotConstraintState">
             <summary>
             Snapshots constraint state in the target database prior to the database being updated
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.ElementScripter">
+            <summary>
+            Code copied from SSDT code file private\Product\VSSQL\VsPackage\Project\ImportElementVisitorBase.cs
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.ElementScripter.ElminateFullPathsFromSqlFiles">
+            <summary>
+            Should we eliminate full paths from the log files and, in doing so,
+            replace them with sql cmd variables?
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.ElementScripter.IgnoreFileSizes">
+            <summary>
+            Ignore file sizes when scripting
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.ElementScripter.AlwaysUseScriptDom">
+            <summary>
+            Should we always use the Script DOM when generating script statements
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.ElementScripter.ScriptAutoCreatedLocalRoute">
+            <summary>
+            Should we script the "AutoCreatedLocal" route element that is created by default in a new database
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.ElementScripter.DefaultDataPath">
+            <summary>
+            This is the default data path from the server.  Used to make filenames relative.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.ElementScripter.DefaultLogPath">
+            <summary>
+            This is the default data log path from the server.  Used to make filenames relative.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.ElementScripter.DatabaseName">
+            <summary>
+            The name of the database that was RE'd
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.ElementScripter.ProcessScriptToEliminateDatabaseName(Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlFullTextCatalog,System.String@)">
+             <summary>
+             Post process the Full text catalog statements to remove the full path
+             
+             Typical ADD LOG FILE:
+             ALTER DATABASE [$(DatabaseName)]
+             ADD LOG FILE (NAME = [testdb_log], FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\testdb_log.ldf', SIZE = 1024 KB, FILEGROWTH = 10 %);
+            
+             Typical ADD FILE
+             ALTER DATABASE [$(DatabaseName)]
+             ADD FILE (NAME = [Secondary], FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\secondary.ndf', SIZE = 3072 KB, MAXSIZE = UNLIMITED, FILEGROWTH = 1024 KB) TO FILEGROUP [Secondary];
+             </summary>
+             <param name="ftCatalog"></param>
+             <param name="script">Returns the script to use for this element.</param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.ElementScripter.ProcessScriptToEliminateDatabaseName(Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlFile,System.String@)">
+             <summary>
+             Post process the ADD LOG FILE and ADD FILE statements to remove the full path
+             
+             Typical ADD LOG FILE:
+             ALTER DATABASE [$(DatabaseName)]
+             ADD LOG FILE (NAME = [testdb_log], FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\testdb_log.ldf', SIZE = 1024 KB, FILEGROWTH = 10 %);
+            
+             Typical ADD FILE
+             ALTER DATABASE [$(DatabaseName)]
+             ADD FILE (NAME = [Secondary], FILENAME = 'C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\secondary.ndf', SIZE = 3072 KB, MAXSIZE = UNLIMITED, FILEGROWTH = 1024 KB) TO FILEGROUP [Secondary];
+             </summary>
+             <param name="sqlFile"></param>
+             <param name="script">Returns the script to use for this element.</param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.ElementScripter.ProcessScriptToEliminateDatabaseName(Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlCryptographicProvider,System.String@)">
+            <summary>
+            Post process the Crypto statements to remove the full path
+            
+            Typical Crypto:
+            CREATE CRYPTOGRAPHIC PROVIDER provider_name 
+                FROM FILE = 'C:\Windows\Crypto.dll'
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.ElementScripter.ProcessFileNameToEliminateFullPaths(System.String,System.String,System.String)">
+            <summary>
+            Processes the input string to replace any segments representing
+            the default data path or the database name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.ElementScripter.ProcessFileNameToEliminateFullPaths(System.String,System.String,System.String,System.String)">
+            <summary>
+            Method copied from SSDT private\Product\VSSQL\SchemaToolsSql\Build\SqlTaskHost.cs
             </summary>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.EngineVersion">
@@ -3702,11 +4382,34 @@
             Version 12
             </summary>
         </member>
+        <member name="M:Microsoft.SqlServer.Dac.ExceptionHelper.RunPreFailureTasks(Microsoft.SqlServer.Dac.DacServicesException,Microsoft.Data.SqlClient.SqlConnectionStringBuilder,Microsoft.SqlServer.Dac.DacLoggingContext,Microsoft.Data.Tools.Schema.Sql.Common.DacFxOperationTelemetry)">
+            <summary>
+            Runs steps after dacfx task ends with failure before throwing the exception. The post-failure steps include tracking the error with telemetry
+            and showing some info messages to user to help troubleshooting the error
+            </summary>
+            <param name="dacServicesException"></param>
+            <param name="connectionBuilder"></param>
+            <param name="loggingContext"></param>
+            <param name="dacFxOperationTelemetry"></param>
+            <returns>The final exception to throw</returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.ExceptionHelper.HandleConnectionEncryptionErrors(Microsoft.SqlServer.Dac.DacServicesException,Microsoft.Data.SqlClient.SqlConnectionStringBuilder,Microsoft.SqlServer.Dac.DacLoggingContext)">
+            <summary>
+            Check the inner exceptions of the service exception and if it fins any SQL Error related to encryption, it will generate the encryption exception to add as inner exception
+            It also logs a warning with some information about the encryption errors
+            </summary>
+            <param name="dacServicesException"></param>
+            <param name="connectionBuilder"></param>
+            <param name="loggingContext"></param>
+            <returns></returns>
+        </member>
         <member name="T:Microsoft.SqlServer.Dac.Extensions.DacExtensions">
             <summary>
             Provides extensions for interacting with DAC packages represented by <see cref="T:Microsoft.SqlServer.Dac.DacPackage"/> or <see cref="T:Microsoft.SqlServer.Dac.BacPackage"/> instances.
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:Microsoft.SqlServer.Dac.Extensions.DacExtensions.IsLedgerOn(Microsoft.SqlServer.Dac.DacPackage)" -->
+        <!-- Badly formed XML comment ignored for member "M:Microsoft.SqlServer.Dac.Extensions.DacExtensions.IsLedgerOn(Microsoft.SqlServer.Dac.BacPackage)" -->
         <member name="M:Microsoft.SqlServer.Dac.Extensions.DacExtensions.GetCollationString(Microsoft.SqlServer.Dac.DacPackage)">
             <summary>
             Returns the database collation for the package.
@@ -3743,17 +4446,252 @@
             <param name="settingName">The name of the setting</param>
             <param name="settingValue">The value of the setting or null to remove the setting</param>
         </member>
+        <member name="M:Microsoft.SqlServer.Dac.Extensions.DacExtensions.SetServiceLogSetting(Microsoft.SqlServer.Dac.DacServices,System.String,System.Object)">
+            <summary>
+            Configures a logging setting on the supplied DacServices instance.
+            </summary>
+            <param name="service">The services instance to apply the setting</param>
+            <param name="settingName">The name of the setting</param>
+            <param name="settingValue">The value of the setting or null to remove the setting</param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Extensions.DacExtensions.GetSqlDatabaseOptions(Microsoft.SqlServer.Dac.IPackageSource)">
+            <summary>
+            Gets the Sql Database Options of the package source.
+            </summary>
+            <param name="packageSource">Package source interface.</param>
+            <returns>Sql Database Options of the package source; null if it cannot be retrieved.</returns>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.ExtractOperation.SchemaModel">
             <summary>
-            Get <see cref="T:Microsoft.Data.Tools.Schema.SchemaModel.DataSchemaModel"/> instance that represents the extracted database schema.
+            Get <see cref="T:Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlSchemaModel"/> instance that represents the extracted database schema.
             </summary>
             <value>
-            <see cref="T:Microsoft.Data.Tools.Schema.SchemaModel.DataSchemaModel"/> instance created from extracted database schema.
+            <see cref="T:Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlSchemaModel"/> instance created from extracted database schema.
             </value>
             <remarks>
             Use this property after executing this operation to retrieve the resulting model.
             Callers must handle disposal of this instance, as its lifetime is not managed by this class.
             </remarks>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.ExtractOperation.ScriptFile.InScriptingOrder">
+            <summary>
+            Add elements in a tree structure
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.ExtractOperation.ScriptFile.#ctor(Microsoft.Data.Tools.Schema.SchemaModel.IModelElement,System.Collections.Generic.List{Microsoft.Data.Tools.Schema.SchemaModel.IModelElement},Microsoft.Data.Tools.Schema.UserInteractionServices)">
+            <summary>
+            Constructor for ScriptFile (Only to be used within Extract Operation)
+            </summary>
+            <param name="parent"></param>
+            <param name="children"></param>
+            <param name="uiService"></param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.ExtractOperation.GetFilePathForElement(Microsoft.Data.Tools.Schema.SchemaModel.IModelElement,System.String,System.String,System.Boolean)">
+            <summary>
+            Copied and adapted from SSDT private\Product\VSSQL\VsPackage\Project\Features\ScriptProducers\ScriptProducer.cs
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.ExtractOperation.ConstructFilePathForElementHelper(Microsoft.SqlServer.Dac.DacExtractTarget,System.String,Microsoft.Data.Tools.Schema.SchemaModel.IModelElement,Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlSchemaModel,System.String)">
+            <summary>
+            Constructs the full (absolute) file path for where an object's .sql file would be location given <paramref name="extractTarget"/>'s organization.
+            </summary>
+            <param name="extractTarget"></param>
+            <param name="targetDirectory"></param>
+            <param name="element"></param>
+            <param name="schemaModel"></param>
+            <param name="fileName">explicitly set the file name for this object's .sql file</param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.IUniversalAuthProvider">
+            <summary>
+            Implement this interface to create a string access token. This access token will be used to set 
+            the <see cref="!:System.Data.SqlClient.SqlConnection.AccessToken"/> for any SqlConnection instances created when connecting to a database.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.IUniversalAuthProvider.GetValidAccessToken">
+            <summary>
+            Returns an valid access token.
+            </summary>
+            <returns>The access token to be used to set the AccessToken property of the SqlConnection.</returns>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.KeyVault.ClientAndSecretAuthInfo">
+            <summary>
+            Authentication info for client ID and Secret, which is commonly supported in command line scenarios.
+            This can be obtained by using the Azure SDK to log into Azure and obtain this information.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.KeyVault.ClientAndSecretAuthInfo.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="clientId">Must not be null or whitespace</param>
+            <param name="secret">Must not be null</param>
+            <param name="tenantId">optional</param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.KeyVault.ClientAndSecretAuthInfo.#ctor(System.String,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="clientId">Must not be null or whitespace</param>
+            <param name="secret">Must not be null</param>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.KeyVault.ClientAndSecretAuthInfo.ClientId">
+            <summary>
+            Client ID used to log in to Azure
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.KeyVault.ClientAndSecretAuthInfo.Secret">
+            <summary>
+            Secret that verifies the authentication to Azure
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.KeyVault.ClientAndSecretAuthInfo.TenantId">
+            <summary>
+            Tenant Id
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService">
+            <summary>
+            Provides a service for discovering and configuring a <see cref="T:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthenticator"/> to handle key vault access requests.
+            These requests will occur during deployment if an encrypted table is being altered. It also supports initialization of general 
+            key vault support in an application
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.Instance">
+            <summary>
+            Singleton instance object for the <see cref="T:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService"/>. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.SetExtensionProperties(Microsoft.SqlServer.Dac.Extensibility.ExtensionProperties)">
+            <summary>
+            Internal for testing purposes only
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.DependencyManager">
+            <summary>
+            Get DependencyManager
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.SetDependencyManager(Microsoft.SqlServer.Dac.Extensibility.IDependencyManager)">
+            <summary>
+            Internal for testing purposes only.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.Trace">
+            <summary>
+            Trace object to use for tracing
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.UpdateAuthInfo(Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthInfoBase)">
+            <summary>
+            Passes a <see cref="T:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthInfoBase"/> object to the <see cref="T:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthenticator" />, to support scenarios
+            where a user changes authentication method, for instance by logging into a different Azure account
+            </summary>
+            <param name="authInfo"></param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.InitializeAuthenticator">
+            <summary>
+            Gives the authenticator the opportunity to register with the core AlwaysEncrypted callstack. This is important
+            in scenarios where Interactive authentication is being used and this is the global authenticator to be used in the application
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.BlockifMissingAuthentication">
+            <summary>
+            Gives a way to set early failure if Azure Key Vault Provider is not setup.
+            When this is true, deployment fails to start if there is no Provider defined
+            contrary to default mode which lets the deployment go through and fails only when key is actually used.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.Validate(System.Collections.Generic.IList{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Callback function to validate the presence of AKV token for Column Master Key access
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthenticator">
+            <summary>
+            Base class for any Azure Key Vault authentication provider. This is responsible for logging into Azure, obtaining
+            access keys and returning to the caller. 
+            Notes: Only one provider is allowed per process, with the first to register being the successful provider. In order to
+            support <see cref="T:Microsoft.SqlServer.Dac.DacServices"/> and related APIs being used in multiple UI tools and the SqlPackage command line the
+            binding to Azure Authentication DLLs is loosely coupled to the core Dac Framework using MEF. A default provider is available
+            for use in SqlPackage and other command line scenarios, supporting basic credential based authentication. This can be 
+            overridden in order to integrate with custom authentication pipelines or into your UI application by extending this method
+            and providing an <see cref="T:Microsoft.SqlServer.Dac.Extensibility.ExportableAttribute"/> with typeof(KeyVaultAuthenticator), a unique ID and high priority
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthenticator.UpdateAuthInfo(Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthInfoBase)">
+            <summary>
+            Passes a <see cref="T:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthInfoBase"/> object to the KeyVaultAuthenticator, to support scenarios
+            where a user changes authentication method, for instance by logging into a different Azure account
+            </summary>
+            <param name="authInfo"></param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthenticator.InitializeAuthenticator">
+            <summary>
+            Gives the authenticator the opportunity to register with the core AlwaysEncrypted callstack. This is important
+            in scenarios where Interactive authentication is being used and this is the global authenticator to be used in the application
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthenticator.Validate(System.Collections.Generic.IList{System.String},System.Threading.CancellationToken)">
+            <summary>
+            Called before Dac operations that may cause data movement against a table with encrypted columns will occur,
+            for instance deployment of a dacpac
+            </summary>
+            <param name="keyVaultUrls">
+            A list of URLs representing every Key Vault referenced by column master keys, where the key is involved in a data motion
+            operation. 
+            </param>
+            <param name="cancelToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthInfoBase">
+            <summary>
+            Data class to define authentication info that can be passed to a <see cref="T:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthenticator"/> when
+            configuring 
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.KeyVault.KeyVaultValidationResult">
+            <summary>
+            Result returned from a key vault validator. Indicates success or failure, and any 
+            relevant error messages
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.KeyVault.KeyVaultValidationResult.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.KeyVault.KeyVaultValidationResult.IsValid">
+            <summary>
+            Was validation successful?
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.KeyVault.KeyVaultValidationResult.ValidationErrors">
+            <summary>
+            Errors that caused validation to fail, if any
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.KeyVault.KeyVaultValidationResult.AddError(System.String)">
+            <summary>
+            Adds an error to the list of Validation errors
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.LogObjectHashedEventArgs">
+            <summary>
+            Data associated with event raised as an object name is hashed when HashObjectNamesInLogs is true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.LogObjectHashedEventArgs.OriginalValue">
+            <summary>
+            Returns the original object name before any hashing is performed
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.LogObjectHashedEventArgs.HashValue">
+            <summary>
+            Returns a hash string representation of the object name
+            </summary>
         </member>
         <member name="M:Microsoft.SqlServer.Dac.ModelValidation.CheckForUnsupportedAzureV1SchemaForBacpacData(Microsoft.Data.Tools.Schema.SchemaModel.DataSchemaModel,System.Collections.Generic.IEnumerable{Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlTableBase},System.Threading.CancellationToken,System.Action{Microsoft.SqlServer.Dac.DacMessage})">
             <summary>
@@ -3789,6 +4727,38 @@
             Issue a warning so users can be aware of this situation.
             </summary>
         </member>
+        <member name="M:Microsoft.SqlServer.Dac.ModelValidation.CheckForLedgerErrorsForExtractWithData(Microsoft.Data.Tools.Schema.SchemaModel.DataSchemaModel,System.Collections.Generic.IList{Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlTable})">
+            <summary>
+            Checks if the following ledger erros need to be thrown:
+              * LedgerAppendOnlyTableExtractWithDataError (append-only ledger tables are not supported with extract with data).
+            </summary>
+            <param name="model">Data schema model.</param>
+            <param name="tableElements">Table elements.</param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.ModelValidation.CheckForLedgerWarnings(Microsoft.Data.Tools.Schema.SchemaModel.DataSchemaModel,System.Collections.Generic.IList{Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlTable},Microsoft.SqlServer.Dac.DacLoggingContext,System.Object)">
+            <summary>
+            Checks if the following ledger warnings need to be thrown:
+              * LedgerDataViewWarning (ledger view data is not exported).
+              * LedgerHistoryTableWarning (ledger history table data is not exported).
+              * LedgerGeneratedAlwaysColumnWarning (ledger generated always columns data is not exported).
+            </summary>
+            <param name="model">Data schema model.</param>
+            <param name="loggingContext">Logging context.</param>
+            <param name="tableElements">Table elements.</param>
+            <param name="sender">Sender of the warnings.</param>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.NestedDeploymentPropertyAttribute">
+            <summary>
+            This class supports the product infrastructure and is not intended to be used directly 
+            from your code.
+            Indicates that a deployment property should be expanded for commandline property overriding
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.NestedDeploymentPropertyAttribute.#ctor">
+            <summary>
+            Default Constructor
+            </summary>
+        </member>
         <member name="T:Microsoft.SqlServer.Dac.ObjectType">
             <summary>
             Defines object types that exist in SQL Server.
@@ -3797,331 +4767,439 @@
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Aggregates">
             <summary>
             Aggregate objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.ApplicationRoles">
             <summary>
             Application role objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Assemblies">
             <summary>
             Assembly objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.AssemblyFiles">
             <summary>
             Assembly files
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.AsymmetricKeys">
             <summary>
             Asymmetric key objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.BrokerPriorities">
             <summary>
             Broker priority objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Certificates">
             <summary>
             Certificate objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.ColumnEncryptionKeys">
             <summary>
             Always Encrypted column encryption key objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.ColumnMasterKeys">
             <summary>
             Always Encrypted column master key objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Contracts">
             <summary>
             Contract objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.DatabaseOptions">
             <summary>
             Database options
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.DatabaseRoles">
             <summary>
             Database role objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.DatabaseTriggers">
             <summary>
             Database DDL trigger objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Defaults">
             <summary>
             Default objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.ExtendedProperties">
             <summary>
             Extended property objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.ExternalDataSources">
             <summary>
             External data source objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.ExternalFileFormats">
             <summary>
             External file format objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.ExternalTables">
             <summary>
             External table objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Filegroups">
             <summary>
             Filegroup objects
+            APPLICATION-SCOPED
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.ObjectType.Files">
+            <summary>
+            File objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.FileTables">
             <summary>
             FileTable objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.FullTextCatalogs">
             <summary>
             Full-text catalog objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.FullTextStoplists">
             <summary>
             Full-text stoplist objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.MessageTypes">
             <summary>
             Message type objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.PartitionFunctions">
             <summary>
             Partition function objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.PartitionSchemes">
             <summary>
             Partition scheme objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Permissions">
             <summary>
             Permission objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Queues">
             <summary>
             Queue objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.RemoteServiceBindings">
             <summary>
             Remote service binding objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.RoleMembership">
             <summary>
             Role membership objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Rules">
             <summary>
             Rule objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.ScalarValuedFunctions">
             <summary>
             Scalar valued function objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.SearchPropertyLists">
             <summary>
             Search property list objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.SecurityPolicies">
             <summary>
             Security policy objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Sequences">
             <summary>
             Sequence objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Services">
             <summary>
             Service objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Signatures">
             <summary>
             Signature objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.StoredProcedures">
             <summary>
             Stored procedure objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.SymmetricKeys">
             <summary>
             Symmetric key objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Synonyms">
             <summary>
             Synonym objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Tables">
             <summary>
             Table objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.TableValuedFunctions">
             <summary>
             Table valued function objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.UserDefinedDataTypes">
             <summary>
             User defined data type (non-CLR) objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.UserDefinedTableTypes">
             <summary>
             User defined table type objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.ClrUserDefinedTypes">
             <summary>
             User defined type (CLR) objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Users">
             <summary>
             User objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Views">
             <summary>
             View objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.XmlSchemaCollections">
             <summary>
             Xml schema collection objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Audits">
             <summary>
             Audit objects
+            NON-APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Credentials">
             <summary>
             Credential objects
+            NON-APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.CryptographicProviders">
             <summary>
             Cryptographic provider objects
+            NON-APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.DatabaseAuditSpecifications">
             <summary>
             Database audit specification objects
+            NON-APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.DatabaseEncryptionKeys">
             <summary>
             Database encryption keys
+            NON-APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.DatabaseScopedCredentials">
             <summary>
             Database scoped credential objects
+            NON-APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Endpoints">
             <summary>
             Endpoint objects
+            NON-APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.ErrorMessages">
             <summary>
             Error message objects
+            NON-APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.EventNotifications">
             <summary>
             Error notification objects
+            NON-APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.EventSessions">
             <summary>
             Event session objects
+            NON-APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.LinkedServerLogins">
             <summary>
             Linked server login objects
+            NON-APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.LinkedServers">
             <summary>
             Linked server objects
+            NON-APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Logins">
             <summary>
             Login objects
+            NON-APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.MasterKeys">
             <summary>
             Master keys
+            NON-APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.Routes">
             <summary>
             Route objects
+            NON-APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.ServerAuditSpecifications">
             <summary>
             Server audit specification objects
+            NON-APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.ServerRoleMembership">
             <summary>
             Server role membership objects
+            NON-APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.ServerRoles">
             <summary>
             Server role objects
+            NON-APPLICATION-SCOPED
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.ObjectType.ServerTriggers">
             <summary>
             Server DDL trigger objects
+            NON-APPLICATION-SCOPED
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.ObjectType.ExternalStreams">
+            <summary>
+            External stream objects
+            APPLICATION-SCOPED
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.ObjectType.ExternalStreamingJobs">
+            <summary>
+            External streaming jobs
+            APPLICATION-SCOPED
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.ObjectType.DatabaseWorkloadGroups">
+            <summary>
+            Workload Groups for DW
+            APPLICATION-SCOPED
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.ObjectType.WorkloadClassifiers">
+            <summary>
+            Workload Classifiers for DW
+            APPLICATION-SCOPED
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.ObjectType.ExternalLibraries">
+            <summary>
+            External library objects
+            APPLICATION-SCOPED
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.ObjectType.ExternalLanguages">
+            <summary>
+            External language objects
+            APPLICATION-SCOPED
             </summary>
         </member>
         <member name="M:Microsoft.SqlServer.Dac.Operation.#ctor(System.String,System.Action{System.Object,System.Threading.CancellationToken})">
@@ -4187,6 +5265,11 @@
               Looks up a localized string similar to Creating deployment plan.
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.OperationResources.DeployBigDataCaption">
+            <summary>
+              Looks up a localized string similar to Deploying tables data from external storage to database.
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.OperationResources.DeployCaption">
             <summary>
               Looks up a localized string similar to Deploying package to database.
@@ -4210,6 +5293,16 @@
         <member name="P:Microsoft.SqlServer.Dac.OperationResources.ExportCaption">
             <summary>
               Looks up a localized string similar to Exporting data from database.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.OperationResources.ExportModelFiles">
+            <summary>
+              Looks up a localized string similar to Exporting database objects.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.OperationResources.ExtractBigDataCaption">
+            <summary>
+              Looks up a localized string similar to Extracting tables data from database to external storage.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.OperationResources.GenerateDeployReportCaption">
@@ -4297,34 +5390,17 @@
             Customizes the description of an option.
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.OptionDescriptionAttribute.Description">
+            <summary>
+            The description of the property.    
+            </summary>
+        </member>
         <member name="M:Microsoft.SqlServer.Dac.OptionDescriptionAttribute.#ctor(System.Type,System.String)">
             <summary>
             Creates a description for an option.
             </summary>
             <param name="resourceClassType">The resource class to extract the resource string from.</param>
             <param name="resourcePropertyName">The resource name to extract.</param>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.OptionDescriptionAttribute.Description">
-            <summary>
-            The description of the property.    
-            </summary>
-        </member>
-        <member name="T:Microsoft.SqlServer.Dac.DeploymentPropertyAliasAttribute">
-            <summary>
-            This class supports the product infrastructure and is not intended to be used directly 
-            from your code.
-            Defines an alias for the deployment property when used for commandline property overriding
-            </summary>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.DeploymentPropertyAliasAttribute.#ctor(System.String)">
-            <summary>
-            Defines an alias for a property.
-            </summary>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DeploymentPropertyAliasAttribute.Alias">
-            <summary>
-            Returns the alias
-            </summary>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.OptionDisplayNameAttribute">
             <summary>
@@ -4373,14 +5449,284 @@
             It should not be used to create objects that are returned from other methods in this interface.
             </remarks>
         </member>
+        <member name="T:Microsoft.SqlServer.Dac.SharedUtilities.ProjectConstants">
+            <summary>
+            A static class to hold the project system's non-localizable constants
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.SharedUtilities.ProjectConstants.AddItemTemplateParameter">
+            <summary>
+            Used in TemplateWizard during the creation of new items
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.SharedUtilities.ProjectConstants.AddItemTemplateParameter.ValidExtendedPropertyValues">
+            <summary>
+            Used in the Wizard Template code as replacement parameters.
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities">
+            <summary>
+            Various utilities for the project system dealing with the model
+            This class is copied from SSDT code
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.GetExtendedPropertyFields(Microsoft.Data.Tools.Schema.SchemaModel.IModelElement,System.String@,System.String@,System.String@,System.String@,System.String@,System.String@)">
+             <summary>
+             Returns the name/value pairs for the element which should be used when
+             creating an extended property:
+             
+            sp_addextendedproperty
+                [ @name = ] { 'property_name' }
+                [ , [ @value = ] { 'value' } 
+                    [ , [ @level0type = ] { 'level0_object_type' } 
+                                , [ @level0Type = ] { 'level0_object_name' } 
+                            [ , [ @level1type = ] { 'level1_object_type' } 
+                                                , [ @level1Type = ] { 'level1_object_name' } 
+                                    [ , [ @level2type = ] { 'level2_object_type' } 
+                                                                , [ @level2Type = ] { 'level2_object_name' } 
+                                    ] 
+                            ]
+                    ] 
+                ] 
+             </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.ElementSupportsExtendedProperty(Microsoft.Data.Tools.Schema.SchemaModel.IModelElement)">
+            <summary>
+            Does this model element support extended properties?
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.ElementSupportsSignature(Microsoft.Data.Tools.Schema.SchemaModel.IModelElement)">
+            <summary>
+            Does this model element support signatures?
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.GetFirstResolvableAnnotation(Microsoft.Data.Tools.Schema.SchemaModel.IModelElement)">
+            <summary>
+            Returns the first resolvable annotation for this element
+            </summary>
+            <param name="modelElement"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.GetSchemaAndOwner(Microsoft.Data.Tools.Schema.SchemaModel.IModelElement,Microsoft.Data.Tools.Schema.SchemaModel.IModelElement@,Microsoft.Data.Tools.Schema.SchemaModel.IModelElement@)">
+            <summary>
+            Returns the schema the element is under as well as
+            it's direct owner.  So for Tables in 2005 you'll get
+            an SqlSchema back for both schema and owner.  If
+            you have a primary key you'll get back an SqlSchema as the
+            schema and an SqlTable for the owner.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.StartsWithNumeric(System.String)">
+            <summary>
+            Verifies the variable name does not start with a number.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.IsSystemDefinedSqlCmdVariable(System.String,System.String@)">
+            <summary>
+            Returns true if 'name' is DefaultDataPath, DefaultFilePrefix, DatabaseName, DatabaseNameEscaped or DefaultLogPath
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.IsBuiltInTypeSpecifier(Microsoft.Data.Tools.Schema.SchemaModel.IModelElement)">
+            <summary>
+            Is the element a built in SqlTypeSpecifier
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.IsPrimaryFilegroup(Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlFilegroup)">
+            <summary>
+            Returns true if the filegroup is the PRIMARY filegroup
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.GetAsOwnedObject(Microsoft.Data.Tools.Schema.SchemaModel.IModelElement)">
+            <summary>
+            Returns the element as an ISqlSchemaObject.  This routine takes
+            into account those elements which are owned in 2000, but not
+            in 2005.
+            </summary>
+            <param name="element">The element to return as an owned element, or null</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.IsTopLevelElement(Microsoft.Data.Tools.Schema.SchemaModel.IModelElement)">
+            <summary>
+            Check if the model element is a top-level element
+            An element is at top level if it doesn't have composite owner and it is not an inline constraint
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.GetParentFromResolvableAnnotation(Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlModelBuilderResolvableAnnotation)">
+            <summary>
+            Returns the parent IModelElement referenced by the resolvable annotation
+            </summary>
+            <param name="annotation"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.GetParentInfo(Microsoft.Data.Tools.Schema.SchemaModel.IModelElement)">
+            <summary>
+            Returns the parent of a model element by looking at the annotations and
+            relationships, since the model is incrementally built and not resolved.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.GetElementName(Microsoft.Data.Tools.Schema.SchemaModel.IModelElement)">
+            <summary>
+            Similar to UserInteractionServices.GetElementName(element, ElementNameStyle.Simple) except
+            that this is not subject to change if UI requirments should change.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.GetElementSchemaAndName(Microsoft.Data.Tools.Schema.SchemaModel.IModelElement)">
+            <summary>
+            Similar to UserInteractionServices.GetElementName(element, ElementNameStyle.Simple) except
+            that this is not subject to change if UI requirments should change.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.GetElementSchemaOwnerAndName(Microsoft.Data.Tools.Schema.SchemaModel.IModelElement)">
+            <summary>
+            Similar to UserInteractionServices.GetElementName(element, ElementNameStyle.Simple) except
+            that this is not subject to change if UI requirments should change.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.TryGetFileNameFromModelElement(Microsoft.Data.Tools.Schema.SchemaModel.IModelElement,System.String@)">
+            <summary>
+            Get file full path for an IModelElement
+            </summary>
+            <param name="element">The element to open the file for</param>
+            <param name="fileFullPath">The full file path found</param>
+            <returns>True if a file was found</returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.TryGetFileNameFromModelElement(Microsoft.Data.Tools.Schema.SchemaModel.IModelElement,System.String@,System.Int32@)">
+            <summary>
+            Get file full path for an IModelElement
+            </summary>
+            <param name="element">The element to open the file for</param>
+            <param name="fileFullPath">The full file path found</param>
+            <param name="fileOffset">The offset into the file for this element</param>
+            <returns>True if a file was found</returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.CreateParser(Microsoft.Data.Tools.Schema.DatabaseSchemaProvider)">
+            <summary>
+            Creates a parser for the provider
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.CreateModelBuilder(Microsoft.Data.Tools.Schema.DatabaseSchemaProvider,Microsoft.Data.Tools.Schema.SchemaModel.DataSchemaModel)">
+            <summary>
+            Creates a model builder
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.GetModelElementFromNames(Microsoft.Data.Tools.Schema.SchemaModel.ModelStore,System.String[])">
+            <summary>
+            Get sql model element from a list of names 
+            </summary>
+            <param name="dataSchemaModel"></param>
+            <param name="names"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.GetModelElementsFromFile(Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlSchemaModel,System.String)">
+            <summary>
+            Returns the model elements in the file.  Note: this routine is not very performant.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.GetModelElements(Microsoft.Data.Tools.Schema.SchemaModel.DataSchemaModel,System.Collections.Generic.IList{System.String},System.Collections.Generic.ICollection{System.String},System.Type,Microsoft.Data.Tools.Schema.SchemaModel.ModelElementQueryFilter)">
+            <summary>
+            Returns a list of model elements that match the name parts, identifiers and type.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.SharedUtilities.SqlModelUtilities.IsSystemElement(Microsoft.Data.Tools.Schema.SchemaModel.IModelElement)">
+            <summary>
+            Returns true if the model element is a system object
+            </summary>
+            <param name="element"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.PublishOptions">
+            <summary>
+            Configures options for what will be reported when performing certain operations from <see cref="T:Microsoft.SqlServer.Dac.DacServices"/>,
+            in particular whether a DeployReport and/or DeployScript will be generated
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.PublishOptions.#ctor">
+            <summary>
+            Configures options for what will be reported when performing certain operations from <see cref="T:Microsoft.SqlServer.Dac.DacServices"/>,
+            in particular whether a DeployReport and/or DeployScript will be generated
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.PublishOptions.GenerateDeploymentScript">
+            <summary>
+            Sets whether Deployment Script(s) should be generated during deploy.
+            If true, a script to update the database will be generated, and a script to
+            update Master may also be generated if the target is an Azure SQL DB and this
+            database has not yet been created.
+            </summary>
+            <value>Defaults to true</value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.PublishOptions.GenerateDeploymentReport">
+            <summary>
+            Sets whether a Deployment Report should be generated during deploy.
+            This report is a high-level summary of actions being performed during deployment.
+            </summary>
+            <value>Defaults to false</value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.PublishOptions.DatabaseScriptPath">
+            <summary>
+            Optional path to write the DB-level deployment script, if <see cref="P:Microsoft.SqlServer.Dac.PublishOptions.GenerateDeploymentScript"/> is true.
+            This script contains all operations that must be done against the database during deployment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.PublishOptions.MasterDbScriptPath">
+            <summary>
+            Optional path to write the master database-level deployment script, if <see cref="P:Microsoft.SqlServer.Dac.PublishOptions.GenerateDeploymentScript"/> is true.
+            This script is only created if Azure SQL DB is the target as USE statements are not supported on that platform.
+            It contains all operations that must be done against the master database, for instance Create Database statements
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.PublishOptions.DeployOptions">
+            <summary>
+            Optional <see cref="T:Microsoft.SqlServer.Dac.DacDeployOptions"/> to configure a range of deployment options. 
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.PublishOptions.CancelToken">
+            <summary>
+            Nullable <see cref="T:System.Threading.CancellationToken"/> to allow the caller to cancel a deployment
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.PublishResult">
+            <summary>
+            Contains the results of a publish or script operation. This will contain at least one of the <see cref="P:Microsoft.SqlServer.Dac.PublishResult.DeploymentReport"/>
+            or <see cref="P:Microsoft.SqlServer.Dac.PublishResult.DatabaseScript"/> properties depending on what was requested in the <see cref="T:Microsoft.SqlServer.Dac.PublishOptions"/>
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.PublishResult.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructs a <see cref="T:Microsoft.SqlServer.Dac.PublishResult"/> with the specified contents
+            </summary>
+            <param name="deployReport">set as the <see cref="P:Microsoft.SqlServer.Dac.PublishResult.DeploymentReport"/> to return</param>
+            <param name="dbScript">set as the <see cref="P:Microsoft.SqlServer.Dac.PublishResult.DatabaseScript"/> to return</param>
+            <param name="masterScript">set as the <see cref="P:Microsoft.SqlServer.Dac.PublishResult.MasterDbScript"/> to return</param>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.PublishResult.DeploymentReport">
+            <summary>
+            A Deployment Report, if one was requested.
+            This report is a high-level summary of actions being performed during deployment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.PublishResult.DatabaseScript">
+            <summary>
+            The DB-level deployment script, if one was requested.
+            This script contains all operations that must be done against the database during deployment.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.PublishResult.MasterDbScript">
+            <summary>
+            The master database-level deployment script, if one was requested.
+            This script is only created if Azure SQL DB is the target as USE statements are not supported on that platform.
+            It contains all operations that must be done against the master database, for instance Create Database statements
+            </summary>
+        </member>
         <member name="T:Microsoft.SqlServer.Dac.ReportMessageOperation">
             <summary>
             Reports all DataSchemaErrors added to an ErrorManager through the supplied MessageHandler.
-            </summary>
-        </member>
-        <member name="T:Microsoft.SqlServer.Dac.UnownedStream">
-            <summary>
-            Decorator for <see cref="T:System.IO.Stream"/> that avoids disposal of the underlying stream.
             </summary>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.SqlConnectionStringBuilderHelper">
@@ -4395,35 +5741,35 @@
             </summary>
             <returns>true if "Authentication" is present in current .Net version</returns>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.SqlConnectionStringBuilderHelper.SetAuthentication(System.Data.SqlClient.SqlConnectionStringBuilder,System.Data.SqlClient.SqlConnectionStringBuilder)">
+        <member name="M:Microsoft.SqlServer.Dac.SqlConnectionStringBuilderHelper.SetAuthentication(Microsoft.Data.SqlClient.SqlConnectionStringBuilder,Microsoft.Data.SqlClient.SqlConnectionStringBuilder)">
             <summary>
             Set Authentication value from source builder to the target builder
             </summary>
             <param name="sourceBuilder">the source connection string builder</param>
             <param name="targetBuilder">the target connection string builder</param>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.SqlConnectionStringBuilderHelper.SetAuthentication(System.Data.SqlClient.SqlConnectionStringBuilder,System.String)">
+        <member name="M:Microsoft.SqlServer.Dac.SqlConnectionStringBuilderHelper.SetAuthentication(Microsoft.Data.SqlClient.SqlConnectionStringBuilder,System.String)">
             <summary>
             Set Authentication using reflection
             </summary>
             <param name="sbConnectionString"></param>
             <param name="authenticationType"></param>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.SqlConnectionStringBuilderHelper.GetAuthenticationString(System.Data.SqlClient.SqlConnectionStringBuilder)">
+        <member name="M:Microsoft.SqlServer.Dac.SqlConnectionStringBuilderHelper.GetAuthenticationString(Microsoft.Data.SqlClient.SqlConnectionStringBuilder)">
             <summary>
             Get Authentication as string from connectionStringBuilder
             </summary>
             <param name="connectionStringBuilder"></param>
             <returns></returns>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.SqlConnectionStringBuilderHelper.IsAuthenticationSpecified(System.Data.SqlClient.SqlConnectionStringBuilder)">
+        <member name="M:Microsoft.SqlServer.Dac.SqlConnectionStringBuilderHelper.IsAuthenticationSpecified(Microsoft.Data.SqlClient.SqlConnectionStringBuilder)">
             <summary>
             Determines whether a connection string builder has a value specified for the Authentication property.
             </summary>
             <param name="connectionStringBuilder">A connection string builder that might have authentication specified.</param>
             <returns>True if the authentication property is supported by the connection string builder and the authentication property is specified. False otherwise.</returns>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.SqlConnectionStringBuilderHelper.GetConnectionStringWithAlwaysEncryptedSetting(System.Data.SqlClient.SqlConnectionStringBuilder,System.Boolean)">
+        <member name="M:Microsoft.SqlServer.Dac.SqlConnectionStringBuilderHelper.GetConnectionStringWithAlwaysEncryptedSetting(Microsoft.Data.SqlClient.SqlConnectionStringBuilder,System.Boolean)">
             <summary>
             Sets AlwaysEncrypted setting in connection string if it is available in the .NET framework and returns the updated connection string
             No-op if there is not .NET 4.6
@@ -4432,13 +5778,10 @@
             <param name="enableAlwaysEncrypted">True, to enable always encrypted setting, else False</param>
             <returns>connection string with Column Encryption Setting set to Enabled or Disabled based on enableAlwaysEncrypted</returns>
         </member>
-        <member name="T:AssemblyRef">
+        <member name="T:Microsoft.SqlServer.Dac.UnownedStream">
             <summary>
-            Sets public key string for friend assemblies.
+            Decorator for <see cref="T:System.IO.Stream"/> that avoids disposal of the underlying stream.
             </summary>
-        </member>
-        <member name="F:AssemblyRef.ProductPublicKey">
-            <summary>No signing</summary>
         </member>
     </members>
 </doc>
