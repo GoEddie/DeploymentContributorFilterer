@@ -10,6 +10,21 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
         private readonly SqlGateway _gateway = new SqlGateway(new AppSettingsReader().GetValue("ConnectionString", typeof(string)) as string);
 
         [Test]
+        public void Can_1_Publish_reset_to_a_known_state()
+        {
+
+            var args =
+                $"/Action:Publish /TargetServerName:(localdb)\\Filter /SourceFile:{Path.Combine(TestContext.CurrentContext.TestDirectory, "Dacpac.Dacpac")}" +
+                $" /TargetDatabaseName:Filters /p:DropObjectsNotInSource=True /p:AllowIncompatiblePlatform=true /p:BlockOnPossibleDataLoss=False ";
+
+            var proc = new ProcessGateway(Path.Combine(TestContext.CurrentContext.TestDirectory, "SqlPackage.exe\\SqlPackage.exe"), args);
+            proc.Run();
+            proc.WasDeploySuccess();
+            Assert.Pass(proc.Messages);
+
+        }
+
+        [Test]
         public void Schema_Is_Not_Dropped_When_Name_Is_To_Keep()
         {
             _gateway.RunQuery("IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'ohwahweewah') exec sp_executesql N'CREATE SCHEMA ohwahweewah';");

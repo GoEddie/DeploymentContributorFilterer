@@ -12,7 +12,7 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
 
         public ObjectTypeFilterRule(FilterOperation operation, string match, MatchType matchType, List<string> options = null) : base(operation, match, matchType)
         {
-            if (options != null && options.Count > 0)
+            if (options is { Count: > 0 })
             {
                 Schema = options[0];
             }

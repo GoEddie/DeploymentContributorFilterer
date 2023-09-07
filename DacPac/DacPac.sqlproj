@@ -68,4 +68,10 @@
   <ItemGroup>
     <Build Include="Tables\Employees.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="DacPac.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DacPac.scmp" />
+  </ItemGroup>
 </Project>

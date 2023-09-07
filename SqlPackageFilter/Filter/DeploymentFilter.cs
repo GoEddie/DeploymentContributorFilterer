@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Dynamic;
 using AgileSqlClub.SqlPackageFilter.Config;
 using AgileSqlClub.SqlPackageFilter.Rules;
 using Microsoft.SqlServer.Dac.Deployment;
@@ -34,6 +35,11 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
       {
 
         PublishMessage(new ExtensibilityError("Starting AgileSqlClub.DeploymentFilterContributor", Severity.Message));
+        /*
+        foreach (var contextArgument in context.Arguments)
+        {
+            ShowMessage($"{contextArgument.Key}:{contextArgument.Value}");
+        }*/
 
         var rules = new RuleDefinitionFactory(this).BuildRules(context.Arguments, this);
 

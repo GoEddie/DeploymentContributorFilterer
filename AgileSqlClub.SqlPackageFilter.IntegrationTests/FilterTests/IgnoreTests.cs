@@ -9,6 +9,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
     {
         private readonly SqlGateway _gateway = new SqlGateway(new AppSettingsReader().GetValue("ConnectionString", typeof(string)) as string);
 
+
         [Test]
         public void Schema_Is_Not_Dropped_When_Name_Is_Ignored()
         {

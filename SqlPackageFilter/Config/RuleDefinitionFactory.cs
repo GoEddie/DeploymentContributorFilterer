@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using AgileSqlClub.SqlPackageFilter.Filter;
 using AgileSqlClub.SqlPackageFilter.Rules;
+using Microsoft.SqlServer.Dac.Extensibility;
+using Microsoft.SqlServer.Dac.Model;
 
 namespace AgileSqlClub.SqlPackageFilter.Config
 {
@@ -22,29 +24,41 @@ namespace AgileSqlClub.SqlPackageFilter.Config
 
             foreach (var ruleDefinition in defintions)
             {
-                switch (ruleDefinition.FilterType)
+
+                FilterRule rule = ruleDefinition.FilterType switch
                 {
-                    case FilterType.Schema:
-                        rules.Add(new SchemaFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
-                            ruleDefinition.MatchType));
-                        break;
-                    case FilterType.Name:
-                        rules.Add(new NamedObjectFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
-                            ruleDefinition.MatchType));
-                        break;
-                    case FilterType.Type:
-                        rules.Add(new ObjectTypeFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
-                            ruleDefinition.MatchType, ruleDefinition.Options));
-                        break;
-                    case FilterType.TableColumns:
-                        rules.Add(new TableColumnFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
-                            ruleDefinition.MatchType));
-                        break;
-                    case FilterType.MultiPartName:
-                        rules.Add(new MultiPartNamedObjectFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
-                            ruleDefinition.MatchType));
-                        break;
+                    FilterType.Schema =>
+                        new SchemaFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
+                            ruleDefinition.MatchType),
+                    FilterType.Name =>
+                        new NamedObjectFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
+                            ruleDefinition.MatchType),
+                    FilterType.Type =>
+                        new ObjectTypeFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
+                            ruleDefinition.MatchType, ruleDefinition.Options),
+                    FilterType.TableColumns =>
+                        new TableColumnFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
+                            ruleDefinition.MatchType, deploymentFilter),
+                    FilterType.MultiPartName =>
+                        new MultiPartNamedObjectFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
+                            ruleDefinition.MatchType, deploymentFilter),
+                    _ => null
+                };
+                if (rule == null)
+                {
+                    deploymentFilter.ShowMessage($" - unknown type for ruleDefinition: {ruleDefinition.Match}");
                 }
+                else
+                {
+                    deploymentFilter.ShowMessage($" - adding ruleDefinition: {ruleDefinition.FilterType}");
+                    rules.Add(rule);
+                }
+            }
+
+            foreach (var filterRule in rules)
+            {
+                deploymentFilter.ShowMessage($"unknown type for ruleDefinition: {filterRule.Operation()}");
+
             }
 
             return rules;
@@ -62,10 +76,18 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                     var definitionType = FilterDefinitionTypeParser.GetDefinitionType(arg.Key);
 
                     if (definitionType == FilterDefinitionType.CommandLine)
-                        rules.Add(new CommandLineFilterParser(_messageHandler).GetDefinitions(arg.Value));
+                    {
+                        var rule = new CommandLineFilterParser(_messageHandler).GetDefinitions(arg.Value);
+                        rules.Add(rule);
+                        deploymentFilter.ShowMessage($" - Command Line Filter: {arg.Value}");
+                    }
 
                     if (definitionType == FilterDefinitionType.XmlFile)
-                        rules.AddRange(new XmlFilterParser(new FileGateway(), _messageHandler).GetDefinitions(arg.Value));
+                    {
+                        deploymentFilter.ShowMessage($" - Loading Filters from file: {arg.Value}");
+                        rules.AddRange(
+                            new XmlFilterParser(new FileGateway(), _messageHandler).GetDefinitions(arg.Value));
+                    }
 
                     if (definitionType == FilterDefinitionType.Logging)
                     {

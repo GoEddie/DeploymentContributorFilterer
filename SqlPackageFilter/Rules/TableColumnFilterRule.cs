@@ -1,4 +1,5 @@
 using System.Linq;
+using AgileSqlClub.SqlPackageFilter.DacExtensions;
 using AgileSqlClub.SqlPackageFilter.Filter;
 using Microsoft.SqlServer.Dac.Deployment;
 using Microsoft.SqlServer.Dac.Model;
@@ -9,10 +10,19 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
     public class TableColumnFilterRule : FilterRule
     {
         private readonly FilterOperation _operation;
+        private readonly DeploymentFilter _deploymentFilter;
+        private readonly string _schemaForMatch = null;
 
-        public TableColumnFilterRule(FilterOperation operation, string match, MatchType matchType) : base(operation, match, matchType)
+        public TableColumnFilterRule(FilterOperation operation, string match, MatchType matchType,
+            DeploymentFilter deploymentFilter) : base(operation, match.Split(',',2).Last(), matchType)
         {
             _operation = operation;
+            _deploymentFilter = deploymentFilter;
+            if (match.Contains(','))
+                _schemaForMatch = match.Split(',', 2).First();
+#if DEBUG
+            _deploymentFilter?.ShowMessage($"columnfiltering on {match}");
+#endif
         }
 
         public override bool Matches(ObjectIdentifier name, ModelTypeClass objectType, DeploymentStep step = null)
@@ -23,10 +33,17 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
 
             if (_operation != FilterOperation.Keep)
                 return false;
+#if DEBUG
+            _deploymentFilter?.ShowMessage($"filtering {string.Join(",",name.Parts)}");
+#endif
+            if (_schemaForMatch is not null && name.GetSchemaName(objectType) != _schemaForMatch)
+            {
+                return false; // it is a different schema
+            }
 
             if (!Matches(name.Parts.LastOrDefault()))
             {
-                return false;
+                return false; // it is a different name part.
             }
                 
             if (step is SqlTableMigrationStep)
