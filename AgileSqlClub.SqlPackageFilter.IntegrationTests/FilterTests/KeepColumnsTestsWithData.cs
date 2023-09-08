@@ -43,7 +43,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
             _gateway.RunQuery(
                 " exec sp_executesql N'drop table employees; create table Employees([EmployeeId] INT NOT NULL PRIMARY KEY, [ohwahweewah] varchar(24)); ';");
             _gateway.RunQuery(
-                "IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'NC_qq_employeeId') exec sp_executesql N'create nonclustered index NC_qq_employeeId on dbo.Employees(EmployeeId)';");
+                "drop index if exists dbo.Employees.NC_qq_employeeId; create nonclustered index NC_qq_employeeId on dbo.Employees(EmployeeId);");
             _gateway.RunQuery($"insert into Employees([EmployeeId]) select {employeeId.Next()}");
 
             var count = _gateway.GetInt("SELECT COUNT(*) FROM sys.columns where name = 'ohwahweewah';");

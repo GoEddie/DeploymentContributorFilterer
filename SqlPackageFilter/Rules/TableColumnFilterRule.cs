@@ -63,12 +63,9 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
 #else*/
                 var sourceTable = string.Join('.', sts.SourceTable?.Name?.Parts??Enumerable.Empty<string>());
                 var targetTable = string.Join('.', sts.TargetTable?.Name?.Parts ?? Enumerable.Empty<string>());
-                if (sts.TargetTable == null)
-                {
-                    _deploymentFilter?.ShowMessage($@"  - REMOVED: SqlTableMigrationStep for {sourceTable} = currently = {targetTable}");
-                }
-                else
-                    _deploymentFilter?.ShowMessage($@"  - REMOVED: SqlTableMigrationStep for {sourceTable}");
+                _deploymentFilter?.ShowMessage(sts.TargetTable == null
+                    ? $@"  - REMOVED: SqlTableMigrationStep for {sourceTable}"
+                    : $@"  - REMOVED: SqlTableMigrationStep for {sourceTable} => currently = {targetTable}");
                 //#endif
 
 
@@ -110,7 +107,7 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
             foreach (var alterTableDropTableElement in toRemove)
             {
                 dropTableElementStatement.AlterTableDropTableElements.Remove(alterTableDropTableElement);
-                _deploymentFilter?.ShowMessage($" -- removing {alterTableDropTableElement.Name.Value}");
+                _deploymentFilter?.ShowMessage($" -- Keeping {name}.[{alterTableDropTableElement.Name.Value}]");
             }
        
             if (dropTableElementStatement.AlterTableDropTableElements.Count > 0)

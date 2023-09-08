@@ -113,6 +113,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
             Assert.Pass(proc.Messages);
         }
 
+
         [Test]
         public void Column_Is_Not_Dropped_When_Columns_Are_ReOrdered()
         {

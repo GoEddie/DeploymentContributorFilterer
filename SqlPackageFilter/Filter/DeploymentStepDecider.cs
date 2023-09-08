@@ -68,11 +68,11 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
             var shouldRemove = decider.ShouldRemoveFromPlan(createStep.SourceElement?.Name ?? new ObjectIdentifier(),
             createStep.SourceElement?.ObjectType, StepType.Create);
         var objectName = createStep.SourceElement?.Name?.ToString() ?? "";
-        logSink($"    -- {objectName} should {(shouldRemove ? "" : "NOT ")}be removed");
+        //logSink($"    -- {objectName} should {(shouldRemove ? "" : "NOT ")}be removed");
 
         DeploymentStep replaceDeploymentStep = null;
         // the only object that contain [dbo].[tablename]. is an index with FQN of [dbo].[tablename].[indexName]
-        if (DroppedObjects.Any(c => objectName.StartsWith(c + ".")))
+        if (DroppedObjects.Any(c => objectName.StartsWith(c)))
         {
             if (createStep.SourceElement?.ObjectType.Name == "Index")
             {
