@@ -71,10 +71,20 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
         logSink($"    -- {objectName} should {(shouldRemove ? "" : "NOT ")}be removed");
 
         DeploymentStep replaceDeploymentStep = null;
-        if (DroppedObjects.Any(c => objectName.Contains(c)))
+        // the only object that contain [dbo].[tablename]. is an index with FQN of [dbo].[tablename].[indexName]
+        if (DroppedObjects.Any(c => objectName.StartsWith(c + ".")))
         {
-            replaceDeploymentStep = new TryDropIndexDeploymentStep(createStep);
-            logSink($"    -- {objectName} has been replaced with an alternate");
+            if (createStep.SourceElement?.ObjectType.Name == "Index")
+            {
+                replaceDeploymentStep = new TryDropIndexDeploymentStep(createStep);
+                logSink(
+                    $"    -- {objectName} of type {createStep.SourceElement.ObjectType.Name} has been replaced with an alternate {replaceDeploymentStep.GetType().Name}");
+            }
+            else
+            {
+                logSink($"    -- {objectName} of type {createStep.SourceElement?.ObjectType.Name ?? "<unknown>"} has a dependency but not replacement");
+
+            }
         }
 
         return new DeploymentStepDecision()

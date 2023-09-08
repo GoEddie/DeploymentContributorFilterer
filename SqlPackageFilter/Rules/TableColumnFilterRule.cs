@@ -35,17 +35,17 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
             if (_operation != FilterOperation.Keep)
                 return false;
 #if DEBUG
-            _deploymentFilter?.ShowMessage($" -- checking ColumnFilter filter for {string.Join(".",name.Parts)}");
+            //_deploymentFilter?.ShowMessage($" -- checking ColumnFilter filter for {string.Join(".",name.Parts)}");
 #endif
             if (_schemaForMatch is not null && name.GetSchemaName(objectType) != _schemaForMatch)
             {
-                _deploymentFilter?.ShowMessage($" - different schema");
+               // _deploymentFilter?.ShowMessage($" - different schema");
                 return false; // it is a different schema
             }
 
             if (!Matches(name.Parts.LastOrDefault()))
             {
-                _deploymentFilter?.ShowMessage($" - different name");
+                //_deploymentFilter?.ShowMessage($" - different name");
                 return false; // it is a different name part.
             }
                 
@@ -65,39 +65,33 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
                 var targetTable = string.Join('.', sts.TargetTable?.Name?.Parts ?? Enumerable.Empty<string>());
                 if (sts.TargetTable == null)
                 {
-                        targetTable = " <an unnamed script>";
-                } 
-//#endif
+                    _deploymentFilter?.ShowMessage($@"  - REMOVED: SqlTableMigrationStep for {sourceTable} = currently = {targetTable}");
+                }
+                else
+                    _deploymentFilter?.ShowMessage($@"  - REMOVED: SqlTableMigrationStep for {sourceTable}");
+                //#endif
 
-
-
-                _deploymentFilter?.ShowMessage(
-$@"  - REMOVED: migrationStep for {sourceTable} = currently = {targetTable}");
 
                 return true;   //we can't allow a table migration on this table as it would drop our extra columns....
             }
 
-            var alterStep = step as AlterElementStep;
-
-            if (alterStep == null)
+            if (step is not AlterElementStep alterStep)
             {
-                _deploymentFilter?.ShowMessage($" - null AlterStep");
+                //_deploymentFilter?.ShowMessage($" - null AlterStep");
                 return false;
             }
 
-            var script = (TSqlScript)alterStep.Script;
+            //var script = (TSqlScript)alterStep.Script;
 
-            if (script == null)
+            if (alterStep.Script is not TSqlScript script)
             {
-                _deploymentFilter?.ShowMessage($" - null Script");
+                //_deploymentFilter?.ShowMessage($" - null Script");
                 return false;
             }
 
-            var batch = script.Batches.FirstOrDefault();
-
-            if (batch == null)
+            if (script.Batches.FirstOrDefault() is not { } batch)
             {
-                _deploymentFilter?.ShowMessage($" - null Batch");
+                //_deploymentFilter?.ShowMessage($" - null Batch");
                 return false;
             }
 
@@ -105,11 +99,9 @@ $@"  - REMOVED: migrationStep for {sourceTable} = currently = {targetTable}");
             
             var statement = batch.Statements.FirstOrDefault();
 
-            var dropTableElementStatement = statement as AlterTableDropTableElementStatement;
-
-            if (dropTableElementStatement == null)
+            if (statement is not AlterTableDropTableElementStatement dropTableElementStatement)
             {
-                _deploymentFilter?.ShowMessage($" - not a AlterTableDropTableElementStatement - it is a {dropTableElementStatement.GetType().Name}");
+                //_deploymentFilter?.ShowMessage($" - not a AlterTableDropTableElementStatement - it is a {dropTableElementStatement.GetType().Name}");
                 return false;
             }
 
@@ -132,7 +124,7 @@ $@"  - REMOVED: migrationStep for {sourceTable} = currently = {targetTable}");
             }  //This is a strange one, we remove the bits we want from the drop table element but there might be other things like constraints that should be dropped
 
             script.Batches.RemoveAt(0);
-            _deploymentFilter?.ShowMessage($" - batches remaining : {script.Batches.Count}");
+            //_deploymentFilter?.ShowMessage($" - batches remaining : {script.Batches.Count}");
 
             return script.Batches.Count == 0;
 
