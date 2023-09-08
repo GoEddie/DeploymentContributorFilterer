@@ -5,6 +5,7 @@ using AgileSqlClub.SqlPackageFilter.Config;
 using AgileSqlClub.SqlPackageFilter.Rules;
 using Microsoft.SqlServer.Dac.Deployment;
 using Microsoft.SqlServer.Dac.Extensibility;
+using Microsoft.SqlServer.TransactSql.ScriptDom;
 
 namespace AgileSqlClub.SqlPackageFilter.Filter
 {
@@ -50,17 +51,42 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
         while (next != null)
         {
 
-          var current = next;
-          next = current.Next;
+            var current = next;
+            next = current.Next;
 
-          var stepDecider = DeploymentStepDecider.Decide(current, decider);
+#if DEBUG
+            if (_displayLevel == DisplayMessageLevel.Info)
+            {
+                ShowMessage($" -- checking filter for a {current.GetType().Name}");
+                if (current is CreateElementStep ce)
+                {
+                    ShowMessage($"    -- for creating a {ce.SourceElement.Name}");
+                }
+            }
+#endif
+          var stepDecider = DeploymentStepDecider.Decide(current, decider, this.ShowMessage);
 
           if (stepDecider != null)
           {
             if (stepDecider.Remove)
             {
-              Remove(context.PlanHandle, current);
-              PublishMessage(new ExtensibilityError($"Step removed from deployment by SqlPackageFilter, object: {stepDecider.ObjectName}, step type: {stepDecider.StepType}", Severity.Message));
+                if (stepDecider.ReplacementStep is { })
+                {
+                    this.AddBefore(context.PlanHandle, current, stepDecider.ReplacementStep);
+
+                    Remove(context.PlanHandle, current);
+                    PublishMessage(new ExtensibilityError(
+                        $"Step REPLACED from deployment by SqlPackageFilter, object: {stepDecider.ObjectName}, step type: {stepDecider.StepType} , replaced with type: {stepDecider.ReplacementStep}",
+                        Severity.Message));
+                }
+                else
+                {
+
+                    Remove(context.PlanHandle, current);
+                    PublishMessage(new ExtensibilityError(
+                        $"Step removed from deployment by SqlPackageFilter, object: {stepDecider.ObjectName}, step type: {stepDecider.StepType}",
+                        Severity.Message));
+                }
             }
             else if (_displayLevel == DisplayMessageLevel.Info)
               PublishMessage(new ExtensibilityError($"Step has not been removed from deployment, object: {stepDecider.ObjectName} type: {stepDecider.StepType}", Severity.Message));

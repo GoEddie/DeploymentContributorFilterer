@@ -46,10 +46,11 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
 
                 if (operation == FilterOperation.Keep && stepType == StepType.Drop && rule.Matches(name, objectType))
                 {
+
                     return true;
                 }
 
-                if (operation == FilterOperation.Keep && stepType == StepType.Alter  && rule.Matches(name, objectType, step))  
+                if (operation == FilterOperation.Keep && stepType == StepType.Alter && rule.Matches(name, objectType, step))  
                 {
                     return true;
                 }

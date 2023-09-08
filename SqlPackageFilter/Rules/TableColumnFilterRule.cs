@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using AgileSqlClub.SqlPackageFilter.DacExtensions;
 using AgileSqlClub.SqlPackageFilter.Filter;
@@ -21,7 +22,7 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
             if (match.Contains(','))
                 _schemaForMatch = match.Split(',', 2).First();
 #if DEBUG
-            _deploymentFilter?.ShowMessage($"columnfiltering on {match}");
+            _deploymentFilter?.ShowMessage($" -> Table Column Filter rule: {match}");
 #endif
         }
 
@@ -34,38 +35,72 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
             if (_operation != FilterOperation.Keep)
                 return false;
 #if DEBUG
-            _deploymentFilter?.ShowMessage($"filtering {string.Join(",",name.Parts)}");
+            _deploymentFilter?.ShowMessage($" -- checking ColumnFilter filter for {string.Join(".",name.Parts)}");
 #endif
             if (_schemaForMatch is not null && name.GetSchemaName(objectType) != _schemaForMatch)
             {
+                _deploymentFilter?.ShowMessage($" - different schema");
                 return false; // it is a different schema
             }
 
             if (!Matches(name.Parts.LastOrDefault()))
             {
+                _deploymentFilter?.ShowMessage($" - different name");
                 return false; // it is a different name part.
             }
                 
-            if (step is SqlTableMigrationStep)
+            if (step is SqlTableMigrationStep sts)
             {
+/*#if DEBUG
+                var sourceTable = sts.SourceElement.GetScript();
+                var targetTable = sts.TargetElement.GetScript();
+
+                foreach ( var singleBatch in ((TSqlScript)sts.Script).Batches)
+                {
+                    _deploymentFilter?.ShowMessage(
+                        $@"    - steps : {singleBatch.Statements.Count}");
+                }
+#else*/
+                var sourceTable = string.Join('.', sts.SourceTable?.Name?.Parts??Enumerable.Empty<string>());
+                var targetTable = string.Join('.', sts.TargetTable?.Name?.Parts ?? Enumerable.Empty<string>());
+                if (sts.TargetTable == null)
+                {
+                        targetTable = " <an unnamed script>";
+                } 
+//#endif
+
+
+
+                _deploymentFilter?.ShowMessage(
+$@"  - REMOVED: migrationStep for {sourceTable} = currently = {targetTable}");
+
                 return true;   //we can't allow a table migration on this table as it would drop our extra columns....
             }
 
             var alterStep = step as AlterElementStep;
-            
+
             if (alterStep == null)
+            {
+                _deploymentFilter?.ShowMessage($" - null AlterStep");
                 return false;
+            }
 
             var script = (TSqlScript)alterStep.Script;
 
             if (script == null)
+            {
+                _deploymentFilter?.ShowMessage($" - null Script");
                 return false;
+            }
 
             var batch = script.Batches.FirstOrDefault();
 
             if (batch == null)
+            {
+                _deploymentFilter?.ShowMessage($" - null Batch");
                 return false;
-            
+            }
+
             //is there a create table statement for our table? if so abort the whole thing
             
             var statement = batch.Statements.FirstOrDefault();
@@ -73,21 +108,31 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
             var dropTableElementStatement = statement as AlterTableDropTableElementStatement;
 
             if (dropTableElementStatement == null)
+            {
+                _deploymentFilter?.ShowMessage($" - not a AlterTableDropTableElementStatement - it is a {dropTableElementStatement.GetType().Name}");
                 return false;
+            }
 
             var toRemove = dropTableElementStatement.AlterTableDropTableElements.Where(p => p.TableElementType == TableElementType.Column).ToList();
 
             foreach (var alterTableDropTableElement in toRemove)
             {
                 dropTableElementStatement.AlterTableDropTableElements.Remove(alterTableDropTableElement);
+                _deploymentFilter?.ShowMessage($" -- removing {alterTableDropTableElement.Name.Value}");
             }
        
             if (dropTableElementStatement.AlterTableDropTableElements.Count > 0)
             {
+                foreach (var keptElement in dropTableElementStatement.AlterTableDropTableElements)
+                {
+                    _deploymentFilter?.ShowMessage($"keeping {keptElement.Name.Value}");
+                }
+                _deploymentFilter?.ShowMessage($" - cleaned statements");
                 return false;
             }  //This is a strange one, we remove the bits we want from the drop table element but there might be other things like constraints that should be dropped
 
-            script.Batches.RemoveAt(0);   
+            script.Batches.RemoveAt(0);
+            _deploymentFilter?.ShowMessage($" - batches remaining : {script.Batches.Count}");
 
             return script.Batches.Count == 0;
 
