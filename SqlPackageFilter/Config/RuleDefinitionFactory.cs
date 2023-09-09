@@ -25,25 +25,34 @@ namespace AgileSqlClub.SqlPackageFilter.Config
             foreach (var ruleDefinition in defintions)
             {
 
-                FilterRule rule = ruleDefinition.FilterType switch
+                FilterRule rule;
+                switch (ruleDefinition.FilterType)
                 {
-                    FilterType.Schema =>
-                        new SchemaFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
-                            ruleDefinition.MatchType),
-                    FilterType.Name =>
-                        new NamedObjectFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
-                            ruleDefinition.MatchType),
-                    FilterType.Type =>
-                        new ObjectTypeFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
-                            ruleDefinition.MatchType, ruleDefinition.Options),
-                    FilterType.TableColumns =>
-                        new TableColumnFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
-                            ruleDefinition.MatchType, deploymentFilter),
-                    FilterType.MultiPartName =>
-                        new MultiPartNamedObjectFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
-                            ruleDefinition.MatchType, deploymentFilter),
-                    _ => null
-                };
+                    case FilterType.Schema:
+                        rule = new SchemaFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
+                            ruleDefinition.MatchType);
+                        break;
+                    case FilterType.Name:
+                        rule = new NamedObjectFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
+                            ruleDefinition.MatchType);
+                        break;
+                    case FilterType.Type:
+                        rule = new ObjectTypeFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
+                            ruleDefinition.MatchType, ruleDefinition.Options);
+                        break;
+                    case FilterType.TableColumns:
+                        rule = new TableColumnFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
+                            ruleDefinition.MatchType, deploymentFilter);
+                        break;
+                    case FilterType.MultiPartName:
+                        rule = new MultiPartNamedObjectFilterRule(ruleDefinition.Operation, ruleDefinition.Match,
+                            ruleDefinition.MatchType, deploymentFilter);
+                        break;
+                    default:
+                        rule = null;
+                        break;
+                }
+
                 if (rule == null)
                 {
                     deploymentFilter.ShowMessage($" - unknown type for ruleDefinition: {ruleDefinition.Match}");

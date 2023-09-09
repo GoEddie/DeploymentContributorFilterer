@@ -15,12 +15,12 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
         private readonly string _schemaForMatch = null;
 
         public TableColumnFilterRule(FilterOperation operation, string match, MatchType matchType,
-            DeploymentFilter deploymentFilter) : base(operation, match.Split(',',2).Last(), matchType)
+            DeploymentFilter deploymentFilter) : base(operation, match.SplitAtFirst(',').Last(), matchType)
         {
             _operation = operation;
             _deploymentFilter = deploymentFilter;
             if (match.Contains(','))
-                _schemaForMatch = match.Split(',', 2).First();
+                _schemaForMatch = match.SplitAtFirst(',').First();
 #if DEBUG
             _deploymentFilter?.ShowMessage($" -> Table Column Filter rule: {match}");
 #endif
@@ -37,7 +37,7 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
 #if DEBUG
             //_deploymentFilter?.ShowMessage($" -- checking ColumnFilter filter for {string.Join(".",name.Parts)}");
 #endif
-            if (_schemaForMatch is not null && name.GetSchemaName(objectType) != _schemaForMatch)
+            if ( _schemaForMatch != null && name.GetSchemaName(objectType) != _schemaForMatch)
             {
                // _deploymentFilter?.ShowMessage($" - different schema");
                 return false; // it is a different schema
@@ -61,8 +61,8 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
                         $@"    - steps : {singleBatch.Statements.Count}");
                 }
 #else*/
-                var sourceTable = string.Join('.', sts.SourceTable?.Name?.Parts??Enumerable.Empty<string>());
-                var targetTable = string.Join('.', sts.TargetTable?.Name?.Parts ?? Enumerable.Empty<string>());
+                var sourceTable = string.Join(".", sts.SourceTable?.Name?.Parts??Enumerable.Empty<string>());
+                var targetTable = string.Join(".", sts.TargetTable?.Name?.Parts ?? Enumerable.Empty<string>());
                 _deploymentFilter?.ShowMessage(sts.TargetTable == null
                     ? $@"  - REMOVED: SqlTableMigrationStep for {sourceTable}"
                     : $@"  - REMOVED: SqlTableMigrationStep for {sourceTable} => currently = {targetTable}");
@@ -72,21 +72,22 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
                 return true;   //we can't allow a table migration on this table as it would drop our extra columns....
             }
 
-            if (step is not AlterElementStep alterStep)
+            if (!(step is AlterElementStep alterStep))
             {
                 //_deploymentFilter?.ShowMessage($" - null AlterStep");
                 return false;
             }
 
-            //var script = (TSqlScript)alterStep.Script;
+            var script = (TSqlScript)alterStep.Script;
 
-            if (alterStep.Script is not TSqlScript script)
+            if (script == null)
             {
                 //_deploymentFilter?.ShowMessage($" - null Script");
                 return false;
             }
 
-            if (script.Batches.FirstOrDefault() is not { } batch)
+            var batch = script.Batches.FirstOrDefault();
+            if (batch == null)
             {
                 //_deploymentFilter?.ShowMessage($" - null Batch");
                 return false;
@@ -96,7 +97,7 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
             
             var statement = batch.Statements.FirstOrDefault();
 
-            if (statement is not AlterTableDropTableElementStatement dropTableElementStatement)
+            if (!(statement is AlterTableDropTableElementStatement dropTableElementStatement))
             {
                 //_deploymentFilter?.ShowMessage($" - not a AlterTableDropTableElementStatement - it is a {dropTableElementStatement.GetType().Name}");
                 return false;
@@ -127,4 +128,16 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
 
         }
     }
+
+    internal static class stringExtn
+    {
+        public static string[] SplitAtFirst(this string s, char splitter)
+        {
+            int charIndex = s.IndexOf(splitter);
+            if (charIndex < 0)
+                return new[] { s};
+            return new[] { s.Substring(0, charIndex - 1), s.Substring(charIndex + 1) };
+        }
+    }
+    
 }

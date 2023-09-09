@@ -29,10 +29,10 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
       };
     }
 
-    private static List<string> DroppedObjects = new();
+    private static List<string> DroppedObjects = new List<string>();
     private static DeploymentStepDecision RemoveAlterStep(DeploymentStep step, KeeperDecider decider, Action<string> logSink)
-    { 
-      if (step is not AlterElementStep alterStep) return null;
+    {
+        if (!(step is AlterElementStep alterStep)) return null;
 
       var remove = decider.ShouldRemoveFromPlan(alterStep.TargetElement?.Name ?? new ObjectIdentifier(),
           alterStep.TargetElement?.ObjectType, StepType.Alter, alterStep);
@@ -54,7 +54,7 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
 
     private static DeploymentStepDecision RemoveDropStep(DeploymentStep step, KeeperDecider decider)
     {
-        return step is not DropElementStep dropStep ? null : new DeploymentStepDecision()
+        return !(step is DropElementStep dropStep) ? null : new DeploymentStepDecision()
       {
         Remove = decider.ShouldRemoveFromPlan(dropStep.TargetElement?.Name ?? new ObjectIdentifier(), dropStep.TargetElement?.ObjectType, StepType.Drop),
         StepType = StepType.Drop,
@@ -64,7 +64,7 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
 
     private static DeploymentStepDecision RemoveCreateElement(DeploymentStep step, KeeperDecider decider, Action<string> logSink)
     {
-        if (step is not CreateElementStep createStep) return null;
+        if (!(step is CreateElementStep createStep)) return null;
             var shouldRemove = decider.ShouldRemoveFromPlan(createStep.SourceElement?.Name ?? new ObjectIdentifier(),
             createStep.SourceElement?.ObjectType, StepType.Create);
         var objectName = createStep.SourceElement?.Name?.ToString() ?? "";
@@ -89,7 +89,7 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
 
         return new DeploymentStepDecision()
         {
-            Remove = shouldRemove || replaceDeploymentStep is not null,
+            Remove = shouldRemove || replaceDeploymentStep != null,
             StepType = StepType.Create,
             ObjectName = objectName,
             ReplacementStep = replaceDeploymentStep

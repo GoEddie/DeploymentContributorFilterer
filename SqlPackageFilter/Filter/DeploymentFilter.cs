@@ -70,7 +70,7 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
           {
             if (stepDecider.Remove)
             {
-                if (stepDecider.ReplacementStep is { })
+                if (stepDecider.ReplacementStep != null)
                 {
                     this.AddBefore(context.PlanHandle, current, stepDecider.ReplacementStep);
 
