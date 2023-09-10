@@ -425,12 +425,14 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
         }
 
 
-
-        public void Column_Is_Not_Dropped_When_Columns_Named_By_Schema()
+        [TestCase("", true)] // null matches all schemas - leading
+        [TestCase("dbo", true)] // dbo matches what we keep
+        [TestCase("bob", false)] // bob does not.
+        public void Column_Is_Not_Dropped_When_Columns_Named_By_Schema(string schema, bool isRetained)
         {
             _gateway.RunQuery(
-                " exec sp_executesql N'IF EXISTS(SELECT * FROM SYS.TABLES WHERE NAME = ''Employees'') begin\r\n drop table employees;\r\nend \r\n create table Employees(name varchar(max), [Employee________Id] INT NOT NULL PRIMARY KEY, [ohwahweewah] varchar(24));';");
-            _gateway.RunQuery($"insert into Employees([Employee________Id],[Name]) select {employeeId.Next()}, 'bob'");
+                " exec sp_executesql N'IF EXISTS(SELECT * FROM SYS.TABLES WHERE NAME = ''Employees'') begin\r\n drop table employees;\r\nend \r\n create table Employees(name varchar(max), [EmployeeId] INT NOT NULL PRIMARY KEY, [ohwahweewah] varchar(24));';");
+            _gateway.RunQuery($"insert into Employees([EmployeeId],[Name]) select {employeeId.Next()}, 'bob'");
             _gateway.RunQuery(
                 " exec sp_executesql N'create trigger gh on Employees AFTER INSERT AS select 100';");
             _gateway.RunQuery("IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'blah') exec sp_executesql N'CREATE SCHEMA blah';");
@@ -446,7 +448,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
             var args =
                 $"/Action:Publish /TargetServerName:(localdb)\\Filter /SourceFile:{Path.Combine(TestContext.CurrentContext.TestDirectory, "Dacpac.Dacpac")} /p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor " +
                 " /TargetDatabaseName:Filters /p:DropObjectsNotInSource=True  /p:BlockOnPossibleDataLoss=False " +
-                "/p:AdditionalDeploymentContributorArguments=\"SqlPackageFilter=KeepTableColumns(dbo,Employees)\" /p:AllowIncompatiblePlatform=true /p:GenerateSmartDefaults=true";
+                $"/p:AdditionalDeploymentContributorArguments=\"SqlPackageFilter=KeepTableColumns({schema},Employees)\" /p:AllowIncompatiblePlatform=true /p:GenerateSmartDefaults=true";
 
             var proc = new ProcessGateway(Path.Combine(TestContext.CurrentContext.TestDirectory, "SqlPackage.exe\\SqlPackage.exe"), args);
             proc.Run();
@@ -456,7 +458,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
             count =
                 _gateway.GetInt(
                     "SELECT COUNT(*) FROM sys.columns where name = 'ohwahweewah' and object_id = object_id('Employees');");
-            Assert.AreEqual(1, count, proc.Messages);
+            Assert.AreEqual(isRetained?1:0, count, proc.Messages);
             count =
                 _gateway.GetInt(
                     "SELECT COUNT(*) FROM sys.columns where name = 'id' and object_id = object_id('bloobla');");
@@ -464,43 +466,5 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
             Assert.Pass(proc.Messages);
         }
 
-        public void Column_Is_Dropped_When_Columns_Named_By_Schema_and_Wildcard()
-        {
-            _gateway.RunQuery(
-                " exec sp_executesql N'IF EXISTS(SELECT * FROM SYS.TABLES WHERE NAME = ''Employees'') begin\r\n drop table employees;\r\nend \r\n create table Employees(name varchar(max), [Employee________Id] INT NOT NULL PRIMARY KEY, [ohwahweewah] varchar(24));';");
-            _gateway.RunQuery(
-                " exec sp_executesql N'create trigger gh on Employees AFTER INSERT AS select 100';");
-            _gateway.RunQuery($"insert into Employees([Employee________Id],[Name]) select {employeeId.Next()}, 'bob'");
-
-            _gateway.RunQuery("IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'blah') exec sp_executesql N'CREATE SCHEMA blah';");
-            _gateway.RunQuery("IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'bloobla') exec sp_executesql N'CREATE table blah.bloobla(id int)';");
-
-
-            var count =
-                _gateway.GetInt(
-                    "SELECT COUNT(*) FROM sys.columns where name = 'ohwahweewah' and object_id = object_id('Employees');");
-            Assert.AreEqual(1, count);
-
-
-            var args =
-                $"/Action:Publish /TargetServerName:(localdb)\\Filter /SourceFile:{Path.Combine(TestContext.CurrentContext.TestDirectory, "Dacpac.Dacpac")} /p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor " +
-                " /TargetDatabaseName:Filters /p:DropObjectsNotInSource=True  /p:BlockOnPossibleDataLoss=False " +
-                "/p:AdditionalDeploymentContributorArguments=\"SqlPackageFilter=KeepTableColumns(dbo,.*)\" /p:AllowIncompatiblePlatform=true /p:GenerateSmartDefaults=true";
-
-            var proc = new ProcessGateway(Path.Combine(TestContext.CurrentContext.TestDirectory, "SqlPackage.exe\\SqlPackage.exe"), args);
-            proc.Run();
-            proc.WasDeploySuccess();
-
-
-            count =
-                _gateway.GetInt(
-                    "SELECT COUNT(*) FROM sys.columns where name = 'ohwahweewah' and object_id = object_id('Employees');");
-            Assert.AreEqual(1, count, proc.Messages);
-            count =
-                _gateway.GetInt(
-                    "SELECT COUNT(*) FROM sys.columns where name = 'id' and object_id = object_id('bloobla');");
-            Assert.AreEqual(0, count, proc.Messages);
-            Assert.Pass(proc.Messages);
-        }
     }
 }

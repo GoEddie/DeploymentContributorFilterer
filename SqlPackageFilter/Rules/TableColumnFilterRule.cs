@@ -20,10 +20,18 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
             _operation = operation;
             _deploymentFilter = deploymentFilter;
             if (match.Contains(','))
+            {
                 _schemaForMatch = match.SplitAtFirst(',').First();
 #if DEBUG
-            _deploymentFilter?.ShowMessage($" -> Table Column Filter rule: {match}");
+                _deploymentFilter?.ShowMessage($" -> Table Column Filter - schema: {_schemaForMatch}, rule: {Match}, ");
 #endif
+            }
+            else
+            {
+#if DEBUG
+                _deploymentFilter?.ShowMessage($" -> Table Column Filter - Single part rule: {match} ");
+#endif
+            }
         }
 
         public override bool Matches(ObjectIdentifier name, ModelTypeClass objectType, DeploymentStep step = null)
@@ -37,7 +45,7 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
 #if DEBUG
             //_deploymentFilter?.ShowMessage($" -- checking ColumnFilter filter for {string.Join(".",name.Parts)}");
 #endif
-            if ( _schemaForMatch != null && name.GetSchemaName(objectType) != _schemaForMatch)
+            if ( !string.IsNullOrWhiteSpace( _schemaForMatch) && name.GetSchemaName(objectType) != _schemaForMatch)
             {
                // _deploymentFilter?.ShowMessage($" - different schema");
                 return false; // it is a different schema
@@ -129,14 +137,14 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
         }
     }
 
-    internal static class stringExtn
+    public static class StringExtn
     {
         public static string[] SplitAtFirst(this string s, char splitter)
         {
             int charIndex = s.IndexOf(splitter);
             if (charIndex < 0)
                 return new[] { s};
-            return new[] { s.Substring(0, charIndex - 1), s.Substring(charIndex + 1) };
+            return new[] { s.Substring(0, charIndex), s.Substring(charIndex + 1) };
         }
     }
     
