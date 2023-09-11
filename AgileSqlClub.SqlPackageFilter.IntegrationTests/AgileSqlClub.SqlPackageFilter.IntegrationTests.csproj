@@ -34,7 +34,7 @@
 	  <None Update="SqlPackage.exe\*">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-      <None Update="SqlPackage.exe.old\**">
+      <None Update="SqlPackage.exe.Framework\**">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>	  
 	  <None Update="testhost.dll.config">
@@ -49,7 +49,7 @@
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Copy SourceFiles="$(SolutionDir)SqlPackageFilter\bin\Debug\netstandard2.1\AgileSqlClub.SqlPackageFilter.dll" DestinationFolder="$(OutputPath)SqlPackage.exe" />
-		<Copy SourceFiles="$(SolutionDir)SqlPackageFilter\bin\Debug\net4.8\AgileSqlClub.SqlPackageFilter.dll" DestinationFolder="$(OutputPath)SqlPackage.exe.old" />
+		<Copy SourceFiles="$(SolutionDir)SqlPackageFilter\bin\Debug\net4.6.2\AgileSqlClub.SqlPackageFilter.dll" DestinationFolder="$(OutputPath)SqlPackage.exe.Framework" />
 
 		<!--Exec Command="COPY &quot;$(OutputPath)AgileSqlClub.SqlPackageFilter.dll&quot; &quot;$(OutputPath)SqlPackage.exe&quot;" /-->
 	</Target>

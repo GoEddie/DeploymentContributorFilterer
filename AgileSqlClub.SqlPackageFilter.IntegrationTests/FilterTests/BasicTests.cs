@@ -14,7 +14,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
 
         [Test]
         [TestCase("SqlPackage.exe")]
-        [TestCase("SqlPackage.exe.old")]
+        [TestCase("SqlPackage.exe.Framework")]
 
         public void Can_Publish_1_without_deploymentContributor(string SqlPackagePath)
         {
@@ -39,7 +39,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
 
         [Test]
         [TestCase("SqlPackage.exe")]
-        [TestCase("SqlPackage.exe.old")]
+        [TestCase("SqlPackage.exe.Framework")]
         public void Can_Publish_2_with_deploymentContributor(string SqlPackagePath)
         {
             _gateway.RunQuery(
