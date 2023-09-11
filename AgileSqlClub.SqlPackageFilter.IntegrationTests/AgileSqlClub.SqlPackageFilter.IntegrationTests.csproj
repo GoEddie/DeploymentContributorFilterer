@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net4.8</TargetFramework>
+		<TargetFramework>net6</TargetFramework>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>disable</Nullable>
 		<RootNamespace>AgileSqlClub.SqlPackageFilter.IntegrationTests</RootNamespace>
@@ -17,15 +17,16 @@
 
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.SqlServer.DacFx" Version="161.6374.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.1" />
+		<PackageReference Include="Microsoft.SqlServer.DacFx" Version="162.0.52" />
 		<PackageReference Include="Moq" Version="4.18.2" />
 		<PackageReference Include="NUnit" Version="3.13.3" />
-		<PackageReference Include="NUnit3TestAdapter" Version="4.3.1" />
+		<PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
 	</ItemGroup>
 
 
 	<ItemGroup>
-		<ProjectReference Include="..\SqlPackageFilter\AgileSqlClub.SqlPackageFilter.csproj" />
+	  <ProjectReference Include="..\SqlPackageFilter\AgileSqlClub.SqlPackageFilter.csproj" />
 	</ItemGroup>
 
 
@@ -35,65 +36,27 @@
 
 
 	<ItemGroup>
+	  <None Update="SqlPackage.exe\*">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+      <None Update="SqlPackage.exe.Framework\**">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>	  
+	  <None Update="testhost.dll.config">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	  <None Update="DacPac.dacpac">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
-	  <None Update="SqlPackage.exe\dacunpack.exe">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="SqlPackage.exe\Extensions\Readme.txt">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="SqlPackage.exe\Microsoft.Data.Tools.Components.dll">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="SqlPackage.exe\Microsoft.Data.Tools.Contracts.dll">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="SqlPackage.exe\Microsoft.Data.Tools.Schema.Sql.dll">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="SqlPackage.exe\Microsoft.Data.Tools.Schema.Tasks.Sql.dll">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="SqlPackage.exe\Microsoft.Data.Tools.Schema.Utilities.Sql.dll">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="SqlPackage.exe\Microsoft.Data.Tools.Utilities.dll">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="SqlPackage.exe\Microsoft.SqlServer.ConnectionInfo.dll">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="SqlPackage.exe\Microsoft.SqlServer.Dac.dll">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="SqlPackage.exe\Microsoft.SqlServer.Dac.Extensions.dll">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="SqlPackage.exe\Microsoft.SqlServer.Dac.Extensions.xml">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="SqlPackage.exe\Microsoft.SqlServer.Dac.xml">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="SqlPackage.exe\Microsoft.SqlServer.SqlClrProvider.dll">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="SqlPackage.exe\Microsoft.SqlServer.TransactSql.ScriptDom.dll">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="SqlPackage.exe\sqlpackage.exe">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="SqlPackage.exe\sqlpackage.exe.config">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
+
 	</ItemGroup>
 
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-	  <Exec Command="COPY &quot;$(OutputPath)AgileSqlClub.SqlPackageFilter.dll&quot; &quot;$(OutputPath)SqlPackage.exe&quot;" />
+		<Copy SourceFiles="$(SolutionDir)SqlPackageFilter\bin\$(Configuration)\netstandard2.1\AgileSqlClub.SqlPackageFilter.dll" DestinationFolder="$(OutputPath)SqlPackage.exe" />
+		<Copy SourceFiles="$(SolutionDir)SqlPackageFilter\bin\$(Configuration)\net4.6.2\AgileSqlClub.SqlPackageFilter.dll" DestinationFolder="$(OutputPath)SqlPackage.exe.Framework" />
+
+		<!--Exec Command="COPY &quot;$(OutputPath)AgileSqlClub.SqlPackageFilter.dll&quot; &quot;$(OutputPath)SqlPackage.exe&quot;" /-->
 	</Target>
 </Project>
 

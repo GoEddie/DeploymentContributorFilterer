@@ -1,0 +1,1621 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>sqlpackage</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolAction">
+            <summary>
+            Action SqlPackage is being run for
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolAction.Extract">
+            <summary>
+            Extract a dacpac
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolAction.DeployReport">
+            <summary>
+            Generate a deploy report
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolAction.DriftReport">
+            <summary>
+            Generate a drift report
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolAction.Publish">
+            <summary>
+            Publish a dacpac
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolAction.Script">
+            <summary>
+            Script the steps for a publish action
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolAction.Export">
+            <summary>
+            Export a bacpac
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolAction.Import">
+            <summary>
+            Import a bacpac
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineArguments.AzureKeyVaultAuthMethod">
+            <summary>
+            User-set flag for whether a deployment containing Always Encrypted changes will require Azure Key Vault access
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineArguments.ThreadMaxStackSize">
+            <summary>
+            Sets the stack size for the operation.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineArguments.AccessToken">
+            <summary>
+            The access token used when connecting to the target database.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineArguments.UniversalAuthentication">
+            <summary>
+            User-set flag for whether they want to connect to SQL DB via MFA
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineArguments.TenantId">
+            <summary>
+            User-set value to specify tenant id or AD domain for MFA
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineArguments.AzureCloudConfig">
+            <summary>
+            User-set value for custom AAD endpoints for MFA
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineArguments.ClientId">
+            <summary>
+            Client ID for authenticating against Azure Key Vault, for AlwaysEncrypted
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineArguments.Secret">
+            <summary>
+            Client secret for authenticating against Azure Key Vault, for AlwaysEncrypted
+            </summary>
+        </member>
+        <member name="T:Microsoft.Data.Tools.Schema.CommandLineTool.HelpPropertiesArguments">
+            <summary>
+            A helper class to determine if a user wants a dump of the
+            DSP-specific help for custom properties
+            </summary>
+        </member>
+        <member name="T:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentType">
+            <summary>
+            Used to control parsing of command line arguments.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentType.Required">
+            <summary>
+            Indicates that this field is required. An error will be displayed
+            if it is not present when parsing arguments.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentType.Unique">
+            <summary>
+            Only valid in conjunction with Multiple.
+            Duplicate values will result in an error.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentType.Multiple">
+            <summary>
+            Indicates that the argument may be specified more than once.
+            Only valid if the argument is a collection
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentType.AtMostOnce">
+            <summary>
+            The default type for non-collection arguments.
+            The argument is not required, but an error will be reported if it is specified more than once.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentType.LastOccurenceWins">
+            <summary>
+            For non-collection arguments, when the argument is specified more than
+            once no error is reported and the value of the argument is the last
+            value which occurs in the argument list.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentType.MultipleUnique">
+            <summary>
+            The default type for collection arguments.
+            The argument is permitted to occur multiple times, but duplicate
+            values will cause an error to be reported.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentAttribute">
+            <summary>
+            Allows control of command line parsing.
+            Attach this attribute to instance fields of types used
+            as the destination of command line argument parsing.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentAttribute.ResourceManagers">
+            <summary>
+            ResourceManagers used as the source for argument resource strings.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentAttribute.#ctor(Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentType)">
+            <summary>
+            Allows control of command line parsing.
+            </summary>
+            <param name="type"> Specifies the error checking to be done on the argument. </param>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentAttribute.Type">
+            <summary>
+            The error checking to be done on the argument.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentAttribute.DefaultShortName">
+            <summary>
+            Returns true if the argument did not have an explicit short name specified.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentAttribute.ShortName">
+            <summary>
+            The short name of the argument.
+            Set to null means use the default short name if it does not
+            conflict with any other parameter name.
+            Set to String.Empty for no short name.
+            This property should not be set for DefaultArgumentAttributes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentAttribute.DefaultLongName">
+            <summary>
+            Returns true if the argument did not have an explicit long name specified.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentAttribute.LongName">
+            <summary>
+            The long name of the argument.
+            Set to null means use the default long name.
+            The long name for every argument must be unique.
+            It is an error to specify a long name of String.Empty.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentAttribute.HelpTextResourceManagerTypeName">
+            <summary>
+            Defines the type name of the <see cref="T:System.Resources.ResourceManager"/> to load the <see cref="P:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentAttribute.HelpTextResourceStringName"/> from.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentAttribute.DefaultValue">
+            <summary>
+            The default value of the argument.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentAttribute.HasDefaultValue">
+            <summary>
+            Returns true if the argument has a default value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentAttribute.HasHelpText">
+            <summary>
+            Returns true if the argument has help text specified.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentAttribute.HelpText">
+            <summary>
+            The help text for the argument.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentAttribute.GetHelpTextFromResource(System.String,System.String)">
+            <summary>
+            Retrieves a resource string from an assembly resource.
+            </summary>
+            <param name="helpTextResourceTypeName">The type name of the <see cref="T:System.Resources.ResourceManager"/> to load the string from.</param>
+            <param name="helpTextResourceStringName">The name of the resource string to load.</param>
+            <returns>resource string</returns>
+        </member>
+        <member name="T:Microsoft.Data.Tools.Schema.CommandLineTool.DefaultArgumentAttribute">
+            <summary>
+            Indicates that this argument is the default argument.
+            '/' or '-' prefix only the argument value is specified.
+            The ShortName property should not be set for DefaultArgumentAttribute
+            instances. The LongName property is used for usage text only and
+            does not affect the usage of the argument.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.DefaultArgumentAttribute.#ctor(Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentType)">
+            <summary>
+            Indicates that this argument is the default argument.
+            </summary>
+            <param name="type"> Specifies the error checking to be done on the argument. </param>
+        </member>
+        <member name="T:Microsoft.Data.Tools.Schema.CommandLineTool.ErrorReporter">
+            <summary>
+            A delegate used in error reporting.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Data.Tools.Schema.CommandLineTool.Parser">
+             <summary>
+             Parser for command line arguments.
+            
+             The parser specification is inferred from the instance fields of the object
+             specified as the destination of the parse.
+             Valid argument types are: int, uint, string, bool, enums
+             Also argument types of Array of the above types are also valid.
+            
+             Error checking options can be controlled by adding a ArgumentAttribute
+             to the instance fields of the destination object.
+            
+             At most one field may be marked with the DefaultArgumentAttribute
+             indicating that arguments without a '-' or '/' prefix will be parsed as that argument.
+            
+             If not specified then the parser will infer default options for parsing each
+             instance field. The default long name of the argument is the field name. The
+             default short name is the first character of the long name. Long names and explicitly
+             specified short names must be unique. Default short names will be used provided that
+             the default short name does not conflict with a long name or an explicitly
+             specified short name.
+            
+             Arguments which are array types are collection arguments. Collection
+             arguments can be specified multiple times.
+             </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Parser.#ctor">
+            <summary>
+            Don't ever call this.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Parser.ParseArguments(System.String[],System.Object,Microsoft.Data.Tools.Schema.CommandLineTool.ErrorReporter,System.Char,System.Nullable{Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolAction},Microsoft.Data.Tools.Schema.CommandLineTool.Parser@)">
+            <summary>
+            Parses Command Line Arguments.
+            Use ArgumentAttributes to control parsing behavior.
+            </summary>
+            <param name="arguments">The actual arguments</param>
+            <param name="destination">The resulting parsed arguments</param>
+            <param name="reporter">The destination for parse errors</param>
+            <param name="argumentTerminationCharacter">Character to terminate argument name</param>
+            <param name="action">command line tool action</param>
+            <param name="parser">Parser used to parse the arguments</param>
+            <returns> true if no errors were detected</returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Parser.ParseHelp(System.String[])">
+            <summary>
+            Checks if a set of arguments asks for help.
+            </summary>
+            <param name="args">Args to check for help</param>
+            <returns>Returns true if args contains /? or /help</returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Parser.ParseVersion(System.String[])">
+            <summary>
+            Checks if a set of arguments asks for the version.
+            </summary>
+            <param name="args">Args to check for version</param>
+            <returns>Returns true if args contains /version</returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Parser.ArgumentsUsage(System.Type,System.Nullable{Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolAction})">
+            <summary>
+            Returns a Usage string for command line argument parsing.
+            Use ArgumentAttributes to control parsing behavior.
+            Formats the output to the width of the current console window.
+            </summary>
+            <param name="argumentType">The type of the arguments to display usage for</param>
+            <param name="action">command line tool action</param>
+            <returns>Printable string containing a user friendly description of command line arguments</returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Parser.ArgumentsUsage(System.Type,System.Int32,System.Nullable{Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolAction})">
+            <summary>
+            Returns a Usage string for command line argument parsing.
+            Use ArgumentAttributes to control parsing behavior.
+            </summary>
+            <param name="argumentType">The type of the arguments to display usage for</param>
+            <param name="columns">The number of columns to format the output to</param>
+            <param name="action">The action to return the arguments for</param>
+            <returns>Printable string containing a user friendly description of command line arguments</returns>
+            <remarks>
+            The <paramref name="action"/> parameter is used to filter out fields that do not 
+            have a <see cref="T:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentActionAttribute"/> attribute with the specific <see cref="T:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolAction"/>.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Parser.GetConsoleWindowWidth">
+            <summary>
+            Returns the number of columns in the current console window
+            </summary>
+            <returns>Returns the number of columns in the current console window</returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Parser.GetDisplayWidth">
+            <summary>
+            Returns the number of columns to be used when displaying the help text.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Parser.IndexOf(System.Text.StringBuilder,System.Char,System.Int32)">
+            <summary>
+            Searches a StringBuilder for a character
+            </summary>
+            <param name="text"> The text to search. </param>
+            <param name="value"> The character value to search for. </param>
+            <param name="startIndex"> The index to stat searching at. </param>
+            <returns> The index of the first occurrence of value or -1 if it is not found. </returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Parser.LastIndexOf(System.Text.StringBuilder,System.Char,System.Int32)">
+            <summary>
+            Searches a StringBuilder for a character in reverse
+            </summary>
+            <param name="text">The text to search</param>
+            <param name="value">The character to search for</param>
+            <param name="startIndex">The index to start the search at</param>
+            <returns>The index of the last occurrence of value in text or -1 if it is not found</returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Parser.#ctor(System.Char,System.Type,Microsoft.Data.Tools.Schema.CommandLineTool.ErrorReporter,System.Nullable{Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolAction})">
+            <summary>
+            Creates a new command line argument parser.
+            </summary>
+            <param name="argumentTerminationCharacter">Argument termination character</param>
+            <param name="argumentSpecification">The type of object to parse</param>
+            <param name="reporter">The destination for parse errors</param>
+            <param name="action">command line tool action</param>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Parser.ParseArgumentList(System.String[],System.Object)">
+            <summary>
+            Parses an argument list into an object
+            </summary>
+            <param name="args"></param>
+            <param name="destination"></param>
+            <returns> true if an error occurred </returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Parser.Parse(System.String[],System.Object)">
+            <summary>
+            Parses an argument list.
+            </summary>
+            <param name="args">The arguments to parse</param>
+            <param name="destination">The destination of the parsed arguments</param>
+            <returns>true if no parse errors were encountered</returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Parser.GetUsageString(System.Int32)">
+            <summary>
+            A user friendly usage string describing the command line argument syntax.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.Parser.HasDefaultArgument">
+            <summary>
+            Does this parser have a default argument.
+            </summary>
+            <value>Does this parser have a default argument</value>
+        </member>
+        <member name="T:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ActionFailedMessage">
+            <summary>
+              Looks up a localized string similar to {0} action failed: {1}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.AkvFailedToObtainToken">
+            <summary>
+              Looks up a localized string similar to Failed to obtain the access token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.AkvMissingPermissions">
+            <summary>
+              Looks up a localized string similar to Missing permissions for Azure Key Vault key &apos;{0}&apos;: {1}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.AkvNoAccess">
+            <summary>
+              Looks up a localized string similar to Unable to access Azure Key Vault key &apos;{0}&apos;: {1}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.AkvSecretPrompt">
+            <summary>
+              Looks up a localized string similar to Enter secret: .
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ArgumentCannotBeADirectory">
+            <summary>
+              Looks up a localized string similar to The {0} argument cannot reference a directory..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ArgumentDefaultValue">
+            <summary>
+              Looks up a localized string similar to Default value.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ArgumentShortForm">
+            <summary>
+              Looks up a localized string similar to short form.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.CanNotOpenCommandFile">
+            <summary>
+              Looks up a localized string similar to Error: Can&apos;t open command line argument file &apos;{0}&apos; : &apos;{1}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.CantSpecifySourceServerOptionWithFile">
+            <summary>
+              Looks up a localized string similar to Source server options cannot be used when a source file is specified..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ClientIdOrSecretWithoutMethodError">
+            <summary>
+              Looks up a localized string similar to &apos;ClientId&apos; and &apos;Secret&apos; should only be defined with &apos;AzureKeyVaultAuthMethod:CliendIdSecret&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ClientIdSecretAuthWithoutClientId">
+            <summary>
+              Looks up a localized string similar to &apos;ClientId&apos; must be defined when using &apos;AzureKeyVaultAuthMethod:ClientIdSecret&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.CommandLineHelpHeader">
+             <summary>
+               Looks up a localized string similar to SqlPackage: Command-line tool for creating and deploying SQL Server databases and DACPAC packages. ({0})
+            Copyright (c) {1} Microsoft Corporation.  All rights reserved..
+             </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.CommandUsageHeader">
+            <summary>
+              Looks up a localized string similar to Help for command actions..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ConflictingDoNotDropDatabaseWorkloadGroupsSetting">
+            <summary>
+              Looks up a localized string similar to DoNotDropDatabaseWorkloadGroups conflicts with the selected DoNotDropObjectType.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ConflictingDoNotDropWorkloadClassifierSetting">
+            <summary>
+              Looks up a localized string similar to DoNotDropWorkloadClassifier conflicts with the selected DoNotDropObjectType.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ConflictingExtendedPropertyDropSetting">
+            <summary>
+              Looks up a localized string similar to DropExtendedPropertiesNotInSource conflicts with the selected DoNotDropObjectType ExtendedProperties.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ConflictingPermissionsDropSetting">
+            <summary>
+              Looks up a localized string similar to DropPermissionsNotInSource conflicts with the selected DoNotDropObjectType Permissions.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ConflictingRoleMembershipDropSetting">
+            <summary>
+              Looks up a localized string similar to DropRoleMembersNotInSource conflicts with the selected DoNotDropObjectType RoleMembership.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ConnectingToDatabaseMessage">
+            <summary>
+              Looks up a localized string similar to Connecting to database &apos;{1}&apos; on server &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ConnectionEncryptionInfo">
+            <summary>
+              Looks up a localized string similar to Changes to connection setting default values were incorporated in a recent release.  More information is available at https://aka.ms/dacfx-connection.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ConnectionEncryptionWarningConnectionOptions">
+            <summary>
+              Looks up a localized string similar to The settings for connection encryption or server certificate trust may lead to connection failure if the server is not properly configured..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ConnectionEncryptionWarningConnectionString">
+            <summary>
+              Looks up a localized string similar to The connection string provided contains encryption settings which may lead to connection failure if the server is not properly configured..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.DeployOrReportPathNotSupportedWhenOutputPathDefined">
+            <summary>
+              Looks up a localized string similar to Property {0} and {1} are not supported if property {2} is defined.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.DeployReportActionDescription">
+            <summary>
+              Looks up a localized string similar to The DeployReport action creates an XML report of the changes that would be made by a publish action..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.DoNotDropRequiresDropObjectsNotInSource">
+            <summary>
+              Looks up a localized string similar to The property DoNotDropObjectTypes may only be set when DropObjectsNotInSource is set to true..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.DoNotSpecifyBothSourceFileAndSourceDatabase">
+            <summary>
+              Looks up a localized string similar to Specify either a source file or a source database, not both..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.DriftReportActionDescription">
+            <summary>
+              Looks up a localized string similar to The DriftReport action creates an XML report of the changes that have been made to a registered database since it was last registered. Note: The login used to perform the Drift Report action must be a member of the sysadmin role on the target server..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.DriftReportSuccessMessage">
+            <summary>
+              Looks up a localized string similar to Successfully generated drift report to file {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.DuplicateArgument">
+            <summary>
+              Looks up a localized string similar to Duplicate &apos;{0}&apos; argument &apos;{1}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.EnumPropertyValues">
+            <summary>
+              Looks up a localized string similar to {{{0}}}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ErrorGeneratingConnectionStringFromProfileMessage">
+            <summary>
+              Looks up a localized string similar to Error parsing connection string from profile {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ErrorInImportOperation">
+            <summary>
+              Looks up a localized string similar to Error importing database:{0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ErrorInReverseEngineerExportOperation">
+            <summary>
+              Looks up a localized string similar to Error exporting database:{0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ErrorInReverseEngineerExtractOperation">
+            <summary>
+              Looks up a localized string similar to Error extracting database:{0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ErrorInvalidOutputPathDirectory">
+            <summary>
+              Looks up a localized string similar to The parent directory of the output path does not exist: {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ErrorInvalidSourceFileExtension">
+            <summary>
+              Looks up a localized string similar to The SourceFile argument must refer to a file with a &apos;{0}&apos; extension..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ErrorInvalidTargetFileDirectory">
+            <summary>
+              Looks up a localized string similar to The parent directory of the target file does not exist: {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ErrorInvalidTargetFileExtension">
+            <summary>
+              Looks up a localized string similar to The TargetFile argument must refer to a file with a &apos;{0}&apos; extension..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ErrorParsingConnectionStringMessage">
+            <summary>
+              Looks up a localized string similar to Error parsing connection string: {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ErrorSavingReportToDisk">
+            <summary>
+              Looks up a localized string similar to Error saving report to disk: {0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ErrorSavingScriptToDisk">
+            <summary>
+              Looks up a localized string similar to Error saving script to disk: {0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ErrorTranslatingFile0">
+            <summary>
+              Looks up a localized string similar to Error translating file:{0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ExportActionDescription">
+            <summary>
+              Looks up a localized string similar to The Export action creates a logical copy of a database (both the database schema as well as the data stored in the tables) from SQL Server or Microsoft Azure SQL Database to a BACPAC package (.bacpac file). When exporting from SQL Server, the database contents are verified to ensure that they are compatible with Microsoft Azure SQL Database..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ExportReverseEngineerSuccess">
+            <summary>
+              Looks up a localized string similar to Successfully exported database and saved it to file &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ExtractActionDescription">
+            <summary>
+              Looks up a localized string similar to The Extract action creates a database snapshot (.dacpac) file from a live SQL Server or Microsoft Azure SQL Database. Extract copies the database schema and, optionally, the data stored in the tables into the resulting dacpac file..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ExtractingDatabase">
+            <summary>
+              Looks up a localized string similar to Extracting database &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ExtractReverseEngineerSuccess">
+            <summary>
+              Looks up a localized string similar to Successfully extracted database and saved it to file &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.GeneratingDriftReport">
+            <summary>
+              Looks up a localized string similar to Generating drift report for database &apos;{1}&apos; on server &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.GeneratingReport">
+            <summary>
+              Looks up a localized string similar to Generating report for database &apos;{1}&apos; on server &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.GeneratingReportNoServer">
+            <summary>
+              Looks up a localized string similar to Generating report for database &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.GeneratingScript">
+            <summary>
+              Looks up a localized string similar to Generating publish script for database &apos;{1}&apos; on server &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.GeneratingScriptNoServer">
+            <summary>
+              Looks up a localized string similar to Generating publish script for database &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.HashesFileFormat">
+            <summary>
+              Looks up a localized string similar to {0}_hashes.txt.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.HashToOriginal">
+            <summary>
+              Looks up a localized string similar to {0} : {1}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ImportActionDescription">
+            <summary>
+              Looks up a localized string similar to The Import action deploys the schema and table data from a BACPAC file into a new user database in an instance of SQL Server or Microsoft Azure SQL Database..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ImportingToDatabase">
+            <summary>
+              Looks up a localized string similar to Importing to database &apos;{1}&apos; on server &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ImportSuccessMessage">
+            <summary>
+              Looks up a localized string similar to Successfully imported database..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.InvalidArgumentForAction">
+            <summary>
+              Looks up a localized string similar to &apos;{0}&apos; is not a valid argument for the &apos;{1}&apos; action..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.InvalidArgumentForSchemaComparisonPublish">
+            <summary>
+              Looks up a localized string similar to When the source file for a publish action is a schema comparison .scmp file, only the SourceFile argument may be specified. No other arguments may be specified..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.InvalidArgumentForSchemaComparisonScript">
+            <summary>
+              Looks up a localized string similar to When the source file for a script action is a schema comparison .scmp file, only the OutputPath argument may be specified. No other arguments may be specified..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.InvalidArgumentValue">
+            <summary>
+              Looks up a localized string similar to Argument &apos;{0}&apos; has an invalid value: &apos;{1}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.InvalidConnectionString">
+            <summary>
+              Looks up a localized string similar to Error creating connection string : {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.InvalidDeployPropertyValue">
+            <summary>
+              Looks up a localized string similar to Property {0} has an invalid value: {1}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.InvalidEnumListPropertyValue">
+            <summary>
+              Looks up a localized string similar to The property {0} has invalid value &apos;{1}&apos;. Please pass in a semicolon-separated list of values. See Microsoft.SqlServer.Dac.ObjectType documentation for supported values..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.InvalidEnumPropertyValue">
+            <summary>
+              Looks up a localized string similar to The property {0} has invalid value &apos;{1}&apos;. See Microsoft.SqlServer.Dac.ObjectType documentation for supported values..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.InvalidPropertySpecification">
+            <summary>
+              Looks up a localized string similar to The specified property &apos;{0}&apos; is not valid.  Properties are specified as name=value..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.InvalidServerVersionSpecified0">
+            <summary>
+              Looks up a localized string similar to The specified server version is invalid. Select a server version from the set of ({0})..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.MissingArgumentForAction">
+            <summary>
+              Looks up a localized string similar to The {0} argument is required for the {1} action..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.MissingRequiredArgument">
+            <summary>
+              Looks up a localized string similar to Missing required argument &apos;&lt;{0}&gt;&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ModelFilePathDoesNotExist">
+            <summary>
+              Looks up a localized string similar to The specified model file path &apos;{0}&apos; does not exist..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ModelWriteToDiskFailed">
+            <summary>
+              Looks up a localized string similar to An exception occurred while writing the database snapshot (.dacpac) file to disk: {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.OperationDoesNotsuportDBSourceAndTargetMessage">
+            <summary>
+              Looks up a localized string similar to Operation {0} does not support source and target being a database..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.OperationRequiresDatabaseSourceMessage">
+            <summary>
+              Looks up a localized string similar to Operation {0} requires that a database source be defined..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.OperationRequiresMissingParameter">
+            <summary>
+              Looks up a localized string similar to Operation {0} requires a value for the {1} parameter..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.OperationRequiresOneOfManyOptions">
+            <summary>
+              Looks up a localized string similar to At least one of the properties {0} must be specified for this operation..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.OperationRequiresSourceMessage">
+            <summary>
+              Looks up a localized string similar to Operation {0} requires that the source be defined..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.OperationRequiresTargetDatabase">
+            <summary>
+              Looks up a localized string similar to Operation {0} requires a target database name..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.OperationRequiresTargetMessage">
+            <summary>
+              Looks up a localized string similar to Operation {0} requires that the target be defined..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.OutputPathAlreadyExists">
+            <summary>
+              Looks up a localized string similar to The output file {0} already exists. Specify /p:OverwriteFiles=true to overwrite the file..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.PropertiesHelpHeader">
+            <summary>
+              Looks up a localized string similar to Help for dynamic property usage..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.PropertyUsageHeader">
+            <summary>
+              Looks up a localized string similar to Properties specific to the {0} action:.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.PublishActionDescription">
+            <summary>
+              Looks up a localized string similar to The Publish action incrementally updates a database schema to match the schema of a source .dacpac file. If the database does not exist on the server, the publish operation will create it. Otherwise, an existing database will be updated..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.PublishingToDatabase">
+            <summary>
+              Looks up a localized string similar to Publishing to database &apos;{1}&apos; on server &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.PublishSuccessMessage">
+            <summary>
+              Looks up a localized string similar to Successfully published database..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ReadResponseFileForMoreOptions">
+            <summary>
+              Looks up a localized string similar to Read response file for more options..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ReportSuccessMessage">
+            <summary>
+              Looks up a localized string similar to Successfully generated report to file {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ScriptActionDescription">
+            <summary>
+              Looks up a localized string similar to The Script action creates a Transact-SQL incremental update script that updates the schema of a target to match the schema of a source..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ScriptSuccessMessage">
+            <summary>
+              Looks up a localized string similar to Successfully generated script to file {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.SourceConnectionStringExclusiveError">
+            <summary>
+              Looks up a localized string similar to The SourceConnectionString argument cannot be used in conjunction with any other Source database arguments..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.StartingSchemaCompare">
+            <summary>
+              Looks up a localized string similar to Performing schema comparison from file {0}....
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.TargetConnectionStringExclusiveError">
+            <summary>
+              Looks up a localized string similar to The TargetConnectionString argument cannot be used in conjunction with any other Target database arguments..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.TargetFileRequiredByActionMessage">
+            <summary>
+              Looks up a localized string similar to Operation {0} requires a target file be defined..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.TimeElapsed">
+            <summary>
+              Looks up a localized string similar to Time elapsed {0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.TranslationRequiresTargetFile">
+            <summary>
+              Looks up a localized string similar to The translate action requires a target file argument..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.UnbalancedSlashInCommandFile">
+            <summary>
+              Looks up a localized string similar to Error: Unbalanced &apos;\&apos; in command line argument file &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.UnexpectedFailure">
+            <summary>
+              Looks up a localized string similar to An unexpected failure occurred: {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.UniversalAuthAadErrorMessage">
+            <summary>
+              Looks up a localized string similar to Call to Azure Active Directory failed. Exception: {0}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.UniversalAuthAzureCloudConfigErrorMessage">
+            <summary>
+              Looks up a localized string similar to Invalid Azure Cloud Config values..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.UniversalAuthInvalidDomainName">
+            <summary>
+              Looks up a localized string similar to The server name does not contain a valid domain name. .
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.UniversalAuthParameterErrorMessage">
+            <summary>
+              Looks up a localized string similar to Mismatched Universal Authentication parameters..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.UniversalAuthScmpFileNotSupported">
+            <summary>
+              Looks up a localized string similar to Universal Authentication is not supported with schema comparison files..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.UnrecognizedArgument">
+            <summary>
+              Looks up a localized string similar to Unrecognized command line argument &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.UnspecifiedFormatOfTableData">
+            <summary>
+              Looks up a localized string similar to Argument &apos;TableData&apos; has an invalid value: &apos;{0}&apos;. Table to extract data from must be specified using the two-part table name format: schema_name.table_identifier..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.UnsupportedDBSourceAndFileTarget">
+            <summary>
+              Looks up a localized string similar to The {0} Action does not support a source database and a target file..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.UnsupportedProperty">
+            <summary>
+              Looks up a localized string similar to Property {0} is not supported..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.UnsupportedPropertyType">
+            <summary>
+              Looks up a localized string similar to The property {0} has an unsupported data type: {1}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.UnusedProperty">
+            <summary>
+              Looks up a localized string similar to The specified property {0} could not be used..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ValidServerVersionRequired0">
+            <summary>
+              Looks up a localized string similar to A valid server version argument from the set of ({0}) is required..
+            </summary>
+        </member>
+        <member name="T:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.AccessToken">
+            <summary>
+              Looks up a localized string similar to Specifies the token-based authentication access token to use when connect to the target database..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.Action">
+            <summary>
+              Looks up a localized string similar to Specifies the action to be performed..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.AzureCloudConfig">
+            <summary>
+              Looks up a localized string similar to Specifies the custom endpoints for connecting to Azure Active Directory in the format: &quot;AzureActiveDirectoryAuthority={value};DatabaseServicePrincipalName={value}&quot;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.AzureKeyVaultAuthMethod">
+            <summary>
+              Looks up a localized string similar to Specifies what authentication method is used for accessing Azure Key Vault if a publish operation includes modifications to an encrypted table/column..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.Bacpac250IsNotSupported">
+            <summary>
+              Looks up a localized string similar to BACPAC version 2.5 is not supported..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.ClientId">
+            <summary>
+              Looks up a localized string similar to Specifies the Client ID to be used in authenticating against Azure Key Vault, when necessary.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.DacApplicationDescription">
+            <summary>
+              Looks up a localized string similar to Defines the Application description to be stored in the DACPAC metadata..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.DacApplicationDescription_FriendlyName">
+            <summary>
+              Looks up a localized string similar to DAC Application Description.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.DacApplicationName">
+            <summary>
+              Looks up a localized string similar to Defined the Application name to be stored in the DACPAC metadata. The default value is the database name..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.DacApplicationName_FriendlyName">
+            <summary>
+              Looks up a localized string similar to Dac application name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.DacMajorVersion">
+            <summary>
+              Looks up a localized string similar to Defines the major version to be stored in the DACPAC metadata..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.DacMajorVersion_FriendlyName">
+            <summary>
+              Looks up a localized string similar to Dac minor ersion.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.DacMinorVersion">
+            <summary>
+              Looks up a localized string similar to Defines the minor version to be stored in the DACPAC metadata..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.DacMinorVersion_Friendlyname">
+            <summary>
+              Looks up a localized string similar to Dac minor version.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.Dacpac250IsNotSupported">
+            <summary>
+              Looks up a localized string similar to DACPAC version 2.5 is not supported..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.DatabaseElementCache">
+            <summary>
+              Looks up a localized string similar to Specifies how elements are stored when building the database model. For performance reasons the default is InMemory. For large databases, File backed storage may be required and is only available for .NET Framework version of SqlPackage..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.DeployReportPath">
+            <summary>
+              Looks up a localized string similar to Specifies an optional file path to output the deployment report xml file..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.DeployScriptPath">
+            <summary>
+              Looks up a localized string similar to Specifies an optional file path to output the deployment script. For Azure deployments, if there are TSQL commands to create or modify the master database, a script will be written to the same path but with &quot;Filename_Master.sql&quot; as the output file name..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.Diagnostics">
+            <summary>
+              Looks up a localized string similar to Specifies whether diagnostic logging is output to the console. Defaults to False..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.DiagnosticsFile">
+            <summary>
+              Looks up a localized string similar to Specifies a file to store diagnostic logs..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.DoNotDropObjectType">
+            <summary>
+              Looks up a localized string similar to An object type that should not be dropped when DropObjectsNotInSource is true. Valid object type names are {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.DoNotDropObjectType_FriendlyName">
+            <summary>
+              Looks up a localized string similar to Do not drop object type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.DoNotDropObjectTypes">
+            <summary>
+              Looks up a localized string similar to A semicolon-delimited list of object types that should not be dropped when DropObjectsNotInSource is true. Valid object type names are {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.DoNotDropObjectTypes_FriendlyName">
+            <summary>
+              Looks up a localized string similar to Do not drop object types.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.ExcludeObjectType">
+            <summary>
+              Looks up a localized string similar to An object type that should be ignored during deployment. Valid object type names are {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.ExcludeObjectType_FriendlyName">
+            <summary>
+              Looks up a localized string similar to Exclude object type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.ExcludeObjectTypes">
+            <summary>
+              Looks up a localized string similar to A semicolon delimited list of object types that should be ignored during deployment. Valid object type names are {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.ExcludeObjectTypes_FriendlyName">
+            <summary>
+              Looks up a localized string similar to Exclude object types.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.HashObjectNamesInLogs">
+            <summary>
+              Looks up a localized string similar to Specifies whether to replace all object names in logs with a random hash value..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.HashObjectNamesInLogs_FriendlyName">
+            <summary>
+              Looks up a localized string similar to Hash object names.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.InputFile">
+            <summary>
+              Looks up a localized string similar to Read response file for more options..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.MaxParallelism">
+            <summary>
+              Looks up a localized string similar to Specifies the degree of parallelism for concurrent operations running against a database. The default value is 8..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.ModelFilePath">
+            <summary>
+              Looks up a localized string similar to Specifies the file path to override the model.xml in the source file. Use of this setting may result in deployment failure and/or unintended data loss. This setting is intended only for use when troubleshooting issues with publish, import, or script generation..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.OutputPath">
+            <summary>
+              Looks up a localized string similar to Specifies the file path where the output files are generated..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.OverwriteFiles">
+            <summary>
+              Looks up a localized string similar to Specifies if SqlPackage.exe should overwrite existing files. Specifying false causes SqlPackage.exe to abort action if an existing file is encountered. Default value is True..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.Profile">
+            <summary>
+              Looks up a localized string similar to Specifies the file path to a DAC Publish Profile. The profile defines a collection of properties and variables to use when generating outputs..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.Properties">
+            <summary>
+              Looks up a localized string similar to Specifies a name-value pair for an action specific property; {PropertyName}={Value}. Refer to the help for a specific action to see that action’s property names.  Example: `sqlpackage.exe /Action:Publish /?`..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.Properties_onlineAddendum">
+            <summary>
+              Looks up a localized string similar to Read more about [action-specific properties](#properties-specific-to-the-publish-action)..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.Quiet">
+            <summary>
+              Looks up a localized string similar to Specifies whether detailed feedback is suppressed. Defaults to False..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.ReferencePaths">
+            <summary>
+              Looks up a localized string similar to Specifies the additional directories to search for .dacpac references..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.Secret">
+            <summary>
+              Looks up a localized string similar to Specifies the Client Secret to be used in authenticating against Azure Key Vault, when necessary.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.SourceConnectionString">
+            <summary>
+              Looks up a localized string similar to Specifies a valid SQL Server/Azure connection string to the source database. If this parameter is specified, it shall be used exclusively of all other source parameters..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.SourceDatabaseName">
+            <summary>
+              Looks up a localized string similar to Defines the name of the source database..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.SourceEncryptConnection">
+            <summary>
+              Looks up a localized string similar to Specifies if SQL encryption should be used for the source database connection..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.SourceFile">
+            <summary>
+              Looks up a localized string similar to Specifies a source file to be used as the source of action instead of a database. For the Publish and Script actions, SourceFile may be a .dacpac file or a schema compare .scmp file. If this parameter is used, no other source parameter is valid..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.SourceHostNameInCertificate">
+            <summary>
+              Looks up a localized string similar to Specifies value that is used to validate the source SQL Server TLS/SSL certificate when the communication layer is encrypted by using TLS..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.SourcePassword">
+            <summary>
+              Looks up a localized string similar to For SQL Server Auth scenarios, defines the password to use to access the source database..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.SourceServerName">
+            <summary>
+              Looks up a localized string similar to Defines the name of the server hosting the source database..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.SourceTimeout">
+            <summary>
+              Looks up a localized string similar to Specifies the timeout for establishing a connection to the source database in seconds..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.SourceTrustServerCertificate">
+            <summary>
+              Looks up a localized string similar to Specifies whether to use TLS to encrypt the source database connection and bypass walking the certificate chain to validate trust..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.SourceUser">
+            <summary>
+              Looks up a localized string similar to For SQL Server Auth scenarios, defines the SQL Server user to use to access the source database..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TableData">
+            <summary>
+              Looks up a localized string similar to Indicates the table from which data will be extracted. Specify the table name with or without the brackets surrounding the name parts in the following format: schema_name.table_identifier..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TableData_FriendlyName">
+            <summary>
+              Looks up a localized string similar to Table data.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TargetConnectionString">
+            <summary>
+              Looks up a localized string similar to Specifies a valid SQL Server/Azure connection string to the target database. If this parameter is specified, it shall be used exclusively of all other target parameters..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TargetDatabase">
+            <summary>
+              Looks up a localized string similar to Specifies an override for the name of the database that is the target of the Action..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TargetDatabaseName">
+            <summary>
+              Looks up a localized string similar to Specifies an override for the name of the database that is the target of SqlPackage.exe Action..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TargetEncryptConnection">
+            <summary>
+              Looks up a localized string similar to Specifies if SQL encryption should be used for the target database connection..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TargetFile">
+            <summary>
+              Looks up a localized string similar to Specifies a target file (i.e., a .dacpac files) to be used as the target of action instead of a database. If this parameter is used, no other target parameter shall be valid. This parameter shall be invalid for actions that only support database targets..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TargetHostNameInCertificate">
+            <summary>
+              Looks up a localized string similar to Specifies value that is used to validate the target SQL Server TLS/SSL certificate when the communication layer is encrypted by using TLS..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TargetPassword">
+            <summary>
+              Looks up a localized string similar to For SQL Server Auth scenarios, defines the password to use to access the target database..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TargetServerName">
+            <summary>
+              Looks up a localized string similar to Defines the name of the server hosting the target database..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TargetTimeout">
+            <summary>
+              Looks up a localized string similar to Specifies the timeout for establishing a connection to the target database in seconds. For Azure AD, it is recommended that this value be greater than or equal to 30 seconds..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TargetTrustServerCertificate">
+            <summary>
+              Looks up a localized string similar to Specifies whether to use TLS to encrypt the target database connection and bypass walking the certificate chain to validate trust..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TargetUser">
+            <summary>
+              Looks up a localized string similar to For SQL Server Auth scenarios, defines the SQL Server user to use to access the target database..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TenantId">
+            <summary>
+              Looks up a localized string similar to Represents the Azure AD tenant ID or domain name. This option is required to support guest or imported Azure AD users as well as Microsoft accounts such as outlook.com, hotmail.com, or live.com. If this parameter is omitted, the default tenant ID for Azure AD will be used, assuming that the authenticated user is a native user for this AD. However, in this case any guest or imported users and/or Microsoft accounts hosted in this Azure AD are not supported and the operation will fail..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TenantId_onlineAddendum">
+            <summary>
+              Looks up a localized string similar to &lt;br/&gt; For more information about Active Directory Universal Authentication, see [Universal Authentication with SQL Database and Azure Synapse Analytics (SSMS support for MFA)](/azure/sql-database/sql-database-ssms-mfa-authentication)..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.ThreadMaxStackSize">
+            <summary>
+              Looks up a localized string similar to Specifies the maximum size in megabytes for the thread running the SqlPackage.exe action. This option should only be used when encountering stack overflow exceptions that occur when parsing very large TSQL statements..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TranslateToCompatibilityMode">
+            <summary>
+              Looks up a localized string similar to Specifies how translation should modify the compatibility mode..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TranslateToCompatibilityMode_FriendlyName">
+            <summary>
+              Looks up a localized string similar to Translate to compatibility mode.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TranslateToServerVersion">
+            <summary>
+              Looks up a localized string similar to Specifies the version of SQL Server to which the source will be translated..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TranslateToServerVersion_FriendlyName">
+            <summary>
+              Looks up a localized string similar to Translate to target server.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TranslateWhenNot">
+            <summary>
+              Looks up a localized string similar to Specifies a semicolon separated list of server versions that are allowed. If the source file or server&apos;s platform is among the specified version, then translation is not performed..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TranslateWhenNot_FriendlyName">
+            <summary>
+              Looks up a localized string similar to Translate when not.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.UniversalAuthentication">
+            <summary>
+              Looks up a localized string similar to Specifies if Universal Authentication should be used. When set to True, the interactive authentication protocol is activated supporting MFA. This option can also be used for Azure AD authentication without MFA, using an interactive protocol requiring the user to enter their username and password or integrated authentication (Windows credentials). When /UniversalAuthentication is set to True, no Azure AD authentication can be specified in SourceConnectionString (/scs). When /UniversalAuthentication is set to [rest of string was truncated]&quot;;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.UniversalAuthentication_onlineAddendum">
+            <summary>
+              Looks up a localized string similar to &lt;br/&gt; For more information about Active Directory Universal Authentication, see [Universal Authentication with SQL Database and Azure Synapse Analytics (SSMS support for MFA)](/azure/sql-database/sql-database-ssms-mfa-authentication)..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.UnsupportedAction">
+            <summary>
+              Looks up a localized string similar to The {0} action is not supported by the {1} package..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.Variables">
+            <summary>
+              Looks up a localized string similar to Specifies a name value pair for an action-specific variable; {VariableName}={Value}. The DACPAC file contains the list of valid SQLCMD variables. An error results if a value is not provided for every variable..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.Version">
+            <summary>
+              Looks up a localized string similar to Display the tool version in use..
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceUtil.HandleConnectionEncryptionWarning(Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineArguments,System.Exception)">
+            <summary>
+            Checks if there was any connection encrypt error happened and shows a warning based of the type of argument user passed for connection
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceUtil.GetInvocationTargetForProperty(System.Object,Microsoft.Data.Tools.Schema.CommandLineTool.DeploymentPropertyInfo)">
+            <summary>
+            determine if the invocation target is the object itself or one of its property members
+            when we use reflection to set deployment properties
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceUtil.SetDacServicesLogSettings(Microsoft.SqlServer.Dac.DacServices,Microsoft.Data.Tools.Schema.Common.IStackLogSettingsContext)">
+            <summary>
+            Propagates LogSettings down to a DacServices object.
+            This is necessary as LogSettings may be set at CommandLine and the HashSalt needs to be the same for the operation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.DataVerbUtils.TryParseSchemaObjectNames(System.String[],System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}}@,System.Collections.Generic.IEnumerable{System.String}@)">
+            <summary>
+            Parses two part table names.
+            </summary>
+            <param name="twoPartNames">List of two part names to be parsed.</param>
+            <param name="schemaObjects">List of parsed schema and table name tuples.</param>
+            <param name="parseErrors">List of parsing errors.</param>
+            <returns>returns true if all two part names are parsed successfully.</returns>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DeployArguments.UsesOutputPath">
+            <summary>
+            Uses the OutputPath cmdline argument as opposed to the DeployScriptPath or DeployReportPath arguments
+            </summary>
+        </member>
+        <member name="T:Microsoft.Data.Tools.Schema.CommandLineTool.DeploymentPropertyInfo">
+            <summary>
+            The information of a deployment property used by reflection codes
+            </summary>
+        </member>
+        <member name="T:Microsoft.Data.Tools.Schema.CommandLineTool.EncryptOption">
+            <summary>
+            Sql Server connection string Ecrypt parameter
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.EncryptOption.Optional">
+            <summary>
+            Optional Encryption
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.EncryptOption.Mandatory">
+            <summary>
+            Mandatory Encryption
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.EncryptOption.Strict">
+            <summary>
+            Strict Encryption - TDS 8.0 and above
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.EncryptOption.True">
+            <summary>
+            Maps to Mandatory
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.EncryptOption.False">
+            <summary>
+            Maps to Optional
+            </summary>
+        </member>
+        <member name="T:Microsoft.Data.Tools.Schema.CommandLineTool.MessageHandler">
+            <summary>
+            Abstract message handling definition that supports setting program-wide handling of
+            messaging events. Use the <see cref="P:Microsoft.Data.Tools.Schema.CommandLineTool.MessageHandler.Instance"/> method to access the current instance.
+            This should be used in place of Console commands in all code locations
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.ConsoleMessageHandler.Write(Microsoft.SqlServer.Dac.Compatibility.Contracts.PackageServiceMessageType,System.String)">
+            <summary>
+            Writes a message to the console, setting error/warning color and altering the text format to
+            indicate an error/warning as needed
+            string if needed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Program.SetConsoleUI">
+            <summary>
+            This program needs to fallback to English if it cannot print Japanese (or other language) characters
+            The code below was taken from http://netglobe/htmldata/commandline.mht
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Program.LogProgramInformation">
+            <summary>
+            Writes some high level information about the executing program to the diagnostic log.
+            Details include version, process architecture, and .NET platform.
+            </summary>
+            <example>
+            Running 32-bit SqlPackage Version 15.0.5143.2 on .NET Framework
+            Running 64-bit SqlPackage Version 15.0.5143.2 on .NET Core
+            </example>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Program.SetupHashLogSettings(Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineArguments,Microsoft.Data.Tools.Schema.Common.IStackLogSettingsContext)">
+            <summary>
+            Returns a StreamWriter for the hashes mapping file for the caller to flush and dispose
+            </summary>
+            <param name="parsedArgs"></param>
+            <param name="logSettings"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Program.OutputCustomPropertiesUsage(Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolAction)">
+            <summary>
+            Helper method that outputs custom property usage for all registered DSPs
+            </summary>
+        </member>
+        <member name="T:Microsoft.Data.Tools.Schema.CommandLineTool.SqlPackageBigDataStateProvider">
+            <summary>
+            Sqlpackage implementation for the BigDataStateProvider. 
+            TODO: Add resumability. Currently, state is stored in a ConcurrentDictionary(like the TestBigDataStateProvider), but the state needs to be stored
+            in local storage (or ideally in Azure) to be able to resume an extract or deploy operation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.SqlPackageBigDataStateProvider.TryGetStepStateAsync(System.String,System.String)">
+            <summary>
+            Try get the step state.
+            </summary>
+            <param name="schemaName">Schema name</param>
+            <param name="tableStepName">Table name</param>
+            <returns>DataOperationStepState NotFound if a record was not found for the table step. Otherwise the state.</returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.SqlPackageBigDataStateProvider.MarkStepNotStartedAsync(System.String,System.String)">
+            <summary>
+            Mark the step state as not started, if a step state does not exist yet, add it with value not started.
+            </summary>
+            <param name="schemaName">Schema name</param>
+            <param name="tableStepName">Table name</param>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.SqlPackageBigDataStateProvider.MarkStepStartedAsync(System.String,System.String)">
+            <summary>
+            Mark the step state as started.
+            </summary>
+            <param name="schemaName">Schema name</param>
+            <param name="tableStepName">Table name</param>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.SqlPackageBigDataStateProvider.MarkStepCompleteAsync(System.String,System.String)">
+            <summary>
+            Mark the step state as complete.
+            </summary>
+            <param name="schemaName">Schema name</param>
+            <param name="tableStepName">Table name</param>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.SqlPackageBigDataStateProvider.CleanupDataStorageAsync(System.String,System.String)">
+            <summary>
+            Remove the data for this table in the storage.
+            </summary>
+            <param name="schemaName">Schema name</param>
+            <param name="tableStepName">Table name</param>
+            <returns>True if successful</returns>
+        </member>
+        <member name="T:Microsoft.Data.Tools.Schema.CommandLineTool.AzureCloudName">
+            <summary>
+            Azure cloud names enum
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.AzureCloudName.AzureCloud">
+            <summary>
+            Azure Global Cloud
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.AzureCloudName.AzureGermanCloud">
+            <summary>
+            Azure German Cloud
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.AzureCloudName.AzureUsGovernment">
+            <summary>
+            Azure US Government Cloud
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.AzureCloudName.AzureChinaCloud">
+            <summary>
+            Azure China Cloud
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.AzureCloudName.Custom">
+            <summary>
+            Custom Azure Cloud
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.ValidationUtil.ValidateUniversalAuthArgs(Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineArguments)">
+            <summary>
+            Gets the commandline arguments and checks if the /ua /ti and /acc parameter values conform to the required format
+            </summary>
+            <param name="parsedArgs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.ValidationUtil.ValidateBigDataArgs(Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineArguments)">
+            <summary>
+            Gets the commandline arguments and checks if the required big data arguments are passed if any are passed. These are only valid if the action is 
+            extract and publish, which gets checked in ParseAndValidateProperties()
+            </summary>
+            <param name="parsedArgs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.ValidationUtil.ParseNameValues(System.String[],System.Collections.Generic.IDictionary{System.String,System.Collections.Generic.List{System.String}}@,System.Action{System.String,System.String})">
+            <summary>
+            Parses list of strings into name value pairs on the basis of Separating Character.
+            </summary>
+            <param name="values">List of strings.</param>
+            <param name="nameValues">returns name value pairs.</param>
+            <param name="reportParsedValue">optional delegate which reports all the name value pairs one by one.</param>
+            <returns>Returns true if all strings are parsed in name value pairs successfully.</returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.ValidationUtil.ReportDuplicateProperties(Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineArguments,System.Collections.Generic.HashSet{System.String})">
+            <summary>
+            Reports duplicate properties with corresponding values.
+            This is used only for duplicate properties corresponding to extract and deploy options. Other properties
+            and arguments are being taken care by the argument parser.
+            </summary>
+            <param name="parsedArgs">parsed commandline arguments.</param>
+            <param name="duplicateProperties">list of duplicate properties.</param>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.ValidationUtil.ParseAndValidateProperties(Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolAction,Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineArguments,System.Collections.Generic.IList{System.String}@,System.Collections.Generic.HashSet{System.String}@)">
+            <summary>
+            Parses properties specified in the commandline arguments.
+            </summary>
+            <param name="commandLineAction">action specified in the commandline.</param>
+            <param name="parsedArgs">parsed commandline arguments.</param>
+            <param name="invalidProperties">returns list of properties which are not defined as arguments or properties in the parser.</param>
+            <param name="duplicateProperties">returns list of properties which are specified more than once.</param>
+            <returns>Returns true if property parsing completes without any error.</returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.ValidationUtil.ValidateEnumProperties(Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineProperty)">
+            <summary>
+            Validates the parsed properties contain only valid Enum values.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.ValidationUtil.ValidateProperties(System.Collections.Generic.IList{System.String},System.Collections.Generic.HashSet{System.String},Microsoft.Data.Tools.Schema.CommandLineTool.Parser,System.Collections.Generic.IDictionary{System.String,System.ComponentModel.PropertyDescriptor})">
+            <summary>
+            Validates if parser's IgnoredArguments belong to the validProperties or not and adds the ones which doesn't
+            belong to the validProperties to invalidProperties. While going over all the invalid arguments, it also keeps
+            track of duplication.
+            </summary>
+            <param name="invalidProperties">IgnoredArguments which doesn't belong to validProperties.</param>
+            <param name="duplicateProperties">IgnoredArgumetns which have occured more than once.</param>
+            <param name="propertyParser">property parser.</param>
+            <param name="validProperties">list of valid properties.</param>
+            <returns>Returns true if validation is completed successfully.</returns>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.Compatibility.Contracts.PackageServiceMessageType">
+            <summary>
+            Enum defining message types sendable to the package service.
+            This API must not be changed once it has been shipped as both sides must bind to this
+            service.
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthType">
+            <summary>
+            Defines the supported authentication types that can be passed to SqlPackage
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthType.Interactive">
+            <summary>
+            Authenticate against Azure Key Vault using the standard ADAL popup prompt
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthType.ClientIdSecret">
+            <summary>
+            Authenticate against Azure Key Vault using a client ID/secret pair
+            </summary>
+        </member>
+    </members>
+</doc>

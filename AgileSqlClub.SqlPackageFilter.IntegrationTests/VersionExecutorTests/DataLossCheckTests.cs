@@ -13,7 +13,6 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests.VersionExecutorTests
         [Test]
         public void Schema_Is_Not_Dropped_When_Name_Is_Ignored()
         {
-            new CopyDll(TestContext.CurrentContext.TestDirectory).Fix();
 
             _gateway.RunQuery("IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'blah') exec sp_executesql N'CREATE SCHEMA blah';");
             _gateway.RunQuery("IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'bloobla') exec sp_executesql N'CREATE table blah.bloobla(id int)';");

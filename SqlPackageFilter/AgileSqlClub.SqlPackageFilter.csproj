@@ -1,12 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net4.8;netstandard2.1</TargetFrameworks>
+		<TargetFrameworks>net4.6.2;netstandard2.1</TargetFrameworks>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>disable</Nullable>
 		<RootNamespace>AgileSqlClub.SqlPackageFilter</RootNamespace>
 		<AssemblyName>AgileSqlClub.SqlPackageFilter</AssemblyName>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<LangVersion>8.0</LangVersion>
 	</PropertyGroup>
 
 
@@ -17,16 +18,14 @@
 	</PropertyGroup>
 
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.SqlServer.DacFx" Version="161.6374.0" ExcludeAssets="runtime" />
-	</ItemGroup>
 
 
 	<ItemGroup Condition="$(TargetFramework)=='netstandard2.1'">
+		<PackageReference Include="Microsoft.SqlServer.DacFx" Version="162.0.52" ExcludeAssets="runtime" />
 		<PackageReference Include="System.ComponentModel.Composition" Version="7.0.0" />
 	</ItemGroup>
-	<ItemGroup Condition="$(TargetFramework)=='net4.8'">
-	  <Reference Include="System.ComponentModel.Composition" />
+	<ItemGroup Condition="$(TargetFramework)!='netstandard2.1'">
+		<PackageReference Include="Microsoft.SqlServer.DacFx" Version="161.6374.0" ExcludeAssets="runtime" />
+		<Reference Include="System.ComponentModel.Composition" />
 	</ItemGroup>
 </Project>
-
