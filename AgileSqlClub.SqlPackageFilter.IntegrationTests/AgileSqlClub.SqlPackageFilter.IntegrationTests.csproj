@@ -26,6 +26,11 @@
 
 
 	<ItemGroup>
+	  <ProjectReference Include="..\SqlPackageFilter\AgileSqlClub.SqlPackageFilter.csproj" />
+	</ItemGroup>
+
+
+	<ItemGroup>
 		<Reference Include="System.ComponentModel.Composition" />
 	</ItemGroup>
 
@@ -48,8 +53,8 @@
 
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Copy SourceFiles="$(SolutionDir)SqlPackageFilter\bin\Debug\netstandard2.1\AgileSqlClub.SqlPackageFilter.dll" DestinationFolder="$(OutputPath)SqlPackage.exe" />
-		<Copy SourceFiles="$(SolutionDir)SqlPackageFilter\bin\Debug\net4.6.2\AgileSqlClub.SqlPackageFilter.dll" DestinationFolder="$(OutputPath)SqlPackage.exe.Framework" />
+		<Copy SourceFiles="$(SolutionDir)SqlPackageFilter\bin\$(Configuration)\netstandard2.1\AgileSqlClub.SqlPackageFilter.dll" DestinationFolder="$(OutputPath)SqlPackage.exe" />
+		<Copy SourceFiles="$(SolutionDir)SqlPackageFilter\bin\$(Configuration)\net4.6.2\AgileSqlClub.SqlPackageFilter.dll" DestinationFolder="$(OutputPath)SqlPackage.exe.Framework" />
 
 		<!--Exec Command="COPY &quot;$(OutputPath)AgileSqlClub.SqlPackageFilter.dll&quot; &quot;$(OutputPath)SqlPackage.exe&quot;" /-->
 	</Target>
