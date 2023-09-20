@@ -12,22 +12,29 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
   [ExportDeploymentPlanModifier("AgileSqlClub.DeploymentFilterContributor", "1.4.4.1")]
   public class DeploymentFilter : DeploymentPlanModifier, IDisplayMessageHandler
   {
-    private DisplayMessageLevel _displayLevel = DisplayMessageLevel.Errors;
+    private DisplayMessageLevel _displayLevel = DisplayMessageLevel.Info;
 
     public void ShowMessage(string message, DisplayMessageLevel level)
     {
-      if (_displayLevel >= level)
-        ShowMessage(message);
+        if (level >= _displayLevel)
+        {
+            Severity severity = Severity.Message;
+            if (level == DisplayMessageLevel.Errors)
+            {
+                severity = Severity.Error;
+            }
+            else if (level == DisplayMessageLevel.Warning)
+            {
+                severity = Severity.Warning;
+            }
+            
+            PublishMessage(new ExtensibilityError(message, severity));
+        }
     }
 
     public void SetMessageLevel(DisplayMessageLevel level)
     {
       _displayLevel = level;
-    }
-
-    public void ShowMessage(string message)
-    {
-      PublishMessage(new ExtensibilityError(message, Severity.Message));
     }
 
     protected override void OnExecute(DeploymentPlanContributorContext context)
@@ -50,22 +57,20 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
 
         while (next != null)
         {
-
             var current = next;
             next = current.Next;
-
-#if DEBUG
-            if (_displayLevel == DisplayMessageLevel.Info)
+            
+            if (_displayLevel == DisplayMessageLevel.Debug)
             {
-                ShowMessage($" -- checking filter for a {current.GetType().Name}");
+                ShowMessage($" -- checking filter for a {current.GetType().Name}", DisplayMessageLevel.Debug);
                 if (current is CreateElementStep ce)
                 {
-                    ShowMessage($"    -- for creating a {ce.SourceElement.Name}");
+                    ShowMessage($"    -- for creating a {ce.SourceElement.Name}", DisplayMessageLevel.Debug);
                 }
             }
-#endif
-          var stepDecider = DeploymentStepDecider.Decide(current, decider, this.ShowMessage);
 
+          var stepDecider = DeploymentStepDecider.Decide(current, decider, this.ShowMessage);
+          
           if (stepDecider != null)
           {
             if (stepDecider.Remove)
@@ -75,21 +80,21 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
                     this.AddBefore(context.PlanHandle, current, stepDecider.ReplacementStep);
 
                     Remove(context.PlanHandle, current);
-                    PublishMessage(new ExtensibilityError(
-                        $"Step REPLACED from deployment by SqlPackageFilter, object: {stepDecider.ObjectName}, step type: {stepDecider.StepType} , replaced with type: {stepDecider.ReplacementStep}",
-                        Severity.Message));
+                    ShowMessage($"Step REPLACED from deployment by SqlPackageFilter, object: {stepDecider.ObjectName}, step type: {stepDecider.StepType} , replaced with type: {stepDecider.ReplacementStep}",
+                        DisplayMessageLevel.Info);
                 }
                 else
                 {
 
                     Remove(context.PlanHandle, current);
-                    PublishMessage(new ExtensibilityError(
-                        $"Step removed from deployment by SqlPackageFilter, object: {stepDecider.ObjectName}, step type: {stepDecider.StepType}",
-                        Severity.Message));
+                    ShowMessage($"Step removed from deployment by SqlPackageFilter, object: {stepDecider.ObjectName}, step type: {stepDecider.StepType}",
+                        DisplayMessageLevel.Info);
                 }
             }
-            else if (_displayLevel == DisplayMessageLevel.Info)
-              PublishMessage(new ExtensibilityError($"Step has not been removed from deployment, object: {stepDecider.ObjectName} type: {stepDecider.StepType}", Severity.Message));
+            else
+            {
+                ShowMessage($"Step has not been removed from deployment, object: {stepDecider.ObjectName} type: {stepDecider.StepType}", DisplayMessageLevel.Debug);
+            }
 
           }
         }
@@ -98,8 +103,8 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
       }
       catch (Exception e)
       {
-        //global exception as we don't want to break sqlpackage.exe
-        PublishMessage(new ExtensibilityError($"Error in DeploymentFilter: {e.Message}\r\nStack: {e.StackTrace}", Severity.Error));
+          ShowMessage($"Error in DeploymentFilter: {e.Message}\r\nStack: {e.StackTrace}", DisplayMessageLevel.Errors);
+          throw;
       }
     }
   }
