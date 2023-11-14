@@ -25,7 +25,7 @@ Ok so the way the DacFx api works is it needs to load the contributor dlls. It c
 
 ```
 /p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor 
-/p:AdditionalDeploymentContributorPath=C:\dac160tools\
+/p:AdditionalDeploymentContributorPaths=C:\dac160tools\
 ```
 
 **Note:** Windows may block the AgileSqlClub.DeploymentFilterContributor.dll after downloading.  You will need to view the file properties and *Unblock* it.
