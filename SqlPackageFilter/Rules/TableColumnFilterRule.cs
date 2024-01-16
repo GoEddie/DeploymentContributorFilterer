@@ -22,15 +22,11 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
             if (match.Contains(','))
             {
                 _schemaForMatch = match.SplitAtFirst(',').First();
-#if DEBUG
-                _deploymentFilter?.ShowMessage($" -> Table Column Filter - schema: {_schemaForMatch}, rule: {Match}, ");
-#endif
+                _deploymentFilter?.ShowMessage($" -> Table Column Filter - schema: {_schemaForMatch}, rule: {Match}, ", DisplayMessageLevel.Debug);
             }
             else
             {
-#if DEBUG
-                _deploymentFilter?.ShowMessage($" -> Table Column Filter - Single part rule: {match} ");
-#endif
+                _deploymentFilter?.ShowMessage($" -> Table Column Filter - Single part rule: {match} ", DisplayMessageLevel.Debug);
             }
         }
 
@@ -73,7 +69,7 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
                 var targetTable = string.Join(".", sts.TargetTable?.Name?.Parts ?? Enumerable.Empty<string>());
                 _deploymentFilter?.ShowMessage(sts.TargetTable == null
                     ? $@"  - REMOVED: SqlTableMigrationStep for {sourceTable}"
-                    : $@"  - REMOVED: SqlTableMigrationStep for {sourceTable} => currently = {targetTable}");
+                    : $@"  - REMOVED: SqlTableMigrationStep for {sourceTable} => currently = {targetTable}", DisplayMessageLevel.Info);
                 //#endif
 
 
@@ -116,16 +112,16 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
             foreach (var alterTableDropTableElement in toRemove)
             {
                 dropTableElementStatement.AlterTableDropTableElements.Remove(alterTableDropTableElement);
-                _deploymentFilter?.ShowMessage($" -- Keeping {name}.[{alterTableDropTableElement.Name.Value}]");
+                _deploymentFilter?.ShowMessage($" -- Keeping {name}.[{alterTableDropTableElement.Name.Value}]", DisplayMessageLevel.Info);
             }
        
             if (dropTableElementStatement.AlterTableDropTableElements.Count > 0)
             {
                 foreach (var keptElement in dropTableElementStatement.AlterTableDropTableElements)
                 {
-                    _deploymentFilter?.ShowMessage($"keeping {keptElement.Name.Value}");
+                    _deploymentFilter?.ShowMessage($"keeping {keptElement.Name.Value}", DisplayMessageLevel.Info);
                 }
-                _deploymentFilter?.ShowMessage($" - cleaned statements");
+                _deploymentFilter?.ShowMessage($" - cleaned statements", DisplayMessageLevel.Info);
                 return false;
             }  //This is a strange one, we remove the bits we want from the drop table element but there might be other things like constraints that should be dropped
 
