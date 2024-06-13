@@ -72,7 +72,7 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
             {
                 if (stepDecider.ReplacementStep != null)
                 {
-                    this.AddBefore(context.PlanHandle, current, stepDecider.ReplacementStep);
+                    AddBefore(context.PlanHandle, current, stepDecider.ReplacementStep);
 
                     Remove(context.PlanHandle, current);
                     PublishMessage(new ExtensibilityError(
