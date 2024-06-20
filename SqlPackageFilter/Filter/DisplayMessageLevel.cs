@@ -2,8 +2,10 @@
 {
     public enum DisplayMessageLevel
     {
-        None,
-        Errors,
-        Info
+        None = 0,
+        Debug = 1,
+        Info = 3,
+        Warning = 4,
+        Errors = 5
     }
 }

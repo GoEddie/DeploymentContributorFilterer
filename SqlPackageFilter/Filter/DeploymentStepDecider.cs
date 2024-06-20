@@ -10,7 +10,7 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
 {
   public static class DeploymentStepDecider
   {
-    public static DeploymentStepDecision Decide(DeploymentStep step, KeeperDecider decider, Action<string> logSink)
+    public static DeploymentStepDecision Decide(DeploymentStep step, KeeperDecider decider, Action<string, DisplayMessageLevel> logSink)
     {
       return RemoveCreateElement(step, decider, logSink) ?? 
              RemoveDropStep(step, decider) ?? 
@@ -30,7 +30,7 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
     }
 
     private static List<string> DroppedObjects = new List<string>();
-    private static DeploymentStepDecision RemoveAlterStep(DeploymentStep step, KeeperDecider decider, Action<string> logSink)
+    private static DeploymentStepDecision RemoveAlterStep(DeploymentStep step, KeeperDecider decider, Action<string, DisplayMessageLevel> logSink)
     {
         if (!(step is AlterElementStep alterStep)) return null;
 
@@ -40,7 +40,7 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
       var objectName = alterStep.TargetElement?.Name?.ToString() ?? "";
       if (remove && alterStep is SqlTableMigrationStep)
       {
-          logSink($"    -- {objectName} flagged for future consideration");
+          logSink($"    -- {objectName} flagged for future consideration", DisplayMessageLevel.Info);
           DroppedObjects.Add(objectName);
       }
 
@@ -62,7 +62,7 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
       };
     }
 
-    private static DeploymentStepDecision RemoveCreateElement(DeploymentStep step, KeeperDecider decider, Action<string> logSink)
+    private static DeploymentStepDecision RemoveCreateElement(DeploymentStep step, KeeperDecider decider, Action<string, DisplayMessageLevel> logSink)
     {
         if (!(step is CreateElementStep createStep)) return null;
             var shouldRemove = decider.ShouldRemoveFromPlan(createStep.SourceElement?.Name ?? new ObjectIdentifier(),
@@ -78,11 +78,11 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
             {
                 replaceDeploymentStep = new TryDropIndexDeploymentStep(createStep);
                 logSink(
-                    $"    -- {objectName} of type {createStep.SourceElement.ObjectType.Name} has been replaced with an alternate {replaceDeploymentStep.GetType().Name}");
+                    $"    -- {objectName} of type {createStep.SourceElement.ObjectType.Name} has been replaced with an alternate {replaceDeploymentStep.GetType().Name}", DisplayMessageLevel.Info);
             }
             else
             {
-                logSink($"    -- {objectName} of type {createStep.SourceElement?.ObjectType.Name ?? "<unknown>"} has a dependency but not replacement");
+                logSink($"    -- {objectName} of type {createStep.SourceElement?.ObjectType.Name ?? "<unknown>"} has a dependency but not replacement", DisplayMessageLevel.Info);
 
             }
         }
