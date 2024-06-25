@@ -51,6 +51,11 @@ jobs:
     #  with: 
     #    testAssembly: AgileSqlClub.SqlPackageFilter.UnitTests.dll
     #    searchFolder: ./AgileSqlClub.SqlPackageFilter.UnitTests/bin/${{ matrix.configuration }}/net6/
+    - name: Execute unit tests
+      uses: rusty-bender/vstest-action@main
+      with: 
+        testAssembly: AgileSqlClub.SqlPackageFilter.UnitTests.dll
+        searchFolder: ./AgileSqlClub.SqlPackageFilter.UnitTests/bin/${{ matrix.configuration }}/net6/
         
     # Upload the package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
