@@ -59,15 +59,9 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                 }
                 else
                 {
-                    deploymentFilter.ShowMessage($" - adding ruleDefinition: {ruleDefinition.FilterType}");
+                    deploymentFilter.ShowMessage($" - adding ruleDefinition: {rule.Operation()} {ruleDefinition.FilterType}");
                     rules.Add(rule);
                 }
-            }
-
-            foreach (var filterRule in rules)
-            {
-                deploymentFilter.ShowMessage($"unknown type for ruleDefinition: {filterRule.Operation()}");
-
             }
 
             return rules;
