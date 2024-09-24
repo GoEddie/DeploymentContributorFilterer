@@ -55,19 +55,13 @@ namespace AgileSqlClub.SqlPackageFilter.Config
 
                 if (rule == null)
                 {
-                    deploymentFilter.ShowMessage($" - unknown type for ruleDefinition: {ruleDefinition.Match}");
+                    deploymentFilter.ShowMessage($" - unknown type for ruleDefinition: {ruleDefinition.Match}", DisplayMessageLevel.Warning);
                 }
                 else
                 {
-                    deploymentFilter.ShowMessage($" - adding ruleDefinition: {ruleDefinition.FilterType}");
+                    deploymentFilter.ShowMessage($" - adding ruleDefinition: {ruleDefinition.FilterType}", DisplayMessageLevel.Info);
                     rules.Add(rule);
                 }
-            }
-
-            foreach (var filterRule in rules)
-            {
-                deploymentFilter.ShowMessage($"unknown type for ruleDefinition: {filterRule.Operation()}");
-
             }
 
             return rules;
@@ -88,12 +82,12 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                     {
                         var rule = new CommandLineFilterParser(_messageHandler).GetDefinitions(arg.Value);
                         rules.Add(rule);
-                        deploymentFilter.ShowMessage($" - Command Line Filter: {arg.Value}");
+                        deploymentFilter.ShowMessage($" - Command Line Filter: {arg.Value}", DisplayMessageLevel.Info);
                     }
 
                     if (definitionType == FilterDefinitionType.XmlFile)
                     {
-                        deploymentFilter.ShowMessage($" - Loading Filters from file: {arg.Value}");
+                        deploymentFilter.ShowMessage($" - Loading Filters from file: {arg.Value}", DisplayMessageLevel.Info);
                         rules.AddRange(
                             new XmlFilterParser(new FileGateway(), _messageHandler).GetDefinitions(arg.Value));
                     }
@@ -110,7 +104,7 @@ namespace AgileSqlClub.SqlPackageFilter.Config
                 catch (Exception e)
                 {
                     deploymentFilter.ShowMessage(string.Format("Error decoding command line arg: {0}, error: {1}",
-                        arg.Value, e.Message));
+                        arg.Value, e.Message), DisplayMessageLevel.Errors);
                 }
             }
 

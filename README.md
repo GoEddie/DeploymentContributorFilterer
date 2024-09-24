@@ -88,14 +88,16 @@ When you have decided on the filter you use need to pass it to SqlPackage.exe us
 ```
 
 You can specify multiple filters by seperating them with a semi colon so and adding a uniqeifier to the end of each arg name:
-
 ```
 /p:AdditionalDeploymentContributorArguments="SqlPackageFilter0=KeepSecurity;SqlPackageFilter1=IgnoreSchema(dev)"
 ```
 
 (The reason for the uniqueifier is detailed: https://connect.microsoft.com/SQLServer/feedback/details/1112969)
 
-
+To lower the logging verbosity you can set the logging level to errors only using:
+```
+/p:AdditionalDeploymentContributorArguments="SqlPackageLogging=Errors;..."
+```
 
 
 ### Contributing

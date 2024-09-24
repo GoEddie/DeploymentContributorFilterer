@@ -17,7 +17,6 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
         : base(operation, ".*", matchType)
         {
             _df = df;
-            _df?.ShowMessage("multipart filtering : {name.ToString()} : {matches}");
 
             // This assumes that a literal ',' never appears in a part name.
             _matchParts = Array.ConvertAll(match.Split(Separator), s => new Regex(s, RegexOptions.Compiled));
@@ -40,7 +39,7 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
                     break;
                 }
             }
-            _df?.ShowMessage($"multipart filtering : {string.Join(",",name.Parts)} : {matches}");
+            _df?.ShowMessage($"multipart filtering : {string.Join(",",name.Parts)} : {matches}", DisplayMessageLevel.Debug);
 
             if (matches && MatchType == MatchType.DoesMatch)
                 return true;
