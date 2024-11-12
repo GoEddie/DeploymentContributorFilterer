@@ -1,7 +1,8 @@
 ﻿CREATE TABLE [dbo].[Employees]
 (
 	[EmployeeId] INT NOT NULL PRIMARY KEY,
-	[Name] VARCHAR(25) NOT NULL default  'aaaaa'
+	[Name] VARCHAR(25) NOT NULL default  'aaaaa',
+	[Age] int CONSTRAINT df$EmployeeName DEFAULT (0) NOT NULL 
 )
 
 GO
