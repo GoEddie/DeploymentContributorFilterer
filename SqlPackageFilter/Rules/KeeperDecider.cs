@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using AgileSqlClub.SqlPackageFilter.DacExtensions;
 using AgileSqlClub.SqlPackageFilter.Filter;
 using Microsoft.SqlServer.Dac.Deployment;
 using Microsoft.SqlServer.Dac.Model;
@@ -29,7 +31,7 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
         /// <param name="stepType"></param>
         /// <param name="step"></param>
         /// <returns></returns>
-        public bool ShouldRemoveFromPlan(ObjectIdentifier name, ModelTypeClass objectType, StepType stepType, DeploymentStep step = null)
+        public bool ShouldRemoveFromPlan(ObjectIdentifier name, ModelTypeClass objectType, StepType stepType, DeploymentStep step = null, Action<string, DisplayMessageLevel> logSink = null)
         {
 
             if (stepType == StepType.Other)
@@ -41,17 +43,19 @@ namespace AgileSqlClub.SqlPackageFilter.Rules
                 
                 if (operation == FilterOperation.Ignore && rule.Matches(name, objectType))
                 {
+                    if (logSink != null) logSink($"Rule {rule.GetType().FullName} : Ignore operation, rule matches {name} {objectType}", DisplayMessageLevel.Debug);
                     return true;
                 }
 
                 if (operation == FilterOperation.Keep && stepType == StepType.Drop && rule.Matches(name, objectType))
                 {
-
+                    if (logSink != null) logSink($"Rule {rule.GetType().FullName} : Keep operation, Step is Drop, rule matches {name} {objectType}", DisplayMessageLevel.Debug);
                     return true;
                 }
 
                 if (operation == FilterOperation.Keep && stepType == StepType.Alter && rule.Matches(name, objectType, step))  
                 {
+                    if (logSink != null) logSink($"Rule {rule.GetType().FullName} : Ignore operation, step is Alter, rule matches {name} {objectType} {step}", DisplayMessageLevel.Debug);
                     return true;
                 }
             }

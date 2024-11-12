@@ -41,7 +41,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
 
             var proc = new ProcessGateway( Path.Combine(TestContext.CurrentContext.TestDirectory,   "SqlPackage.exe\\SqlPackage.exe"), args);
             proc.Run();
-
+            proc.WasDeploySuccess();
             var tableCount = _gateway.GetInt("SELECT COUNT(*) FROM sys.tables where name = 'Employees';");
 
             Assert.AreEqual(0, tableCount, proc.Messages);
@@ -183,6 +183,40 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
 
         }
 
+        [Test]
+        public void IgnoreSchema_Filter_Applies_To_ColumnStoreIndex()
+        {
+            //dacpac defines a table with a columnstore index.  this test will ignore any changes in the schema this table is in.
+            
+            //ensure this table does not exist, so we can check the dacpac did not create it
+            _gateway.RunQuery("exec sp_executesql N'DROP TABLE IF EXISTS dbo.TableName';");
+            _gateway.RunQuery("exec sp_executesql N'DROP TABLE IF EXISTS dbo.Employees';");
+
+            //create dummy table with unnamed default constraint to ensure it doesn't get dropped
+            _gateway.RunQuery("exec sp_executesql N'DROP TABLE IF EXISTS dbo.Dummy';");
+            _gateway.RunQuery("exec sp_executesql N'CREATE TABLE [dbo].[Dummy] ( [EmployeeId] INT NOT NULL PRIMARY KEY, [Age] int NOT NULL default ((1)))';");
+
+            var args =
+                $"/Action:Publish /TargetServerName:(localdb)\\Filter /SourceFile:{Path.Combine(TestContext.CurrentContext.TestDirectory, "Dacpac.Dacpac")} /p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor " +
+                " /TargetDatabaseName:Filters /p:DropObjectsNotInSource=False /p:AllowIncompatiblePlatform=true " +
+                "/p:AdditionalDeploymentContributorArguments=\"SqlPackageFilter=IgnoreSchema(dbo)\";";
+            
+
+            var proc = new ProcessGateway(Path.Combine(TestContext.CurrentContext.TestDirectory, "SqlPackage.exe\\SqlPackage.exe"), args);
+            proc.Run();
+            proc.WasDeploySuccess();
+
+           var count = _gateway.GetInt("SELECT COUNT(*) FROM sys.tables where name = 'TableName';");
+            Assert.AreEqual(0, count, proc.Messages);
+
+            count = _gateway.GetInt("SELECT COUNT(*) FROM sys.indexes where name = 'CIDX_ColumnStoreIndexName';");
+            Assert.AreEqual(0, count, proc.Messages);
+
+            count = _gateway.GetInt("SELECT COUNT(*) FROM sys.default_constraints where is_system_named = 'true';");
+            Assert.AreEqual(1, count, proc.Messages);
+
+
+        }
 
     }
 }
