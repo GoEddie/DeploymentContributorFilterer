@@ -28,7 +28,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
 
             _process = Process.Start(processInfo);
             if(_process != null)
-                _process.WaitForExit(Timeout.Infinite);
+                _process.WaitForExit(TimeSpan.FromMinutes(1));
             
             Messages = GetMessages();
         }

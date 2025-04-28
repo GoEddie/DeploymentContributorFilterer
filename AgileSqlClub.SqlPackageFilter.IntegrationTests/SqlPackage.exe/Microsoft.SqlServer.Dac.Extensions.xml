@@ -492,6 +492,12 @@
             the requirement that a TSqlModel be valid prior to analysis by a code analysis rule.
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.CodeAnalysis.CodeAnalysisServiceSettings.AssemblyLookupPath">
+            <summary>
+            Optional semicolon delimited paths specifying directories and assembly locations which
+            should be searched for code analyzers.
+            </summary>
+        </member>
         <member name="T:Microsoft.SqlServer.Dac.CodeAnalysis.Engine.EngineProperties">
             <summary>
             Properties to use when creating a rules engine. 
@@ -1893,6 +1899,11 @@
             Id of the rule that created this <see cref="T:Microsoft.SqlServer.Dac.CodeAnalysis.SqlRuleProblem"/>
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.CodeAnalysis.SqlRuleProblem.ShortRuleId">
+            <summary>
+            Short Id of the rule that created this <see cref="T:Microsoft.SqlServer.Dac.CodeAnalysis.SqlRuleProblem"/>
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.CodeAnalysis.SqlRuleProblem.ModelElement">
             <summary>
             The <see cref="T:Microsoft.SqlServer.Dac.Model.TSqlObject"/> causing the current problem
@@ -1914,6 +1925,12 @@
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.CodeAnalysis.SqlRuleProblem.ErrorMessageString">
+            <summary>
+            The string for displaying the error message, based on rule id, rule information
+            and the problem description
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.CodeAnalysis.SqlRuleProblem.ShortErrorMessage">
             <summary>
             The string for displaying the error message, based on rule information
             and the problem description
@@ -2552,6 +2569,31 @@
             <param name="deletedFiles">HashSet of deleted files to update as needed</param>
             <param name="projectFolder">path of the project's folder</param>
         </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaComparisonResult.GetDiffEntrySourceScript(Microsoft.SqlServer.Dac.Compare.SchemaDifference)">
+            <summary>
+            Gets the source script for the SchemaDifference from the SchemaComparisonResult, if there is one. SchemaDifferences with "Delete" as the SchemaUpdateAction
+            do not have a source script.
+            </summary>
+            <param name="diff">SchemaDifference to get the source script of</param>
+            <returns>Script of SchemaDifference. Returns an empty string if there is no source script for the SchemaDifference</returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaComparisonResult.GetDiffEntryTargetScript(Microsoft.SqlServer.Dac.Compare.SchemaDifference)">
+            <summary>
+            Gets the target script for the SchemaDifference from the SchemaComparisonResult, if there is one. SchemaDifferences with "Add" as the SchemaUpdateAction
+            do not have a target script.
+            </summary>
+            <param name="diff">SchemaDifference to get the target script of</param>
+            <returns>Script of SchemaDifference. Returns an empty string if there is no target script for the SchemaDifference</returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaComparisonResult.GetDiffEntryScript(Microsoft.SqlServer.Dac.Compare.SchemaDifference,Microsoft.SqlServer.Dac.Compare.SchemaComparisonResult.SourceOrTarget)">
+            <summary>
+            Gets the script of the source or target for the SchemaDifference from the SchemaComparisonResult, if there is one. SchemaDifferences with "Delete" as the SchemaUpdateAction
+            do not have a source script and SchemaDifferences with "Add" as the SchemaUpdateAction do not have a target script.
+            </summary>
+            <param name="diff">SchemaDifference to get the script of</param>
+            <param name="side">Side to get script of - Source or Target</param>
+            <returns>Script of SchemaDifference. Returns an empty string if there is no script for the SchemaDifference</returns>
+        </member>
         <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaComparisonResult.AddProjectElement(System.String,Microsoft.SqlServer.Dac.DacExtractTarget,Microsoft.SqlServer.Dac.Model.TSqlObject,Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlSchemaModel,Microsoft.SqlServer.Dac.Model.SqlSchemaModelObjectService,Microsoft.SqlServer.Dac.Compare.SchemaDifference,System.Collections.Generic.HashSet{System.String},System.Collections.Generic.HashSet{System.String},System.String)">
             <summary>
             Adds a schema element to a local project if it is present in the source
@@ -2566,7 +2608,7 @@
             <param name="changedFiles">HashSet of changed files to update as needed</param>
             <param name="targetFile">optional path of file to add the element to</param>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaComparisonResult.getAggregatedScript(Microsoft.SqlServer.Dac.Compare.SchemaDifference,Microsoft.SqlServer.Dac.Model.SqlSchemaModelObjectService,System.Boolean)">
+        <member name="M:Microsoft.SqlServer.Dac.Compare.SchemaComparisonResult.GetAggregatedScript(Microsoft.SqlServer.Dac.Compare.SchemaDifference,Microsoft.SqlServer.Dac.Model.SqlSchemaModelObjectService,System.Boolean)">
             <summary>
             Gets the aggregated script of an object and its children
             </summary>
@@ -4303,6 +4345,11 @@
             not exist in the source model.
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.AllowTableRecreation">
+            <summary>
+            Get boolean that specifies whether to allow table recreation in Publish
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.DropIndexesNotInSource">
             <summary>
             Get boolean that specifies whether to drop all indexes that do not
@@ -4646,6 +4693,11 @@
             Get boolean that specifies whether the last values used for identity columns should be preserved.
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.PerformIndexOperationsOnline">
+            <summary>
+            Get boolean that specifies whether to perform index operations online.
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptionsService.RegisterDataTierApplication">
             <summary>
             Get boolean that specifies whether the database will be registered as a Data-Tier Application.  
@@ -4928,6 +4980,15 @@
             </summary>
             <value>
             True to drop extended properties not in the source model; otherwise, false.
+            Default is true.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.AllowTableRecreation">
+            <summary>
+            Get boolean that specifies whether to allow table recreation in Publish
+            </summary>
+            <value>
+            True to allow table recreation; otherwise, false, which will block the publish if table recreation is happening.
             Default is true.
             </value>
         </member>
@@ -5457,6 +5518,14 @@
             </summary>
             <value>
             True to specify that source identity last values should be used in target.
+            Default is false.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Deployment.SqlDeploymentOptions.PerformIndexOperationsOnline">
+            <summary>
+            Get boolean that specifies whether to perform index operations online
+            </summary>
+            <value>
             Default is false.
             </value>
         </member>
@@ -8278,6 +8347,11 @@
             on-premises, version 16.0
             </summary>
         </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.SqlServerVersion.Sql170">
+            <summary>
+            on-premises, version 17.0
+            </summary>
+        </member>
         <member name="F:Microsoft.SqlServer.Dac.Model.SqlServerVersion.SqlDw">
             <summary>
             For Sql Data Warehouse, version SqlDw
@@ -8286,6 +8360,16 @@
         <member name="F:Microsoft.SqlServer.Dac.Model.SqlServerVersion.SqlServerless">
             <summary>
             For Sql Serverless data pools
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.SqlServerVersion.SqlDwUnified">
+            <summary>
+            For Synapse Data Warehouse in Microsoft Fabric
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.SqlServerVersion.SqlDbFabric">
+            <summary>
+            For Fabric mirrored SQL database (preview)
             </summary>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.Model.TSqlModel">
@@ -9788,9 +9872,19 @@
             on-premises, version 16.0
             </summary>
         </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.TSqlPlatforms.Sql170">
+            <summary>
+            on-premises, version 17.0
+            </summary>
+        </member>
         <member name="F:Microsoft.SqlServer.Dac.Model.TSqlPlatforms.SqlAzureV12">
             <summary>
             Microsoft Azure SQL Database, version 12
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.TSqlPlatforms.SqlDbFabric">
+            <summary>
+            For Fabric mirrored SQL database (preview)
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.Model.TSqlPlatforms.SqlDw">
@@ -9801,6 +9895,11 @@
         <member name="F:Microsoft.SqlServer.Dac.Model.TSqlPlatforms.SqlServerless">
             <summary>
             For Sql Serverless data pools
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.TSqlPlatforms.SqlDwUnified">
+            <summary>
+            For Synapse Data Warehouse in Microsoft Fabric
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.Model.TSqlPlatforms.OnPremises">
@@ -10046,6 +10145,16 @@
         <member name="F:Microsoft.SqlServer.Dac.Model.SqlDataType.Rowversion">
             <summary>
             (Alias for Timestamp) A database-wide unique number that gets updated every time a row gets updated.
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.SqlDataType.Json">
+            <summary>
+            Json data type
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.SqlDataType.Vector">
+            <summary>
+            Vector data type with variable length with maximum dimension of 1998
             </summary>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.Model.PermissionType">
@@ -10871,6 +10980,31 @@
         <member name="F:Microsoft.SqlServer.Dac.Model.PermissionType.ViewPerformanceDefinition">
             <summary>
             ViewPerformanceDefinition
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.PermissionType.ExecuteExternalScript">
+            <summary>
+            ExecuteExternalScript
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.PermissionType.AlterAnyExternalMirror">
+            <summary>
+            AlterAnyExternalMirror
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.PermissionType.CreateExternalModel">
+            <summary>
+            CreateExternalModel
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.PermissionType.AlterAnyExternalModel">
+            <summary>
+            AlterAnyExternalModel
+            </summary>
+        </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.PermissionType.AlterAnyInformationProtection">
+            <summary>
+            AlterAnyInformationProtection
             </summary>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.Model.AuthenticationModes">
@@ -13888,6 +14022,11 @@
             DropSearchPropertyList
             </summary>
         </member>
+        <member name="F:Microsoft.SqlServer.Dac.Model.EventType.CreateVectorIndex">
+            <summary>
+            CreateVectorIndex
+            </summary>
+        </member>
         <member name="T:Microsoft.SqlServer.Dac.Model.DataSourceType">
             <summary>
             External data source type options
@@ -15443,6 +15582,11 @@
             WithPadIndex property class of Index
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.Index.Online">
+            <summary>
+            Online property class of Index
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.Model.Index.Unique">
             <summary>
             Unique property class of Index
@@ -15461,6 +15605,11 @@
         <member name="P:Microsoft.SqlServer.Dac.Model.Index.OptimizeForSequentialKey">
             <summary>
             OptimizeForSequentialKey property class of Index
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.Index.AutoCreated">
+            <summary>
+            AutoCreated property class of Index
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Model.Index.BucketCount">
@@ -17543,6 +17692,11 @@
             FormatType property class of ExternalFileFormat
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.ExternalFileFormat.ParserVersion">
+            <summary>
+            ParserVersion property class of ExternalFileFormat
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.Model.ExternalFileFormat.SerDeMethod">
             <summary>
             SerDeMethod property class of ExternalFileFormat
@@ -17631,6 +17785,11 @@
         <member name="P:Microsoft.SqlServer.Dac.Model.ExternalTable.RejectValue">
             <summary>
             RejectValue property class of ExternalTable
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.ExternalTable.TableOptions">
+            <summary>
+            TableOptions property class of ExternalTable
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Model.ExternalTable.Columns">
@@ -18613,6 +18772,11 @@
             OptimizeForSequentialKey property class of PrimaryKeyConstraint
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.PrimaryKeyConstraint.AutoCreated">
+            <summary>
+            AutoCreated property class of PrimaryKeyConstraint
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.Model.PrimaryKeyConstraint.BucketCount">
             <summary>
             BucketCount property class of PrimaryKeyConstraint
@@ -18626,6 +18790,11 @@
         <member name="P:Microsoft.SqlServer.Dac.Model.PrimaryKeyConstraint.FillFactor">
             <summary>
             FillFactor property class of PrimaryKeyConstraint
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.PrimaryKeyConstraint.Online">
+            <summary>
+            Online property class of PrimaryKeyConstraint
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Model.PrimaryKeyConstraint.Host">
@@ -20998,6 +21167,11 @@
             OptimizeForSequentialKey property class of UniqueConstraint
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.UniqueConstraint.AutoCreated">
+            <summary>
+            AutoCreated property class of UniqueConstraint
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.Model.UniqueConstraint.BucketCount">
             <summary>
             BucketCount property class of UniqueConstraint
@@ -21011,6 +21185,11 @@
         <member name="P:Microsoft.SqlServer.Dac.Model.UniqueConstraint.FillFactor">
             <summary>
             FillFactor property class of UniqueConstraint
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.Model.UniqueConstraint.Online">
+            <summary>
+            Online property class of UniqueConstraint
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.Model.UniqueConstraint.Host">

@@ -84,10 +84,61 @@
             Client secret for authenticating against Azure Key Vault, for AlwaysEncrypted
             </summary>
         </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineArguments.MaskedArguments">
+            <summary>
+            String value of all the argument with masked data for the sensitive arguments
+            </summary>
+        </member>
         <member name="T:Microsoft.Data.Tools.Schema.CommandLineTool.HelpPropertiesArguments">
             <summary>
             A helper class to determine if a user wants a dump of the
             DSP-specific help for custom properties
+            </summary>
+        </member>
+        <member name="T:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineDiagnosticsLevel">
+            <summary>
+            Specifies the levels of trace messages filtered in SqlPackage diagnostics file
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineDiagnosticsLevel.None">
+            <summary>
+            Diagnostics level is not set.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineDiagnosticsLevel.Off">
+            <summary>
+            Does not allow any events through.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineDiagnosticsLevel.Critical">
+            <summary>
+                Allows only System.Diagnostics.TraceEventType.Critical events through.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineDiagnosticsLevel.Error">
+            <summary>
+                Allows System.Diagnostics.TraceEventType.Critical and System.Diagnostics.TraceEventType.Error
+                events through.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineDiagnosticsLevel.Warning">
+            <summary>
+                Allows System.Diagnostics.TraceEventType.Critical, System.Diagnostics.TraceEventType.Error,
+                and System.Diagnostics.TraceEventType.Warning events through.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineDiagnosticsLevel.Information">
+            <summary>
+                Allows System.Diagnostics.TraceEventType.Critical, System.Diagnostics.TraceEventType.Error,
+                System.Diagnostics.TraceEventType.Warning, and System.Diagnostics.TraceEventType.Information
+                events through.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineDiagnosticsLevel.Verbose">
+            <summary>
+                Allows System.Diagnostics.TraceEventType.Critical, System.Diagnostics.TraceEventType.Error,
+                System.Diagnostics.TraceEventType.Warning, System.Diagnostics.TraceEventType.Information,
+                and System.Diagnostics.TraceEventType.Verbose events through.
             </summary>
         </member>
         <member name="T:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentType">
@@ -159,6 +210,11 @@
         <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentAttribute.DefaultShortName">
             <summary>
             Returns true if the argument did not have an explicit short name specified.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentAttribute.IsSensitiveData">
+            <summary>
+            Returns true if the arument has sensitive data
             </summary>
         </member>
         <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentAttribute.ShortName">
@@ -318,12 +374,6 @@
             have a <see cref="T:Microsoft.Data.Tools.Schema.CommandLineTool.ArgumentActionAttribute"/> attribute with the specific <see cref="T:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolAction"/>.
             </remarks>
         </member>
-        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Parser.GetConsoleWindowWidth">
-            <summary>
-            Returns the number of columns in the current console window
-            </summary>
-            <returns>Returns the number of columns in the current console window</returns>
-        </member>
         <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Parser.GetDisplayWidth">
             <summary>
             Returns the number of columns to be used when displaying the help text.
@@ -427,7 +477,7 @@
         </member>
         <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ArgumentCannotBeADirectory">
             <summary>
-              Looks up a localized string similar to The {0} argument cannot reference a directory..
+              Looks up a localized string similar to The {0} argument cannot reference an existing directory..
             </summary>
         </member>
         <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ArgumentDefaultValue">
@@ -501,11 +551,6 @@
               Looks up a localized string similar to Connecting to database &apos;{1}&apos; on server &apos;{0}&apos;..
             </summary>
         </member>
-        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ConnectionEncryptionInfo">
-            <summary>
-              Looks up a localized string similar to Changes to connection setting default values were incorporated in a recent release.  More information is available at https://aka.ms/dacfx-connection.
-            </summary>
-        </member>
         <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ConnectionEncryptionWarningConnectionOptions">
             <summary>
               Looks up a localized string similar to The settings for connection encryption or server certificate trust may lead to connection failure if the server is not properly configured..
@@ -576,9 +621,19 @@
               Looks up a localized string similar to Error extracting database:{0}.
             </summary>
         </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ErrorInUnpackOperation">
+            <summary>
+              Looks up a localized string similar to Error unpacking the package:{0}.
+            </summary>
+        </member>
         <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ErrorInvalidOutputPathDirectory">
             <summary>
               Looks up a localized string similar to The parent directory of the output path does not exist: {0}..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ErrorInvalidPropertiesForUnpack">
+            <summary>
+              Looks up a localized string similar to Options are not applicable to extract from a dacpac source.
             </summary>
         </member>
         <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineToolResources.ErrorInvalidSourceFileExtension">
@@ -1062,9 +1117,19 @@
               Looks up a localized string similar to Specifies a file to store diagnostic logs..
             </summary>
         </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.DiagnosticsLevel">
+            <summary>
+              Looks up a localized string similar to Specifies the levels of trace messages filtered diagnostics file.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.DiagnosticsPackageFile">
+            <summary>
+              Looks up a localized string similar to Specifies a file to store diagnostic package..
+            </summary>
+        </member>
         <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.DoNotDropObjectType">
             <summary>
-              Looks up a localized string similar to An object type that should not be dropped when DropObjectsNotInSource is true. Valid object type names are {0}..
+              Looks up a localized string similar to An object type that should not be dropped when DropObjectsNotInSource is true. Valid object type names are {0}. This property may be specified multiple times to indicate multiple options..
             </summary>
         </member>
         <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.DoNotDropObjectType_FriendlyName">
@@ -1084,7 +1149,7 @@
         </member>
         <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.ExcludeObjectType">
             <summary>
-              Looks up a localized string similar to An object type that should be ignored during deployment. Valid object type names are {0}..
+              Looks up a localized string similar to An object type that should be ignored during deployment. Valid object type names are {0}. This property may be specified multiple times to indicate multiple options..
             </summary>
         </member>
         <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.ExcludeObjectType_FriendlyName">
@@ -1219,7 +1284,7 @@
         </member>
         <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TableData">
             <summary>
-              Looks up a localized string similar to Indicates the table from which data will be extracted. Specify the table name with or without the brackets surrounding the name parts in the following format: schema_name.table_identifier..
+              Looks up a localized string similar to Indicates the table from which data will be extracted. Specify the table name with or without the brackets surrounding the name parts in the following format: schema_name.table_identifier. This property may be specified multiple times to indicate multiple options..
             </summary>
         </member>
         <member name="P:Microsoft.Data.Tools.Schema.CommandLineTool.DacServiceResources.TableData_FriendlyName">
@@ -1432,20 +1497,27 @@
             string if needed.
             </summary>
         </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Program.EnableTelemetry">
+            <summary>
+            Enables telemetry
+            </summary>
+        </member>
         <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Program.SetConsoleUI">
             <summary>
             This program needs to fallback to English if it cannot print Japanese (or other language) characters
             The code below was taken from http://netglobe/htmldata/commandline.mht
             </summary>
         </member>
-        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Program.LogProgramInformation">
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Program.LogProgramInformation(Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineArguments)">
             <summary>
-            Writes some high level information about the executing program to the diagnostic log.
+            Writes some high level information about the executing program and system to the diagnostic log.
             Details include version, process architecture, and .NET platform.
             </summary>
             <example>
             Running 32-bit SqlPackage Version 15.0.5143.2 on .NET Framework
             Running 64-bit SqlPackage Version 15.0.5143.2 on .NET Core
+            Current UI culture: zh-Hant - Chinese (Traditional)
+            System default encoding: iso-2022-kr - Korean (ISO)
             </example>
         </member>
         <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.Program.SetupHashLogSettings(Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineArguments,Microsoft.Data.Tools.Schema.Common.IStackLogSettingsContext)">
@@ -1461,49 +1533,10 @@
             Helper method that outputs custom property usage for all registered DSPs
             </summary>
         </member>
-        <member name="T:Microsoft.Data.Tools.Schema.CommandLineTool.SqlPackageBigDataStateProvider">
+        <member name="F:Microsoft.Data.Tools.Schema.CommandLineTool.SqlPackageUniversalAuthProvider.ClientID">
             <summary>
-            Sqlpackage implementation for the BigDataStateProvider. 
-            TODO: Add resumability. Currently, state is stored in a ConcurrentDictionary(like the TestBigDataStateProvider), but the state needs to be stored
-            in local storage (or ideally in Azure) to be able to resume an extract or deploy operation.
+             This client id is owned by the SQL AAD team and is registered on firstpartyportal.msidentity.com.
             </summary>
-        </member>
-        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.SqlPackageBigDataStateProvider.TryGetStepStateAsync(System.String,System.String)">
-            <summary>
-            Try get the step state.
-            </summary>
-            <param name="schemaName">Schema name</param>
-            <param name="tableStepName">Table name</param>
-            <returns>DataOperationStepState NotFound if a record was not found for the table step. Otherwise the state.</returns>
-        </member>
-        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.SqlPackageBigDataStateProvider.MarkStepNotStartedAsync(System.String,System.String)">
-            <summary>
-            Mark the step state as not started, if a step state does not exist yet, add it with value not started.
-            </summary>
-            <param name="schemaName">Schema name</param>
-            <param name="tableStepName">Table name</param>
-        </member>
-        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.SqlPackageBigDataStateProvider.MarkStepStartedAsync(System.String,System.String)">
-            <summary>
-            Mark the step state as started.
-            </summary>
-            <param name="schemaName">Schema name</param>
-            <param name="tableStepName">Table name</param>
-        </member>
-        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.SqlPackageBigDataStateProvider.MarkStepCompleteAsync(System.String,System.String)">
-            <summary>
-            Mark the step state as complete.
-            </summary>
-            <param name="schemaName">Schema name</param>
-            <param name="tableStepName">Table name</param>
-        </member>
-        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.SqlPackageBigDataStateProvider.CleanupDataStorageAsync(System.String,System.String)">
-            <summary>
-            Remove the data for this table in the storage.
-            </summary>
-            <param name="schemaName">Schema name</param>
-            <param name="tableStepName">Table name</param>
-            <returns>True if successful</returns>
         </member>
         <member name="T:Microsoft.Data.Tools.Schema.CommandLineTool.AzureCloudName">
             <summary>
@@ -1541,6 +1574,11 @@
             </summary>
             <param name="parsedArgs"></param>
             <returns></returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.ValidationUtil.ValidateDiagnosticsArgs(Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineArguments)">
+            <summary>
+            Checks if the diagnostics arguments in the command line arguments are valid
+            </summary>
         </member>
         <member name="M:Microsoft.Data.Tools.Schema.CommandLineTool.ValidationUtil.ValidateBigDataArgs(Microsoft.Data.Tools.Schema.CommandLineTool.CommandLineArguments)">
             <summary>
@@ -1609,7 +1647,7 @@
         </member>
         <member name="F:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthType.Interactive">
             <summary>
-            Authenticate against Azure Key Vault using the standard ADAL popup prompt
+            Authenticate against Azure Key Vault using the standard MSAL popup prompt
             </summary>
         </member>
         <member name="F:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthType.ClientIdSecret">
