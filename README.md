@@ -2,7 +2,7 @@
 
 [![Build](https://github.com/GoEddie/DeploymentContributorFilterer/actions/workflows/dotnet-desktop.yml/badge.svg)](https://github.com/GoEddie/DeploymentContributorFilterer/actions/workflows/dotnet-desktop.yml)
 
-Generic implementation of a DacFx deployment contributor in .net. Use this tool to filter sql objects during dacpac deployment process by SqlPackage.exe.
+Generic implementation of a [DacFx](https://github.com/microsoft/DacFx) deployment contributor in .net. Use this tool to filter sql objects during dacpac deployment process by SqlPackage.exe.
 
 Original documentation and discussion adapted from:
 *https://the.agilesql.club/2015/01/howto-filter-dacpac-deployments/*
