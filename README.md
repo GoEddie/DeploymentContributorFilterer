@@ -14,7 +14,7 @@ Put the AgileSqlClub.SqlPackageFilter.dll file into some folder (eg, c:\dac160to
 
 ```
 /p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor 
-/p:AdditionalDeploymentContributorPaths=c:\dac160tools\ 
+/p:AdditionalDeploymentContributorPaths=c:\dactools\ 
 /p:AdditionalDeploymentContributorArguments="SqlPackageFilter=IgnoreSchema(BLAH)"
 ```
 
@@ -25,7 +25,7 @@ Ok so the way the DacFx api works is it needs to load the contributor dlls. It c
 
 ```
 /p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor 
-/p:AdditionalDeploymentContributorPaths=C:\dac160tools\
+/p:AdditionalDeploymentContributorPaths=C:\dactools\
 ```
 
 **Note:** Windows may block the AgileSqlClub.DeploymentFilterContributor.dll after downloading.  You will need to view the file properties and *Unblock* it.
