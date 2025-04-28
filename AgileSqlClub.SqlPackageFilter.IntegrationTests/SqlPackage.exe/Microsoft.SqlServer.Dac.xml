@@ -361,37 +361,9 @@
             Default is true.
             </value>
         </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.CommandTimeout">
-            <summary>
-            Specifies the command timeout in seconds when executing queries against SQLServer.
-            </summary>
-            <value>
-            The command timeout in seconds.
-            Default is 60
-            </value>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.LongRunningCommandTimeout">
-            <summary>
-            Specifies the long running command timeout in seconds when executing queries against SQLServer.
-            </summary>
-            <value>
-            The command timeout in seconds.
-            Default is 0 which will wait indefinitely
-            </value>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.DatabaseLockTimeout">
-            <summary>
-            Specifies the database lock timeout in seconds when executing queries against SQLServer.
-            </summary>
-            <value>
-            The database lock timeout in seconds.
-            Default is 60
-            Specify -1 to wait indefinitely
-            </value>
-        </member>
         <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.AzureStorageBlobEndpoint">
             <summary>
-            Azure storage blob endpoint for Azure Synapse Analytics data from parquet files.
+            [Preview] Azure storage blob endpoint of Azure Storage Account to import data from Parquet files.
             </summary>
             <value>
             Set this for deploy operation.
@@ -400,7 +372,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.AzureStorageContainer">
             <summary>
-            Azure storage container name for Azure Synapse Analytics data from parquet files.
+            [Preview] Azure storage container name of Azure Storage Account to import data from parquet files.
             </summary>
             <value>
             Set this for deploy operation.
@@ -409,7 +381,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.AzureStorageKey">
             <summary>
-            Azure storage key for Azure Synapse Analytics data from parquet files.
+            [Preview] Azure storage key of Azure Storage Account to import data from Parquet files.
             </summary>
             <value>
             Set this for deploy operation to authenticate with the storage account key.
@@ -418,7 +390,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.AzureStorageRootPath">
             <summary>
-            The storage root path under the container for Azure Synapse Analytics data from parquet files.
+            [Preview] The storage root path under the container of Azure Storage Account to import data from Parquet files.
             </summary>
             <value>
             Set this for deploy operation.
@@ -427,10 +399,11 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.AzureSharedAccessSignatureToken">
             <summary>
-            Azure Shared Access Signature token
+            [Preview] Azure Shared Access Signature token of Azure Storage Account to import data from Parquet files.
+            Specify a valid SAS token with access to the storage container path to authenticate with using Shared Access Signature identity.
             </summary>
             <value>
-            Specify a valid SAS token with access to the storage container path to authenticate with using Shared Access Signature identity.
+            Set this for deploy operation.
             Default value is null
             </value>
         </member>
@@ -592,6 +565,14 @@
             </summary>
             <value>
             True to drop extended properties not in the source model; otherwise, false.
+            Default is true.
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.AllowTableRecreation">
+            <summary>
+            Get or set boolean that specifies whether to allow the table recreation in publish
+            </summary>
+            <value>
             Default is true.
             </value>
         </member>
@@ -1168,6 +1149,14 @@
             Default is false.
             </value>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.PerformIndexOperationsOnline">
+            <summary>
+            Get or set boolean that specifies whether to perform index operations online
+            </summary>
+            <value>
+            Default is false.
+            </value>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.DacDeployOptions.RegisterDataTierApplication">
             <summary>
             Get or set boolean that specifies whether the database will be registered as a Data-Tier Application.  
@@ -1364,7 +1353,7 @@
             with specified options.
             </summary>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.DacDeployOptions.#ctor(Microsoft.Data.Tools.Schema.Sql.Deployment.SqlDeploymentOptions,System.Boolean)">
+        <member name="M:Microsoft.SqlServer.Dac.DacDeployOptions.#ctor(Microsoft.Data.Tools.Schema.Sql.Deployment.SqlDeploymentOptions,System.Boolean,Microsoft.Data.SqlClient.SqlConnectionStringBuilder)">
             <summary>
             Create a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacDeployOptions"/> class
             with specified options.
@@ -1438,7 +1427,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ConnectionEncryptionWarning">
             <summary>
-              Looks up a localized string similar to Changes to connection setting default values were incorporated in a recent release.  More information is available at https://aka.ms/dacfx-connection.
+              Looks up a localized string similar to Encryption is enabled by default on connections.  More information is available at https://aka.ms/dacfx-connection.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.DacMessageFormat">
@@ -1449,6 +1438,11 @@
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ElementValidationFailureMessage">
             <summary>
               Looks up a localized string similar to Error validating element {0}: {1}.
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorAlwaysEncryptedParquetExtractBlocked">
+            <summary>
+              Looks up a localized string similar to Extract using Parquet files is not supported on table(s) containing encrypted column(s)..
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorAttemptToUpgradeExistingDatabase">
@@ -1469,6 +1463,11 @@
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorCannotOpenDacPackageWithData">
             <summary>
               Looks up a localized string similar to Cannot create a DAC package from a file that contains exported data..
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorCETASUnsupportedDataTypes">
+            <summary>
+              Looks up a localized string similar to CETAS unsupported data type(s) {0} found in table(s) {1}.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorConnectingToDatabase">
@@ -1531,6 +1530,11 @@
               Looks up a localized string similar to Could not extract package from specified database..
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorExtractPolybaseDisabled">
+            <summary>
+              Looks up a localized string similar to Polybase is not enabled for database {0}. Polybase and Polybase Export are required for extract operation using Parquet files..
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorForeignKeyCannotReferenceTable">
             <summary>
               Looks up a localized string similar to Foreign key {0} cannot reference table {1} when used as part of a data package..
@@ -1584,6 +1588,11 @@
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorLoadingPackageFrom">
             <summary>
               Looks up a localized string similar to Could not load package from &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorPublishPolybaseDisabled">
+            <summary>
+              Looks up a localized string similar to Polybase is not enabled for database {0}. Polybase is required for publish operation using Parquet files..
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorReadingDacMetadataFromPackage">
@@ -1661,6 +1670,16 @@
               Looks up a localized string similar to Could not unpack the package..
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorUnpackPackage">
+            <summary>
+              Looks up a localized string similar to Failed to unpack package..
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorUnpackTargetFolder">
+            <summary>
+              Looks up a localized string similar to Target folder path cannot be empty.
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorUnregisteringApplication">
             <summary>
               Looks up a localized string similar to Could not unregister DAC information..
@@ -1704,6 +1723,11 @@
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorUnsupportedPlatformForDataPackage_Serverless">
             <summary>
               Looks up a localized string similar to Azure Synapse Serverless SQL Pool does not support data operations such as the Export or Import task..
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorUnsupportedPlatformForDataPackage_SqlDwUnified">
+            <summary>
+              Looks up a localized string similar to Synapse Data Warehouse in Microsoft Fabric does not support data operations such as the Export or Import task..
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacErrorResources.ErrorUnsupportUserDefinedTypeColumnForDataPackage">
@@ -1804,34 +1828,6 @@
             Construct a new instance of the <see cref="T:Microsoft.SqlServer.Dac.DacExportOptions"/> class.
             </summary>
         </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacExportOptions.CommandTimeout">
-            <summary>
-            Specifies the command timeout in seconds when executing queries against SQLServer.
-            </summary>
-            <value>
-            The command timeout in seconds.
-            Default is 60
-            </value>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacExportOptions.LongRunningCommandTimeout">
-            <summary>
-            Specifies the long running command timeout in seconds when executing queries against SQLServer.
-            </summary>
-            <value>
-            The command timeout in seconds.
-            Default is 0 which will wait indefinitely
-            </value>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacExportOptions.DatabaseLockTimeout">
-            <summary>
-            Specifies the database lock timeout in seconds when executing queries against SQLServer.
-            </summary>
-            <value>
-            The database lock timeout in seconds
-            Default is 60
-            Specify -1 to wait indefinitely
-            </value>
-        </member>
         <member name="P:Microsoft.SqlServer.Dac.DacExportOptions.TempDirectoryForTableData">
             <summary>
             Specifies the temporary directory used to buffer table data before being written to the package file.
@@ -1912,34 +1908,6 @@
             <summary>
             Defines options that affect the behavior of package extraction.
             </summary>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.CommandTimeout">
-            <summary>
-            Specifies the command timeout in seconds when executing queries against SQLServer.
-            </summary>
-            <value>
-            The command timeout in seconds.
-            Default is 60
-            </value>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.LongRunningCommandTimeout">
-            <summary>
-            Specifies the long running command timeout in seconds when executing queries against SQLServer.
-            </summary>
-            <value>
-            The command timeout in seconds.
-            Default is 0 which will wait indefinitely
-            </value>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.DatabaseLockTimeout">
-            <summary>
-            Specifies the database lock timeout in seconds when executing queries against SQLServer.
-            </summary>
-            <value>
-            The database lock timeout in seconds
-            Default is 60
-            Specify -1 to wait indefinitely
-            </value>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.ExtractAllTableData">
             <summary>
@@ -2034,7 +2002,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.AzureStorageBlobEndpoint">
             <summary>
-            Azure storage blob endpoint for Azure Synapse Analytics data to parquet files.
+            [Preview] Azure storage blob endpoint of Azure Storage Account to extract data to Parquet files.
             </summary>
             <value>
             Set this for data extract operation.
@@ -2043,7 +2011,7 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.AzureStorageContainer">
             <summary>
-            Azure storage container name for Azure Synapse Analytics data to parquet files.
+            [Preview] Azure storage container name of Azure Storage Account to extract data to Parquet files.
             </summary>
             <value>
             Set this for data extract operation.
@@ -2052,7 +2020,16 @@
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.AzureStorageKey">
             <summary>
-            Azure storage key  for Azure Synapse Analytics data to parquet files.
+            [Preview] Azure storage key of Azure Storage Account to extract data to Parquet files.
+            </summary>
+            <value>
+            Set this for data extract operation.
+            Default value is null
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.AzureSharedAccessSignatureToken">
+            <summary>
+            [Preview] Azure Shared Access Signature Token of Azure Storage Account to extract data to Parquet files.
             </summary>
             <value>
             Set this for data extract operation.
@@ -2094,6 +2071,11 @@
         <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.CompressionOption">
             <summary>
             Sets the compression option in the final package
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacExtractOptions.ScriptSortElementsByName">
+            <summary>
+            Sorts the child elements by name in the script files
             </summary>
         </member>
         <member name="M:Microsoft.SqlServer.Dac.DacExtractOptions.#ctor">
@@ -2165,34 +2147,6 @@
             <summary>
             Defines optional parameters specific to a Microsoft Azure SQL Database.
             </summary>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacImportOptions.CommandTimeout">
-            <summary>
-            Specifies the command timeout in seconds when executing queries against SQL Server.
-            </summary>
-            <value>
-            The command timeout in seconds.
-            Default is 60
-            </value>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacImportOptions.LongRunningCommandTimeout">
-            <summary>
-            Specifies the long running command timeout in seconds when executing queries against SQL Server.
-            </summary>
-            <value>
-            The command timeout in seconds.
-            Default is 0 which will wait indefinitely
-            </value>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.DacImportOptions.DatabaseLockTimeout">
-            <summary>
-            Specifies the database lock timeout in seconds when executing queries against SQL Server.
-            </summary>
-            <value>
-            The database lock timeout in seconds
-            Default is 60
-            Specify -1 to wait indefinitely
-            </value>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacImportOptions.RebuildIndexesOfflineForDataPhase">
             <summary>
@@ -2281,6 +2235,7 @@
             The type of element if the error is a validation error related to an element
             </summary>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:Microsoft.SqlServer.Dac.DacMessage.#ctor(Microsoft.SqlServer.Dac.DacMessageType,System.Int32,System.String,System.String,System.String)" -->
         <member name="M:Microsoft.SqlServer.Dac.DacMessage.ToString">
             <summary>
             Return a string that represents the current object.
@@ -2359,6 +2314,39 @@
             Operation was cancelled.
             </summary>
         </member>
+        <member name="T:Microsoft.SqlServer.Dac.DacOptionsBase">
+            <summary>
+            Base class options for all DacFx operations
+            </summary>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacOptionsBase.CommandTimeout">
+            <summary>
+            Specifies the command timeout in seconds when executing queries against SQL Server.
+            </summary>
+            <value>
+            The command timeout in seconds.
+            Default is 60
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacOptionsBase.LongRunningCommandTimeout">
+            <summary>
+            Specifies the long running command timeout in seconds when executing queries against SQL Server.
+            </summary>
+            <value>
+            The command timeout in seconds.
+            Default is 0 which will wait indefinitely
+            </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacOptionsBase.DatabaseLockTimeout">
+            <summary>
+            Specifies the database lock timeout in seconds when executing queries against SQL Server.
+            </summary>
+            <value>
+            The database lock timeout in seconds
+            Default is 60
+            Specify -1 to wait indefinitely
+            </value>
+        </member>
         <member name="T:Microsoft.SqlServer.Dac.DacPackage">
             <summary>
             Representation of the artifact that contains the definition of a data-tier application.
@@ -2387,6 +2375,12 @@
             <value>
             <see cref="P:Microsoft.SqlServer.Dac.DacPackage.Version"/> structure that specifies the version information for this package.
             </value>
+        </member>
+        <member name="P:Microsoft.SqlServer.Dac.DacPackage.VersionPrefix">
+            <summary>
+            Get version prefix information for the package version
+            Ex: VersionPrefix will be "preview" for preview version and "" for released version
+            </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.DacPackage.PreDeploymentScript">
             <summary>
@@ -2834,7 +2828,31 @@
             <param name="applicationName">Application Name</param>
             <param name="applicationVersion">Application Version</param>
         </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacServices.EnableTelemetry(System.String,System.Version,System.Action{Microsoft.Data.Tools.Schema.Common.Telemetry.DacFxTelemetryEventData})">
+            <summary>
+            Enables telemetry globally and set the application and version name to get included in telemetry events 
+            </summary>
+            <param name="applicationName">Application Name</param>
+            <param name="applicationVersion">Application Version</param>
+            <param name="telemetryItemCallback">A callback method to allow inspection of the telemetry data</param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DacServices.EnableTelemetry(System.String,System.Version,System.Action{Microsoft.Data.Tools.Schema.Common.Telemetry.DacFxTelemetryEventData},System.Func{System.String})">
+            <summary>
+            Enables telemetry globally and set the application and version name to get included in telemetry events 
+            </summary>
+            <param name="applicationName">Application Name</param>
+            <param name="applicationVersion">Application Version</param>
+            <param name="telemetryItemCallback">A callback method to allow inspection of the telemetry data</param>
+            <param name="getApplicationProperty">A function to get property value specific to the application</param>
+        </member>
         <!-- Badly formed XML comment ignored for member "M:Microsoft.SqlServer.Dac.DacServices.DisableTelemetry" -->
+        <member name="M:Microsoft.SqlServer.Dac.DacServices.Unpack(Microsoft.SqlServer.Dac.DacPackage,System.String)">
+            <summary>
+            Unpacks a Dacpac package to a folder
+            </summary>
+            <param name="dacPackage">Dacpac package</param>
+            <param name="targetFolderPath">Target folder path</param>
+        </member>
         <member name="M:Microsoft.SqlServer.Dac.DacServices.Extract(System.String,System.String,System.String,System.Version,System.String,System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}},Microsoft.SqlServer.Dac.DacExtractOptions,System.Nullable{System.Threading.CancellationToken})">
             <summary>
             Extract the schema from a database into a package.
@@ -2925,7 +2943,7 @@
             If the <see cref="T:System.Threading.CancellationToken"/> has a cancellation requested and the operation could be cancelled.
             </exception>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.DacServices.CreateDacpacValidationOperation(System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}},System.Nullable{System.Threading.CancellationToken},Microsoft.SqlServer.Dac.ExtractOperation,Microsoft.SqlServer.Dac.DacLoggingContext)">
+        <member name="M:Microsoft.SqlServer.Dac.DacServices.CreateDacpacValidationOperation(System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}},System.Nullable{System.Threading.CancellationToken},Microsoft.SqlServer.Dac.ExtractOperation,Microsoft.SqlServer.Dac.DacLoggingContext,Microsoft.Data.Tools.Schema.Sql.Common.DacFxOperationTelemetry)">
             <summary>
             Creates a dacpac validation operation that verifies the
             SqlSchemaModel has a valid schema when doing an extract without data.
@@ -3431,7 +3449,7 @@
             deployment/retry behavior down the stack.
             </summary>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.DacServices.CreateSettingsContext(Microsoft.SqlServer.Dac.DacLoggingContext)">
+        <member name="M:Microsoft.SqlServer.Dac.DacServices.CreateSettingsContext(Microsoft.SqlServer.Dac.DacLoggingContext,Microsoft.Data.Tools.Schema.Sql.Common.DacFxOperationTelemetry)">
             <summary>
             Sets up a stack context to push a configured settings object to populate
             the ambient settings for consumption further down the stack
@@ -3745,6 +3763,32 @@
             If <paramref name="info"/> is a null reference.
             </exception>
         </member>
+        <member name="M:Microsoft.SqlServer.Dac.DatabaseInfoRetriever.TryGetDatabaseSizeAndRowCount(Microsoft.Data.Tools.Schema.Common.SqlClient.SqlConnectionFactory,System.String,System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}},System.Int64@,System.Int64@)">
+            <summary>
+            Get the database size and row count for the specified database and tables. 
+            These values are used to populate the ExportStatistics element in the dacpac\bacpac
+            and reporting telemetry data DatabaseSize, TableRowCount under TelemetryMeasureName.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DatabaseInfoRetriever.GetTableSpaceUsed(Microsoft.Data.Tools.Schema.Common.SqlClient.SqlConnectionFactory,System.String)">
+            <summary>
+            Get the table space used for the specified database. These values are used to populate the export statistics element in the dacpac\bacpac
+            It contains the list of tables with table space used greater than 50GB.
+            Example: <Tables><Table Name="dbo.Table1" DataSpaceUsedInMB="1000" /></Tables>
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DatabaseInfoRetriever.GetQueryForRowCount(System.Collections.Generic.IEnumerable{System.Tuple{System.String,System.String}},Microsoft.Data.Tools.Schema.Common.SqlClient.ReliableConnectionHelper.ServerInfo)">
+            <summary>
+            To get the row count for the specified tables. These values are used to populate the export statistics element in the dacpac\bacpac
+            and telemetry data TableRowCount under TelemetryMeasureName.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DatabaseInfoRetriever.GetQueryForTableSpaceUsed(System.Boolean)">
+            <summary>
+            Get the table space used for the specified database. These values are used to populate the export statistics element in the dacpac\bacpac
+            Table space used greater than 50GB will be reported.
+            </summary>
+        </member>
         <member name="T:Microsoft.SqlServer.Dac.DataStorageType">
             <summary>
             The possible data storage types
@@ -3846,6 +3890,74 @@
             <param name="tableStepName">The table name</param>
             <returns>True if successful</returns>
         </member>
+        <member name="T:Microsoft.SqlServer.Dac.DataPhase.BigDataExtractSetupStep">
+            <summary>
+            To setup resources needed to export data using CETAS like database scoped credentials, external data source and external file format
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.DataPhase.BigDataTablePublishStep">
+            <summary>
+            Steps to import data from external data source like Azure Blob Storage into SQL Server
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhase.BigDataTablePublishStep.GenerateImportCommandText">
+            <summary>
+            Generate the import command text for the table
+            </summary>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Microsoft.SqlServer.Dac.DataPhase.DataPhaseOperationStateProvider" -->
+        <member name="M:Microsoft.SqlServer.Dac.DataPhase.DataPhaseOperationStateProvider.#ctor(System.String,System.String)">
+            <summary>
+            Create a new instance of DataPhaseOperationStateProvider for a database with a unique operation id.
+            Storage type is set to AzureStorage by default.
+            Data operation is not resuming by default. Tables states are stored in a ConcurrentDictionary.
+            </summary>
+            <param name="dbName">Database name</param>
+            <param name="operationId">Data Operation Id (optional)</param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhase.DataPhaseOperationStateProvider.MarkDataOperationResuming">
+            <summary>
+            To mark the data operation as resuming.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhase.DataPhaseOperationStateProvider.TryGetStepStateAsync(System.String,System.String)">
+            <summary>
+            Try get the step state.
+            </summary>
+            <param name="schemaName">Schema name</param>
+            <param name="tableStepName">Table name</param>
+            <returns>DataOperationStepState NotFound if a record was not found for the table step. Otherwise the state.</returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhase.DataPhaseOperationStateProvider.MarkStepNotStartedAsync(System.String,System.String)">
+            <summary>
+            Mark the step state as not started, if a step state does not exist yet, add it with value not started.
+            </summary>
+            <param name="schemaName">Schema name</param>
+            <param name="tableStepName">Table name</param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhase.DataPhaseOperationStateProvider.MarkStepStartedAsync(System.String,System.String)">
+            <summary>
+            Mark the step state as started.
+            </summary>
+            <param name="schemaName">Schema name</param>
+            <param name="tableStepName">Table name</param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhase.DataPhaseOperationStateProvider.MarkStepCompleteAsync(System.String,System.String)">
+            <summary>
+            Mark the step state as complete.
+            </summary>
+            <param name="schemaName">Schema name</param>
+            <param name="tableStepName">Table name</param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhase.DataPhaseOperationStateProvider.CleanupDataStorageAsync(System.String,System.String)">
+            <summary>
+            Remove the data for this table in the storage.
+            </summary>
+            <param name="schemaName">Schema name</param>
+            <param name="tableStepName">Table name</param>
+            <returns>True if successful</returns>
+        </member>
         <member name="T:Microsoft.SqlServer.Dac.DataPhase.IOperationStep">
             <summary>
             Defines a data transfer step, step is an unit of work like setup the database or transfer a table's data.
@@ -3882,6 +3994,158 @@
             Wait until all the steps are done.
             </summary>
             <returns>Parent task of all the table step tasks.</returns>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.DataPhase.SqlDataExtractSetupStep">
+            <summary>
+            To setup resources needed to export data using CETAS like database scoped credentials, external data source and external file format
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhase.SqlDataExtractSetupStep.CreateDatabaseScopedCredentials(Microsoft.SqlServer.Dac.DataPhase.DataPhaseConnectionContext,System.Threading.CancellationToken)">
+            <summary>
+            Create database scoped credentials using SAS token
+            </summary>
+            <param name="connectionContext"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhase.SqlDataExtractSetupStep.CreateExternalDataSource(Microsoft.SqlServer.Dac.DataPhase.DataPhaseConnectionContext,System.Threading.CancellationToken)">
+            <summary>
+            Create external data source using Azure Storage V2 location
+            </summary>
+            <param name="connectionContext"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.DataPhase.SqlTablePublishStep">
+            <summary>
+            Steps to import data from external data source like Azure Blob Storage into SQL Server
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhase.SqlTablePublishStep.ImportSequentiallyInBatch(Microsoft.Data.Tools.Schema.Sql.Dac.Data.Import.ImportTableMetadata,Microsoft.Data.Tools.Schema.Sql.Dac.ConnectionManager,Microsoft.Data.Tools.Schema.Common.SqlClient.RetryPolicy,System.String,System.String,System.String,System.String)">
+            <summary>
+            Import data from parquet files sequentially in batches by providing parquet file path to the OPENROWSET BULK command
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhase.SqlTablePublishStep.ExecuteSqlCommandWithRetry(System.String,System.String,Microsoft.Data.Tools.Schema.Sql.Dac.IExecutionContext,Microsoft.Data.Tools.Schema.Common.SqlClient.RetryPolicy)">
+            <summary>
+            Execute the sql command to import data from parquet file into target database
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhase.SqlTablePublishStep.GenerateImportCommandText">
+            <summary>
+            Generate the command to import data from external data source into SQL Server
+            </summary>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Microsoft.SqlServer.Dac.DataPhase.SqlTablePublishStep.GetTableColumnsWithTypes(System.Collections.Generic.IEnumerable{Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlColumn})" -->
+        <member name="T:Microsoft.SqlServer.Dac.DataPhase.DatabaseExtractSetupStep">
+            <summary>
+            To setup resources needed to export data using CETAS like database scoped credentials, external data source and external file format
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhase.DatabaseExtractSetupStep.CreateMasterKey(Microsoft.SqlServer.Dac.DataPhase.DataPhaseConnectionContext,System.Threading.CancellationToken)">
+            <summary>
+            Create master key if it doesn't exist. Master key is needed to create database scoped credentials
+            </summary>
+            <param name="connectionContext"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhase.DatabaseExtractSetupStep.CreateFileFormat(Microsoft.SqlServer.Dac.DataPhase.DataPhaseConnectionContext,System.Threading.CancellationToken)">
+            <summary>
+            Create external file format if it doesn't exist. External file format is needed to create external data source
+            </summary>
+            <param name="connectionContext"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.DataPhase.TablePublishStep">
+            <summary>
+            Steps to import data from external data source like Azure Blob Storage into SQL Server
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.DataPhaseUtilities">
+            <summary>
+            Utility class for dataphase (parquet) operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhaseUtilities.ValidatePolybaseEnabled(Microsoft.Data.Tools.Schema.Sql.DacTask,Microsoft.Data.Tools.Schema.Common.SqlClient.SqlConnectionFactory,System.String)">
+            <summary>
+            Validates that Polybase is enabled on the target server.
+            </summary>
+            <param name="connectionFactory">Sql connection</param>
+            <param name="databaseName">Target database</param>
+            <exception cref="T:Microsoft.SqlServer.Dac.DacServicesException">Throw exception to abort operation if polybase is disabled</exception>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhaseUtilities.GetParquetBlobPath(System.String,System.String)">
+            <summary>
+            Returns the path to the parquet file in Azure Storage by combining the root path and the parquet filename.
+            Forward slashes are used in the path and backslashes are replaced with forward slashes.
+            Example: rootPath = tpch1000_1_SQL_MI/08-28-2023_12-24-55, parquetFilename = file1.parquet
+            Output = tpch1000_1_SQL_MI/08-28-2023_12-24-55/file1.parquet
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhaseUtilities.GetScriptFromScalarExpression(Microsoft.SqlServer.TransactSql.ScriptDom.ScalarExpression)">
+            <summary>
+            Returns the script from a scalar expression.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DataPhaseUtilities.GetConversionDataType(Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlDataType)">
+            <summary>
+            Returns the target data type and length for conversion.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.LogReduction.FinalizeShrinkLogFile">
+            <summary>
+            Create CHECKPOINT and shrink the transaction log file after taking the BACKUP LOG to NUL.
+            This is performed at the end of the Publish operation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.LogReduction.ExecuteCheckPoint(Microsoft.Data.Tools.Schema.Sql.Dac.IExecutionContext)">
+            <summary>
+            Execute CHECKPOINT to close any active transaction.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.LogReduction.ShrinkLogFile(Microsoft.Data.Tools.Schema.Sql.Dac.IExecutionContext)">
+            <summary>
+            Shrink the transaction log file
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.LogReduction.PerformFullDatabaseBackup">
+            <summary>
+            Perform a full database backup so that the BACKUP LOG command can be used to backup the transaction log to NUL.
+            Overwrite the existing backup file if it exists.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.LogReduction.IsBackupSupported">
+            <summary>
+            To find out if the BACKUP LOG command is supported for the target database.
+            </summary>
+            <returns>true if BACKUP LOG is supported, false otherwise</returns>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.LogReduction.IsRecoveryModelFullOrBulkLogged">
+            <summary>
+            To find whether the database is in FULL or BULK_LOGGED recovery model.
+            Log backup is only supported for databases with FULL and BULK_LOGGED recovery model.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.LogReduction.BackupLogToNul(System.Object)">
+            <summary>
+            Run the BACKUP LOG command to backup the transaction log to NUL.
+            NUL is a special device that discards all data written to it.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.LogReduction.GetDatabaseSizeInGB">
+            <summary>
+            Get the source database size in GB from origin.xml
+            This is used to calculate the backup log interval
+            </summary>
+            <returns>Database size in GB</returns>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.DataPreparationOperation">
+            <summary>
+            Operation to prepare tables for extracting data
+            </summary>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.Data.DataException">
             <summary>
@@ -4130,6 +4394,39 @@
             find the control function addresses.
             </summary>
         </member>
+        <member name="T:Microsoft.SqlServer.Dac.DeployDataPhaseOperation">
+            <summary>
+            This class is responsible for importing data from parquet files into the target database.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DeployDataPhaseOperation.Execute(System.Data.IDbConnection,System.Threading.CancellationToken,Microsoft.Data.Tools.Schema.Sql.Dac.LoggingContext)">
+            <summary>
+            Executes the data import operation. 
+            This calls import data for each table in the model whose data needs to be imported.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DeployDataPhaseOperation.ImportData(Microsoft.Data.Tools.Schema.Sql.Dac.LoggingContext,System.Threading.CancellationToken)">
+            <summary>
+            Import data from parquet files in Azure Storage to Sql database/
+            It uses T-SQL script to read data from parquet files using OPENROWSET and insert into Sql database
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DeployDataPhaseOperation.ImportTableWithLargeDataSpaceInBatches(System.Collections.Generic.IEnumerable{Microsoft.Data.Tools.Schema.Sql.Dac.Data.Import.ImportTableMetadata},System.Collections.Generic.IEnumerable{Microsoft.SqlServer.Dac.DataPhase.TablePublishStep})">
+            <summary>
+            Import tables with clustered index sequentially in batches
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DeployDataPhaseOperation.GetTableDataPublishSteps(Microsoft.SqlServer.Dac.DataPhase.DataPhaseOperationContext)">
+            <summary>
+            Get the list of tables to be published
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DeployDataPhaseOperation.GetLargeTableListFromOriginXml">
+            <summary>
+            Get the list of large tables from origin.xml
+            It returns the list of tables whose size is greater than threshold size like 50 GB
+            </summary>
+        </member>
         <member name="T:Microsoft.SqlServer.Dac.DeploymentPropertyAliasAttribute">
             <summary>
             This class supports the product infrastructure and is not intended to be used directly 
@@ -4201,7 +4498,7 @@
             A data transfer object used to pass state between components used in plan creation
             </summary>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.Deployment.Data.PlanCreationContext.PopulateIncludedTables(System.Collections.Generic.HashSet{Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlElementDescriptor})">
+        <member name="M:Microsoft.SqlServer.Dac.Deployment.Data.PlanCreationContext.PopulateIncludedTables(System.Collections.Generic.HashSet{Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlElementDescriptor},System.Collections.Generic.HashSet{Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlElementDescriptor})">
              <summary>
              Called to populate selected data tables and columns based on
              policy specified in the options
@@ -4245,7 +4542,7 @@
             Returns true is target database exists for the deploy
             </summary>
         </member>
-        <member name="M:Microsoft.SqlServer.Dac.DeployOperation.UpdateDatabaseData(Microsoft.Data.Tools.Schema.Sql.Dac.LoggingContext,System.Threading.CancellationToken)">
+        <member name="M:Microsoft.SqlServer.Dac.DeployOperation.UpdateDatabaseData(Microsoft.SqlServer.Dac.DacDeployOptions,Microsoft.SqlServer.Dac.DacPackage,Microsoft.Data.Tools.Schema.Sql.Dac.LoggingContext,System.Threading.CancellationToken)">
             <summary>
             Update's the target database's data using the model's / data that has already be created.  Assumption - this
             method is called after the controller has been initialized and used to update the target database
@@ -4255,6 +4552,13 @@
             <summary>
             Snapshots constraint state in the target database prior to the database being updated
             </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.DeployOperation.SourceDatabasePointer.LoadDataTablesWithBcp(Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlSchemaModel)">
+            <summary>
+            Loads the tables that have a .BCP file in the package
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.ElementScripter">
             <summary>
@@ -4461,6 +4765,14 @@
             <param name="packageSource">Package source interface.</param>
             <returns>Sql Database Options of the package source; null if it cannot be retrieved.</returns>
         </member>
+        <member name="M:Microsoft.SqlServer.Dac.ExtractDataPhaseOperation.ThrowErrorIfColumnEncrypted(System.Collections.Generic.IEnumerable{Microsoft.Data.Tools.Schema.Sql.Dac.Data.Export.ExportTableMetadata},System.String)">
+            <summary>
+            Checks if any of the columns in the tables are encrypted.
+            </summary>
+            <param name="sqlTables">All the tables in source schema model</param>
+            <param name="tables">/p:TableData table list(if any)</param>
+            <returns>true if any of the table has encrypted columns, false otherwise</returns>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.ExtractOperation.SchemaModel">
             <summary>
             Get <see cref="T:Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlSchemaModel"/> instance that represents the extracted database schema.
@@ -4485,6 +4797,13 @@
             <param name="parent"></param>
             <param name="children"></param>
             <param name="uiService"></param>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.ExtractOperation.SortChildren(System.Collections.Generic.IList{Microsoft.Data.Tools.Schema.SchemaModel.IModelElement},Microsoft.Data.Tools.Schema.SchemaModel.ModelCollationComparer)">
+            <summary>
+            Sorts given elements if the element type is not a parent type
+            </summary>
+            <param name="elements">Elements to sort</param>
+            <returns>Sorted list if elements are not top-level elements</returns>
         </member>
         <member name="M:Microsoft.SqlServer.Dac.ExtractOperation.GetFilePathForElement(Microsoft.Data.Tools.Schema.SchemaModel.IModelElement,System.String,System.String,System.Boolean)">
             <summary>
@@ -4606,6 +4925,12 @@
         <member name="M:Microsoft.SqlServer.Dac.KeyVault.DacKeyVaultService.Validate(System.Collections.Generic.IList{System.String},System.Threading.CancellationToken)">
             <summary>
             Callback function to validate the presence of AKV token for Column Master Key access
+            </summary>
+        </member>
+        <member name="T:Microsoft.SqlServer.Dac.KeyVault.DefaultKeyVaultAuthInfo">
+            <summary>
+            Authentication info using token credential.
+            This can be obtained by using the Azure SDK to log into Azure and obtain this information.
             </summary>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.KeyVault.KeyVaultAuthenticator">
@@ -5202,6 +5527,27 @@
             APPLICATION-SCOPED
             </summary>
         </member>
+        <member name="M:Microsoft.SqlServer.Dac.Operation.#ctor(System.String,Microsoft.Data.Tools.Schema.Sql.Common.DacFxOperationTelemetry,Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryOperationName,System.Action{System.Object,System.Threading.CancellationToken})">
+            <summary>
+            Construct a new instance of the <see cref="T:Microsoft.SqlServer.Dac.Operation"/> class.
+            </summary>
+            <param name="caption">
+            String describing the operation, suitable for display to user.
+            </param>
+            <param name="action">
+            Delegate to invoke when the operation is executed.
+            
+            <para>
+            The first parameter of the delegate is an opaque object that represents the operation.
+            A concrete example of its usage is as the sender for events fired (indirectly) by this operation
+            in order to correlate these events to the operation.
+            </para>
+            <para>
+            The second parameter is a nullable <see cref="T:System.Threading.CancellationToken"/> that can be used
+            to signal that the operation should be cancelled.
+            </para>
+            </param>
+        </member>
         <member name="M:Microsoft.SqlServer.Dac.Operation.#ctor(System.String,System.Action{System.Object,System.Threading.CancellationToken})">
             <summary>
             Construct a new instance of the <see cref="T:Microsoft.SqlServer.Dac.Operation"/> class.
@@ -5263,11 +5609,6 @@
         <member name="P:Microsoft.SqlServer.Dac.OperationResources.CreatingDeploymentPlanCaption">
             <summary>
               Looks up a localized string similar to Creating deployment plan.
-            </summary>
-        </member>
-        <member name="P:Microsoft.SqlServer.Dac.OperationResources.DeployBigDataCaption">
-            <summary>
-              Looks up a localized string similar to Deploying tables data from external storage to database.
             </summary>
         </member>
         <member name="P:Microsoft.SqlServer.Dac.OperationResources.DeployCaption">
@@ -5365,6 +5706,11 @@
               Looks up a localized string similar to Extracting schema from database.
             </summary>
         </member>
+        <member name="P:Microsoft.SqlServer.Dac.OperationResources.TablePreparationCaption">
+            <summary>
+              Looks up a localized string similar to Processing tables for data extraction.
+            </summary>
+        </member>
         <member name="P:Microsoft.SqlServer.Dac.OperationResources.TranslateCaption">
             <summary>
               Looks up a localized string similar to Translating package.
@@ -5383,6 +5729,15 @@
         <member name="P:Microsoft.SqlServer.Dac.OperationResources.VerifyingDeploymentPlanCaption">
             <summary>
               Looks up a localized string similar to Verifying deployment plan.
+            </summary>
+        </member>
+        <member name="M:Microsoft.SqlServer.Dac.OperationUtils.ExcludeNonExportableTables(System.Collections.Generic.IEnumerable{Microsoft.Data.Tools.Schema.Sql.SchemaModel.SqlTable})">
+            <summary>
+            Exclude tables which should not be extracted\exported:
+              * Dropped ledger tables.
+              * Ledger history tables.
+            Note: This method is used to NOT export the data of these tables.
+                  The method that prevents these tables from being created is CollectChangesFromCreates().
             </summary>
         </member>
         <member name="T:Microsoft.SqlServer.Dac.OptionDescriptionAttribute">
@@ -5741,6 +6096,13 @@
             </summary>
             <returns>true if "Authentication" is present in current .Net version</returns>
         </member>
+        <member name="M:Microsoft.SqlServer.Dac.SqlConnectionStringBuilderHelper.GetAuthenticationString(Microsoft.Data.SqlClient.SqlConnectionStringBuilder)">
+            <summary>
+            Get Authentication as string from connectionStringBuilder
+            </summary>
+            <param name="connectionStringBuilder"></param>
+            <returns></returns>
+        </member>
         <member name="M:Microsoft.SqlServer.Dac.SqlConnectionStringBuilderHelper.SetAuthentication(Microsoft.Data.SqlClient.SqlConnectionStringBuilder,Microsoft.Data.SqlClient.SqlConnectionStringBuilder)">
             <summary>
             Set Authentication value from source builder to the target builder
@@ -5750,17 +6112,10 @@
         </member>
         <member name="M:Microsoft.SqlServer.Dac.SqlConnectionStringBuilderHelper.SetAuthentication(Microsoft.Data.SqlClient.SqlConnectionStringBuilder,System.String)">
             <summary>
-            Set Authentication using reflection
+            Set Authentication
             </summary>
             <param name="sbConnectionString"></param>
             <param name="authenticationType"></param>
-        </member>
-        <member name="M:Microsoft.SqlServer.Dac.SqlConnectionStringBuilderHelper.GetAuthenticationString(Microsoft.Data.SqlClient.SqlConnectionStringBuilder)">
-            <summary>
-            Get Authentication as string from connectionStringBuilder
-            </summary>
-            <param name="connectionStringBuilder"></param>
-            <returns></returns>
         </member>
         <member name="M:Microsoft.SqlServer.Dac.SqlConnectionStringBuilderHelper.IsAuthenticationSpecified(Microsoft.Data.SqlClient.SqlConnectionStringBuilder)">
             <summary>

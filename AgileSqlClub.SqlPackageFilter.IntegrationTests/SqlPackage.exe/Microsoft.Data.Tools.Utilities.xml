@@ -136,25 +136,27 @@
             If <paramref name="value"/> is negative.
             </exception>
         </member>
-        <member name="M:Microsoft.Data.Tools.Schema.Common.ArgumentValidation.CheckForSingleBitSet(System.Int32)">
+        <member name="M:Microsoft.Data.Tools.Schema.Common.AzureStorageUtility.GetSortedBlobs(System.String,System.String,System.String,System.String)">
             <summary>
-            Determine whether a signed integer contains only a single bit with value 1.
+            Gets the list of blobs in the specified container and folder
             </summary>
-            <param name="i">The integer value to check.</param>
-            <returns>Returns true if the binary representation of the signed integer contains a single 1. (e.g. 1000 or 0010)</returns>
         </member>
-        <member name="M:Microsoft.Data.Tools.Schema.Common.ArgumentValidation.CheckForSingleBitSetAndThrow(System.Int32,System.String)">
+        <member name="M:Microsoft.Data.Tools.Schema.Common.AzureStorageUtility.GetStorageAccountInfo(System.String)">
             <summary>
-            Determine whether a signed integer contains only a single bit with value 1.
+            Get the account information for the Azure storage account like the SKU, kind, etc.
             </summary>
-            <param name="i">The integer value to check.</param>
-            <param name="variableName">
-            Name of integer variable whose value is specified by <paramref name="i"/>.
-            </param>
-            <exception cref="T:System.ArgumentOutOfRangeException">
-            If <paramref name="i"/> contains anything other than a single bit with value 1.
-            </exception>
         </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.AzureStorageUtility.GetAuthenticationType(System.String)">
+            <summary>
+            Get the authentication type for the Azure storage account using the connection string
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.AzureStorageUtility.GetStorageConnectionString(System.String,System.String,System.String)">
+            <summary>
+            Get the connection string for the Azure storage account using the account name, account key or SAS token
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Microsoft.Data.Tools.Schema.Common.AzureStorageUtility.RemoveQuestionMarkFromSASToken(System.String)" -->
         <member name="M:Microsoft.Data.Tools.Schema.Common.CollectionUtils.MergeDictionaries``1(System.Collections.Generic.Dictionary{System.String,``0},System.Collections.Generic.IDictionary{System.String,``0})">
             <summary>
             Merges two dictionaries. If collections have same keys, value of the second collection will be selected.
@@ -326,6 +328,11 @@
               Looks up a localized string similar to SQL Server 2022 or Azure SQL Database Managed Instance.
             </summary>
         </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.CommonResource.DisplayName_Sql170Dsp">
+            <summary>
+              Looks up a localized string similar to SQL Server 2025.
+            </summary>
+        </member>
         <member name="P:Microsoft.Data.Tools.Schema.Common.CommonResource.DisplayName_Sql90Dsp">
             <summary>
               Looks up a localized string similar to SQL Server 2005.
@@ -341,9 +348,19 @@
               Looks up a localized string similar to SQL Server Azure V12.
             </summary>
         </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.CommonResource.DisplayName_SqlDbFabricDsp">
+            <summary>
+              Looks up a localized string similar to Fabric mirrored SQL database (preview).
+            </summary>
+        </member>
         <member name="P:Microsoft.Data.Tools.Schema.Common.CommonResource.DisplayName_SqlDwDsp">
             <summary>
               Looks up a localized string similar to Azure Synapse Dedicated SQL Pool.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.CommonResource.DisplayName_SqlDwUnifiedDsp">
+            <summary>
+              Looks up a localized string similar to Synapse Data Warehouse in Microsoft Fabric.
             </summary>
         </member>
         <member name="P:Microsoft.Data.Tools.Schema.Common.CommonResource.DisplayName_SqlServerlessDsp">
@@ -538,6 +555,16 @@
               Looks up a localized string similar to The end value cannot be less than the begin value..
             </summary>
         </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.CommonResource.InvalidDspFormatError">
+            <summary>
+              Looks up a localized string similar to Invalid value for Database Schema Provider: &apos;{0}&apos;; expected to be in the form &apos;{1}&apos;..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.CommonResource.InvalidPlatform">
+            <summary>
+              Looks up a localized string similar to Invalid platform: &apos;{0}&apos;.
+            </summary>
+        </member>
         <member name="P:Microsoft.Data.Tools.Schema.Common.CommonResource.MasterKeyName">
             <summary>
               Looks up a localized string similar to Master Key.
@@ -558,6 +585,11 @@
               Looks up a localized string similar to An internal error occurred while trying to connect to the design-time validation database..
             </summary>
         </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.CommonResource.NotASinglePlatform">
+            <summary>
+              Looks up a localized string similar to Platform &apos;{0}&apos; is not a single platform. Only single platforms are have platform names..
+            </summary>
+        </member>
         <member name="P:Microsoft.Data.Tools.Schema.Common.CommonResource.PartitionSpecification">
             <summary>
               Looks up a localized string similar to Partition Specification.
@@ -571,6 +603,11 @@
         <member name="P:Microsoft.Data.Tools.Schema.Common.CommonResource.Permission">
             <summary>
               Looks up a localized string similar to Permission.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.CommonResource.PlatformNameCannotBeEmptyOrNull">
+            <summary>
+              Looks up a localized string similar to {0} cannot be null or empty.
             </summary>
         </member>
         <member name="P:Microsoft.Data.Tools.Schema.Common.CommonResource.PredeployScriptAlreadyDeployed">
@@ -716,6 +753,11 @@
         <member name="P:Microsoft.Data.Tools.Schema.Common.CommonResource.SignatureName_WithSignable">
             <summary>
               Looks up a localized string similar to Signature for &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.CommonResource.SinglePlatformValidationFailure">
+            <summary>
+              Looks up a localized string similar to {0} must be a single SQL platform (SqlAzureV12, Sql160), not a group of platforms (OnPremises, Sql130AndUp, All)..
             </summary>
         </member>
         <member name="P:Microsoft.Data.Tools.Schema.Common.CommonResource.SolutionExplorer_SchemaObjects">
@@ -1404,6 +1446,40 @@
             <param name="dwDebugStatus"></param>
             <returns>HRESULT</returns>
         </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.Diagnostics.DiagnosticsService.InDiagnosticsMode">
+            <summary>
+            Specify if the process is in diagnostics mode. Diagnostics logs are generated in this mode
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.Diagnostics.DiagnosticsService.InDiagnosticsPackageMode">
+            <summary>
+            Specify if the process is in diagnostics package mode. Diagnostics package is created in this mode
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.Common.Diagnostics.DiagnosticsService.DefaultLevel">
+            <summary>
+            Diagnostics logs level
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.Diagnostics.DiagnosticsService.DiagnosticsFile">
+            <summary>
+            Diagnostics file path
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.Diagnostics.DiagnosticsService.DiagnosticsPackageFile">
+            <summary>
+            Diagnostics Package File Path
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.Diagnostics.DiagnosticsService.Start(Microsoft.Data.Tools.Schema.Common.Diagnostics.DiagnosticsOutput,System.String,System.String,System.Diagnostics.SourceLevels)">
+            <summary>
+            Starts diagnosting service
+            </summary>
+            <param name="output"></param>
+            <param name="diagnosticsFile"></param>
+            <param name="diagnosticsPackageFile"></param>
+            <param name="level"></param>
+        </member>
         <member name="T:Microsoft.Data.Tools.Schema.Common.Diagnostics.WindowsEventTracingLevel">
             <summary>
             Enumeration of event levels predefined by ETW.
@@ -1419,9 +1495,43 @@
             The environment variable used to enable connection pooling
             </summary>
         </member>
+        <member name="F:Microsoft.Data.Tools.Schema.Common.EnvironmentSettings.SetAEAmbientSettingsEnvVar">
+            <summary>
+            The environment variable used to enable the following ambient settings while publishing a dacpac using SqlPackage:
+            (1) SupportAlwaysEncrypted
+            (2) AlwaysEncryptedMigration
+            If the user specifies this env var as true, the ambient settings would also be set to true (they are false by default).
+            We need this environment setting to debug AE scenarios using SqlPacakge.
+            </summary>
+        </member>
         <member name="F:Microsoft.Data.Tools.Schema.Common.EnvironmentSettings.TelemetryOptoutEnvVar">
             <summary>
             The environment variable used for opting out of telemetry
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.Common.EnvironmentSettings.DotNetCLITelemetryOptoutEnvVar">
+            <summary>
+            The environment variable used for opting out of telemetry
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.Common.EnvironmentSettings.DoNotConvertOldSensitivitySyntaxToNewEnvVar">
+            <summary>
+             The environment variable to disable converting old sensitivity syntax to new
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.Common.EnvironmentSettings.LOHCompactionIntervalEnvVar">
+            <summary>
+             The environment variable to get LOH compaction interval
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.Common.EnvironmentSettings.LoadPerfTraceConfigEnvVar">
+            <summary>
+             The environment variable to enable perf traces
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.Common.EnvironmentSettings.DoNotGetTableColumnSizeEstimateEnvVar">
+            <summary>
+             The environment variable to get table column size estimate
             </summary>
         </member>
         <member name="P:Microsoft.Data.Tools.Schema.Common.EnvironmentSettings.ConnectionPoolingEnabled">
@@ -1429,9 +1539,39 @@
             Returns true if connection pooling is enabled
             </summary>
         </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.EnvironmentSettings.DoNotGetTableColumnSizeEstimate">
+            <summary>
+            Returns true if should not get table column size estimate
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.EnvironmentSettings.SetAEAmbientSettings">
+            <summary>
+            Returns true if SetAEAmbientSettings Env Var is Enabled
+            </summary>
+        </member>
         <member name="P:Microsoft.Data.Tools.Schema.Common.EnvironmentSettings.TelemetryOptout">
             <summary>
             Returns true if telemetry is opt-out. Default is false
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.EnvironmentSettings.DotNetCLiTelemetryOptout">
+            <summary>
+            Returns true if DontNet CLI telemetry is opt-out. Default is false
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.EnvironmentSettings.DoNotConvertOldSensitivitySyntaxToNew">
+            <summary>
+            Returns true if DontNet CLI telemetry is opt-out. Default is false
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.EnvironmentSettings.LoadPerfTraceConfig">
+            <summary>
+            Returns true perf traces is enabled
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.EnvironmentSettings.GetLOHCompactionInterval(System.Int32)">
+            <summary>
+            Returns true if DontNet CLI telemetry is opt-out. Default is false
             </summary>
         </member>
         <member name="T:Microsoft.Data.Tools.Schema.Common.EventUtils">
@@ -1853,6 +1993,15 @@
             the path is cannonicalized and returned
             </summary>
         </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.FileUtils.FindSdkVersion(System.String,System.String)">
+            <summary>
+            Assuming the path matchs Path matches: "...\microsoft.build.sql\...\tools\...\Microsoft.Data.Tools.Schema.SqlTasks.targets", finding the version of the SDK
+            We should not try to get folder names or read the find because the process might not have access 
+            </summary>
+            <param name="filePath">Path to the SDK Nuget package</param>
+            <param name="sdkName">SDK Name (e.g. microsoft.build.sql)</param>
+            <returns></returns>
+        </member>
         <member name="F:Microsoft.Data.Tools.Schema.Common.GuidList.UiHostLocale">
             <summary>
             Provides access to the UI Locale information of the host
@@ -2172,10 +2321,248 @@
             flows across multiple threads as part of the logical call context
             </summary>
         </member>
+        <member name="T:Microsoft.Data.Tools.Schema.Common.RegistryManager">
+            <summary>
+            This singleton manages the registry for the data assembly.
+            This class is implemented as a static singleton.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.Common.RegistryManager._instance">
+            <summary>
+            The static singleton instance of this class.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.Common.RegistryManager._ssdtRootCurrentUser">
+            <summary>
+            The root registry key under the current user hive exposed by this class.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.Common.RegistryManager._ssdtRootLocalMachine">
+            <summary>
+            The root registry key under the local machine hive exposed by this class.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.Common.RegistryManager._userRegistryRoot">
+            <summary>
+            Non-default registry key root to be exposed by this class.
+            If this is specified, it overrides the default root registry key.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.Common.RegistryManager._lockObject">
+            <summary>
+            Lock object used to synchronize initialization.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.Common.RegistryManager._isInitialized">
+            <summary>
+            A variable to indicate the initialization status.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.Common.RegistryManager._inRecursively">
+            <summary>
+            This variable guards against recursion during initialization
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.Common.RegistryManager._initializationExceptions">
+            <summary>
+            Reference to the exception, if any, raised during initialization via the <see cref="!:InitializeRegistryRoot(string)"/> method.
+            If this is non-null it prevents reinitialization by the InitializeRegistryRoot(string) method.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.RegistryManager.Instance">
+            <summary>
+            Returns our one and only instance.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.RegistryManager.TryDeleteValue(Microsoft.Win32.RegistryKey,System.String)">
+            <summary>
+            Attempts to delete the value from the registry
+            </summary>
+            <param name="key"> The key to delete the value from </param>
+            <param name="name"> The name of the value </param>
+            <returns>True if the value was successfully deleted or if the
+            value never existed in the first place.</returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.RegistryManager.SetLocalRegistryRoots(System.String,System.String,System.Boolean)">
+            <summary>
+            Override the hardcoded registry roots when VS is the host.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.RegistryManager.Reset">
+            <summary>
+            Force the existing registry object(s) exposed by this class to be closed and reopened.
+            </summary>
+            <remarks>
+            If an initialization exception was raised during the previous initialization,
+            it is cleared to allow for reinitialization here.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.RegistryManager.TryReadValue(Microsoft.Win32.RegistryKey,System.String,Microsoft.Win32.RegistryValueKind@,System.Object@)">
+            <summary>
+            Attempt to read the value in the specified key.  This method encapsulates the error handling
+            necessary to read from the registry
+            </summary>
+            <param name="key"> The key to read the value from </param>
+            <param name="name"> The name of the value </param>
+            <param name="valueKind"> The kind of the value </param>
+            <param name="value"> The value itself </param>
+            <returns>
+            True if the kind and value were successfully read from the registry, false otherwise.
+            </returns>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.RegistryManager.VisualStudioRootLocalMachine">
+            <summary>
+            The root registry key for Visual Studio 9.0. Corresponds to
+            HKLM\Software\Microsoft\VisualStudio\9.0
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.RegistryManager.VisualStudioCurrentUser">
+            <summary>
+            The root registry key for Visual Studio 9.0. Corresponds to
+            HKCU\Software\Microsoft\VisualStudio\9.0
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.RegistryManager.SsdtRootCurrentUser">
+            <summary>
+            The root registry location we should be using.  This routine
+            returns a new, open RegistryKey so it should be disposed by
+            the calling object.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.RegistryManager.SsdtRootLocalMachine">
+            <summary>
+            The root registry location for the HKEY_LOCAL_MACHINE
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.RegistryManager.SsdtCurrentUser">
+            <summary>
+            [HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\10.0\SQLDB\Database]
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.RegistryManager.VstsDbCurrentUserSchemaCompareSettings">
+            <summary>
+            [HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\9.0\SQLDB\DialogPage\Microsoft.VisualStudio.Data.Tools.Package.SchemaCompare.SchemaCompareSettings]
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.RegistryManager.IncludeDependenciesWhenTargetIsAProject">
+            <summary>
+             Returns the 'IncludeDependenciesWhenTargetIsAProject' setting, if it exists
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.RegistryManager.DatabaseLockTimeoutMS">
+             <summary>
+             Returns db Lock Timeout time in milliseconds
+             This will require the VS to restart before any change in the registry setting could take place
+             -------------------------------------------------------   
+             Windows Registry Editor Version 5.00
+            
+             [HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\9.0\SQLDB\Database]
+             "LockTimeoutSeconds"=dword:0000001e
+             "LongRunningQueryTimeoutSeconds"=dword:00000000
+             "QueryTimeoutSeconds"=dword:0000003c
+             -------------------------------------------------------   
+             </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.RegistryManager.DatabaseLockTimeout">
+            <summary>
+            returns db Lock Timeout time in seconds
+            This will require the VS to restart before any change in the registry setting could take place
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.RegistryManager.DatabaseQueryTimeout">
+            <summary>
+            returns db Query Timeout time in seconds
+            This will require the VS to restart before any change in the registry setting could take place
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.RegistryManager.DatabaseLongRunningQueryTimeout">
+            <summary>
+            returns db LongRunningQuery Timeout time in seconds
+            This will require the VS to restart before any change in the registry setting could take place
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.RegistryManager.InitializationErrorList">
+            <summary>
+            Get reference to the exception, if any, raised during initialization via the <see cref="!:InitializeRegistryRoot(string)"/> method.
+            If this is non-null it prevents reinitialization by the InitializeRegistryRoot(string) method.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.RegistryManager.EnsureInitialized">
+            <summary>
+            Initializes the registry root depending on if we've been initialized by VS yet or not.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.RegistryManager.EnsureInitialized(System.String,System.String,Microsoft.Win32.RegistryKey)">
+            <summary>
+            Returns the default registry location in case this component
+            has not been initialized.  By default this is the VS 9.0
+            SQLDB hive.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.RegistryManager.GetVSProductDirectory">
+            <summary>
+            Returns the VS install directory from disk.  It calculates this
+            by reading paths from the registry
+            see \\ddindex2\sources_tfs\Dev10_Main\ndp\cdf\testcommon\NetFx35\WCFUtil\ToolsPath.cs
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.RegistryManager.CloseAllRegistryKeys">
+            <summary>
+            Close all open registry keys.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.RegistryManager.Dispose">
+            <summary>
+            Close all open registry keys.
+            </summary>
+        </member>
         <member name="P:Microsoft.Data.Tools.Schema.Common.RuntimeUtils.IsWindows">
             <summary>
             Returns true if running in Windows environment.
             </summary>
+        </member>
+        <member name="T:Microsoft.Data.Tools.Schema.Common.SqlClient.ConnectionStringSecurer">
+            <summary>
+            Extracts and hides the secret parts of connection strings (e.g. passwords),
+            creating safe versions of the connection strings which can be persisted to disk
+            or displayed in the UI.
+            </summary>
+            <remarks>
+            This class is *not* used by schema compare, which uses a different reg key defined by the
+            SqlConnectionStringSecurer.  We should be using a common location for storing connection strings,
+            so this should be fixed at some point.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.SqlClient.ConnectionStringSecurer.MakeSafeToPersist(Microsoft.Data.Tools.Schema.Common.SqlClient.SqlConnectionFactory,System.Boolean)">
+            <summary>
+            Returns a safe version of the connection string, with sensitive parts (e.g. passwords) removed.
+            The secret parts will be encrypted and stored in the registry, so that they can be restored later by the same user on the same machine.
+            </summary>
+            <param name="connectionString">
+            The connection string to be secured.
+            </param>
+            <returns>
+            A partial version of the connection string, with any sensitive information (e.g. passwords) stripped out.
+            The return value will still be a valid connection string.
+            </returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.SqlClient.ConnectionStringSecurer.MakeSafeToPersist(Microsoft.Data.Tools.Schema.Common.SqlClient.SqlConnectionFactory,System.String,System.Boolean)">
+            <summary>
+            Returns a safe version of the connection string, with sensitive parts (e.g. passwords) removed.
+            The secret parts will be encrypted and stored in the registry, so that they can be restored later by the same user on the same machine.
+            </summary>
+            <param name="connectionString">
+            The connection string to be secured.
+            </param>
+            <param name="dbProvider">
+            The name of the ADO.NET data provider for the connection string.
+            This should be the same invariant provider name used by System.Data.Common.DbProviderFactories to identify the provider (e.g. "System.Data.SqlClient" for SQL).
+            </param>
+            <returns>
+            A partial version of the connection string, with any sensitive information (e.g. passwords) stripped out.
+            The return value will still be a valid connection string.
+            </returns>
         </member>
         <member name="M:Microsoft.Data.Tools.Schema.Common.SqlClient.ExecutionHelper.ExecuteNonQuery(Microsoft.Data.SqlClient.SqlCommand)">
             <summary>
@@ -2352,6 +2739,12 @@
             <param name="value"></param>
             <returns></returns>
         </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.StringUtils.GetNameLastPart(System.String)">
+            <summary>
+            Gets the last part of a  name. This is the part of the name that follows the final "." in the ID name.
+            For instance for a name "My.Org.MyRuleName", the last part would be "MyRuleName".
+            </summary>
+        </member>
         <member name="M:Microsoft.Data.Tools.Schema.Common.StringUtils.TryToParseCommandLineArguments(System.String,System.Collections.Generic.IList{System.Collections.Generic.KeyValuePair{System.String,System.String}}@,System.String@)">
             <summary>
             Returns the parameters in the same order as they appear.
@@ -2388,6 +2781,11 @@
             Removes the [] from around the argument name
             </summary>
         </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.StringUtils.RemoveNoLockQueryHint(System.String)">
+            <summary>
+            Removes the NOLOCK query hint from the query in servers that don't support it
+            </summary>
+        </member>
         <member name="M:Microsoft.Data.Tools.Schema.Common.StringUtils.HasMsBuildDelimiters(System.String)">
             <summary>
             Does this name have $() as delimiters?
@@ -2404,43 +2802,76 @@
             </summary>
             <param name="name">The name to delimit as $(name)</param>
         </member>
+        <member name="T:Microsoft.Data.Tools.Schema.Common.Telemetry.CustomTelemetryProcessor">
+            <summary>
+            Telemetry processor to chain two processors and run then both
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.Telemetry.CustomTelemetryProcessor.Process(Microsoft.ApplicationInsights.Channel.ITelemetry)">
+            <summary>
+            Runs the main processor first and then the calls the given callback method. 
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="T:Microsoft.Data.Tools.Schema.Common.Telemetry.DacFxTelemetryEventData">
+            <summary>
+            Telemetry data tracked by DacFx framework
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.Telemetry.DacFxTelemetryEventData.#ctor(System.String,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}},System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Double}})">
+            <summary>
+            Creates a new instance
+            </summary>
+            <param name="eventName">Telemetry event name</param>
+            <param name="properties">Telemetry Properties</param>
+            <param name="metrics">Telemetry Metrics</param>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.Telemetry.DacFxTelemetryEventData.EventName">
+            <summary>
+            Telemetry event name
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.Telemetry.DacFxTelemetryEventData.Properties">
+            <summary>
+            Telemetry Properties
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.Telemetry.DacFxTelemetryEventData.Metrics">
+            <summary>
+            Telemetry Metrics
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryCommonProperties.DacFxVersion">
+            <summary>
+            File version
+            </summary>
+        </member>
         <member name="T:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryDuration">
             <summary>
             Tracks duration for telemetry events
             </summary>
         </member>
-        <member name="M:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryDuration.#ctor(Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetrySession,Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryEventName)">
+        <member name="M:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryDuration.#ctor(System.String)">
             <summary>
             Creates and starts a duration
             </summary>
             <param name="telemetrySession"></param>
             <param name="eventName"></param>
         </member>
-        <member name="M:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryDuration.StopAndSend(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.Double})">
+        <member name="M:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryDuration.Stop(System.Collections.Generic.Dictionary{System.String,System.Double})">
             <summary>
             Stops the duration and sends the telemetry event
             </summary>
             <param name="telemetryProperties"></param>
         </member>
-        <member name="M:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryDuration.AddPropertiesAndMeasurements(System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.Double})">
+        <member name="P:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryDuration.ElapsedMilliseconds">
             <summary>
-            Adds telemetry properties
-            </summary>
-            <param name="telemetryProperties"></param>
-        </member>
-        <member name="P:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryDuration.TelemetryMeasurements">
-            <summary>
-            Telemetry Measurements
+             Gets the total elapsed time measured by the current instance, in milliseconds.
             </summary>
         </member>
-        <member name="P:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryDuration.TelemetryProperties">
+        <member name="F:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryError.MaxNumberOfErrors">
             <summary>
-            Telemetry Properties
-            </summary>
-        </member>
-        <member name="M:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryDuration.Dispose">
-            <summary>
-            Stops and sends the telemetry event
+            Max number of errors to include in telemetry property to avoid sending huge amount of data
             </summary>
         </member>
         <member name="P:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryError.ErrorCode">
@@ -2458,9 +2889,36 @@
             Error message
             </summary>
         </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryError.Severity">
+            <summary>
+            Error severity
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryError.Create(System.Int32,System.String,System.String,System.String)">
+            <summary>
+            Creates a new telemetry error
+            </summary>
+        </member>
         <member name="M:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryError.ToString">
             <summary>
             Returns a string format of the class to store in telemetry events
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryError.ToString(System.Text.StringBuilder)">
+            <summary>
+            Appends a string format of the class to store in telemetry events to <paramref name="sb" />.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryError.GetAdditionalInfo">
+            <summary>
+            Get additional info for the error from the error message
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryError.GetCETASUnsupportedTypeFromErrorMessage">
+            <summary>
+            Get the CETAS unsupported type from the error message like 
+            CETAS unsupported data type(s) ntext, xml found in table(s) dbo.xml_table ==> ntext, xml
             </summary>
             <returns></returns>
         </member>
@@ -2474,13 +2932,14 @@
             Default constructor
             </summary>
         </member>
-        <member name="M:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetrySession.InitializeTelemetry(System.Boolean,System.String,System.Version)">
+        <member name="M:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetrySession.InitializeTelemetry(System.Boolean,System.String,System.Version,System.Action{Microsoft.Data.Tools.Schema.Common.Telemetry.DacFxTelemetryEventData},System.Func{System.String})">
             <summary>
             Initializes telemetry
             </summary>
             <param name="enabled">When true telemetry will be enabled</param>
             <param name="applicationName">Application Name</param>
             <param name="applicationVersion">Application Version</param>
+            <param name="telemetryItemCallback">A callback method to allow inspection of the telemetry data</param>
         </member>
         <member name="P:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetrySession.Enabled">
             <summary>
@@ -2506,7 +2965,7 @@
             <param name="properties">Named string values you can use to search and classify events.</param>
             <param name="measurements">Measurements associated with this event.</param>
         </member>
-        <member name="M:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetrySession.TrackException(Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetrySourceName,System.Exception,System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.IDictionary{System.String,System.Double})">
+        <member name="M:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetrySession.TrackException(System.String,System.Exception,System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.IDictionary{System.String,System.Double})">
             <summary>
             Sends a telemetry event for an exception  
             </summary>
@@ -2534,6 +2993,23 @@
             <summary>
             Telemetry names for the source of exceptions
             </summary>
+        </member>
+        <member name="T:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryOperationName">
+            <summary>
+            Telemetry names for each operation
+            </summary>
+        </member>
+        <member name="T:Microsoft.Data.Tools.Schema.Common.Telemetry.SqlPackageSource">
+            <summary>
+            Values for sqlpackage telemetry property to indicate the source of sqlpackage
+            </summary>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.Common.Telemetry.TelemetryUtils.GetApplicationSource(System.String,System.Version)">
+            <summary>
+            Gets the source of sqlpcakge
+            </summary>
+            <param name="productVersion">sqlpackage version</param>
+            <returns>sqlpackage source</returns>
         </member>
         <member name="T:Microsoft.Data.Tools.Schema.Common.Threading.EventMarshaler">
             <summary>
@@ -3243,9 +3719,42 @@
             An enumeration of the T-SQL platforms that contribute to the SqlModel.
             </summary>
         </member>
+        <member name="F:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatforms.PlatformGroup">
+            <summary>
+            Flag to differentiate the value of a group of platforms containing
+            just one platform from the platform itself.<para />
+            
+            Do not use to indicate a platform.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatforms.OnPremises">
+            <summary>
+            All on-premises versions
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatforms.Cloud">
+            <summary>
+            Combination of all cloud-based SQL products
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatforms.All">
+            <summary>
+            Combination of all SQL Server categories 
+            </summary>
+        </member>
+        <member name="F:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatforms.AllNotDw">
+            <summary>
+            Combination of all SQL Server categories excluding SQL Data Warehouse and SQL PDW Appliance
+            </summary>
+        </member>
         <member name="T:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatformNames">
             <summary>
             Name of the SqlPlatform values.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatformsUtil">
+            <summary>
+            Utility methods for working with SqlPlatforms enum values
             </summary>
         </member>
         <member name="M:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatformsUtil.IsInSet(Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatforms,Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatforms)">
@@ -3256,6 +3765,34 @@
             <param name="platform">Platform(s) to look for in the platformsSet</param>
             <param name="platformsSet">A set of platforms</param>
             <returns>True if platformsSet &amp; platform == platform. False otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatformsUtil.IsCloud(Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatforms)">
+            <summary>
+            Determines whether a platform is a Cloud-based platform
+            </summary>
+            <param name="platform"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatformsUtil.CanAccessMaster(Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatforms)">
+            <summary>
+            Determines whether a platform can access to master database
+            </summary>
+            <param name="platform"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatformsUtil.ShouldScriptConstraints(Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatforms)">
+            <summary>
+            Determines whether constraints should be scripted for the given platform.
+            </summary>
+            <param name="platform"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatformsUtil.SupportsOptionalPassword(Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatforms)">
+            <summary>
+            Determines whether a platform supports optional password for master key
+            </summary>
+            <param name="platform"></param>
+            <returns></returns>
         </member>
         <member name="M:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatformsUtil.GetSqlPlatformByName(System.String,System.Boolean)">
             <summary>
@@ -3272,6 +3809,41 @@
             <param name="platform">The platform enum value</param>
             <param name="throwIfNotSupported">Whether to throw an exception when the platform doesn't have a name.</param>
             <returns>The name of the platform</returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatformsUtil.IsSinglePlatform(Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatforms)">
+            <summary>
+            Checks whether <paramref name="sqlPlatform"/> is a valid platform for setting the Database Schema Provider.
+            <para />
+            <c>SqlAzureV12</c> or <c>Sql160</c> => true<para/> 
+            <c>OnPremises</c>, <c>Sql130AndUp</c>, or <c>All</c> => false
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatformsUtil.ValidateSinglePlatform(Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatforms,System.String)">
+            <summary>
+            Checks whether <paramref name="sqlPlatform"/> is a valid platform for setting the Database Schema Provider.
+            <para />
+            <c>SqlAzureV12</c> or <c>Sql160</c> => valid<para/> 
+            <c>OnPremises</c>, <c>Sql130AndUp</c>, or <c>All</c> => exception thrown
+            </summary>
+            <param name="sqlPlatform"></param>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatformsUtil.DatabaseSchemaProviderToSqlPlatform(System.String)">
+            <summary>
+            Gets the SQL platform for the specified database schema provider.
+            </summary>
+            <param name="databaseSchemaProvider"></param>
+            <returns>The SQL platform corresponding to the database schema provider</returns>
+            <exception cref="T:System.ArgumentException">Thrown when <paramref name="databaseSchemaProvider"/> is not in the expected format.</exception>
+        </member>
+        <member name="M:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatformsUtil.SqlPlatformToDatabaseSchemaProvider(Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatforms)">
+            <summary>
+            Gets the database schema provider for the specified SQL platform.
+            </summary>
+            <param name="sqlPlatform"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">Thrown when <paramref name="sqlPlatform"/> is not a specific SQL platform (e.g. <see cref="F:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatforms.SqlAzureV12"/>, <see cref="F:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatforms.Sql160"/>),
+            but a group of platforms (e.g. <see cref="F:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatforms.OnPremises"/>, <see cref="F:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatforms.Sql130AndUp"/>, <see cref="F:Microsoft.Data.Tools.Schema.SchemaModel.SqlPlatforms.All"/>).</exception>
         </member>
         <member name="M:Microsoft.Data.Tools.Schema.ProductLocations.GetSqlDBInstallPath">
             <summary>
@@ -3322,16 +3894,6 @@
               Looks up a localized string similar to Specify the azure storage path under container name. This path will be created if it does not exist..
             </summary>
         </member>
-        <member name="P:Microsoft.Data.Tools.Schema.Resources.BigDataExtractParameterErrorMessage">
-            <summary>
-              Looks up a localized string similar to Mismatched parameters passed for extracting a Synapse database using external parquet files to store data. To use this feature, Azure storage blob endpoint, Azure storage container name, Azure storage key, and optionally the folder path are required..
-            </summary>
-        </member>
-        <member name="P:Microsoft.Data.Tools.Schema.Resources.BigDataPublishParameterErrorMessage">
-            <summary>
-              Looks up a localized string similar to Mismatched parameters passed for publishing a Synapse database with data stored in external parquet files. To use this feature, Azure storage blob endpoint, Azure storage container name, Azure storage key or SAS token, and the folder path are required..
-            </summary>
-        </member>
         <member name="P:Microsoft.Data.Tools.Schema.Resources.ConnectionPropertyNotSet">
             <summary>
               Looks up a localized string similar to Connection property has not been initialized..
@@ -3342,9 +3904,24 @@
               Looks up a localized string similar to The data operation state provider OperationId property cannot be null or empty and must be 6 characters in length..
             </summary>
         </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Resources.DataPhaseExtractParameterErrorMessage">
+            <summary>
+              Looks up a localized string similar to Mismatched parameters passed for extracting a database using external parquet files to store data. To use this feature, Azure storage blob endpoint, Azure storage container name, Azure storage key, and optionally the folder path are required..
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Resources.DataPhasePublishParameterErrorMessage">
+            <summary>
+              Looks up a localized string similar to Mismatched parameters passed for publishing a database with data stored in external parquet files. To use this feature, Azure storage blob endpoint, Azure storage container name, Azure storage key or SAS token, and the folder path are required..
+            </summary>
+        </member>
         <member name="P:Microsoft.Data.Tools.Schema.Resources.DeveloperInstance_CouldNotSetup">
             <summary>
               Looks up a localized string similar to The developer instance could not be created to host your sandbox database.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Data.Tools.Schema.Resources.DiagnosticsParameterErrorMessage">
+            <summary>
+              Looks up a localized string similar to DiagnosticsLevel is specified without the output location. Specify a valid value for DiagnosticsFile or set Diagnostic to true..
             </summary>
         </member>
         <member name="P:Microsoft.Data.Tools.Schema.Resources.DuplicateNameInNameValuePairs">
@@ -3362,7 +3939,7 @@
               Looks up a localized string similar to Failed to split data using histogram for table {0}. Export will continue without splitting data..
             </summary>
         </member>
-        <member name="P:Microsoft.Data.Tools.Schema.Resources.ExtractBigDataOperationCleanupFailed">
+        <member name="P:Microsoft.Data.Tools.Schema.Resources.ExtractDataPhaseOperationCleanupFailed">
             <summary>
               Looks up a localized string similar to The data extraction succeeded but dropping {0}, {1} and {2} failed. Please drop these objects..
             </summary>
@@ -3506,7 +4083,7 @@
         </member>
         <member name="M:Microsoft.Data.Tools.Diagnostics.TraceDuration.CreateNew(Microsoft.Data.Tools.Diagnostics.PerfTraceIds,System.String,System.String)">
             <summary>
-            Creates a new TraceDuration and starts the timer. Default verbosity is TraceEventType.Information.
+            Creates a new TraceDuration and starts the timer. Default verbosity is TraceEventType.Verbose.
             </summary>
         </member>
         <member name="M:Microsoft.Data.Tools.Diagnostics.TraceDuration.CreateNew(System.Diagnostics.TraceEventType,Microsoft.Data.Tools.Diagnostics.PerfTraceIds,System.String,System.String)">

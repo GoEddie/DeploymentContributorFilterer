@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>disable</Nullable>
 		<RootNamespace>AgileSqlClub.SqlPackageFilter.IntegrationTests</RootNamespace>
@@ -18,7 +18,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.1" />
-		<PackageReference Include="Microsoft.SqlServer.DacFx" Version="162.3.566" />
+		<PackageReference Include="Microsoft.SqlServer.DacFx" Version="170.0.94" />
 		<PackageReference Include="Moq" Version="4.18.2" />
 		<PackageReference Include="NUnit" Version="3.13.3" />
 		<PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
@@ -54,7 +54,7 @@
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Copy SourceFiles="$(SolutionDir)SqlPackageFilter\bin\$(Configuration)\netstandard2.1\AgileSqlClub.SqlPackageFilter.dll" DestinationFolder="$(OutputPath)SqlPackage.exe" />
-		<Copy SourceFiles="$(SolutionDir)SqlPackageFilter\bin\$(Configuration)\net4.6.2\AgileSqlClub.SqlPackageFilter.dll" DestinationFolder="$(OutputPath)SqlPackage.exe.Framework" />
+		<Copy SourceFiles="$(SolutionDir)SqlPackageFilter\bin\$(Configuration)\net4.7.2\AgileSqlClub.SqlPackageFilter.dll" DestinationFolder="$(OutputPath)SqlPackage.exe.Framework" />
 
 		<!--Exec Command="COPY &quot;$(OutputPath)AgileSqlClub.SqlPackageFilter.dll&quot; &quot;$(OutputPath)SqlPackage.exe&quot;" /-->
 	</Target>
