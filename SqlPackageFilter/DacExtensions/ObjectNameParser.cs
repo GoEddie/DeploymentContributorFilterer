@@ -38,6 +38,6 @@ namespace AgileSqlClub.SqlPackageFilter.DacExtensions
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        static bool ExpectThreeParts(ModelTypeClass type) => type == ModelSchema.Index || type == ModelSchema.ColumnStoreIndex || type == ModelSchema.FullTextIndex;
+        static bool ExpectThreeParts(ModelTypeClass type) => type == ModelSchema.Index || type == ModelSchema.ColumnStoreIndex;
     }
 }
