@@ -18,7 +18,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.1" />
-		<PackageReference Include="Microsoft.SqlServer.DacFx" Version="170.0.94" />
+		<PackageReference Include="Microsoft.SqlServer.DacFx" Version="170.2.70" />
 		<PackageReference Include="Moq" Version="4.18.2" />
 		<PackageReference Include="NUnit" Version="3.13.3" />
 		<PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
@@ -59,4 +59,5 @@
 		<!--Exec Command="COPY &quot;$(OutputPath)AgileSqlClub.SqlPackageFilter.dll&quot; &quot;$(OutputPath)SqlPackage.exe&quot;" /-->
 	</Target>
 </Project>
+
 

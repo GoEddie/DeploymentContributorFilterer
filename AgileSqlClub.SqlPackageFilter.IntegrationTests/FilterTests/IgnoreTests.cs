@@ -1,6 +1,7 @@
-﻿using System.Configuration;
+﻿using NUnit.Framework;
+using NUnit.Framework.Internal;
+using System.Configuration;
 using System.IO;
-using NUnit.Framework;
 
 namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
 {
@@ -26,6 +27,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
             var tableCount = _gateway.GetInt("SELECT COUNT(*) FROM sys.schemas where name = 'blah';");
 
             Assert.AreEqual(1, tableCount, proc.Messages);
+            Assert.Pass(proc.Messages);
 
         }
 
@@ -45,6 +47,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
             var tableCount = _gateway.GetInt("SELECT COUNT(*) FROM sys.tables where name = 'Employees';");
 
             Assert.AreEqual(0, tableCount, proc.Messages);
+            Assert.Pass(proc.Messages);
         }
 
         [Test]
@@ -65,6 +68,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
             procCount = _gateway.GetInt("SELECT COUNT(*) FROM sys.procedures where name = 'proc_to_ignore';");
 
             Assert.AreEqual(1, procCount, proc.Messages);
+            Assert.Pass(proc.Messages);
 
         }
 
@@ -86,6 +90,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
             procCount = _gateway.GetInt("SELECT COUNT(*) FROM sys.procedures where name = 'proc_to_ignore' AND SCHEMA_NAME(schema_id) = 'dbo';");
 
             Assert.AreEqual(1, procCount, proc.Messages);
+            Assert.Pass(proc.Messages);
 
         }
 
@@ -107,6 +112,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
             procCount = _gateway.GetInt("SELECT COUNT(*) FROM sys.procedures where name = 'proc_to_drop' AND SCHEMA_NAME(schema_id) = 'dbo';");
 
             Assert.AreEqual(0, procCount, proc.Messages);
+            Assert.Pass(proc.Messages);
 
         }
 
@@ -141,6 +147,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
 
             count = _gateway.GetInt("SELECT COUNT(*) FROM sys.objects where name = 'funky_chicken';");
             Assert.AreEqual(1, count, proc.Messages);
+            Assert.Pass(proc.Messages);
         }
 
 
@@ -180,6 +187,7 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
 
             count = _gateway.GetInt("SELECT COUNT(*) FROM sys.database_principals WHERE name = 'fred';");
             Assert.AreEqual(1, count);
+            Assert.Pass(proc.Messages);
 
         }
 
@@ -215,8 +223,115 @@ namespace AgileSqlClub.SqlPackageFilter.IntegrationTests
             count = _gateway.GetInt("SELECT COUNT(*) FROM sys.default_constraints where is_system_named = 'true';");
             Assert.AreEqual(1, count, proc.Messages);
 
+            Assert.Pass(proc.Messages);
 
         }
 
+        [Test]
+        public void IgnoreSchema_Filter_Applies_To_UnnamedCheckConstraint()
+        {
+            //create a second schema, with tables and a check constraint.  we will attempt to ignore this schema and ensure the unnamed CHECK constraint is not dropped
+            _gateway.RunQuery("IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'blah') exec sp_executesql N'CREATE SCHEMA blah';");
+
+            _gateway.RunQuery("IF EXISTS (SELECT * FROM sys.tables WHERE name = 'refers') exec sp_executesql N'DROP table blah.refers';");
+            _gateway.RunQuery("IF EXISTS (SELECT * FROM sys.tables WHERE name = 'products') exec sp_executesql N'DROP table blah.products';");
+            _gateway.RunQuery("exec sp_executesql N'CREATE table blah.products(product_id int)';");
+            _gateway.RunQuery("exec sp_executesql N'CREATE table blah.refers(refer_id int, product_id int, age int CHECK (age > 1), count int CONSTRAINT CK_Count_Positive CHECK (count > 0))';");
+            int count = _gateway.GetInt("select count(*) From sys.check_constraints where parent_object_id = OBJECT_ID('blah.refers')");
+            Assert.AreEqual(2, count, "Expected constraint to exist before dacpac");
+
+            var args =
+                $"/Action:Publish /TargetServerName:(localdb)\\Filter /SourceFile:{Path.Combine(TestContext.CurrentContext.TestDirectory, "Dacpac.Dacpac")} /p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor " +
+                " /TargetDatabaseName:Filters /p:DropObjectsNotInSource=True /p:AllowIncompatiblePlatform=true " +
+                "/p:AdditionalDeploymentContributorArguments=\"SqlPackageFilter=IgnoreSchema!(dbo)\";";
+
+
+            var proc = new ProcessGateway(Path.Combine(TestContext.CurrentContext.TestDirectory, "SqlPackage.exe\\SqlPackage.exe"), args);
+            proc.Run();
+            proc.WasDeploySuccess();
+
+            count = _gateway.GetInt("SELECT COUNT(*) FROM sys.tables where name = 'products';");
+            Assert.AreEqual(1, count, proc.Messages);
+
+            count = _gateway.GetInt("SELECT COUNT(*) FROM sys.tables where name = 'refers';");
+            Assert.AreEqual(1, count, proc.Messages);
+
+
+            count = _gateway.GetInt("select count(*) From sys.check_constraints where parent_object_id = OBJECT_ID('blah.refers')");
+            Assert.AreEqual(2, count, proc.Messages);
+
+            //cleanup test tables
+            _gateway.RunQuery("IF EXISTS (SELECT * FROM sys.tables WHERE name = 'refers') exec sp_executesql N'DROP table blah.refers';");
+            _gateway.RunQuery("IF EXISTS (SELECT * FROM sys.tables WHERE name = 'products') exec sp_executesql N'DROP table blah.products';");
+            Assert.Pass(proc.Messages);
+
+        }
+        [Test]
+        public void IgnoreSchema_Filter_Applies_To_UnnamedDefaultConstraint()
+        {
+            //create a second schema, with tables and a default constraint.  we will attempt to ignore this schema and ensure the unnamed default constraint is not dropped
+            _gateway.RunQuery("IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'blah') exec sp_executesql N'CREATE SCHEMA blah';");
+
+            _gateway.RunQuery("IF EXISTS (SELECT * FROM sys.tables WHERE name = 'products') exec sp_executesql N'DROP table blah.products';");
+            _gateway.RunQuery("exec sp_executesql N'CREATE table blah.products(product_id int, age int DEFAULT ((1)), count int CONSTRAINT DF_Count DEFAULT ((0)) )';");
+
+            var count = _gateway.GetInt("select count(*) From sys.default_constraints where parent_object_id = OBJECT_ID('blah.products')");
+            Assert.AreEqual(2, count, "Expected constraint to exist before dacpac");
+
+            var args =
+                $"/Action:Publish /TargetServerName:(localdb)\\Filter /SourceFile:{Path.Combine(TestContext.CurrentContext.TestDirectory, "Dacpac.Dacpac")} /p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor " +
+                " /TargetDatabaseName:Filters /p:DropObjectsNotInSource=True /p:AllowIncompatiblePlatform=true " +
+                "/p:AdditionalDeploymentContributorArguments=\"SqlPackageFilter=IgnoreSchema!(dbo)\";";
+
+
+            var proc = new ProcessGateway(Path.Combine(TestContext.CurrentContext.TestDirectory, "SqlPackage.exe\\SqlPackage.exe"), args);
+            proc.Run();
+            proc.WasDeploySuccess();
+
+            count = _gateway.GetInt("SELECT COUNT(*) FROM sys.tables where name = 'products';");
+            Assert.AreEqual(1, count, proc.Messages);
+
+
+            count = _gateway.GetInt("select count(*) From sys.default_constraints where parent_object_id = OBJECT_ID('blah.products')");
+            Assert.AreEqual(2, count, proc.Messages);
+
+            //cleanup test tables
+            _gateway.RunQuery("IF EXISTS (SELECT * FROM sys.tables WHERE name = 'products') exec sp_executesql N'DROP table blah.products';");
+            Assert.Pass(proc.Messages);
+
+        }
+        [Test]
+        public void IgnoreSchema_Filter_Applies_To_UnnamedPrimaryKey()
+        {
+            //create a second schema, with tables and a key constraint.  we will attempt to ignore this schema and ensure the unnamed key constraint is not dropped
+            _gateway.RunQuery("IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'blah') exec sp_executesql N'CREATE SCHEMA blah';");
+
+            _gateway.RunQuery("IF EXISTS (SELECT * FROM sys.tables WHERE name = 'products') exec sp_executesql N'DROP table blah.products';");
+            _gateway.RunQuery("exec sp_executesql N'CREATE table blah.products(product_id int primary key, age int, count int)';");
+
+            var count = _gateway.GetInt("select count(*) From sys.key_constraints where parent_object_id = OBJECT_ID('blah.products')");
+            Assert.AreEqual(1, count, "Expected constraint to exist before dacpac");
+
+            var args =
+                $"/Action:Publish /TargetServerName:(localdb)\\Filter /SourceFile:{Path.Combine(TestContext.CurrentContext.TestDirectory, "Dacpac.Dacpac")} /p:AdditionalDeploymentContributors=AgileSqlClub.DeploymentFilterContributor " +
+                " /TargetDatabaseName:Filters /p:DropObjectsNotInSource=True /p:AllowIncompatiblePlatform=true " +
+                "/p:AdditionalDeploymentContributorArguments=\"SqlPackageFilter=IgnoreSchema!(dbo)\";";
+
+
+            var proc = new ProcessGateway(Path.Combine(TestContext.CurrentContext.TestDirectory, "SqlPackage.exe\\SqlPackage.exe"), args);
+            proc.Run();
+            proc.WasDeploySuccess();
+
+            count = _gateway.GetInt("SELECT COUNT(*) FROM sys.tables where name = 'products';");
+            Assert.AreEqual(1, count, proc.Messages);
+
+
+            count = _gateway.GetInt("select count(*) From sys.key_constraints where parent_object_id = OBJECT_ID('blah.products')");
+            Assert.AreEqual(1, count, proc.Messages);
+
+            //cleanup test tables
+            _gateway.RunQuery("IF EXISTS (SELECT * FROM sys.tables WHERE name = 'products') exec sp_executesql N'DROP table blah.products';");
+            Assert.Pass(proc.Messages);
+        }
     }
 }
