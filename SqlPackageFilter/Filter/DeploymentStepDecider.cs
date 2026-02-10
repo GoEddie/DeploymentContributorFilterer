@@ -62,11 +62,25 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
         {
             if (step is DropElementStep dropStep)
             {
+                var targetElementName = dropStep.TargetElement?.Name;
+
+                //special handling to detect unnamed check and default constraints... we need to create a dummy name for these with at least the same schema as the owning object
+                if ((dropStep.TargetElement?.ObjectType.Name == ModelSchema.CheckConstraint.Name) || (dropStep.TargetElement?.ObjectType.Name == ModelSchema.DefaultConstraint.Name))
+                {
+                    if (targetElementName == null || !targetElementName.HasName)
+                    {
+                        var owner = dropStep.TargetElement?.GetParent();
+                        var schema = owner?.GetSchemaName();
+                        logSink($" detected unnamed {dropStep.TargetElement?.ObjectType.Name} constraint on '{owner.Name}'", DisplayMessageLevel.Info);
+                        targetElementName = new ObjectIdentifier(schema, "unnamed constraint");
+                    }
+                }
+               
                 return new DeploymentStepDecision()
                 {
-                    Remove = decider.ShouldRemoveFromPlan(dropStep.TargetElement?.Name ?? new ObjectIdentifier(), dropStep.TargetElement?.ObjectType, StepType.Drop, null, logSink),
+                    Remove = decider.ShouldRemoveFromPlan(targetElementName ?? new ObjectIdentifier(), dropStep.TargetElement?.ObjectType, StepType.Drop, null, logSink),
                     StepType = StepType.Drop,
-                    ObjectName = dropStep.TargetElement?.Name?.ToString() ?? ""
+                    ObjectName = targetElementName?.ToString() ?? ""
                 };
             }
             return null;
@@ -76,15 +90,16 @@ namespace AgileSqlClub.SqlPackageFilter.Filter
         {
             if (!(step is CreateElementStep createStep)) return null;
 
-            //check for unnamed default constraints... we need to create a dummy name for these with at least the same schema as the owning object
+            //special handling to detect unnamed check and default constraints... we need to create a dummy name for these with at least the same schema as the owning object
             var sourceElementName = createStep.SourceElement?.Name;
-            if (createStep.SourceElement?.ObjectType.Name == ModelSchema.DefaultConstraint.Name)
+            
+            if ((createStep.SourceElement?.ObjectType.Name == ModelSchema.CheckConstraint.Name) || (createStep.SourceElement?.ObjectType.Name == ModelSchema.DefaultConstraint.Name))
             {
                 if (sourceElementName == null || !sourceElementName.HasName)
                 {
-                    var owner = createStep.SourceElement?.GetReferenced().FirstOrDefault();
-                    logSink($" detected unnamed constraint on {owner?.Name}", DisplayMessageLevel.Debug);
+                    var owner = createStep.SourceElement?.GetParent();
                     string schema = owner?.GetSchemaName();
+                    logSink($" detected unnamed {createStep.SourceElement?.ObjectType.Name} constraint on {owner?.Name}", DisplayMessageLevel.Info);
                     sourceElementName = new ObjectIdentifier(schema, "unnamed constraint");
                 }
             }

@@ -3,6 +3,7 @@
     [ForeignKeyColumn] UNIQUEIDENTIFIER NULL,
     [TableInfoColumn]     NVARCHAR (40) NULL,
     [DataCodeColumn]    INT
+    CHECK(DataCodeColumn >= 0),
 );
 GO
 

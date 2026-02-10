@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.SqlServer.Dac.Model;
 
 namespace AgileSqlClub.SqlPackageFilter.DacExtensions
@@ -16,7 +17,9 @@ namespace AgileSqlClub.SqlPackageFilter.DacExtensions
             {
                 if (src.Parts.Count > 1)
                 {
-                    return src.Parts[src.Parts.Count - (ExpectThreeParts(type) ? 3 : 2)];
+                    int index = src.Parts.Count - (ExpectThreeParts(type) ? 3 : 2);
+                    index = Math.Min(src.Parts.Count - 1, Math.Max(0, index));
+                    return src.Parts[index];
                 }
                 else
                 {
@@ -38,6 +41,9 @@ namespace AgileSqlClub.SqlPackageFilter.DacExtensions
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        static bool ExpectThreeParts(ModelTypeClass type) => type == ModelSchema.Index || type == ModelSchema.ColumnStoreIndex;
+        static bool ExpectThreeParts(ModelTypeClass type)
+        {
+            return  type == ModelSchema.Index || type == ModelSchema.ColumnStoreIndex;
+        }
     }
 }
