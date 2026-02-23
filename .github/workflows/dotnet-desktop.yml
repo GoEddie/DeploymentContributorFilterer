@@ -46,7 +46,7 @@ jobs:
 
     # Execute all unit tests in the solution
     - name: Test with the dotnet CLI
-      run: dotnet test --no-build AgileSqlClub.SqlPackageFilter.UnitTests
+      run: dotnet test AgileSqlClub.SqlPackageFilter.UnitTests
   
     # Upload the package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
