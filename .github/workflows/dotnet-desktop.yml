@@ -46,17 +46,9 @@ jobs:
         Configuration: ${{ matrix.configuration }}
 
     # Execute all unit tests in the solution
-    #- name: Execute unit tests
-    #  uses: microsoft/vstest-action@v1.0.0
-    #  with: 
-    #    testAssembly: AgileSqlClub.SqlPackageFilter.UnitTests.dll
-    #    searchFolder: ./AgileSqlClub.SqlPackageFilter.UnitTests/bin/${{ matrix.configuration }}/net10.0/
-    - name: Execute unit tests
-      uses: rusty-bender/vstest-action@main
-      with: 
-        testAssembly: AgileSqlClub.SqlPackageFilter.UnitTests.dll
-        searchFolder: ./AgileSqlClub.SqlPackageFilter.UnitTests/bin/${{ matrix.configuration }}/net10.0/
-        
+    - name: Test with the dotnet CLI
+      run: dotnet test --no-build AgileSqlClub.SqlPackageFilter.UnitTests
+  
     # Upload the package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
